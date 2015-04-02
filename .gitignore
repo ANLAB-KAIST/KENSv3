@@ -1,0 +1,4 @@
+/.*
+/*.pcap
+!.gitignore
+/current_checksum
