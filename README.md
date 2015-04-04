@@ -1,6 +1,33 @@
 # KENSv3 (KAIST Educational Network System)
 ====
 
+KENS series have been used for programming assignment in CS341: Introduction to Computer Network in KAIST.
+First version of KENS(v1) had been developed by Network Computing Lab(http://nclab.kaist.ac.kr/kens/), 2005.
+This version had been used until 2013.
+
+KENSv2 is an improvement version from KENSv1, which contains basic unit test mechanism.
+Since KENSv2, we provided students an adversary solution which work along with students' solution.
+This solution was provided in binary form, and enabled incremental development of network functionalities.
+For example, we had to implement both connect and accept for basic execution.
+From KENSv2, the implementation could be modularized in system call level.
+This version was used in 2014 (https://an.kaist.ac.kr/courses/2014/cs341/) and the experience of using it
+has been published at SIGCSE 2015 (http://an.kaist.ac.kr/~sbmoon/paper/intl-conf/2015-sigcse-kensv2.pdf).
+The source code is managed by Advanced Networking Lab in KAIST.
+
+KENSv1:
+https://github.com/ANLAB-KAIST/KENSv1
+
+KENSv2:
+https://github.com/ANLAB-KAIST/KENSv2
+
+From 2015, we are using KENSv3 which is developed from a clean state.
+However its philosophy has been adopted from KENSv2 and KENSv1.
+KENSv3 has more powerful features than KENSv2.
+ 
+ - POSIX equivalent system call layer.
+ - Equivalent simulation power against ns2.
+ - Modular architecture for multiple protocol layers to work together.
+
 # What is KENSv3?
 ## KENSv3 is an educational framework.
 KENSv3 provides useful template for building prototypes of
@@ -20,14 +47,13 @@ The system call requests from applications are linked with proper network layer.
 #How to run KENSv3?
 
 ##Building KENSv3
-1. Check that your compiler supports C++11 and GNU extension (for gtest). 
-(At least 4.8.2 for gcc, LLVM 6.0 for MAC c++)
+* Check that your compiler supports C++11 and GNU extension (At least 4.8.2 for gcc, LLVM 6.0 for MAC c++).
 ```bash
 g++ -std=c++11
 g++ -std=gnu++11
 ```
 
-2. Check that gtest (Google Test) library is installed in your system.
+* Check that gtest (Google Test) library is installed in your system.
 ```csharp
 #include <gtest/gtest.h>
 ```
@@ -37,14 +63,14 @@ g++ -std=gnu++11 -lgtest -lpthread
 ```
 To build documentation, you need Doxygen.
 
-3. Build
+* Build
 ```bash
 #cd KENSv3
-make depend # dependancy check
+make depend # dependency check
 #header changes will trigger rebuilding of affected source
 
 make all
-make doxygen # for making documentation (need doxygen)
+make doxygen # for making documentation (need Doxygen)
 ```
 
 Solution binary for your architecture is needed for building KENS.
@@ -57,6 +83,15 @@ In build directory, testTCP binary will be created after building KENS.
 ./testTCP --getst_filter="TestEnv_Reliable.TestOpen" # run specific test
 ```
 See Google Test documentation for further usage.
+
+We provide commands for partial tests.
+```bash
+#cd KENSv3
+make test_part1
+make test_part2 #also checks test_part1
+make test_part3 #also checks test_part2
+make test_part4 #also checks test_part3
+```
 
 ##Running KENSv3 using solution binary bundle
 Defining symbol RUN_SOLUTION will build testTCP in solution only mode.
@@ -81,22 +116,19 @@ See the documentation for how to handle with blocking system calls.
 
 2. Context management
 You have to manage a global context (usually member variables of TCPAssignment).
-Also, you have to split incomming packets and system call requests.
+Also, you have to split incoming packets and system call requests.
 Use IP address and port number for classifying packets,
 and pid(process id) and fd(file descriptor number) for classifying application sockets.
-
 Until here is test_part1.
 
 3. Handshaking
 Implement 3-way handshaking for connect/accept and
 4-way handshaking for close.
-
 Until here is test_part2.
 
 3. Flow control
 You may block read/write calls if you have no data from TCP window or you TCP window is full.
 Handle with read/write and generate/process proper TCP packets for data transmission.
-
 Until here is test_part3.
 
 4. Recovery
@@ -107,5 +139,4 @@ Implement AIMD congestion control mechanism for test_part4.
 You can observe convergence graph from pcap logs.
 If you did not implement congestion control algorithm, you may not pass test_part4.
 There would be retransmission storms and applications may not finish in time.
-
 Until here is test_part4.
