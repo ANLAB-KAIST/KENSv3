@@ -13,6 +13,5 @@ int main(int argc, char** argv)
 	testing::InitGoogleTest(&argc, argv);
 	int result = RUN_ALL_TESTS();
 	EXPECT_TRUE(result == 0);
-	std::cout<<"Test result: "<<result<<std::endl;
 	return 0;
 }
