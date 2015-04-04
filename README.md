@@ -48,59 +48,59 @@ The system call requests from applications are linked with proper network layer.
 
 ##Building KENSv3
 * Check that your compiler supports C++11 and GNU extension (At least 4.8.2 for gcc, LLVM 6.0 for MAC c++).
-```bash
+~~~~~~~~~~~~~{.sh}
 g++ -std=c++11
 g++ -std=gnu++11
-```
+~~~~~~~~~~~~~
 
 * Check that gtest (Google Test) library is installed in your system.
-```csharp
+~~~~~~~~~~~~~{.cpp}
 #include <gtest/gtest.h>
-```
+~~~~~~~~~~~~~
 We also need pthread library (or other implementation for C++11 Threading library).
-```bash
+~~~~~~~~~~~~~{.sh}
 g++ -std=gnu++11 -lgtest -lpthread
-```
+~~~~~~~~~~~~~
 To build documentation, you need Doxygen.
 
 * Build
-```bash
+~~~~~~~~~~~~~{.sh}
 #cd KENSv3
 make depend # dependency check
 #header changes will trigger rebuilding of affected source
 
 make all
 make doxygen # for making documentation (need Doxygen)
-```
+~~~~~~~~~~~~~
 
 Solution binary for your architecture is needed for building KENS.
 Currently, we support Cygwin 64bit, Linux 64bit, and Mac OS 64bit.
 
 ##Running KENSv3
 In build directory, testTCP binary will be created after building KENS.
-```bash
+~~~~~~~~~~~~~{.sh}
 ./testTCP # run all tests
 ./testTCP --getst_filter="TestEnv_Reliable.TestOpen" # run specific test
-```
+~~~~~~~~~~~~~
 See Google Test documentation for further usage.
 
 We provide commands for partial tests.
-```bash
+~~~~~~~~~~~~~{.sh}
 #cd KENSv3
 make test_part1
 make test_part2 #also checks test_part1
 make test_part3 #also checks test_part2
 make test_part4 #also checks test_part3
-```
+~~~~~~~~~~~~~
 
 ##Running KENSv3 using solution binary bundle
 Defining symbol RUN_SOLUTION will build testTCP in solution only mode.
 You have to clean and rebuild the whole project.
-```bash
+~~~~~~~~~~~~~{.sh}
 #cd KENSv3
 export EXTRA_CXXFLAGS="-DRUN_SOLUTION"
 make all
-```
+~~~~~~~~~~~~~
 
 #How to do KENSv3 project?
 
