@@ -80,7 +80,7 @@ Currently, we support Cygwin 64bit, Linux 64bit, and Mac OS 64bit.
 In build directory, testTCP binary will be created after building KENS.
 ~~~~~~~~~~~~~{.sh}
 ./testTCP # run all tests
-./testTCP --getst_filter="TestEnv_Reliable.TestOpen" # run specific test
+./testTCP --gtest_filter="TestEnv_Reliable.TestOpen" # run specific test
 ~~~~~~~~~~~~~
 See Google Test documentation for further usage.
 
