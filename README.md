@@ -103,7 +103,6 @@ make all
 ~~~~~~~~~~~~~
 
 #How to do KENSv3 project?
-
 ##Template source
 In TestTCP folder, there are one source file and one header file.
 You are allowed to modify TCPAssignment.cpp and TCPAssignment.hpp.
@@ -140,3 +139,23 @@ You can observe convergence graph from pcap logs.
 If you did not implement congestion control algorithm, you may not pass test_part4.
 There would be retransmission storms and applications may not finish in time.
 Until here is test_part4.
+
+##How to contribute?
+This is an automatically generated source repository from our internal repository.
+If you want to contribute to KENSv3 framework,
+please send us your patches, your Github ID, and your email address.
+These informations are used to add you to our contributor list.
+You can send it via Github issues or kens-dev@an.kaist.ac.kr.
+
+##Requests to students
+KENSv3 is an open-source framework. However, it is also an educational framework.
+We couldn't get our position between them.
+We are asking your favor not to make a public fork, but a private clone for your project.
+Github provides free educational plan for students (https://education.github.com/).
+Please do not upload your solutions online, so that other students can do this project themselves later.
+
+##Requests to instructors
+You may modify it freely to customize this project with your courses.
+Not only the source contribution, we also receive material contribution.
+If you have better presentation slides or other teaching material, you can contribute with them.
+Please let your students not to upload their solutions online.
