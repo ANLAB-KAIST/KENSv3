@@ -97,6 +97,8 @@ protected:
 
 		interface = Target::allocate(host1);
 		interface2 = TCPSolutionProvider::allocate(host2, false, false, false);
+		interface->initialize();
+		interface2->initialize();
 	}
 	virtual void TearDown()
 	{
@@ -204,6 +206,8 @@ protected:
 
 		interface = Target::allocate(host1);
 		interface2 = Adversary::allocate(host2);
+		interface->initialize();
+		interface2->initialize();
 	}
 	virtual void TearDown()
 	{
