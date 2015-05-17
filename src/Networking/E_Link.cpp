@@ -130,23 +130,28 @@ void Link::sendPacket(Port* port, Packet* packet)
 	if((this->max_queue_length != 0) && (current_queue.size() >= this->max_queue_length))
 	{
 		//evict one
-		Real rand = this->rand_dist.nextDistribution(0, this->max_queue_length);
+		Size min_drop = this->max_queue_length/2;
+		Size max_drop = this->max_queue_length;
+		Real rand = this->rand_dist.nextDistribution(min_drop, max_drop);
 		Size index = floor(rand);
 		if(index >= this->max_queue_length)
 			index = this->max_queue_length - 1;
 
-		auto iter = current_queue.begin();
-		for(Size k=0; k<index; k++)
+		if(index < current_queue.size())
 		{
-			++iter;
-		}
-		assert(iter != current_queue.end());
-		Packet* toBeRemoved = *iter;
-		current_queue.erase(iter);
+			auto iter = current_queue.begin();
+			for(Size k=0; k<index; k++)
+			{
+				++iter;
+			}
+			assert(iter != current_queue.end());
+			Packet* toBeRemoved = *iter;
+			current_queue.erase(iter);
 
-		print_log(NetworkLog::PACKET_QUEUE, "Output queue for port[%s] is full, remove at %lu, packet length: %lu",
-				port->getModuleName().c_str(), index, toBeRemoved->getSize());
-		this->freePacket(toBeRemoved);
+			print_log(NetworkLog::PACKET_QUEUE, "Output queue for port[%s] is full, remove at %lu, packet length: %lu",
+					port->getModuleName().c_str(), index, toBeRemoved->getSize());
+			this->freePacket(toBeRemoved);
+		}
 	}
 	assert(this->max_queue_length == 0 || current_queue.size() < this->max_queue_length);
 	current_queue.push_back(packet);

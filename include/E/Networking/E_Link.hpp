@@ -34,7 +34,7 @@ private:
 	std::ofstream pcap_file;
 	bool pcap_enabled;
 	Size snaplen;
-	UniformDistribution rand_dist;
+	LinearDistribution rand_dist;
 protected:
 	std::unordered_set<Port*> connectedPorts;
 	std::unordered_map<Port*, Time> nextAvailable;
