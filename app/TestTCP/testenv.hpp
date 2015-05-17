@@ -240,7 +240,7 @@ protected:
 	}
 };
 
-template <class Target, class Adversary>
+template <class Target, class Adversary, int CLIENTS, int TIMEOUT>
 class TestEnv3 : public ::testing::Test
 {
 protected:
@@ -255,7 +255,7 @@ protected:
 	HostModule** interface_clients;
 	HostModule* interface_server;
 
-	const int num_client = 3;
+	const int num_client = CLIENTS;
 	Size port_speed = 10000000;
 	Time propagationDelay = TimeUtil::makeTime(10, TimeUtil::MSEC);
 	uint64_t prev_log;
@@ -264,17 +264,17 @@ protected:
 	{
 		prev_log = NetworkLog::defaultLevel;
 		NetworkLog::defaultLevel |= (
-				//(1 << SYSCALL_RAISED) |
-				//(1 << SYSCALL_FINISHED) |
-				//(1 << PACKET_ALLOC) |
-				//(1 << PACKET_CLONE) |
-				//(1 << PACKET_FREE) |
-				//(1 << PACKET_TO_MODULE) |
-				//(1 << PACKET_FROM_MODULE) |
-				//(1 << PACKET_TO_HOST) |
-				//(1 << PACKET_FROM_HOST) |
+				//(1 << NetworkLog::SYSCALL_RAISED) |
+				//(1 << NetworkLog::SYSCALL_FINISHED) |
+				//(1 << NetworkLog::PACKET_ALLOC) |
+				//(1 << NetworkLog::PACKET_CLONE) |
+				//(1 << NetworkLog::PACKET_FREE) |
+				//(1 << NetworkLog::PACKET_TO_MODULE) |
+				//(1 << NetworkLog::PACKET_FROM_MODULE) |
+				//(1 << NetworkLog::PACKET_TO_HOST) |
+				//(1 << NetworkLog::PACKET_FROM_HOST) |
 				//(1 << NetworkLog::PACKET_QUEUE) |
-				//(1 << TCP_LOG) |
+				//(1 << NetworkLog::TCP_LOG) |
 				0UL
 		);
 
@@ -335,7 +335,7 @@ protected:
 		}
 
 		switchingHub->setLinkSpeed(port_speed);
-		switchingHub->setQueueSize(256);
+		switchingHub->setQueueSize(64);
 
 		const ::testing::TestInfo* const test_info = ::testing::UnitTest::GetInstance()->current_test_info();
 		std::string file_name(test_info->name());
@@ -373,7 +373,7 @@ protected:
 
 	void runTest()
 	{
-		netSystem.run(TimeUtil::makeTime(1000, TimeUtil::SEC));
+		netSystem.run(TimeUtil::makeTime(TIMEOUT, TimeUtil::SEC));
 
 		server_host->cleanUp();
 		for(int k=0; k<num_client; k++)
@@ -382,7 +382,7 @@ protected:
 		interface_server->finalize();
 		for(int k=0; k<num_client; k++)
 			interface_clients[k]->finalize();
-		netSystem.run(TimeUtil::makeTime(2000, TimeUtil::SEC));
+		netSystem.run(TimeUtil::makeTime(1000 + TIMEOUT, TimeUtil::SEC));
 	}
 };
 
@@ -391,12 +391,16 @@ protected:
 typedef TestEnv1<TCPSolutionProvider> TestEnv_Reliable;
 typedef TestEnv2<TCPSolutionProvider,TCPSolutionProvider> TestEnv_Unreliable;
 typedef TestEnv2<TCPSolutionProvider,TCPSolutionProvider> TestEnv_Any;
-typedef TestEnv3<TCPSolutionProvider,TCPSolutionProvider> TestEnv_Congestion;
+typedef TestEnv3<TCPSolutionProvider,TCPSolutionProvider, 1, 1000> TestEnv_Congestion0;
+typedef TestEnv3<TCPSolutionProvider,TCPSolutionProvider, 2, 1000> TestEnv_Congestion1;
+typedef TestEnv3<TCPSolutionProvider,TCPSolutionProvider, 8, 1000> TestEnv_Congestion2;
 #else
 typedef TestEnv1<TCPAssignmentProvider> TestEnv_Reliable;
 typedef TestEnv2<TCPAssignmentProvider,TCPSolutionProvider> TestEnv_Unreliable;
 typedef TestEnv2<TCPAssignmentProvider,TCPSolutionProvider> TestEnv_Any;
-typedef TestEnv3<TCPAssignmentProvider,TCPSolutionProvider> TestEnv_Congestion;
+typedef TestEnv3<TCPAssignmentProvider,TCPSolutionProvider, 1, 1000> TestEnv_Congestion0;
+typedef TestEnv3<TCPAssignmentProvider,TCPSolutionProvider, 2, 1000> TestEnv_Congestion1;
+typedef TestEnv3<TCPAssignmentProvider,TCPSolutionProvider, 8, 1000> TestEnv_Congestion2;
 #endif
 
 #endif /* APP_TESTTCP_TESTENV_HPP_ */

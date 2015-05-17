@@ -49,7 +49,7 @@ test_part3: test_part2
 
 test_part4: test_part3
 	@echo "Running test cases for project4..."
-	@build/testTCP --gtest_filter="TestEnv_Congestion.TestCongestion"
+	@build/testTCP --gtest_filter="TestEnv_Congestion*"
 	@echo "Note that passing this test does not mean that you are finished."
 	@echo "Check the pcap file that you have implemented congestion control well."
 
