@@ -328,7 +328,7 @@ TEST_F(TestEnv_Congestion0, TestCongestion0)
 		accept_env["BUFFER_SIZE"] = "1024";
 		accept_env["LOOP_COUNT"] = "0";
 		accept_env["EXPECT_SIZE"] = "102400000";
-		accept_env["CONNECTION_TIMEOUT"] = "100";
+		accept_env["CONNECTION_TIMEOUT"] = "92";
 		servers[k] = new TestCongestion_Accept(server_host, accept_env);
 
 		clients[k]->initialize();
