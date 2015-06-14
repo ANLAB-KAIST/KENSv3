@@ -60,7 +60,7 @@ $(DEPS): $(LIB_SRCS) $(SOLUTION_SRC) $(HEADERS)
 
 #@$(CXX) $(SOLUTION_CXXFLAGS) -MM $(SOLUTION_SRC) >> $(DEPS);
 	
-include $(DEPS)
+-include $(DEPS)
 
 depend: $(DEPS)
 

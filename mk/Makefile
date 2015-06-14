@@ -33,7 +33,7 @@ clean:
 $(DEPS): $(SRCS) $(HEADERS)
 	@$(CXX) $(CXXFLAGS) -MM $(SRCS) > $(DEPS);
 	
-include $(DEPS)
+-include $(DEPS)
 
 depend: $(DEPS)
 
