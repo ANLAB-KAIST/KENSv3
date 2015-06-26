@@ -62,9 +62,9 @@ protected:
 				close(fd_array[k]);
 			}
 		}
-		EXPECT_TRUE(success == ((size_t)test_size) * ((size_t)test_repeat));
-		EXPECT_TRUE(failed == 0);
-		EXPECT_TRUE(duplicated == 0);
+		EXPECT_EQ(success, ((size_t)test_size) * ((size_t)test_repeat));
+		EXPECT_EQ(failed, 0);
+		EXPECT_EQ(duplicated, 0);
 	}
 };
 

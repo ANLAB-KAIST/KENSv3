@@ -52,13 +52,13 @@ protected:
 		addr.sin_port = htons(atoi(env["LISTEN_PORT"].c_str()));
 
 		int ret = bind(server_socket, (struct sockaddr*)&addr, len);
-		EXPECT_TRUE(ret == 0);
+		EXPECT_EQ(ret, 0);
 
 		long listen_time = atol(env["LISTEN_TIME"].c_str());
 		usleep(listen_time);
 
 		ret = listen(server_socket, atoi(env["BACKLOG"].c_str()));
-		EXPECT_TRUE(ret == 0);
+		EXPECT_EQ(ret, 0);
 
 		long accept_time = atol(env["ACCEPT_TIME"].c_str());
 		usleep(accept_time);
@@ -67,28 +67,28 @@ protected:
 		socklen_t client_len = sizeof(client_addr);
 		memset(&client_addr, 0, client_len);
 		int client_fd = accept(server_socket, (struct sockaddr*)&client_addr, &client_len);
-		EXPECT_TRUE(client_fd >= 0);
+		EXPECT_GE(client_fd, 0);
 
-		EXPECT_TRUE(client_len == sizeof(client_addr));
-		EXPECT_TRUE(client_addr.sin_family == AF_INET);
+		EXPECT_EQ(client_len, sizeof(client_addr));
+		EXPECT_EQ(client_addr.sin_family, AF_INET);
 
 		struct sockaddr_in temp_addr;
 		socklen_t temp_len = sizeof(temp_addr);
 		ret = getsockname(client_fd, (struct sockaddr*)&temp_addr, &temp_len);
-		EXPECT_TRUE(ret == 0);
+		EXPECT_EQ(ret, 0);
 		EXPECT_TRUE( (addr.sin_addr.s_addr == 0) ||
 				(addr.sin_addr.s_addr == temp_addr.sin_addr.s_addr));
-		EXPECT_TRUE(addr.sin_family == temp_addr.sin_family);
-		EXPECT_TRUE(addr.sin_port == temp_addr.sin_port);
+		EXPECT_EQ(addr.sin_family, temp_addr.sin_family);
+		EXPECT_EQ(addr.sin_port, temp_addr.sin_port);
 
 		long start_time = atol(env["START_TIME"].c_str());
 
 		struct timeval tv;
 		ret = gettimeofday(&tv, 0);
-		EXPECT_TRUE(ret == 0);
+		EXPECT_EQ(ret, 0);
 
 		long sleep_time = start_time - (1000*1000*tv.tv_sec) - tv.tv_usec;
-		EXPECT_TRUE(sleep_time >= 0);
+		EXPECT_GE(sleep_time, 0);
 		//printf("connect sleep: %ld\n", sleep_time);
 		usleep(sleep_time);
 
@@ -117,7 +117,7 @@ protected:
 				{
 					total_size += write_byte;
 					remaining -= write_byte;
-					EXPECT_TRUE(remaining >= 0);
+					EXPECT_GE(remaining, 0);
 					if(remaining == 0)
 						break;
 				}
@@ -132,7 +132,7 @@ protected:
 				{
 					total_size += read_byte;
 					remaining -= read_byte;
-					EXPECT_TRUE(remaining >= 0);
+					EXPECT_GE(remaining, 0);
 					if(remaining == 0)
 						break;
 				}
@@ -140,7 +140,7 @@ protected:
 				{
 					for(int j=0; j<buffer_size - remaining; j++)
 					{
-						EXPECT_TRUE(send_buffer[j] == recv_buffer[j]);
+						EXPECT_EQ(send_buffer[j], recv_buffer[j]);
 					}
 				}
 				if(read_byte < 0)
@@ -155,10 +155,10 @@ protected:
 		free(send_buffer);
 		free(recv_buffer);
 
-		EXPECT_TRUE(expect_size == total_size);
+		EXPECT_EQ(expect_size, total_size);
 		struct timeval timeval;
 		gettimeofday(&timeval, 0);
-		EXPECT_TRUE(timeval.tv_sec < connection_timeout);
+		EXPECT_LT(timeval.tv_sec, connection_timeout);
 
 		close(client_fd);
 		close(server_socket);
@@ -191,24 +191,24 @@ protected:
 		addr.sin_port = htons(atoi(env["CONNECT_PORT"].c_str()));
 
 		int ret = connect(client_socket, (struct sockaddr*)&addr, len);
-		EXPECT_TRUE(ret >= 0);
+		EXPECT_GE(ret, 0);
 
 		struct sockaddr_in temp_addr;
 		socklen_t temp_len = sizeof(temp_addr);
 		ret = getpeername(client_socket, (struct sockaddr*)&temp_addr, &temp_len);
-		EXPECT_TRUE(ret == 0);
-		EXPECT_TRUE(addr.sin_addr.s_addr == temp_addr.sin_addr.s_addr);
-		EXPECT_TRUE(addr.sin_family == temp_addr.sin_family);
-		EXPECT_TRUE(addr.sin_port == temp_addr.sin_port);
+		EXPECT_EQ(ret, 0);
+		EXPECT_EQ(addr.sin_addr.s_addr, temp_addr.sin_addr.s_addr);
+		EXPECT_EQ(addr.sin_family, temp_addr.sin_family);
+		EXPECT_EQ(addr.sin_port, temp_addr.sin_port);
 
 		long start_time = atol(env["START_TIME"].c_str());
 
 		struct timeval tv;
 		ret = gettimeofday(&tv, 0);
-		EXPECT_TRUE(ret == 0);
+		EXPECT_EQ(ret, 0);
 
 		long sleep_time = start_time - (1000*1000*tv.tv_sec) - tv.tv_usec;
-		EXPECT_TRUE(sleep_time >= 0);
+		EXPECT_GE(sleep_time, 0);
 		//printf("connect sleep: %ld\n", sleep_time);
 		usleep(sleep_time);
 
@@ -237,7 +237,7 @@ protected:
 				{
 					total_size += write_byte;
 					remaining -= write_byte;
-					EXPECT_TRUE(remaining >= 0);
+					EXPECT_GE(remaining, 0);
 					if(remaining == 0)
 						break;
 				}
@@ -252,7 +252,7 @@ protected:
 				{
 					total_size += read_byte;
 					remaining -= read_byte;
-					EXPECT_TRUE(remaining >= 0);
+					EXPECT_GE(remaining, 0);
 					if(remaining == 0)
 						break;
 				}
@@ -260,7 +260,7 @@ protected:
 				{
 					for(int j=0; j<buffer_size - remaining; j++)
 					{
-						EXPECT_TRUE(send_buffer[j] == recv_buffer[j]);
+						EXPECT_EQ(send_buffer[j], recv_buffer[j]);
 					}
 				}
 				if(read_byte < 0)
@@ -275,7 +275,7 @@ protected:
 		free(send_buffer);
 		free(recv_buffer);
 
-		EXPECT_TRUE(expect_size == total_size);
+		EXPECT_EQ(expect_size, total_size);
 
 		close(client_socket);
 	}

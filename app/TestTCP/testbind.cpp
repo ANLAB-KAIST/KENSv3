@@ -43,7 +43,7 @@ protected:
 
 		int ret = bind(fd, (struct sockaddr*)&addr, len);
 
-		EXPECT_TRUE(ret == 0);
+		EXPECT_EQ(ret, 0);
 
 		close(fd);
 	}
@@ -79,14 +79,14 @@ protected:
 
 		int ret = bind(fd, (struct sockaddr*)&addr, len);
 
-		EXPECT_TRUE(ret == 0);
+		EXPECT_EQ(ret, 0);
 
 		addr.sin_port = htons(10000);
 
 		//bind to port 10000 with INADDR_ADY (should fail, fd is already bound to 9999)
 		ret = bind(fd, (struct sockaddr*)&addr, len);
 
-		EXPECT_FALSE(ret == 0);
+		EXPECT_NE(ret, 0);
 
 		close(fd);
 	}
@@ -122,7 +122,7 @@ protected:
 
 		int ret = bind(fd, (struct sockaddr*)&addr, len);
 
-		EXPECT_TRUE(ret == 0);
+		EXPECT_EQ(ret, 0);
 
 		struct sockaddr* addr2 = (struct sockaddr*)malloc(len * 2);
 		socklen_t len2 = len * 2;
@@ -131,8 +131,8 @@ protected:
 
 		ret = getsockname(fd, addr2, &len2);
 
-		EXPECT_TRUE(ret == 0);
-		EXPECT_TRUE(memcmp(&addr, addr2, len) == 0);
+		EXPECT_EQ(ret, 0);
+		EXPECT_EQ(memcmp(&addr, addr2, len), 0);
 
 		free(addr2);
 		close(fd);
@@ -169,7 +169,7 @@ protected:
 
 		int ret = bind(fd1, (struct sockaddr*)&addr, len);
 
-		EXPECT_TRUE(ret == 0);
+		EXPECT_EQ(ret, 0);
 
 		int fd2 = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
@@ -178,7 +178,7 @@ protected:
 
 		ret = bind(fd2, (struct sockaddr*)&addr, len);
 
-		EXPECT_FALSE(ret == 0);
+		EXPECT_NE(ret, 0);
 
 		close(fd1);
 		close(fd2);
@@ -215,7 +215,7 @@ protected:
 
 		int ret = bind(fd1, (struct sockaddr*)&addr, len);
 
-		EXPECT_TRUE(ret == 0);
+		EXPECT_EQ(ret, 0);
 
 		close(fd1);
 
@@ -226,7 +226,7 @@ protected:
 
 		ret = bind(fd2, (struct sockaddr*)&addr, len);
 
-		EXPECT_TRUE(ret == 0);
+		EXPECT_EQ(ret, 0);
 
 		close(fd2);
 	}
@@ -262,7 +262,7 @@ protected:
 
 		int ret = bind(fd1, (struct sockaddr*)&addr, len);
 
-		EXPECT_TRUE(ret == 0);
+		EXPECT_EQ(ret, 0);
 
 		int fd2 = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
@@ -271,7 +271,7 @@ protected:
 
 		ret = bind(fd2, (struct sockaddr*)&addr, len);
 
-		EXPECT_TRUE(ret == 0);
+		EXPECT_EQ(ret, 0);
 
 		close(fd1);
 		close(fd2);
@@ -308,7 +308,7 @@ protected:
 
 		int ret = bind(fd1, (struct sockaddr*)&addr, len);
 
-		EXPECT_TRUE(ret == 0);
+		EXPECT_EQ(ret, 0);
 
 		int fd2 = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
@@ -317,7 +317,7 @@ protected:
 
 		ret = bind(fd2, (struct sockaddr*)&addr, len);
 
-		EXPECT_TRUE(ret == 0);
+		EXPECT_EQ(ret, 0);
 
 		close(fd1);
 		close(fd2);

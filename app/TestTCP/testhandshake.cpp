@@ -45,13 +45,13 @@ protected:
 		addr.sin_port = htons(atoi(env["LISTEN_PORT"].c_str()));
 
 		int ret = bind(server_socket, (struct sockaddr*)&addr, len);
-		EXPECT_TRUE(ret == 0);
+		EXPECT_EQ(ret, 0);
 
 		long listen_time = atol(env["LISTEN_TIME"].c_str());
 		usleep(listen_time);
 
 		ret = listen(server_socket, atoi(env["BACKLOG"].c_str()));
-		EXPECT_TRUE(ret == 0);
+		EXPECT_EQ(ret, 0);
 
 		long accept_time = atol(env["ACCEPT_TIME"].c_str());
 		usleep(accept_time);
@@ -70,24 +70,24 @@ protected:
 			int client_fd = accept(server_socket, (struct sockaddr*)&client_addr, &client_len);
 			if(client_fd >= 0)
 			{
-				EXPECT_TRUE(client_len == sizeof(client_addr));
-				EXPECT_TRUE(client_addr.sin_family == AF_INET);
+				EXPECT_EQ(client_len, sizeof(client_addr));
+				EXPECT_EQ(client_addr.sin_family, AF_INET);
 
 				struct sockaddr_in temp_addr;
 				socklen_t temp_len = sizeof(temp_addr);
 				int ret = getsockname(client_fd, (struct sockaddr*)&temp_addr, &temp_len);
-				EXPECT_TRUE(ret == 0);
+				EXPECT_EQ(ret, 0);
 				EXPECT_TRUE( (addr.sin_addr.s_addr == 0) ||
 						(addr.sin_addr.s_addr == temp_addr.sin_addr.s_addr));
-				EXPECT_TRUE(addr.sin_family == temp_addr.sin_family);
-				EXPECT_TRUE(addr.sin_port == temp_addr.sin_port);
+				EXPECT_EQ(addr.sin_family, temp_addr.sin_family);
+				EXPECT_EQ(addr.sin_port, temp_addr.sin_port);
 
 				client_sockets.push_back(client_fd);
 			}
 			usleep(accept_period);
 		}
 
-		EXPECT_TRUE((int)client_sockets.size() == expected_accept);
+		EXPECT_EQ((int)client_sockets.size(), expected_accept);
 		for(auto client_fd : client_sockets)
 		{
 			int same_count = 0;
@@ -96,7 +96,7 @@ protected:
 				if(client_fd == client_fd2)
 					same_count++;
 			}
-			EXPECT_TRUE(same_count == 1);
+			EXPECT_EQ(same_count, 1);
 		}
 
 		for(auto client_fd : client_sockets)
@@ -146,16 +146,16 @@ protected:
 				struct sockaddr_in temp_addr;
 				socklen_t temp_len = sizeof(temp_addr);
 				int ret = getpeername(client_socket, (struct sockaddr*)&temp_addr, &temp_len);
-				EXPECT_TRUE(ret == 0);
-				EXPECT_TRUE(addr.sin_addr.s_addr == temp_addr.sin_addr.s_addr);
-				EXPECT_TRUE(addr.sin_family == temp_addr.sin_family);
-				EXPECT_TRUE(addr.sin_port == temp_addr.sin_port);
+				EXPECT_EQ(ret, 0);
+				EXPECT_EQ(addr.sin_addr.s_addr, temp_addr.sin_addr.s_addr);
+				EXPECT_EQ(addr.sin_family, temp_addr.sin_family);
+				EXPECT_EQ(addr.sin_port, temp_addr.sin_port);
 
 				ret = getsockname(client_socket, (struct sockaddr*)&temp_addr, &temp_len);
-				EXPECT_TRUE(ret == 0);
+				EXPECT_EQ(ret, 0);
 				for(int other_port : client_ports)
 				{
-					EXPECT_FALSE((int)temp_addr.sin_port == other_port);
+					EXPECT_NE((int)temp_addr.sin_port, other_port);
 				}
 
 				client_sockets.push_back(client_socket);
@@ -165,7 +165,7 @@ protected:
 			usleep(connect_period);
 		}
 
-		EXPECT_TRUE((int)client_sockets.size() == expected_connect);
+		EXPECT_EQ((int)client_sockets.size(), expected_connect);
 		for(auto client_fd : client_sockets)
 		{
 			int same_count = 0;
@@ -174,7 +174,7 @@ protected:
 				if(client_fd == client_fd2)
 					same_count++;
 			}
-			EXPECT_TRUE(same_count == 1);
+			EXPECT_EQ(same_count, 1);
 		}
 
 		for(auto client_fd : client_sockets)
@@ -615,7 +615,7 @@ protected:
 		bind_addr.sin_port = htons(atoi(env["BIND_PORT"].c_str()));
 
 		int ret = bind(client_socket, (struct sockaddr*)&bind_addr, bind_len);
-		EXPECT_TRUE(ret == 0);
+		EXPECT_EQ(ret, 0);
 
 		struct sockaddr_in addr;
 		socklen_t len = sizeof(addr);
@@ -626,22 +626,22 @@ protected:
 		addr.sin_port = htons(atoi(env["CONNECT_PORT"].c_str()));
 
 		ret = connect(client_socket, (struct sockaddr*)&addr, len);
-		EXPECT_TRUE(ret == 0);
+		EXPECT_EQ(ret, 0);
 
 		struct sockaddr_in temp_addr;
 		socklen_t temp_len = sizeof(temp_addr);
 		ret = getpeername(client_socket, (struct sockaddr*)&temp_addr, &temp_len);
-		EXPECT_TRUE(ret == 0);
-		EXPECT_TRUE(addr.sin_addr.s_addr == temp_addr.sin_addr.s_addr);
-		EXPECT_TRUE(addr.sin_family == temp_addr.sin_family);
-		EXPECT_TRUE(addr.sin_port == temp_addr.sin_port);
+		EXPECT_EQ(ret, 0);
+		EXPECT_EQ(addr.sin_addr.s_addr, temp_addr.sin_addr.s_addr);
+		EXPECT_EQ(addr.sin_family, temp_addr.sin_family);
+		EXPECT_EQ(addr.sin_port, temp_addr.sin_port);
 
 		ret = getsockname(client_socket, (struct sockaddr*)&temp_addr, &temp_len);
-		EXPECT_TRUE(ret == 0);
+		EXPECT_EQ(ret, 0);
 
-		EXPECT_TRUE(bind_addr.sin_addr.s_addr == temp_addr.sin_addr.s_addr);
-		EXPECT_TRUE(bind_addr.sin_family == temp_addr.sin_family);
-		EXPECT_TRUE(bind_addr.sin_port == temp_addr.sin_port);
+		EXPECT_EQ(bind_addr.sin_addr.s_addr, temp_addr.sin_addr.s_addr);
+		EXPECT_EQ(bind_addr.sin_family, temp_addr.sin_family);
+		EXPECT_EQ(bind_addr.sin_port, temp_addr.sin_port);
 
 		close(client_socket);
 	}
