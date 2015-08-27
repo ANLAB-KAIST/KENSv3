@@ -22,7 +22,7 @@ HEADERS= $(wildcard *.h) $(wildcard *.hh) $(wildcard *.hpp) $(wildcard $(INCLUDE
 DEPS= .make.dep
 OUTPUT_DIR=../../build
 
-all: $(DEPS) $(OUTPUT_DIR)/$(PROGRAM)
+all: $(OUTPUT_DIR)/$(PROGRAM)
 
 $(OUTPUT_DIR)/$(PROGRAM): $(LIB_DIR) $(DEPS) $(OBJS) $(EXTRA_OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) $(EXTRA_OBJS) -o $@ $(LIBS)

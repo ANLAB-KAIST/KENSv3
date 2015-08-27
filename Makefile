@@ -6,7 +6,7 @@ DIRS=
 SRCDIR=app
 OUTPUT_DIR=build
 
-all: depend
+all:
 	@$(MAKE) --directory=src all
 	@for dir in $(SRCDIR)/*; do \
 		if [ -f $$dir/Makefile ]; then \
