@@ -1,5 +1,4 @@
 # KENSv3 (KAIST Educational Network System)
-====
 
 KENS series have been used for programming assignment in CS341: Introduction to Computer Network in KAIST.
 First version of KENS(v1) had been developed by Network Computing Lab(http://nclab.kaist.ac.kr/kens/), 2005.
@@ -44,9 +43,9 @@ All packets are recorded as pcap log files which can be analyzed by Wireshark or
 KENSv3 can execute actual network application source written in C.
 The system call requests from applications are linked with proper network layer.
 
-#How to run KENSv3?
+# How to run KENSv3?
 
-##Building KENSv3
+## Building KENSv3
 * Check that your compiler supports C++11 and GNU extension (At least 4.8.2 for gcc, LLVM 6.0 for MAC c++).
 ~~~~~~~~~~~~~{.sh}
 g++ -std=c++11
@@ -76,7 +75,7 @@ make doxygen # for making documentation (need Doxygen)
 Solution binary for your architecture is needed for building KENS.
 Currently, we support Cygwin 64bit, Linux 64bit, and Mac OS 64bit.
 
-##Running KENSv3
+## Running KENSv3
 In build directory, testTCP binary will be created after building KENS.
 ~~~~~~~~~~~~~{.sh}
 ./testTCP # run all tests
@@ -93,7 +92,7 @@ make test_part3 #also checks test_part2
 make test_part4 #also checks test_part3
 ~~~~~~~~~~~~~
 
-##Running KENSv3 using solution binary bundle
+## Running KENSv3 using solution binary bundle
 Defining symbol RUN_SOLUTION will build testTCP in solution only mode.
 You have to clean and rebuild the whole project.
 ~~~~~~~~~~~~~{.sh}
@@ -102,14 +101,14 @@ export EXTRA_CXXFLAGS="-DRUN_SOLUTION"
 make all
 ~~~~~~~~~~~~~
 
-#How to do KENSv3 project?
-##Template source
+# How to do KENSv3 project?
+## Template source
 In TestTCP folder, there are one source file and one header file.
 You are allowed to modify TCPAssignment.cpp and TCPAssignment.hpp.
 Also, you can add member fields to "class TCPAssignment".
 Any source files in TestTCP folder are automatically included in the build path.
 
-##What you have to do?
+## What you have to do?
 1. Handling system calls
 See the documentation for how to handle with blocking system calls.
 
@@ -140,21 +139,21 @@ If you did not implement congestion control algorithm, you may not pass test_par
 There would be retransmission storms and applications may not finish in time.
 Until here is test_part4.
 
-##How to contribute?
+## How to contribute?
 This is an automatically generated source repository from our internal repository.
 If you want to contribute to KENSv3 framework,
 please send us your patches, your Github ID, and your email address.
 These informations are used to add you to our contributor list.
 You can send it via Github issues or kens-dev@an.kaist.ac.kr.
 
-##Requests to students
+## Requests to students
 KENSv3 is an open-source framework. However, it is also an educational framework.
 We couldn't get our position between them.
 We are asking your favor not to make a public fork, but a private clone for your project.
 Github provides free educational plan for students (https://education.github.com/).
 Please do not upload your solutions online, so that other students can do this project themselves later.
 
-##Requests to instructors
+## Requests to instructors
 You may modify it freely to customize this project with your courses.
 Not only the source contribution, we also receive material contribution.
 If you have better presentation slides or other teaching material, you can contribute with them.
