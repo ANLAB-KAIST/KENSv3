@@ -13,9 +13,13 @@
 namespace E
 {
 
-Switch::Switch(std::string name, NetworkSystem* system) : Link(name, system)
+Switch::Switch(std::string name, NetworkSystem* system, bool unreliable) : Link(name, system)
 {
-
+	this->unreliable = unreliable;
+	this->drop_base = 1.0;
+	this->drop_base_diff = 0.1;
+	this->drop_base_limit = 0.15;
+	this->drop_base_final = 0.01;
 }
 
 void Switch::addMACEntry(Port* toPort, uint8_t* mac)
@@ -41,9 +45,29 @@ void Switch::packetArrived(Port* inPort, Packet* packet)
 			if( (mac_int == broad_int) || ( (this->mac_table.find(port) != this->mac_table.end()) &&
 					(this->mac_table[port].find(mac_int) != this->mac_table[port].end())) )
 			{
-				Packet* newPacket = this->clonePacket(packet);
-				this->sendPacket(port, newPacket);
 				found = true;
+				bool drop = false;
+				if(this->unreliable) {
+					Real val = this->dist.nextDistribution(0.0, 1.0);
+					if(this->drop_base < this->drop_base_limit)
+						this->drop_base = this->drop_base_final;
+					else
+						this->drop_base -= this->drop_base_diff;
+
+					if(val < this->drop_base)
+						drop = true;
+				}
+				Packet* newPacket = this->clonePacket(packet);
+				if(drop)
+				{
+					uint16_t false_checksum = 0xEEEE;
+					uint32_t false_data = 0xEEEEEEEE;
+					if(newPacket->getSize() >= (14+20+20))
+						newPacket->writeData(14+20+16, &false_checksum, sizeof(false_checksum));
+					if(newPacket->getSize() >= (14+20+20+4))
+						newPacket->writeData(14+20+20, &false_data, sizeof(false_data));
+				}
+				this->sendPacket(port, newPacket);
 			}
 		}
 	}

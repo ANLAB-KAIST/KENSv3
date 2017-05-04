@@ -166,11 +166,11 @@ TEST_F(TestEnv_Any, TestClose_Connect_CloseFirst)
 	accept_env["BACKLOG"] = "1";
 	accept_env["LISTEN_TIME"] = "0";
 	accept_env["ACCEPT_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(1000,TimeUtil::USEC), TimeUtil::USEC);
-	accept_env["CLOSE_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(20000,TimeUtil::USEC), TimeUtil::USEC);
+	accept_env["CLOSE_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(1020000,TimeUtil::USEC), TimeUtil::USEC);
 
 	connect_env["CONNECT_PORT"] = "9999";
 	connect_env["CONNECT_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(2000,TimeUtil::USEC), TimeUtil::USEC);
-	connect_env["CLOSE_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(10000,TimeUtil::USEC), TimeUtil::USEC);
+	connect_env["CLOSE_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(1010000,TimeUtil::USEC), TimeUtil::USEC);
 
 	connect_env["CONNECT_ADDR"] = host2_ip;
 	TestClose_Connect client(host1, connect_env);
@@ -203,11 +203,11 @@ TEST_F(TestEnv_Any, TestClose_Connect_CloseLater)
 	accept_env["BACKLOG"] = "1";
 	accept_env["LISTEN_TIME"] = "0";
 	accept_env["ACCEPT_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(1000,TimeUtil::USEC), TimeUtil::USEC);
-	accept_env["CLOSE_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(10000,TimeUtil::USEC), TimeUtil::USEC);
+	accept_env["CLOSE_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(1010000,TimeUtil::USEC), TimeUtil::USEC);
 
 	connect_env["CONNECT_PORT"] = "9999";
 	connect_env["CONNECT_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(2000,TimeUtil::USEC), TimeUtil::USEC);
-	connect_env["CLOSE_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(20000,TimeUtil::USEC), TimeUtil::USEC);
+	connect_env["CLOSE_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(1020000,TimeUtil::USEC), TimeUtil::USEC);
 
 	connect_env["CONNECT_ADDR"] = host2_ip;
 	TestClose_Connect client(host1, connect_env);
@@ -240,11 +240,11 @@ TEST_F(TestEnv_Any, TestClose_Connect_CloseSimultaneous)
 	accept_env["BACKLOG"] = "1";
 	accept_env["LISTEN_TIME"] = "0";
 	accept_env["ACCEPT_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(1000,TimeUtil::USEC), TimeUtil::USEC);
-	accept_env["CLOSE_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(10000,TimeUtil::USEC), TimeUtil::USEC);
+	accept_env["CLOSE_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(1010000,TimeUtil::USEC), TimeUtil::USEC);
 
 	connect_env["CONNECT_PORT"] = "9999";
 	connect_env["CONNECT_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(2000,TimeUtil::USEC), TimeUtil::USEC);
-	connect_env["CLOSE_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(10000,TimeUtil::USEC), TimeUtil::USEC);
+	connect_env["CLOSE_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(1010000,TimeUtil::USEC), TimeUtil::USEC);
 
 	connect_env["CONNECT_ADDR"] = host2_ip;
 	TestClose_Connect client(host1, connect_env);
@@ -280,11 +280,11 @@ TEST_F(TestEnv_Any, TestClose_Accept_CloseLater)
 	accept_env["BACKLOG"] = "1";
 	accept_env["LISTEN_TIME"] = "0";
 	accept_env["ACCEPT_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(1000,TimeUtil::USEC), TimeUtil::USEC);
-	accept_env["CLOSE_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(20000,TimeUtil::USEC), TimeUtil::USEC);
+	accept_env["CLOSE_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(1020000,TimeUtil::USEC), TimeUtil::USEC);
 
 	connect_env["CONNECT_PORT"] = "9999";
 	connect_env["CONNECT_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(2000,TimeUtil::USEC), TimeUtil::USEC);
-	connect_env["CLOSE_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(10000,TimeUtil::USEC), TimeUtil::USEC);
+	connect_env["CLOSE_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(1010000,TimeUtil::USEC), TimeUtil::USEC);
 
 	connect_env["CONNECT_ADDR"] = host1_ip;
 	TestClose_Connect client(host2, connect_env);
@@ -317,11 +317,11 @@ TEST_F(TestEnv_Any, TestClose_Accept_CloseFirst)
 	accept_env["BACKLOG"] = "1";
 	accept_env["LISTEN_TIME"] = "0";
 	accept_env["ACCEPT_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(1000,TimeUtil::USEC), TimeUtil::USEC);
-	accept_env["CLOSE_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(10000,TimeUtil::USEC), TimeUtil::USEC);
+	accept_env["CLOSE_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(1010000,TimeUtil::USEC), TimeUtil::USEC);
 
 	connect_env["CONNECT_PORT"] = "9999";
 	connect_env["CONNECT_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(2000,TimeUtil::USEC), TimeUtil::USEC);
-	connect_env["CLOSE_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(20000,TimeUtil::USEC), TimeUtil::USEC);
+	connect_env["CLOSE_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(1020000,TimeUtil::USEC), TimeUtil::USEC);
 
 	connect_env["CONNECT_ADDR"] = host1_ip;
 	TestClose_Connect client(host2, connect_env);
@@ -354,11 +354,11 @@ TEST_F(TestEnv_Any, TestClose_Accept_CloseSimultaneous)
 	accept_env["BACKLOG"] = "1";
 	accept_env["LISTEN_TIME"] = "0";
 	accept_env["ACCEPT_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(1000,TimeUtil::USEC), TimeUtil::USEC);
-	accept_env["CLOSE_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(10000,TimeUtil::USEC), TimeUtil::USEC);
+	accept_env["CLOSE_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(1010000,TimeUtil::USEC), TimeUtil::USEC);
 
 	connect_env["CONNECT_PORT"] = "9999";
 	connect_env["CONNECT_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(2000,TimeUtil::USEC), TimeUtil::USEC);
-	connect_env["CLOSE_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(10000,TimeUtil::USEC), TimeUtil::USEC);
+	connect_env["CLOSE_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(1010000,TimeUtil::USEC), TimeUtil::USEC);
 
 	connect_env["CONNECT_ADDR"] = host1_ip;
 	TestClose_Connect client(host2, connect_env);

@@ -131,7 +131,7 @@ protected:
 	}
 };
 
-template <class Target, class Adversary>
+template <class Target, class Adversary, bool Unreliable>
 class TestEnv2 : public ::testing::Test
 {
 protected:
@@ -182,7 +182,7 @@ protected:
 		host2->getPort(0)->setPropagationDelay(TimeUtil::makeTime(1, TimeUtil::MSEC));
 		host2->getPort(1)->setPropagationDelay(TimeUtil::makeTime(1, TimeUtil::MSEC));
 
-		switchingHub = new Switch("Switch1", &netSystem);
+		switchingHub = new Switch("Switch1", &netSystem, Unreliable);
 		switchingHub->addPort(host1->getPort(0));
 		switchingHub->addPort(host1->getPort(1));
 		switchingHub->addPort(host2->getPort(0));
@@ -386,18 +386,27 @@ protected:
 	}
 };
 
+//#define UNRELIABLE
 //#define RUN_SOLUTION
 #ifdef RUN_SOLUTION
 typedef TestEnv1<TCPSolutionProvider> TestEnv_Reliable;
-typedef TestEnv2<TCPSolutionProvider,TCPSolutionProvider> TestEnv_Unreliable;
-typedef TestEnv2<TCPSolutionProvider,TCPSolutionProvider> TestEnv_Any;
+#ifdef UNRELIABLE
+typedef TestEnv2<TCPSolutionProvider,TCPSolutionProvider, true> TestEnv_Any;
+#else
+typedef TestEnv2<TCPSolutionProvider,TCPSolutionProvider, false> TestEnv_Any;
+#endif
+typedef TestEnv2<TCPSolutionProvider,TCPSolutionProvider, true> TestEnv_Unreliable;
 typedef TestEnv3<TCPSolutionProvider,TCPSolutionProvider, 1, 1000> TestEnv_Congestion0;
 typedef TestEnv3<TCPSolutionProvider,TCPSolutionProvider, 2, 1000> TestEnv_Congestion1;
 typedef TestEnv3<TCPSolutionProvider,TCPSolutionProvider, 8, 1000> TestEnv_Congestion2;
 #else
 typedef TestEnv1<TCPAssignmentProvider> TestEnv_Reliable;
-typedef TestEnv2<TCPAssignmentProvider,TCPSolutionProvider> TestEnv_Unreliable;
-typedef TestEnv2<TCPAssignmentProvider,TCPSolutionProvider> TestEnv_Any;
+#ifdef UNRELIABLE
+typedef TestEnv2<TCPAssignmentProvider,TCPSolutionProvider, true> TestEnv_Any;
+#else
+typedef TestEnv2<TCPAssignmentProvider,TCPSolutionProvider, false> TestEnv_Any;
+#endif
+typedef TestEnv2<TCPAssignmentProvider,TCPSolutionProvider, true> TestEnv_Unreliable;
 typedef TestEnv3<TCPAssignmentProvider,TCPSolutionProvider, 1, 1000> TestEnv_Congestion0;
 typedef TestEnv3<TCPAssignmentProvider,TCPSolutionProvider, 2, 1000> TestEnv_Congestion1;
 typedef TestEnv3<TCPAssignmentProvider,TCPSolutionProvider, 8, 1000> TestEnv_Congestion2;

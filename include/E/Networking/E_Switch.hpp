@@ -17,10 +17,16 @@ class Switch : public Link
 {
 private:
 	std::unordered_map<Port*, std::unordered_set<uint64_t>> mac_table;
+	E::UniformDistribution dist;
+	bool unreliable;
+	Real drop_base;
+	Real drop_base_diff;
+	Real drop_base_limit;
+	Real drop_base_final;
 protected:
 	virtual void packetArrived(Port* inPort, Packet* packet);
 public:
-	Switch(std::string name, NetworkSystem* system);
+	Switch(std::string name, NetworkSystem* system, bool unreliable = false);
 
 	void addMACEntry(Port* toPort, uint8_t* mac);
 };
