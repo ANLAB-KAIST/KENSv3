@@ -2,7 +2,7 @@
  * E_EDFScheduler.hpp
  *
  *  Created on: 2014. 11. 3.
- *      Author: 근홍
+ *      Author: Keunhong Lee
  */
 
 #ifndef E_EDFSCHEDULER_HPP_

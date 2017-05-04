@@ -2,7 +2,7 @@
  * E_APAScheduler.hpp
  *
  *  Created on: 2014. 11. 27.
- *      Author: 근홍
+ *      Author: Keunhong Lee
  */
 
 #ifndef E_APASCHEDULER_HPP_

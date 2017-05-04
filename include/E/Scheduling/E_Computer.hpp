@@ -2,7 +2,7 @@
  * E_Computer.hpp
  *
  *  Created on: 2014. 11. 1.
- *      Author: 근홍
+ *      Author: Keunhong Lee
  */
 
 #ifndef E_COMPUTER_HPP_

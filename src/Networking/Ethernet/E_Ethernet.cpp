@@ -2,7 +2,7 @@
  * E_Ethernet.cpp
  *
  *  Created on: 2014. 11. 20.
- *      Author: 근홍
+ *      Author: Keunhong Lee
  */
 
 

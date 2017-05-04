@@ -2,7 +2,7 @@
  * E_Port.cpp
  *
  *  Created on: 2014. 11. 9.
- *      Author: 근홍
+ *      Author: Keunhong Lee
  */
 
 #include <E/Networking/E_Networking.hpp>

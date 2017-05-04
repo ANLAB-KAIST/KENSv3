@@ -2,7 +2,7 @@
  * E_RandomDistribution.cpp
  *
  *  Created on: 2014. 11. 4.
- *      Author: 근홍
+ *      Author: Keunhong Lee
  */
 
 

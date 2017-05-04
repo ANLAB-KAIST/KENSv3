@@ -2,7 +2,7 @@
  * E_Processor.cpp
  *
  *  Created on: 2014. 12. 3.
- *      Author: 근홍
+ *      Author: Keunhong Lee
  */
 
 

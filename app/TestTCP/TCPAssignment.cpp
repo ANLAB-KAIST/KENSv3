@@ -2,7 +2,7 @@
  * E_TCPAssignment.cpp
  *
  *  Created on: 2014. 11. 20.
- *      Author: 근홍
+ *      Author: Keunhong Lee
  */
 
 

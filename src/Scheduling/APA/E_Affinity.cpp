@@ -2,7 +2,7 @@
  * E_Affinity.cpp
  *
  *  Created on: 2014. 11. 26.
- *      Author: 근홍
+ *      Author: Keunhong Lee
  */
 
 #include <E/Scheduling/E_Computer.hpp>

@@ -2,7 +2,7 @@
  * testclose.cpp
  *
  *  Created on: 2015. 3. 15.
- *      Author: 근홍
+ *      Author: Keunhong Lee
  */
 
 

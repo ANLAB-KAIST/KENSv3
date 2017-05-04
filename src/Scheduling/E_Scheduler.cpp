@@ -2,7 +2,7 @@
  * E_Scheduler.cpp
  *
  *  Created on: 2014. 12. 3.
- *      Author: 근홍
+ *      Author: Keunhong Lee
  */
 
 #include <E/Scheduling/E_Computer.hpp>

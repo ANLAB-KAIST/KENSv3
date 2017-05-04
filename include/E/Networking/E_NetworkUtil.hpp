@@ -2,7 +2,7 @@
  * E_NetworkUtil.hpp
  *
  *  Created on: 2014. 11. 20.
- *      Author: 근홍
+ *      Author: Keunhong Lee
  */
 
 #ifndef E_NETWORKUTIL_HPP_

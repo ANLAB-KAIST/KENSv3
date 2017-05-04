@@ -2,7 +2,7 @@
  * E_IPv4.cpp
  *
  *  Created on: 2014. 11. 20.
- *      Author: 근홍
+ *      Author: Keunhong Lee
  */
 
 #include <E/Networking/E_Networking.hpp>
@@ -41,11 +41,15 @@ void IPv4::packetArrived(std::string fromModule, Packet* packet)
 		uint8_t ip_header_buffer[20];
 		packet->readData(ip_start, ip_header_buffer, 20);
 		uint16_t checksum = NetworkUtil::one_sum(ip_header_buffer,20);
-		if(checksum != 0 && checksum != 0xFFFF)
+		if(checksum != 0xFFFF)
 		{
-			print_log(PROTOCOL_ERROR, "Wrong checksum. Non-zero %u", checksum);
-			this->freePacket(packet);
-			return;
+			if(checksum != 0)
+			{
+				print_log(PROTOCOL_ERROR, "Wrong checksum. Non-zero %u", checksum);
+				this->freePacket(packet);
+				return;
+			}
+			print_log(PROTOCOL_WARNING, "Checksum should be negative zero %u", checksum);
 		}
 
 		uint8_t protocol;
@@ -132,8 +136,6 @@ void IPv4::packetArrived(std::string fromModule, Packet* packet)
 		packet->readData(ip_start, ip_header_buffer, 20);
 		uint16_t checksum = NetworkUtil::one_sum(ip_header_buffer,20);
 		checksum = ~checksum;
-		if(checksum == 0xFFFF)
-			checksum = 0;
 		checksum = htons(checksum);
 		packet->writeData(ip_start + 10, (uint8_t*)&checksum, 2);
 

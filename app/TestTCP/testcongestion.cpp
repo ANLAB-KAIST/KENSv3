@@ -2,7 +2,7 @@
  * testcongestion.cpp
  *
  *  Created on: 2015. 3. 16.
- *      Author: 근홍
+ *      Author: Keunhong Lee
  */
 
 #include <E/E_Common.hpp>

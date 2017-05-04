@@ -2,7 +2,7 @@
  * E_IPv4.hpp
  *
  *  Created on: 2014. 11. 20.
- *      Author: 근홍
+ *      Author: Keunhong Lee
  */
 
 #ifndef E_IPV4_HPP_

@@ -2,7 +2,7 @@
  * E_Module.cpp
  *
  *  Created on: 2014. 11. 1.
- *      Author: 근홍
+ *      Author: Keunhong Lee
  */
 
 #include <E/E_Module.hpp>

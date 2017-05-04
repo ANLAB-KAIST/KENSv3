@@ -2,7 +2,7 @@
  * E_NetworkUtil.cpp
  *
  *  Created on: 2014. 11. 20.
- *      Author: 근홍
+ *      Author: Keunhong Lee
  */
 
 
@@ -37,16 +37,10 @@ uint16_t NetworkUtil::one_sum(const uint8_t* buffer, size_t size)
 		}
 
 		upper = !upper;
-	}
 
-	do
-	{
 		sum = (sum & 0xFFFF) + (sum >> 16);
-	}while((sum & 0xFFFF) != sum);
-
-	if(sum == 0xFFFF)
-		sum = 0;
-
+	}
+	sum = (sum & 0xFFFF) + (sum >> 16);
 	return (uint16_t)sum;
 }
 
@@ -72,15 +66,7 @@ uint16_t NetworkUtil::tcp_sum(uint32_t source, uint32_t dest, const uint8_t* tcp
 
 	uint32_t sum = one_sum((uint8_t*)&pheader, sizeof(pheader));
 	sum += one_sum(tcp_seg, length);
-
-	do
-	{
-		sum = (sum & 0xFFFF) + (sum >> 16);
-	}while((sum & 0xFFFF) != sum);
-
-	if(sum == 0xFFFF)
-		sum = 0;
-
+	sum = (sum & 0xFFFF) + (sum >> 16);
 	return (uint16_t)sum;
 }
 

@@ -2,7 +2,7 @@
  * E_RMScheduler.hpp
  *
  *  Created on: 2014. 11. 3.
- *      Author: 근홍
+ *      Author: Keunhong Lee
  */
 
 #ifndef E_RMSCHEDULER_HPP_

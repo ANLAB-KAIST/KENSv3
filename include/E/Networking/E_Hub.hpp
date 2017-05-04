@@ -2,7 +2,7 @@
  * E_Hub.hpp
  *
  *  Created on: 2014. 11. 10.
- *      Author: 근홍
+ *      Author: Keunhong Lee
  */
 
 #ifndef E_HUB_HPP_
