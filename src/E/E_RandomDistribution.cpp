@@ -54,6 +54,7 @@ UniformDistribution::UniformDistribution() : RandomDistribution()
 {
 
 }
+
 UniformDistribution::UniformDistribution(UUID seed) : RandomDistribution(seed)
 {
 
@@ -92,6 +93,16 @@ Real ExpDistribution::nextDistribution(Real min, Real max)
 	std::uniform_real_distribution<Real> dist(exp(-((Real)1.0 / averageLocation)), 1);
 
 	return std::min(min + (-log(dist(engine)) / lambda), max);
+}
+
+LinearDistribution::LinearDistribution()
+{
+
+}
+
+LinearDistribution::LinearDistribution(UUID seed) : RandomDistribution(seed)
+{
+
 }
 
 Real LinearDistribution::nextDistribution(Real min, Real max)

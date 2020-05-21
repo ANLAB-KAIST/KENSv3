@@ -22,6 +22,12 @@ Switch::Switch(std::string name, NetworkSystem* system, bool unreliable) : Link(
 	this->drop_base_final = 0.01;
 }
 
+void Switch::setRandSeed(UUID seed)
+{
+	Link::setRandSeed(seed);
+	this->dist = E::UniformDistribution(seed);
+}
+
 void Switch::addMACEntry(Port* toPort, uint8_t* mac)
 {
 	uint64_t mac_int =  NetworkUtil::arrayToUINT64(mac, 6);

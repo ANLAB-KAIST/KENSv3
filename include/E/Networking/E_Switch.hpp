@@ -27,7 +27,7 @@ protected:
 	virtual void packetArrived(Port* inPort, Packet* packet);
 public:
 	Switch(std::string name, NetworkSystem* system, bool unreliable = false);
-
+	void setRandSeed(UUID seed);
 	void addMACEntry(Port* toPort, uint8_t* mac);
 };
 
