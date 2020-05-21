@@ -190,7 +190,7 @@ protected:
 		time_t randSeed = time(0);
 		if(char * inSeed = getenv("TCP_SEED"))
 			randSeed = atoi(inSeed);
-		printf("\n[TCP_SEED : %lld]\n", randSeed);
+		printf("\n[TCP_SEED : %ld]\n", randSeed);
 		switchingHub->setRandSeed(randSeed);
 
 		switchingHub->addPort(host1->getPort(0));
