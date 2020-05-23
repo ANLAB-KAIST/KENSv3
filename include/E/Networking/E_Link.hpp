@@ -59,8 +59,6 @@ public:
 	 */
 	virtual void enablePCAPLogging(const std::string &filename, Size snaplen = 65535) final;
 
-	virtual void setRandSeed(UUID seed);
-
 	enum MessageType
 	{
 		CHECK_QUEUE,

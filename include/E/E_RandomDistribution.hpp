@@ -61,7 +61,6 @@ class LinearDistribution : public RandomDistribution
 {
 public:
 	LinearDistribution();
-	LinearDistribution(UUID seed);
 	virtual Real nextDistribution(Real min, Real max);
 };
 

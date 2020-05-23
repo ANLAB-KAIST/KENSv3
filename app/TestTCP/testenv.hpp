@@ -44,6 +44,10 @@ protected:
 
 	virtual void SetUp()
 	{
+		if(getenv("RANDOM_SEED") == NULL)
+			setenv("RANDOM_SEED", std::to_string(time(0)).c_str(), true);
+		srand(atoi(getenv("RANDOM_SEED")));
+
 		host1 = new Host("TestHost1", 2, &netSystem);
 		host2 = new Host("TestHost2", 2, &netSystem);
 
@@ -147,6 +151,10 @@ protected:
 
 	virtual void SetUp()
 	{
+		if(getenv("RANDOM_SEED") == NULL)
+			setenv("RANDOM_SEED", std::to_string(time(0)).c_str(), true);
+		srand(atoi(getenv("RANDOM_SEED")));
+
 		host1 = new Host("TestHost1", 2, &netSystem);
 		host2 = new Host("TestHost2", 2, &netSystem);
 
@@ -182,17 +190,6 @@ protected:
 		host2->getPort(1)->setPropagationDelay(TimeUtil::makeTime(1, TimeUtil::MSEC));
 
 		switchingHub = new Switch("Switch1", &netSystem, Unreliable);
-
-		/*
-		 *  In order to make random components controllable.
-		 *  Editor : payload@kaist.ac.kr
-		 */
-		time_t randSeed = time(0);
-		if(char * inSeed = getenv("TCP_SEED"))
-			randSeed = atoi(inSeed);
-		printf("\n[TCP_SEED : %ld]\n", randSeed);
-		switchingHub->setRandSeed(randSeed);
-
 		switchingHub->addPort(host1->getPort(0));
 		switchingHub->addPort(host1->getPort(1));
 		switchingHub->addPort(host2->getPort(0));
@@ -272,6 +269,10 @@ protected:
 
 	virtual void SetUp()
 	{
+		if(getenv("RANDOM_SEED") == NULL)
+			setenv("RANDOM_SEED", std::to_string(time(0)).c_str(), true);
+		srand(atoi(getenv("RANDOM_SEED")));
+
 		prev_log = NetworkLog::defaultLevel;
 		NetworkLog::defaultLevel |= (
 				//(1 << NetworkLog::SYSCALL_RAISED) |

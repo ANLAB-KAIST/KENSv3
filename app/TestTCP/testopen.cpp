@@ -71,6 +71,9 @@ protected:
 
 TEST_F(TestEnv_Reliable, TestOpen)
 {
+    if(char *seed = getenv("RANDOM_SEED"))
+        printf("[RANDOM_SEED : %s]\n", seed);
+
 	TestOpen server(host1);
 
 	server.initialize();

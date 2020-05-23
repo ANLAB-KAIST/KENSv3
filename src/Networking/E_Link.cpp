@@ -235,9 +235,4 @@ void Link::enablePCAPLogging(const std::string &filename, Size snaplen)
 	}
 }
 
-void Link::setRandSeed(UUID seed)
-{
-	this->rand_dist = E::LinearDistribution(seed);
-}
-
 }

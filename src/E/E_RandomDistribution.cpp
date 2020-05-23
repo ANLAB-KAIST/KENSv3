@@ -12,7 +12,7 @@
 namespace E
 {
 
-RandomDistribution::RandomDistribution() : engine(time(0))
+RandomDistribution::RandomDistribution() : engine(rand())
 {
 
 }
@@ -95,12 +95,7 @@ Real ExpDistribution::nextDistribution(Real min, Real max)
 	return std::min(min + (-log(dist(engine)) / lambda), max);
 }
 
-LinearDistribution::LinearDistribution()
-{
-
-}
-
-LinearDistribution::LinearDistribution(UUID seed) : RandomDistribution(seed)
+LinearDistribution::LinearDistribution() : RandomDistribution()
 {
 
 }

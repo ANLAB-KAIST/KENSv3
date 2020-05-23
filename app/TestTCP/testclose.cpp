@@ -105,7 +105,6 @@ protected:
 protected:
 	void E_Main()
 	{
-
 		long connect_time = atol(env["CONNECT_TIME"].c_str());
 		usleep(connect_time);
 
@@ -150,6 +149,9 @@ TEST_F(TestEnv_Any, TestClose_Connect_CloseFirst)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
+    if(char *seed = getenv("RANDOM_SEED"))
+        printf("[RANDOM_SEED : %s]\n", seed);
+
 	uint8_t ip1[4];
 	uint8_t ip2[4];
 	host1->getIPAddr(ip1, 0);
@@ -187,6 +189,9 @@ TEST_F(TestEnv_Any, TestClose_Connect_CloseLater)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
+    if(char *seed = getenv("RANDOM_SEED"))
+        printf("[RANDOM_SEED : %s]\n", seed);
+
 	uint8_t ip1[4];
 	uint8_t ip2[4];
 	host1->getIPAddr(ip1, 0);
@@ -223,6 +228,9 @@ TEST_F(TestEnv_Any, TestClose_Connect_CloseSimultaneous)
 {
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
+
+    if(char *seed = getenv("RANDOM_SEED"))
+        printf("[RANDOM_SEED : %s]\n", seed);
 
 	uint8_t ip1[4];
 	uint8_t ip2[4];
@@ -264,6 +272,9 @@ TEST_F(TestEnv_Any, TestClose_Accept_CloseLater)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
+    if(char *seed = getenv("RANDOM_SEED"))
+        printf("[RANDOM_SEED : %s]\n", seed);
+
 	uint8_t ip1[4];
 	uint8_t ip2[4];
 	host1->getIPAddr(ip1, 0);
@@ -301,6 +312,9 @@ TEST_F(TestEnv_Any, TestClose_Accept_CloseFirst)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
+    if(char *seed = getenv("RANDOM_SEED"))
+        printf("[RANDOM_SEED : %s]\n", seed);
+
 	uint8_t ip1[4];
 	uint8_t ip2[4];
 	host1->getIPAddr(ip1, 0);
@@ -337,6 +351,9 @@ TEST_F(TestEnv_Any, TestClose_Accept_CloseSimultaneous)
 {
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
+
+    if(char *seed = getenv("RANDOM_SEED"))
+        printf("[RANDOM_SEED : %s]\n", seed);
 
 	uint8_t ip1[4];
 	uint8_t ip2[4];
