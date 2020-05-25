@@ -92,7 +92,7 @@ protected:
 		//printf("connect sleep: %ld\n", sleep_time);
 		usleep(sleep_time);
 
-		unsigned int seed = atoi(getenv("RANDOM_SEED"));
+		unsigned int seed = atoi(env["RANDOM_SEED"].c_str());
 		int is_send = atoi(env["SENDER"].c_str());
 		int buffer_size = atoi(env["BUFFER_SIZE"].c_str());
 		int loop_count = atoi(env["LOOP_COUNT"].c_str());
@@ -211,7 +211,7 @@ protected:
 		//printf("connect sleep: %ld\n", sleep_time);
 		usleep(sleep_time);
 
-		unsigned int seed = atoi(getenv("RANDOM_SEED"));
+		unsigned int seed = atoi(env["RANDOM_SEED"].c_str());
 		int is_send = atoi(env["SENDER"].c_str());
 		int buffer_size = atoi(env["BUFFER_SIZE"].c_str());
 		int loop_count = atoi(env["LOOP_COUNT"].c_str());
@@ -285,8 +285,10 @@ TEST_F(TestEnv_Congestion0, TestCongestion0)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-    if(char *seed = getenv("RANDOM_SEED"))
-        printf("[RANDOM_SEED : %s]\n", seed);
+	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
+	int seed = rand();
+	accept_env["RANDOM_SEED"] = seed;
+	connect_env["RANDOM_SEED"] = seed;
 
 	uint8_t server_ip[4];
 	server_host->getIPAddr(server_ip, 0);
@@ -352,8 +354,10 @@ TEST_F(TestEnv_Congestion1, TestCongestion1)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-    if(char *seed = getenv("RANDOM_SEED"))
-        printf("[RANDOM_SEED : %s]\n", seed);
+	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
+	int seed = rand();
+	accept_env["RANDOM_SEED"] = seed;
+	connect_env["RANDOM_SEED"] = seed;
 
 	uint8_t server_ip[4];
 	server_host->getIPAddr(server_ip, 0);
@@ -419,8 +423,10 @@ TEST_F(TestEnv_Congestion2, TestCongestion2)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-    if(char *seed = getenv("RANDOM_SEED"))
-        printf("[RANDOM_SEED : %s]\n", seed);
+	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
+	int seed = rand();
+	accept_env["RANDOM_SEED"] = seed;
+	connect_env["RANDOM_SEED"] = seed;
 
 	uint8_t server_ip[4];
 	server_host->getIPAddr(server_ip, 0);

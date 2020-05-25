@@ -90,7 +90,7 @@ protected:
 		//printf("connect sleep: %ld\n", sleep_time);
 		usleep(sleep_time);
 
-		unsigned int seed = atoi(getenv("RANDOM_SEED"));
+		unsigned int seed = atoi(env["RANDOM_SEED"].c_str());
 		int is_send = atoi(env["SENDER"].c_str());
 		int buffer_size = atoi(env["BUFFER_SIZE"].c_str());
 		int loop_count = atoi(env["LOOP_COUNT"].c_str());
@@ -206,7 +206,7 @@ protected:
 		//printf("connect sleep: %ld\n", sleep_time);
 		usleep(sleep_time);
 
-		unsigned int seed = atoi(getenv("RANDOM_SEED"));
+		unsigned int seed = atoi(env["RANDOM_SEED"].c_str());
 		int is_send = atoi(env["SENDER"].c_str());
 		int buffer_size = atoi(env["BUFFER_SIZE"].c_str());
 		int loop_count = atoi(env["LOOP_COUNT"].c_str());
@@ -280,9 +280,10 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Send_Symmetric)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-    if(char *seed = getenv("RANDOM_SEED"))
-        printf("[RANDOM_SEED : %s]\n", seed);
-
+	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
+	int seed = rand();
+	accept_env["RANDOM_SEED"] = seed;
+	connect_env["RANDOM_SEED"] = seed;
 	uint8_t ip1[4];
 	uint8_t ip2[4];
 	host1->getIPAddr(ip1, 0);
@@ -329,9 +330,10 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Send_EOF)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-    if(char *seed = getenv("RANDOM_SEED"))
-        printf("[RANDOM_SEED : %s]\n", seed);
-
+	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
+	int seed = rand();
+	accept_env["RANDOM_SEED"] = seed;
+	connect_env["RANDOM_SEED"] = seed;
 
 	uint8_t ip1[4];
 	uint8_t ip2[4];
@@ -381,9 +383,10 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Recv_Symmetric)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-    if(char *seed = getenv("RANDOM_SEED"))
-        printf("[RANDOM_SEED : %s]\n", seed);
-
+	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
+	int seed = rand();
+	accept_env["RANDOM_SEED"] = seed;
+	connect_env["RANDOM_SEED"] = seed;
 
 	uint8_t ip1[4];
 	uint8_t ip2[4];
@@ -431,9 +434,10 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Recv_EOF)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-    if(char *seed = getenv("RANDOM_SEED"))
-        printf("[RANDOM_SEED : %s]\n", seed);
-
+	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
+	int seed = rand();
+	accept_env["RANDOM_SEED"] = seed;
+	connect_env["RANDOM_SEED"] = seed;
 
 	uint8_t ip1[4];
 	uint8_t ip2[4];
@@ -481,9 +485,10 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Recv_SmallBuffer1)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-    if(char *seed = getenv("RANDOM_SEED"))
-        printf("[RANDOM_SEED : %s]\n", seed);
-
+	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
+	int seed = rand();
+	accept_env["RANDOM_SEED"] = seed;
+	connect_env["RANDOM_SEED"] = seed;
 
 	uint8_t ip1[4];
 	uint8_t ip2[4];
@@ -531,9 +536,10 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Recv_SmallBuffer2)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-    if(char *seed = getenv("RANDOM_SEED"))
-        printf("[RANDOM_SEED : %s]\n", seed);
-
+	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
+	int seed = rand();
+	accept_env["RANDOM_SEED"] = seed;
+	connect_env["RANDOM_SEED"] = seed;
 
 	uint8_t ip1[4];
 	uint8_t ip2[4];
@@ -584,9 +590,10 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Send_Symmetric)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-    if(char *seed = getenv("RANDOM_SEED"))
-        printf("[RANDOM_SEED : %s]\n", seed);
-
+	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
+	int seed = rand();
+	accept_env["RANDOM_SEED"] = seed;
+	connect_env["RANDOM_SEED"] = seed;
 
 	uint8_t ip1[4];
 	uint8_t ip2[4];
@@ -635,9 +642,10 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Send_EOF)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-    if(char *seed = getenv("RANDOM_SEED"))
-        printf("[RANDOM_SEED : %s]\n", seed);
-
+	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
+	int seed = rand();
+	accept_env["RANDOM_SEED"] = seed;
+	connect_env["RANDOM_SEED"] = seed;
 
 	uint8_t ip1[4];
 	uint8_t ip2[4];
@@ -688,9 +696,10 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Recv_Symmetric)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-    if(char *seed = getenv("RANDOM_SEED"))
-        printf("[RANDOM_SEED : %s]\n", seed);
-
+	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
+	int seed = rand();
+	accept_env["RANDOM_SEED"] = seed;
+	connect_env["RANDOM_SEED"] = seed;
 
 	uint8_t ip1[4];
 	uint8_t ip2[4];
@@ -738,9 +747,10 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Recv_EOF)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-    if(char *seed = getenv("RANDOM_SEED"))
-        printf("[RANDOM_SEED : %s]\n", seed);
-
+	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
+	int seed = rand();
+	accept_env["RANDOM_SEED"] = seed;
+	connect_env["RANDOM_SEED"] = seed;
 
 	uint8_t ip1[4];
 	uint8_t ip2[4];
@@ -788,9 +798,10 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Recv_SmallBuffer1)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-    if(char *seed = getenv("RANDOM_SEED"))
-        printf("[RANDOM_SEED : %s]\n", seed);
-
+	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
+	int seed = rand();
+	accept_env["RANDOM_SEED"] = seed;
+	connect_env["RANDOM_SEED"] = seed;
 
 	uint8_t ip1[4];
 	uint8_t ip2[4];
@@ -838,9 +849,10 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Recv_SmallBuffer2)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-    if(char *seed = getenv("RANDOM_SEED"))
-        printf("[RANDOM_SEED : %s]\n", seed);
-
+	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
+	int seed = rand();
+	accept_env["RANDOM_SEED"] = seed;
+	connect_env["RANDOM_SEED"] = seed;
 
 	uint8_t ip1[4];
 	uint8_t ip2[4];
