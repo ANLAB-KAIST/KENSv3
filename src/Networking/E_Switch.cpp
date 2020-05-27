@@ -64,10 +64,10 @@ void Switch::packetArrived(Port* inPort, Packet* packet)
 						uint16_t checksum;
 						newPacket->readData(14+20+16, &checksum, sizeof(checksum));
 
-						if(checksum != 0xFFFF)
-							checksum = 0xFFFF;
-						else
+						if(checksum != 0xEEEE)
 							checksum = 0xEEEE;
+						else
+							checksum = 0xEEEF;
 
 						newPacket->writeData(14+20+16, &checksum, sizeof(checksum));
 					}
