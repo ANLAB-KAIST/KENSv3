@@ -60,7 +60,18 @@ void Switch::packetArrived(Port* inPort, Packet* packet)
 				Packet* newPacket = this->clonePacket(packet);
 				if(drop)
 				{
-					if(newPacket->getSize() >= (14+20+20)) {
+					if(newPacket->getSize() >= (14+20+20+4)) {
+						uint32_t data;
+						newPacket->readData(14+20+20, &data, sizeof(data));
+
+						if(data != 0xEEEEEEEE)
+							data = 0xEEEEEEEE;
+						else
+							data = 0xEEEEEEEF;
+
+						newPacket->writeData(14+20+20, &data, sizeof(data));
+					}
+					else if(newPacket->getSize() >= (14+20+20)) {
 						uint16_t checksum;
 						newPacket->readData(14+20+16, &checksum, sizeof(checksum));
 
