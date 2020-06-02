@@ -46,6 +46,7 @@ protected:
 	{
 		if(getenv("RANDOM_SEED") == NULL)
 			setenv("RANDOM_SEED", std::to_string(time(0)).c_str(), true);
+		printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED");
 		srand(atoi(getenv("RANDOM_SEED")));
 
 		host1 = new Host("TestHost1", 2, &netSystem);
@@ -153,6 +154,7 @@ protected:
 	{
 		if(getenv("RANDOM_SEED") == NULL)
 			setenv("RANDOM_SEED", std::to_string(time(0)).c_str(), true);
+		printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED");
 		srand(atoi(getenv("RANDOM_SEED")));
 
 		host1 = new Host("TestHost1", 2, &netSystem);
@@ -271,6 +273,7 @@ protected:
 	{
 		if(getenv("RANDOM_SEED") == NULL)
 			setenv("RANDOM_SEED", std::to_string(time(0)).c_str(), true);
+		printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED");
 		srand(atoi(getenv("RANDOM_SEED")));
 
 		prev_log = NetworkLog::defaultLevel;

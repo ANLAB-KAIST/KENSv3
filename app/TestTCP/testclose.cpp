@@ -149,8 +149,6 @@ TEST_F(TestEnv_Any, TestClose_Connect_CloseFirst)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
-
 	uint8_t ip1[4];
 	uint8_t ip2[4];
 	host1->getIPAddr(ip1, 0);
@@ -188,8 +186,6 @@ TEST_F(TestEnv_Any, TestClose_Connect_CloseLater)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
-
 	uint8_t ip1[4];
 	uint8_t ip2[4];
 	host1->getIPAddr(ip1, 0);
@@ -226,8 +222,6 @@ TEST_F(TestEnv_Any, TestClose_Connect_CloseSimultaneous)
 {
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
-
-	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
 
 	uint8_t ip1[4];
 	uint8_t ip2[4];
@@ -269,8 +263,6 @@ TEST_F(TestEnv_Any, TestClose_Accept_CloseLater)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
-
 	uint8_t ip1[4];
 	uint8_t ip2[4];
 	host1->getIPAddr(ip1, 0);
@@ -308,8 +300,6 @@ TEST_F(TestEnv_Any, TestClose_Accept_CloseFirst)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
-
 	uint8_t ip1[4];
 	uint8_t ip2[4];
 	host1->getIPAddr(ip1, 0);
@@ -346,8 +336,6 @@ TEST_F(TestEnv_Any, TestClose_Accept_CloseSimultaneous)
 {
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
-
-	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
 
 	uint8_t ip1[4];
 	uint8_t ip2[4];

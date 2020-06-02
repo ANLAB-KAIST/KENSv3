@@ -285,7 +285,6 @@ TEST_F(TestEnv_Congestion0, TestCongestion0)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
 	int seed = rand();
 	accept_env["RANDOM_SEED"] = seed;
 	connect_env["RANDOM_SEED"] = seed;
@@ -354,7 +353,6 @@ TEST_F(TestEnv_Congestion1, TestCongestion1)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
 	int seed = rand();
 	accept_env["RANDOM_SEED"] = seed;
 	connect_env["RANDOM_SEED"] = seed;
@@ -423,7 +421,6 @@ TEST_F(TestEnv_Congestion2, TestCongestion2)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
 	int seed = rand();
 	accept_env["RANDOM_SEED"] = seed;
 	connect_env["RANDOM_SEED"] = seed;

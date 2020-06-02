@@ -280,10 +280,10 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Send_Symmetric)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
 	int seed = rand();
 	accept_env["RANDOM_SEED"] = seed;
 	connect_env["RANDOM_SEED"] = seed;
+
 	uint8_t ip1[4];
 	uint8_t ip2[4];
 	host1->getIPAddr(ip1, 0);
@@ -330,7 +330,6 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Send_EOF)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
 	int seed = rand();
 	accept_env["RANDOM_SEED"] = seed;
 	connect_env["RANDOM_SEED"] = seed;
@@ -383,7 +382,6 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Recv_Symmetric)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
 	int seed = rand();
 	accept_env["RANDOM_SEED"] = seed;
 	connect_env["RANDOM_SEED"] = seed;
@@ -434,7 +432,6 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Recv_EOF)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
 	int seed = rand();
 	accept_env["RANDOM_SEED"] = seed;
 	connect_env["RANDOM_SEED"] = seed;
@@ -485,7 +482,6 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Recv_SmallBuffer1)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
 	int seed = rand();
 	accept_env["RANDOM_SEED"] = seed;
 	connect_env["RANDOM_SEED"] = seed;
@@ -536,7 +532,6 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Recv_SmallBuffer2)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
 	int seed = rand();
 	accept_env["RANDOM_SEED"] = seed;
 	connect_env["RANDOM_SEED"] = seed;
@@ -590,7 +585,6 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Send_Symmetric)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
 	int seed = rand();
 	accept_env["RANDOM_SEED"] = seed;
 	connect_env["RANDOM_SEED"] = seed;
@@ -642,7 +636,6 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Send_EOF)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
 	int seed = rand();
 	accept_env["RANDOM_SEED"] = seed;
 	connect_env["RANDOM_SEED"] = seed;
@@ -696,7 +689,6 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Recv_Symmetric)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
 	int seed = rand();
 	accept_env["RANDOM_SEED"] = seed;
 	connect_env["RANDOM_SEED"] = seed;
@@ -747,7 +739,6 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Recv_EOF)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
 	int seed = rand();
 	accept_env["RANDOM_SEED"] = seed;
 	connect_env["RANDOM_SEED"] = seed;
@@ -798,7 +789,6 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Recv_SmallBuffer1)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
 	int seed = rand();
 	accept_env["RANDOM_SEED"] = seed;
 	connect_env["RANDOM_SEED"] = seed;
@@ -849,7 +839,6 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Recv_SmallBuffer2)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
-	printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
 	int seed = rand();
 	accept_env["RANDOM_SEED"] = seed;
 	connect_env["RANDOM_SEED"] = seed;
