@@ -95,11 +95,6 @@ Real ExpDistribution::nextDistribution(Real min, Real max)
 	return std::min(min + (-log(dist(engine)) / lambda), max);
 }
 
-LinearDistribution::LinearDistribution() : RandomDistribution()
-{
-
-}
-
 Real LinearDistribution::nextDistribution(Real min, Real max)
 {
 	std::uniform_real_distribution<Real> dist(0, 1);

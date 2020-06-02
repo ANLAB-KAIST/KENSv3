@@ -60,7 +60,6 @@ public:
 class LinearDistribution : public RandomDistribution
 {
 public:
-	LinearDistribution();
 	virtual Real nextDistribution(Real min, Real max);
 };
 
