@@ -44,6 +44,11 @@ protected:
 
 	virtual void SetUp()
 	{
+		if(getenv("RANDOM_SEED") == NULL)
+			setenv("RANDOM_SEED", std::to_string(time(0)).c_str(), true);
+		printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED");
+		srand(atoi(getenv("RANDOM_SEED")));
+
 		host1 = new Host("TestHost1", 2, &netSystem);
 		host2 = new Host("TestHost2", 2, &netSystem);
 
@@ -88,7 +93,6 @@ protected:
 		switchingHub->addMACEntry(host1->getPort(1), mac1_2);
 		switchingHub->addMACEntry(host2->getPort(0), mac2);
 		switchingHub->addMACEntry(host2->getPort(1), mac2_2);
-
 
 		ethernet1 = new Ethernet(host1);
 		ethernet2 = new Ethernet(host2);
@@ -148,6 +152,11 @@ protected:
 
 	virtual void SetUp()
 	{
+		if(getenv("RANDOM_SEED") == NULL)
+			setenv("RANDOM_SEED", std::to_string(time(0)).c_str(), true);
+		printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED");
+		srand(atoi(getenv("RANDOM_SEED")));
+
 		host1 = new Host("TestHost1", 2, &netSystem);
 		host2 = new Host("TestHost2", 2, &netSystem);
 
@@ -262,6 +271,11 @@ protected:
 
 	virtual void SetUp()
 	{
+		if(getenv("RANDOM_SEED") == NULL)
+			setenv("RANDOM_SEED", std::to_string(time(0)).c_str(), true);
+		printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED");
+		srand(atoi(getenv("RANDOM_SEED")));
+
 		prev_log = NetworkLog::defaultLevel;
 		NetworkLog::defaultLevel |= (
 				//(1 << NetworkLog::SYSCALL_RAISED) |

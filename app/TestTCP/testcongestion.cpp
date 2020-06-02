@@ -177,7 +177,6 @@ protected:
 protected:
 	void E_Main()
 	{
-
 		long connect_time = atol(env["CONNECT_TIME"].c_str());
 		usleep(connect_time);
 
@@ -286,6 +285,10 @@ TEST_F(TestEnv_Congestion0, TestCongestion0)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
+	int seed = rand();
+	accept_env["RANDOM_SEED"] = seed;
+	connect_env["RANDOM_SEED"] = seed;
+
 	uint8_t server_ip[4];
 	server_host->getIPAddr(server_ip, 0);
 
@@ -304,7 +307,6 @@ TEST_F(TestEnv_Congestion0, TestCongestion0)
 		Time start_time = TimeUtil::makeTime(1,TimeUtil::SEC);
 		start_time += TimeUtil::makeTime(0,TimeUtil::SEC);
 
-		accept_env["RANDOM_SEED"] = "104729";
 		accept_env["LISTEN_ADDR"] = "0.0.0.0";
 		accept_env["LISTEN_PORT"] = connect_port;
 		accept_env["BACKLOG"] = "1";
@@ -312,7 +314,6 @@ TEST_F(TestEnv_Congestion0, TestCongestion0)
 		accept_env["ACCEPT_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(1000,TimeUtil::USEC), TimeUtil::USEC);
 		accept_env["START_TIME"] = TimeUtil::printTime(start_time, TimeUtil::USEC);
 
-		connect_env["RANDOM_SEED"] = "104729";
 		connect_env["CONNECT_PORT"] = connect_port;
 		connect_env["CONNECT_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(2000,TimeUtil::USEC), TimeUtil::USEC);
 		connect_env["START_TIME"] = TimeUtil::printTime(start_time, TimeUtil::USEC);
@@ -352,6 +353,10 @@ TEST_F(TestEnv_Congestion1, TestCongestion1)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
+	int seed = rand();
+	accept_env["RANDOM_SEED"] = seed;
+	connect_env["RANDOM_SEED"] = seed;
+
 	uint8_t server_ip[4];
 	server_host->getIPAddr(server_ip, 0);
 
@@ -370,7 +375,6 @@ TEST_F(TestEnv_Congestion1, TestCongestion1)
 		Time start_time = TimeUtil::makeTime(1,TimeUtil::SEC);
 		start_time += TimeUtil::makeTime(0,TimeUtil::SEC);
 
-		accept_env["RANDOM_SEED"] = "104729";
 		accept_env["LISTEN_ADDR"] = "0.0.0.0";
 		accept_env["LISTEN_PORT"] = connect_port;
 		accept_env["BACKLOG"] = "1";
@@ -378,7 +382,6 @@ TEST_F(TestEnv_Congestion1, TestCongestion1)
 		accept_env["ACCEPT_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(1000,TimeUtil::USEC), TimeUtil::USEC);
 		accept_env["START_TIME"] = TimeUtil::printTime(start_time, TimeUtil::USEC);
 
-		connect_env["RANDOM_SEED"] = "104729";
 		connect_env["CONNECT_PORT"] = connect_port;
 		connect_env["CONNECT_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(2000,TimeUtil::USEC), TimeUtil::USEC);
 		connect_env["START_TIME"] = TimeUtil::printTime(start_time, TimeUtil::USEC);
@@ -418,6 +421,10 @@ TEST_F(TestEnv_Congestion2, TestCongestion2)
 	std::unordered_map<std::string, std::string> accept_env;
 	std::unordered_map<std::string, std::string> connect_env;
 
+	int seed = rand();
+	accept_env["RANDOM_SEED"] = seed;
+	connect_env["RANDOM_SEED"] = seed;
+
 	uint8_t server_ip[4];
 	server_host->getIPAddr(server_ip, 0);
 
@@ -436,7 +443,6 @@ TEST_F(TestEnv_Congestion2, TestCongestion2)
 		Time start_time = TimeUtil::makeTime(1,TimeUtil::SEC);
 		start_time += TimeUtil::makeTime(0,TimeUtil::SEC);
 
-		accept_env["RANDOM_SEED"] = "104729";
 		accept_env["LISTEN_ADDR"] = "0.0.0.0";
 		accept_env["LISTEN_PORT"] = connect_port;
 		accept_env["BACKLOG"] = "1";
@@ -444,7 +450,6 @@ TEST_F(TestEnv_Congestion2, TestCongestion2)
 		accept_env["ACCEPT_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(1000,TimeUtil::USEC), TimeUtil::USEC);
 		accept_env["START_TIME"] = TimeUtil::printTime(start_time, TimeUtil::USEC);
 
-		connect_env["RANDOM_SEED"] = "104729";
 		connect_env["CONNECT_PORT"] = connect_port;
 		connect_env["CONNECT_TIME"] = TimeUtil::printTime(TimeUtil::makeTime(2000,TimeUtil::USEC), TimeUtil::USEC);
 		connect_env["START_TIME"] = TimeUtil::printTime(start_time, TimeUtil::USEC);

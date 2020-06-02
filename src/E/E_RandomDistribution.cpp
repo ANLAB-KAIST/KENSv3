@@ -12,7 +12,7 @@
 namespace E
 {
 
-RandomDistribution::RandomDistribution() : engine(time(0))
+RandomDistribution::RandomDistribution() : engine(rand())
 {
 
 }
@@ -54,6 +54,7 @@ UniformDistribution::UniformDistribution() : RandomDistribution()
 {
 
 }
+
 UniformDistribution::UniformDistribution(UUID seed) : RandomDistribution(seed)
 {
 

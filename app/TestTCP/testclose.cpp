@@ -105,7 +105,6 @@ protected:
 protected:
 	void E_Main()
 	{
-
 		long connect_time = atol(env["CONNECT_TIME"].c_str());
 		usleep(connect_time);
 
