@@ -9,6 +9,7 @@ on:
 
 env:
   IMAGE_ID: ghcr.io/anlab-kaist/kens
+  IMAGE_NAME: kens  
 
 jobs:
   push:
@@ -20,7 +21,7 @@ jobs:
 
       - name: Build image
         run: |
-          docker build . --file Dockerfile --tag $IMAGE_ID
+          docker build . --file Dockerfile --tag $IMAGE_NAME
 
       - name: Log into GitHub Container Registry
         run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ secrets.CR_NAME }} --password-stdin
