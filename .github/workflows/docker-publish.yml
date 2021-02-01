@@ -6,7 +6,7 @@ on:
       - master
 
 env:
-  IMAGE_ID: ghcr.io/${{ github.repository_owner }}/kens
+  IMAGE_ID: ghcr.io/anlab-kaist/kens
 
 jobs:
   push:
