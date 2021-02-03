@@ -18,7 +18,7 @@ if ! [ "$(ls -A /workspace/)" ]; then
 fi
 
 function grade() {
-    echo "Grading part $1"
+    echo "Grading part $*"
     tmp_src=$(mktemp -d)
 
     cp -r /init/* "$tmp_src"
@@ -29,11 +29,14 @@ function grade() {
 
     cd "$tmp_src" || exit 1
     make -j
-    ./build/testTCP --gtest_filter=${kens_tests[$1]}
+
+    for part in "$@"; do
+        ./build/testTCP --gtest_filter=${kens_tests[$part]}
+    done
 }
 
 case "$1" in
 "dev") bash ;;
-"grade") grade $2 ;;
+"grade") grade ${*:2} ;;
 *) echo "please specify dev/grade" ;;
 esac
