@@ -38,7 +38,7 @@ endforeach()
 
 include(FetchContent)
 function(get_solution)
-  set(SOLUTION_REPO "https://an.kaist.ac.kr/kens")
+  set(SOLUTION_REPO "https://anlab-kaist.github.io/KENSv3/solution")
   foreach(arg IN LISTS ARGN)
     if(NOT TARGET ${arg}_solution)
 
