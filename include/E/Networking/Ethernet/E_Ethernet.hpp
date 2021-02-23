@@ -8,21 +8,20 @@
 #ifndef E_ETHERNET_HPP_
 #define E_ETHERNET_HPP_
 
-#include <E/Networking/E_Networking.hpp>
 #include <E/Networking/E_Host.hpp>
+#include <E/Networking/E_Networking.hpp>
 
-namespace E
-{
+namespace E {
 
-class Ethernet : public HostModule, public NetworkModule, private NetworkLog
-{
+class Ethernet : public HostModule, public NetworkModule, private NetworkLog {
 public:
-	Ethernet(Host* host);
-	virtual ~Ethernet();
+  Ethernet(Host *host);
+  virtual ~Ethernet();
+
 protected:
-	virtual void packetArrived(std::string fromModule, Packet* packet) final;
+  virtual void packetArrived(std::string fromModule, Packet &&packet) final;
 };
 
-}
+} // namespace E
 
 #endif /* E_ETHERNET_HPP_ */

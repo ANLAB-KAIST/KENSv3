@@ -1,15 +1,8 @@
 #!/usr/bin/env bash
 
 declare -A submission_files=(
-    ["TCPAssignment.cpp"]="app/TestTCP/TCPAssignment.cpp"
-    ["TCPAssignment.hpp"]="app/TestTCP/TCPAssignment.hpp"
-)
-
-declare -A kens_tests=(
-    ["1"]="TestEnv_Reliable.TestOpen:TestEnv_Reliable.TestBind_*"
-    ["2"]="TestEnv_Reliable.TestAccept_*:TestEnv_Any.TestAccept_*:TestEnv_Any.TestConnect_*:TestEnv_Any.TestClose_*"
-    ["3"]="TestEnv_Any.TestTransfer_*"
-    ["4"]="TestEnv_Congestion*"
+    ["TCPAssignment.cpp"]="app/kens/TCPAssignment.cpp"
+    ["TCPAssignment.hpp"]="app/kens/TCPAssignment.hpp"
 )
 
 if ! [ "$(ls -A /workspace/)" ]; then
@@ -27,11 +20,13 @@ function grade() {
         cp "/submission/$f" "$tmp_src/${submission_files[$f]}"
     done
 
-    cd "$tmp_src" || exit 1
-    make -j
+    tmp_build=$(mktemp -d)
+    cd "$tmp_build" || exit 1
+    cmake -G Ninja "$tmp_src"
+    cmake --build .
 
     for part in "$@"; do
-        ./build/testTCP --gtest_filter=${kens_tests[$part]}
+        "./app/kens/kens-part$part"
     done
 }
 

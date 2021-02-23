@@ -5,53 +5,42 @@
  *      Author: Keunhong Lee
  */
 
-
 #include <E/E_Module.hpp>
 #include <E/E_TimerModule.hpp>
 
-namespace E
-{
+namespace E {
 
-TimerModule::TimerModule(System* system) : Module(system)
-{
+TimerModule::TimerModule(System *system) : Module(system) {}
+TimerModule::~TimerModule() {}
 
+Module::Message *TimerModule::messageReceived(Module *from,
+                                              Module::Message *message) {
+  (void)from;
+  Message *timerMessage = dynamic_cast<Message *>(message);
+  assert(timerMessage != nullptr);
+
+  this->timerCallback(timerMessage->payload);
+
+  return nullptr;
 }
-TimerModule::~TimerModule()
-{
-
+void TimerModule::messageFinished(Module *to, Module::Message *message,
+                                  Module::Message *response) {
+  (void)to;
+  (void)response;
+  delete message;
 }
-
-Module::Message* TimerModule::messageReceived(Module* from, Module::Message* message)
-{
-	Message* timerMessage = dynamic_cast<Message*>(message);
-	assert(timerMessage != nullptr);
-
-	this->timerCallback(timerMessage->payload);
-
-	return nullptr;
-}
-void TimerModule::messageFinished(Module* to, Module::Message* message, Module::Message* response)
-{
-	delete message;
-}
-void TimerModule::messageCancelled(Module* to, Module::Message* message)
-{
-	delete message;
+void TimerModule::messageCancelled(Module *to, Module::Message *message) {
+  (void)to;
+  delete message;
 }
 
+UUID TimerModule::addTimer(void *payload, Time timeAfter) {
+  Message *timerMessage = new Message;
+  timerMessage->payload = payload;
 
-UUID TimerModule::addTimer(void* payload, Time timeAfter)
-{
-	Message* timerMessage = new Message;
-	timerMessage->payload = payload;
-
-	return this->sendMessage(this, timerMessage, timeAfter);
+  return this->sendMessage(this, timerMessage, timeAfter);
 }
 
-void TimerModule::cancelTimer(UUID key)
-{
-	this->cancelMessage(key);
-}
+void TimerModule::cancelTimer(UUID key) { this->cancelMessage(key); }
 
-}
-
+} // namespace E

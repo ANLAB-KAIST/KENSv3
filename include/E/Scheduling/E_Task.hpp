@@ -8,80 +8,77 @@
 #ifndef E_TASK_HPP_
 #define E_TASK_HPP_
 
-
 #include <E/E_Common.hpp>
 #include <E/E_Module.hpp>
 #include <E/Scheduling/E_Job.hpp>
 
-namespace E
-{
+namespace E {
 class Computer;
 
-class Task
-{
+class Task {
 public:
-	Task(){}
-	virtual ~Task() {};
+  Task() {}
+  virtual ~Task(){};
 };
 
-class PeriodicTask : public Module, public Task
-{
+class PeriodicTask : public Module, public Task {
 private:
-	Time period;
-	Time executionTime;
-	Computer* computer;
+  Time period;
+  Time executionTime;
+  Computer *computer;
 
-	virtual Module::Message* messageReceived(Module* from, Module::Message* message) final;
-	virtual void messageFinished(Module* to, Module::Message* message, Module::Message* response) final;
-	virtual void messageCancelled(Module* to, Module::Message* message) final;
+  virtual Module::Message *messageReceived(Module *from,
+                                           Module::Message *message) final;
+  virtual void messageFinished(Module *to, Module::Message *message,
+                               Module::Message *response) final;
+  virtual void messageCancelled(Module *to, Module::Message *message) final;
 
 public:
-	PeriodicTask(Computer* computer, Time period, Time executionTime, Time startOffset);
-	virtual ~PeriodicTask();
+  PeriodicTask(Computer *computer, Time period, Time executionTime,
+               Time startOffset);
+  virtual ~PeriodicTask();
 
-	enum MessageType
-	{
-		TIMER,
-	};
-	class Message : public Module::Message
-	{
-	public:
-		enum MessageType type;
-	};
+  enum MessageType {
+    TIMER,
+  };
+  class Message : public Module::Message {
+  public:
+    enum MessageType type;
+  };
 };
 
-class SporadicTask : public Module, public Task
-{
+class SporadicTask : public Module, public Task {
 protected:
-	Time minPeriod;
-	Time worstExecution;
-	Time startOffset;
+  Time minPeriod;
+  Time worstExecution;
+  Time startOffset;
 
-	Computer* computer;
+  Computer *computer;
 
 private:
-	virtual Module::Message* messageReceived(Module* from, Module::Message* message) final;
-	virtual void messageFinished(Module* to, Module::Message* message, Module::Message* response) final;
-	virtual void messageCancelled(Module* to, Module::Message* message) final;
+  virtual Module::Message *messageReceived(Module *from,
+                                           Module::Message *message) final;
+  virtual void messageFinished(Module *to, Module::Message *message,
+                               Module::Message *response) final;
+  virtual void messageCancelled(Module *to, Module::Message *message) final;
 
 public:
-	SporadicTask(Computer* computer, Time period, Time executionTime, Time startOffset);
-	virtual ~SporadicTask();
+  SporadicTask(Computer *computer, Time period, Time executionTime,
+               Time startOffset);
+  virtual ~SporadicTask();
 
-	enum MessageType
-	{
-		TIMER,
-	};
-	class Message : public Module::Message
-	{
-	public:
-		enum MessageType type;
-	};
+  enum MessageType {
+    TIMER,
+  };
+  class Message : public Module::Message {
+  public:
+    enum MessageType type;
+  };
 
-	Time getMinPeriod();
-	Time getWorstExecution();
+  Time getMinPeriod();
+  Time getWorstExecution();
 };
 
-}
+} // namespace E
 
 #endif /* E_TASK_HPP_ */

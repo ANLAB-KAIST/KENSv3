@@ -9,26 +9,14 @@
 #include <E/Scheduling/E_Job.hpp>
 #include <E/Scheduling/E_Scheduler.hpp>
 
-namespace E
-{
+namespace E {
 
+Scheduler::Scheduler() { this->computer = nullptr; }
+Scheduler::~Scheduler() {}
 
-Scheduler::Scheduler()
-{
-	this->computer = nullptr;
+void Scheduler::setTimer(Time time, void *arg) {
+  this->computer->setTimer(time, arg);
 }
-Scheduler::~Scheduler()
-{
+void Scheduler::cancelTimer() { this->computer->cancelTimer(); }
 
-}
-
-void Scheduler::setTimer(Time time, void* arg)
-{
-	this->computer->setTimer(time, arg);
-}
-void Scheduler::cancelTimer()
-{
-	this->computer->cancelTimer();
-}
-
-}
+} // namespace E

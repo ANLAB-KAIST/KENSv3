@@ -10,63 +10,34 @@
 #include <E/Scheduling/E_Job.hpp>
 #include <E/Scheduling/E_Processor.hpp>
 
-namespace E
-{
+namespace E {
 
-
-
-Job::Job(Time raisedAt, Time executionTime, Time deadLine, Task* task)
-{
-	this->raisedAt = raisedAt;
-	this->executionTime = executionTime;
-	this->deadLine = deadLine;
-	this->remaining = this->executionTime;
-	this->task = task;
-	this->isChecking = false;
-	this->checkMessage = 0;
-	this->processor = nullptr;
+Job::Job(Time raisedAt, Time executionTime, Time deadLine, Task *task) {
+  this->raisedAt = raisedAt;
+  this->executionTime = executionTime;
+  this->deadLine = deadLine;
+  this->remaining = this->executionTime;
+  this->task = task;
+  this->isChecking = false;
+  this->checkMessage = 0;
+  this->processor = nullptr;
 }
-Job::~Job()
-{
+Job::~Job() {}
 
-}
-
-void Job::execute(Time run)
-{
-	if(run > remaining)
-		assert(run <= remaining);
-	this->remaining -= run;
+void Job::execute(Time run) {
+  if (run > remaining)
+    assert(run <= remaining);
+  this->remaining -= run;
 }
 
-bool Job::isDone() const
-{
-	return this->remaining == 0;
-}
+bool Job::isDone() const { return this->remaining == 0; }
 
-Time Job::getRaisedTime() const
-{
-	return this->raisedAt;
-}
+Time Job::getRaisedTime() const { return this->raisedAt; }
 
-Time Job::getDeadLine() const
-{
-	return this->deadLine;
-}
-Time Job::getExecutionTime() const
-{
-	return this->executionTime;
-}
-Time Job::getRemaining() const
-{
-	return this->remaining;
-}
+Time Job::getDeadLine() const { return this->deadLine; }
+Time Job::getExecutionTime() const { return this->executionTime; }
+Time Job::getRemaining() const { return this->remaining; }
 
-Task* Job::getTask() const
-{
-	return this->task;
-}
+Task *Job::getTask() const { return this->task; }
 
-
-}
-
-
+} // namespace E

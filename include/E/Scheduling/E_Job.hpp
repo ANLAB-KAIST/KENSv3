@@ -11,43 +11,41 @@
 #include <E/E_Common.hpp>
 #include <E/Scheduling/E_Computer.hpp>
 
-namespace E
-{
+namespace E {
 
 class Task;
 class Processor;
 class Computer;
 
-class Job
-{
+class Job {
 private:
-	Time raisedAt;
-	Time executionTime;
-	Time deadLine;
-	Time remaining;
-	Task* task;
-	UUID checkMessage;
-	bool isChecking;
-	Processor* processor;
+  Time raisedAt;
+  Time executionTime;
+  Time deadLine;
+  Time remaining;
+  Task *task;
+  UUID checkMessage;
+  bool isChecking;
+  Processor *processor;
 
-	Job(Time raisedAt, Time executionTime, Time deadLine, Task* task);
-	virtual ~Job();
+  Job(Time raisedAt, Time executionTime, Time deadLine, Task *task);
+  virtual ~Job();
 
-	friend Computer;
-	friend Processor;
+  friend Computer;
+  friend Processor;
+
 public:
-	bool isDone() const;
+  bool isDone() const;
 
-	void execute(Time run);
+  void execute(Time run);
 
-	Time getRaisedTime() const;
-	Time getDeadLine() const;
-	Time getExecutionTime() const;
-	Time getRemaining() const;
-	Task* getTask() const;
+  Time getRaisedTime() const;
+  Time getDeadLine() const;
+  Time getExecutionTime() const;
+  Time getRemaining() const;
+  Task *getTask() const;
 };
 
-}
-
+} // namespace E
 
 #endif /* E_JOB_HPP_ */

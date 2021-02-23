@@ -10,59 +10,55 @@
 
 #include <E/E_Common.hpp>
 
-namespace E
-{
+namespace E {
 
-class RandomDistribution
-{
+class RandomDistribution {
 private:
-	static UUID offset;
+  static UUID offset;
+
 protected:
-	std::default_random_engine engine;
+  std::default_random_engine engine;
+
 public:
-	RandomDistribution();
-	RandomDistribution(UUID seed);
-	virtual ~RandomDistribution();
-	virtual Real nextDistribution(Real min, Real max) = 0;
-	virtual std::list<Real> distribute(Size count, Real total) final;
+  RandomDistribution();
+  RandomDistribution(UUID seed);
+  virtual ~RandomDistribution();
+  virtual Real nextDistribution(Real min, Real max) = 0;
+  virtual std::list<Real> distribute(Size count, Real total) final;
 };
 
-class UniformDistribution : public RandomDistribution
-{
+class UniformDistribution : public RandomDistribution {
 public:
-	UniformDistribution();
-	UniformDistribution(UUID seed);
-	virtual Real nextDistribution(Real min, Real max);
+  UniformDistribution();
+  UniformDistribution(UUID seed);
+  virtual Real nextDistribution(Real min, Real max);
 };
 
-class MinDistribution : public RandomDistribution
-{
+class MinDistribution : public RandomDistribution {
 public:
-	virtual Real nextDistribution(Real min, Real max);
+  virtual Real nextDistribution(Real min, Real max);
 };
 
-class MaxDistribution : public RandomDistribution
-{
+class MaxDistribution : public RandomDistribution {
 public:
-	virtual Real nextDistribution(Real min, Real max);
+  virtual Real nextDistribution(Real min, Real max);
 };
 
-class ExpDistribution : public RandomDistribution
-{
+class ExpDistribution : public RandomDistribution {
 private:
-	Real averageLocation;
+  Real averageLocation;
+
 public:
-	ExpDistribution(UUID seed, Real average = (Real)0.5);
-	ExpDistribution(Real average = (Real)0.5);
-	virtual Real nextDistribution(Real min, Real max);
+  ExpDistribution(UUID seed, Real average = (Real)0.5);
+  ExpDistribution(Real average = (Real)0.5);
+  virtual Real nextDistribution(Real min, Real max);
 };
 
-class LinearDistribution : public RandomDistribution
-{
+class LinearDistribution : public RandomDistribution {
 public:
-	virtual Real nextDistribution(Real min, Real max);
+  virtual Real nextDistribution(Real min, Real max);
 };
 
-}
+} // namespace E
 
 #endif /* E_RANDOMDISTRIBUTION_HPP_ */

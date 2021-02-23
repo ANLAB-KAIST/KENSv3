@@ -5,101 +5,90 @@
  *      Author: leeopop
  */
 
-#include <E/Networking/E_Switch.hpp>
-#include <E/Networking/E_Port.hpp>
-#include <E/Networking/E_Packet.hpp>
 #include <E/Networking/E_NetworkUtil.hpp>
+#include <E/Networking/E_Packet.hpp>
+#include <E/Networking/E_Port.hpp>
+#include <E/Networking/E_Switch.hpp>
 
-namespace E
-{
+namespace E {
 
-Switch::Switch(std::string name, NetworkSystem* system, bool unreliable) : Link(name, system)
-{
-	this->unreliable = unreliable;
-	this->drop_base = 1.0;
-	this->drop_base_diff = 0.1;
-	this->drop_base_limit = 0.15;
-	this->drop_base_final = 0.01;
+Switch::Switch(std::string name, NetworkSystem *system, bool unreliable)
+    : Link(name, system) {
+  this->unreliable = unreliable;
+  this->drop_base = 1.0;
+  this->drop_base_diff = 0.1;
+  this->drop_base_limit = 0.15;
+  this->drop_base_final = 0.01;
 }
 
-void Switch::addMACEntry(Port* toPort, uint8_t* mac)
-{
-	uint64_t mac_int =  NetworkUtil::arrayToUINT64(mac, 6);
-	if(this->mac_table.find(toPort) == this->mac_table.end())
-		this->mac_table[toPort] = std::unordered_set<uint64_t>();
-	this->mac_table[toPort].insert(mac_int);
+void Switch::addMACEntry(Port *toPort, uint8_t *mac) {
+  uint64_t mac_int = NetworkUtil::arrayToUINT64(mac, 6);
+  if (this->mac_table.find(toPort) == this->mac_table.end())
+    this->mac_table[toPort] = std::unordered_set<uint64_t>();
+  this->mac_table[toPort].insert(mac_int);
 }
 
-void Switch::packetArrived(Port* inPort, Packet* packet)
-{
-	uint8_t mac[6];
-	uint8_t broadcast[6] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
-	bool found = false;
-	packet->readData(0,mac,6);
-	uint64_t broad_int = NetworkUtil::arrayToUINT64(broadcast, 6);
-	uint64_t mac_int = NetworkUtil::arrayToUINT64(mac, 6);
-	for(Port* port : this->connectedPorts)
-	{
-		if(inPort != port)
-		{
-			if( (mac_int == broad_int) || ( (this->mac_table.find(port) != this->mac_table.end()) &&
-					(this->mac_table[port].find(mac_int) != this->mac_table[port].end())) )
-			{
-				found = true;
-				bool drop = false;
-				if(this->unreliable) {
-					Real val = this->dist.nextDistribution(0.0, 1.0);
-					if(this->drop_base < this->drop_base_limit)
-						this->drop_base = this->drop_base_final;
-					else
-						this->drop_base -= this->drop_base_diff;
+void Switch::packetArrived(Port *inPort, Packet &&packet) {
+  uint8_t mac[6];
+  uint8_t broadcast[6] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+  bool found = false;
+  packet.readData(0, mac, 6);
+  uint64_t broad_int = NetworkUtil::arrayToUINT64(broadcast, 6);
+  uint64_t mac_int = NetworkUtil::arrayToUINT64(mac, 6);
+  for (Port *port : this->connectedPorts) {
+    if (inPort != port) {
+      if ((mac_int == broad_int) ||
+          ((this->mac_table.find(port) != this->mac_table.end()) &&
+           (this->mac_table[port].find(mac_int) !=
+            this->mac_table[port].end()))) {
+        found = true;
+        bool drop = false;
+        if (this->unreliable) {
+          Real val = this->dist.nextDistribution(0.0, 1.0);
+          if (this->drop_base < this->drop_base_limit)
+            this->drop_base = this->drop_base_final;
+          else
+            this->drop_base -= this->drop_base_diff;
 
-					if(val < this->drop_base)
-						drop = true;
-				}
-				Packet* newPacket = this->clonePacket(packet);
-				if(drop)
-				{
-					if(newPacket->getSize() >= (14+20+20+4)) {
-						uint32_t data;
-						newPacket->readData(14+20+20, &data, sizeof(data));
+          if (val < this->drop_base)
+            drop = true;
+        }
+        Packet newPacket = packet.clone();
+        if (drop) {
+          if (newPacket.getSize() >= (14 + 20 + 20 + 4)) {
+            uint32_t data;
+            newPacket.readData(14 + 20 + 20, &data, sizeof(data));
 
-						if(data != 0xEEEEEEEE)
-							data = 0xEEEEEEEE;
-						else
-							data = 0xEEEEEEEF;
+            if (data != 0xEEEEEEEE)
+              data = 0xEEEEEEEE;
+            else
+              data = 0xEEEEEEEF;
 
-						newPacket->writeData(14+20+20, &data, sizeof(data));
-					}
-					else if(newPacket->getSize() >= (14+20+20)) {
-						uint16_t checksum;
-						newPacket->readData(14+20+16, &checksum, sizeof(checksum));
+            newPacket.writeData(14 + 20 + 20, &data, sizeof(data));
+          } else if (newPacket.getSize() >= (14 + 20 + 20)) {
+            uint16_t checksum;
+            newPacket.readData(14 + 20 + 16, &checksum, sizeof(checksum));
 
-						if(checksum != 0xEEEE)
-							checksum = 0xEEEE;
-						else
-							checksum = 0xEEEF;
+            if (checksum != 0xEEEE)
+              checksum = 0xEEEE;
+            else
+              checksum = 0xEEEF;
 
-						newPacket->writeData(14+20+16, &checksum, sizeof(checksum));
-					}
-				}
-				this->sendPacket(port, newPacket);
-			}
-		}
-	}
-	if(!found)
-	{
-		for(Port* port : this->connectedPorts)
-		{
-			if(inPort != port)
-			{
-				Packet* newPacket = this->clonePacket(packet);
-				this->sendPacket(port, newPacket);
-			}
-		}
-	}
-	this->freePacket(packet);
+            newPacket.writeData(14 + 20 + 16, &checksum, sizeof(checksum));
+          }
+        }
+        this->sendPacket(port, std::move(newPacket));
+      }
+    }
+  }
+  if (!found) {
+    for (Port *port : this->connectedPorts) {
+      if (inPort != port) {
+        Packet newPacket = packet.clone();
+        this->sendPacket(port, std::move(newPacket));
+      }
+    }
+  }
 }
 
-
-}
+} // namespace E

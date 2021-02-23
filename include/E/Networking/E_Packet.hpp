@@ -8,13 +8,10 @@
 #ifndef E_PACKET_HPP_
 #define E_PACKET_HPP_
 
-
 #include <E/E_Common.hpp>
 #include <E/E_Module.hpp>
 
-
-namespace E
-{
+namespace E {
 class NetworkSystem;
 
 /**
@@ -25,53 +22,62 @@ class NetworkSystem;
  *
  * @see NetworkModule
  */
-class Packet : public Module::Message
-{
+class Packet : public Module::Message {
 private:
-	Packet(UUID uuid, size_t maxSize);
-	~Packet();
-	void* buffer;
-	size_t bufferSize;
-	size_t dataSize;
+  Packet(UUID uuid, size_t maxSize);
+  std::unique_ptr<char[]> buffer;
+  const size_t bufferSize;
+  size_t dataSize;
 
-	UUID packetID;
+  const UUID packetID;
+
+  static std::unordered_set<UUID> packetUUIDSet;
+  static UUID packetUUIDStart;
+  static UUID allocatePacketUUID();
+  static void freePacketUUID(UUID uuid);
+
 public:
-	/**
-	 * @param offset Start write skipping first n bytes of the given buffer.
-	 * @param data Data to be written in this packet.
-	 * @param length Length of data to be written.
-	 * @return Actual written bytes. If length + offset is
-	 * larger than the internal buffer size, some data may be truncated.
-	 */
-	size_t writeData(size_t offset, const void* data, size_t length);
+  Packet(const Packet &other);
+  Packet(Packet &&other) noexcept;
+  Packet(size_t maxSize);
+  ~Packet();
+  Packet clone() const;
 
-	/**
-	 * @param offset Start read skipping first n bytes of the internal buffer.
-	 * @param data Destination of the packet content.
-	 * @param length Length of data to be retrieved.
-	 * @return Actual retrieved bytes.
-	 */
-	size_t readData(size_t offset, void* data, size_t length);
+  /**
+   * @param offset Start write skipping first n bytes of the given buffer.
+   * @param data Data to be written in this packet.
+   * @param length Length of data to be written.
+   * @return Actual written bytes. If length + offset is
+   * larger than the internal buffer size, some data may be truncated.
+   */
+  size_t writeData(size_t offset, const void *data, size_t length);
 
-	/**
-	 * @brief Change the size of this Packet
-	 * The size cannot be larger than the internal buffer.
-	 * @param size New size.
-	 * @return Actual changed size.
-	 */
-	size_t setSize(size_t size);
+  /**
+   * @param offset Start read skipping first n bytes of the internal buffer.
+   * @param data Destination of the packet content.
+   * @param length Length of data to be retrieved.
+   * @return Actual retrieved bytes.
+   */
+  size_t readData(size_t offset, void *data, size_t length) const;
 
-	/**
-	 * @return Current packet size.
-	 */
-	size_t getSize();
+  /**
+   * @brief Change the size of this Packet
+   * The size cannot be larger than the internal buffer.
+   * @param size New size.
+   * @return Actual changed size.
+   */
+  size_t setSize(size_t size);
 
-	void clearContext();
+  /**
+   * @return Current packet size.
+   */
+  size_t getSize() const;
 
-	friend class NetworkSystem;
+  void clearContext();
+
+  friend class NetworkSystem;
 };
 
-}
-
+} // namespace E
 
 #endif /* E_PACKET_HPP_ */

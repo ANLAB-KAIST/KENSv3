@@ -8,63 +8,85 @@
 #include <E/E_Common.hpp>
 #include <E/Networking/E_Packet.hpp>
 
-namespace E
-{
+namespace E {
 
+std::unordered_set<UUID> Packet::packetUUIDSet;
+UUID Packet::packetUUIDStart = 0;
+UUID Packet::allocatePacketUUID() {
+  UUID candidate = packetUUIDStart;
+  do {
+    if (packetUUIDSet.find(candidate) == packetUUIDSet.end()) {
+      packetUUIDStart = candidate + 1;
+      packetUUIDSet.insert(candidate);
+      return candidate;
+    }
+    candidate++;
+  } while (candidate != packetUUIDStart);
+  assert(0);
+  return 0;
+}
+void Packet::freePacketUUID(UUID uuid) { packetUUIDSet.erase(uuid); }
 
 Packet::Packet(UUID uuid, size_t maxSize)
-{
-	this->packetID = uuid;
-	this->bufferSize = maxSize;
-	this->dataSize = maxSize;
+    : buffer(new char[maxSize]), bufferSize(maxSize), dataSize(maxSize),
+      packetID(uuid) {
 
-	this->buffer = malloc(maxSize);
-	memset(this->buffer, 0, maxSize);
-}
-Packet::~Packet()
-{
-	assert(this->buffer);
-	free(this->buffer);
-	this->buffer = nullptr;
-}
-size_t Packet::writeData(size_t offset, const void* data, size_t length)
-{
-	size_t actual_offset = std::min(offset, dataSize);
-	size_t actual_write = std::min(length, dataSize - actual_offset);
-
-	if(actual_write == 0)
-		return 0;
-
-	assert(data);
-	memcpy((char*)this->buffer + actual_offset, data, length);
-	return actual_write;
-}
-size_t Packet::readData(size_t offset, void* data, size_t length)
-{
-	size_t actual_offset = std::min(offset, dataSize);
-	size_t actual_read = std::min(length, dataSize - actual_offset);
-
-	if(actual_read == 0)
-		return 0;
-
-	assert(data);
-	memcpy(data, (char*)this->buffer + actual_offset, length);
-	return actual_read;
-
-}
-size_t Packet::setSize(size_t size)
-{
-	this->dataSize = std::min(size, this->bufferSize);
-	return this->dataSize;
-}
-size_t Packet::getSize()
-{
-	return this->dataSize;
+  memset(this->buffer.get(), 0, this->bufferSize);
 }
 
-void Packet::clearContext()
-{
-
+Packet::Packet(const Packet &other)
+    : buffer(new char[other.bufferSize]), bufferSize(other.bufferSize),
+      dataSize(other.dataSize), packetID(other.packetID) {
+  memcpy(this->buffer.get(), other.buffer.get(), this->bufferSize);
 }
 
+Packet::Packet(Packet &&other) noexcept
+    : buffer(std::move(other.buffer)), bufferSize(other.bufferSize),
+      dataSize(other.dataSize), packetID(other.packetID) {
+  other.dataSize = 0;
 }
+
+Packet::Packet(size_t maxSize) : Packet(allocatePacketUUID(), maxSize) {}
+
+Packet::~Packet() { freePacketUUID(this->packetID); }
+
+Packet Packet::clone() const {
+
+  Packet pkt(this->bufferSize);
+  pkt.setSize(this->dataSize);
+  memcpy(pkt.buffer.get(), this->buffer.get(), this->bufferSize);
+
+  return pkt;
+}
+
+size_t Packet::writeData(size_t offset, const void *data, size_t length) {
+  size_t actual_offset = std::min(offset, dataSize);
+  size_t actual_write = std::min(length, dataSize - actual_offset);
+
+  if (actual_write == 0)
+    return 0;
+
+  assert(data);
+  memcpy(this->buffer.get() + actual_offset, data, length);
+  return actual_write;
+}
+size_t Packet::readData(size_t offset, void *data, size_t length) const {
+  size_t actual_offset = std::min(offset, dataSize);
+  size_t actual_read = std::min(length, dataSize - actual_offset);
+
+  if (actual_read == 0)
+    return 0;
+
+  assert(data);
+  memcpy(data, buffer.get() + actual_offset, length);
+  return actual_read;
+}
+size_t Packet::setSize(size_t size) {
+  this->dataSize = std::min(size, this->bufferSize);
+  return this->dataSize;
+}
+size_t Packet::getSize() const { return this->dataSize; }
+
+void Packet::clearContext() {}
+
+} // namespace E
