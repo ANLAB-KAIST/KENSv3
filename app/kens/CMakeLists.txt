@@ -16,7 +16,7 @@ endif()
 
 # Build KENS
 
-set(kens_SOURCES TCPAssignment.cpp)
+set(kens_SOURCES TCPAssignment.cpp TCPAssignment.hpp testenv.hpp)
 
 add_library(kens ${kens_SOURCES})
 target_compile_options(kens PUBLIC -g -O0 -Wall)

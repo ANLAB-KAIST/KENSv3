@@ -5,8 +5,9 @@ project(e VERSION 3.1)
 set(CMAKE_CXX_STANDARD 11)
 # Build E
 file(GLOB_RECURSE e_SOURCES "src/*.cpp")
+file(GLOB_RECURSE e_HEADERS "include/*.hpp")
 
-add_library(e STATIC ${e_SOURCES})
+add_library(e STATIC ${e_SOURCES} ${e_HEADERS})
 target_include_directories(e PUBLIC ${PROJECT_SOURCE_DIR}/include)
 target_compile_options(e PRIVATE -g -O0 -Wall)
 
