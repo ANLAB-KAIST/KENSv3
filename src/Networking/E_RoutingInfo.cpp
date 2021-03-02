@@ -12,60 +12,44 @@ namespace E {
 RoutingInfo::RoutingInfo() {}
 RoutingInfo::~RoutingInfo() {}
 
-void RoutingInfo::setIPAddr(const uint8_t *ip, int port) {
-  struct ip_entry entry;
-  memcpy(entry.ip, ip, sizeof(entry.ip));
-  entry.port = port;
-  this->ip_vector.push_back(entry);
+void RoutingInfo::setIPAddr(const ipv4_t &ip, int port) {
+  this->ip_vector.push_back({ip, port});
 }
-void RoutingInfo::setMACAddr(const uint8_t *mac, int port) {
-  struct mac_entry entry;
-  memcpy(entry.mac, mac, sizeof(entry.mac));
-  entry.port = port;
-  this->mac_vector.push_back(entry);
+void RoutingInfo::setMACAddr(const mac_t &mac, int port) {
+  this->mac_vector.push_back({mac, port});
 }
-void RoutingInfo::setARPTable(const uint8_t *mac, const uint8_t *ip) {
-  struct arp_entry entry;
-  memcpy(entry.ip, ip, sizeof(entry.ip));
-  memcpy(entry.mac, mac, sizeof(entry.mac));
-  this->arp_vector.push_back(entry);
+void RoutingInfo::setARPTable(const mac_t &mac, const ipv4_t &ip) {
+  this->arp_vector.push_back({ip, mac});
 }
-void RoutingInfo::setRoutingTable(const uint8_t *mask, int prefix, int port) {
-  struct route_entry entry;
-  memcpy(entry.ip_mask, mask, sizeof(entry.ip_mask));
-  entry.port = port;
-  entry.prefix = prefix;
-  this->route_vector.push_back(entry);
+void RoutingInfo::setRoutingTable(const ipv4_t &mask, int prefix, int port) {
+  this->route_vector.push_back({mask, prefix, port});
 }
 
-bool RoutingInfo::getIPAddr(uint8_t *ip_buffer, int port) {
+std::optional<ipv4_t> RoutingInfo::getIPAddr(int port) {
   for (auto entry : ip_vector) {
     if (entry.port == port) {
-      memcpy(ip_buffer, entry.ip, sizeof(entry.ip));
-      return true;
+      return entry.ip;
     }
   }
-  return false;
+  return {};
 }
-bool RoutingInfo::getMACAddr(uint8_t *mac_buffer, int port) {
+std::optional<mac_t> RoutingInfo::getMACAddr(int port) {
   for (auto entry : mac_vector) {
     if (entry.port == port) {
-      memcpy(mac_buffer, entry.mac, sizeof(entry.mac));
-      return true;
+      return entry.mac;
     }
   }
-  return false;
+  return {};
 }
-bool RoutingInfo::getARPTable(uint8_t *mac_buffer, const uint8_t *ipv4) {
+std::optional<mac_t> RoutingInfo::getARPTable(const ipv4_t &ipv4) {
   for (auto entry : arp_vector) {
-    if (memcmp(ipv4, entry.ip, sizeof(entry.ip)) == 0) {
-      memcpy(mac_buffer, entry.mac, sizeof(entry.mac));
-      return true;
+    if (ipv4 == entry.ip) {
+      return entry.mac;
     }
   }
-  return false;
+  return {};
 }
-int RoutingInfo::getRoutingTable(const uint8_t *ip_addr) {
+int RoutingInfo::getRoutingTable(const ipv4_t &ip_addr) {
   int current_prefix = 0;
   int selected_port = 0;
   for (auto entry : route_vector) {

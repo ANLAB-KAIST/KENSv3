@@ -21,20 +21,20 @@ Switch::Switch(std::string name, NetworkSystem *system, bool unreliable)
   this->drop_base_final = 0.01;
 }
 
-void Switch::addMACEntry(Port *toPort, uint8_t *mac) {
-  uint64_t mac_int = NetworkUtil::arrayToUINT64(mac, 6);
+void Switch::addMACEntry(Port *toPort, const mac_t &mac) {
+  uint64_t mac_int = NetworkUtil::arrayToUINT64(mac);
   if (this->mac_table.find(toPort) == this->mac_table.end())
     this->mac_table[toPort] = std::unordered_set<uint64_t>();
   this->mac_table[toPort].insert(mac_int);
 }
 
 void Switch::packetArrived(Port *inPort, Packet &&packet) {
-  uint8_t mac[6];
-  uint8_t broadcast[6] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+  mac_t mac;
+  mac_t broadcast = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
   bool found = false;
-  packet.readData(0, mac, 6);
-  uint64_t broad_int = NetworkUtil::arrayToUINT64(broadcast, 6);
-  uint64_t mac_int = NetworkUtil::arrayToUINT64(mac, 6);
+  packet.readData(0, mac.data(), 6);
+  uint64_t broad_int = NetworkUtil::arrayToUINT64(broadcast);
+  uint64_t mac_int = NetworkUtil::arrayToUINT64(mac);
   for (Port *port : this->connectedPorts) {
     if (inPort != port) {
       if ((mac_int == broad_int) ||

@@ -10,6 +10,8 @@
 #define E_COMMON_HPP_
 
 #include <algorithm>
+#include <any>
+#include <array>
 #include <cassert>
 #include <cinttypes>
 #include <cmath>
@@ -26,6 +28,7 @@
 #include <map>
 #include <memory>
 #include <mutex>
+#include <optional>
 #include <queue>
 #include <random>
 #include <regex>
@@ -34,6 +37,7 @@
 #include <thread>
 #include <unordered_map>
 #include <unordered_set>
+#include <utility>
 
 namespace E {
 typedef uint64_t Time;
@@ -42,6 +46,9 @@ typedef uint64_t Priority;
 typedef size_t CPUID;
 typedef size_t Size;
 typedef double Real;
+
+using ipv4_t = std::array<uint8_t, 4>;
+using mac_t = std::array<uint8_t, 6>;
 } // namespace E
 
 namespace std {

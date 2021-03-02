@@ -219,7 +219,7 @@ protected:
     int buffer_size = atoi(env["BUFFER_SIZE"].c_str());
     int loop_count = atoi(env["LOOP_COUNT"].c_str());
     long expect_size = atoi(env["EXPECT_SIZE"].c_str());
-    
+
     std::default_random_engine rand_e(seed);
     std::uniform_int_distribution<int> rand_d(0xFF);
 
@@ -290,8 +290,7 @@ TEST_F(TestEnv_Congestion0, TestCongestion0) {
   accept_env["RANDOM_SEED"] = seed;
   connect_env["RANDOM_SEED"] = seed;
 
-  uint8_t server_ip[4];
-  server_host->getIPAddr(server_ip, 0);
+  ipv4_t server_ip = server_host->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", server_ip[0],
@@ -358,8 +357,7 @@ TEST_F(TestEnv_Congestion1, TestCongestion1) {
   accept_env["RANDOM_SEED"] = seed;
   connect_env["RANDOM_SEED"] = seed;
 
-  uint8_t server_ip[4];
-  server_host->getIPAddr(server_ip, 0);
+  ipv4_t server_ip = server_host->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", server_ip[0],
@@ -426,8 +424,7 @@ TEST_F(TestEnv_Congestion2, TestCongestion2) {
   accept_env["RANDOM_SEED"] = seed;
   connect_env["RANDOM_SEED"] = seed;
 
-  uint8_t server_ip[4];
-  server_host->getIPAddr(server_ip, 0);
+  ipv4_t server_ip = server_host->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", server_ip[0],

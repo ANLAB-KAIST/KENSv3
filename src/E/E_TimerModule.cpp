@@ -34,7 +34,7 @@ void TimerModule::messageCancelled(Module *to, Module::Message *message) {
   delete message;
 }
 
-UUID TimerModule::addTimer(void *payload, Time timeAfter) {
+UUID TimerModule::addTimer(std::any payload, Time timeAfter) {
   Message *timerMessage = new Message;
   timerMessage->payload = payload;
 

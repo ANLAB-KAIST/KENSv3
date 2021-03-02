@@ -30,15 +30,24 @@ uint16_t NetworkUtil::one_sum(const uint8_t *buffer, size_t size) {
   sum = (sum & 0xFFFF) + (sum >> 16);
   return (uint16_t)sum;
 }
-
+#ifdef HAVE_PRAGMA_PACK
+#pragma pack(push, 1)
+#endif
 struct pseudoheader {
   uint32_t source;
   uint32_t destination;
   uint8_t zero;
   uint8_t protocol;
   uint16_t length;
-} __attribute__((packed));
-
+}
+#if defined(HAVE_ATTR_PACK)
+__attribute__((packed));
+#elif defined(HAVE_PRAGMA_PACK)
+;
+#pragma pack(pop)
+#else
+#error "Compiler must support packing"
+#endif
 uint16_t NetworkUtil::tcp_sum(uint32_t source, uint32_t dest,
                               const uint8_t *tcp_seg, size_t length) {
   if (length < 20)
@@ -54,22 +63,6 @@ uint16_t NetworkUtil::tcp_sum(uint32_t source, uint32_t dest,
   sum += one_sum(tcp_seg, length);
   sum = (sum & 0xFFFF) + (sum >> 16);
   return (uint16_t)sum;
-}
-
-uint64_t NetworkUtil::arrayToUINT64(const uint8_t *array, int length) {
-  assert(length <= (int)sizeof(uint64_t));
-  uint64_t sum = 0;
-  for (int k = 0; k < length; k++) {
-    sum += (((uint64_t)array[k]) << (8 * k));
-  }
-  return sum;
-}
-
-void NetworkUtil::UINT64ToArray(uint64_t val, uint8_t *array, int length) {
-  assert(length <= (int)sizeof(uint64_t));
-  for (int k = 0; k < length; k++) {
-    array[k] = (val >> (8 * k)) & 0xFF;
-  }
 }
 
 } // namespace E

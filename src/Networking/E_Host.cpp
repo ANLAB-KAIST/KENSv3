@@ -143,7 +143,7 @@ Module::Message *Host::messageReceived(Module *from, Module::Message *message) {
       assert(0);
     }
 
-    if (domain == 0 and protocol == 0) {
+    if (domain == 0 && protocol == 0) {
       iface = this->defaultInterface;
     } else {
       Namespace ns = Namespace(domain, protocol);
@@ -347,14 +347,13 @@ void Host::sendPacketToModule(HostModule *fromModule, std::string toModule,
   HostModule *toHostModule = this->findHostModule(toModule);
 
   if (toModule.compare("Host") == 0) {
-    uint8_t my_mac[6];
-    packet.readData(6, my_mac, 6);
+    mac_t my_mac;
+    packet.readData(6, my_mac.data(), 6);
 
     int selected_port = 0;
     for (size_t k = 0; k < this->allPort.size(); k++) {
-      uint8_t port_mac[6];
-      this->getMACAddr(port_mac, k);
-      if (memcmp(port_mac, my_mac, 6) == 0) {
+      auto port_mac = this->getMACAddr(k);
+      if (my_mac == port_mac.value()) {
         selected_port = (int)k;
         break;
       }

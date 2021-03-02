@@ -26,7 +26,7 @@ class TCPAssignment : public HostModule,
                       private TimerModule {
 private:
 private:
-  virtual void timerCallback(void *payload) final;
+  virtual void timerCallback(std::any payload) final;
 
 public:
   TCPAssignment(Host *host);

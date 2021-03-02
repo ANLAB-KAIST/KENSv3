@@ -185,10 +185,8 @@ TEST_F(TestEnv_Reliable, TestAccept_Backlog1) {
   std::unordered_map<std::string, std::string> accept_env;
   std::unordered_map<std::string, std::string> connect_env;
 
-  uint8_t ip1[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],
@@ -253,10 +251,8 @@ TEST_F(TestEnv_Reliable, TestAccept_Backlog2) {
   std::unordered_map<std::string, std::string> accept_env;
   std::unordered_map<std::string, std::string> connect_env;
 
-  uint8_t ip1[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],
@@ -317,10 +313,8 @@ TEST_F(TestEnv_Any, TestAccept_BeforeAccept) {
   std::unordered_map<std::string, std::string> accept_env;
   std::unordered_map<std::string, std::string> connect_env;
 
-  uint8_t ip1[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],
@@ -361,10 +355,8 @@ TEST_F(TestEnv_Any, TestAccept_AfterAccept) {
   std::unordered_map<std::string, std::string> accept_env;
   std::unordered_map<std::string, std::string> connect_env;
 
-  uint8_t ip1[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],
@@ -405,12 +397,9 @@ TEST_F(TestEnv_Any, TestAccept_MultipleInterface1) {
   std::unordered_map<std::string, std::string> accept_env;
   std::unordered_map<std::string, std::string> connect_env;
 
-  uint8_t ip1[4];
-  uint8_t ip1_2[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host1->getIPAddr(ip1_2, 1);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip1_2 = host1->getIPAddr(1).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],
@@ -467,12 +456,9 @@ TEST_F(TestEnv_Any, TestAccept_MultipleInterface2) {
   std::unordered_map<std::string, std::string> accept_env;
   std::unordered_map<std::string, std::string> connect_env;
 
-  uint8_t ip1[4];
-  uint8_t ip1_2[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host1->getIPAddr(ip1_2, 1);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip1_2 = host1->getIPAddr(1).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],
@@ -529,10 +515,8 @@ TEST_F(TestEnv_Any, TestConnect_BeforeAccept) {
   std::unordered_map<std::string, std::string> accept_env;
   std::unordered_map<std::string, std::string> connect_env;
 
-  uint8_t ip1[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],
@@ -573,10 +557,8 @@ TEST_F(TestEnv_Any, TestConnect_AfterAccept) {
   std::unordered_map<std::string, std::string> accept_env;
   std::unordered_map<std::string, std::string> connect_env;
 
-  uint8_t ip1[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],
@@ -676,10 +658,8 @@ protected:
 TEST_F(TestEnv_Any, TestConnect_SimultaneousConnect) {
   std::unordered_map<std::string, std::string> connect_env;
 
-  uint8_t ip1[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],

@@ -27,7 +27,7 @@ protected:
 
 public:
   Switch(std::string name, NetworkSystem *system, bool unreliable = false);
-  void addMACEntry(Port *toPort, uint8_t *mac);
+  void addMACEntry(Port *toPort, const mac_t &mac);
 };
 
 } // namespace E

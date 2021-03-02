@@ -2,10 +2,70 @@ cmake_minimum_required(VERSION 3.11)
 
 project(e VERSION 3.1)
 
-set(CMAKE_CXX_STANDARD 11)
+
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_C_STANDARD 11)
+
+# Compiler Test
+
+include(CheckCXXSourceCompiles)
+
+check_cxx_source_compiles(
+    "
+    class a{
+    int f(int leverl, const char *format, ...)
+    __attribute__((format(printf, 3, 4)));
+    };
+    int main(void) {return 0;}
+    "
+    HAVE_ATTR_FORMAT
+)
+
+if(HAVE_ATTR_FORMAT)
+add_compile_definitions(HAVE_ATTR_FORMAT)
+endif()
+
+check_cxx_source_compiles(
+    "
+    struct a{ 
+    char b;
+    long c;
+    } __attribute__((packed));
+    int main(void) {
+      struct a a1;
+      return 0;
+    }
+    "
+    HAVE_ATTR_PACK
+)
+
+
+check_cxx_source_compiles(
+    "
+    #pragma pack(push, 1)
+    struct a{ 
+      char b;
+      long c;
+    };
+    #pragma pack(pop)
+    int main(void) {
+      struct a a1;
+      return 0;
+    }
+    "
+    HAVE_PRAGMA_PACK
+)
+
+if(HAVE_ATTR_PACK)
+add_compile_definitions(HAVE_ATTR_PACK)
+elseif(HAVE_PRAGMA_PACK)
+add_compile_definitions(HAVE_PRAGMA_PACK)
+else()
+message(FATAL_ERROR "Compiler must support packing")
+endif()
+
 # Build E
 file(GLOB_RECURSE e_SOURCES "src/*.cpp")
 file(GLOB_RECURSE e_HEADERS "include/*.hpp")
@@ -35,6 +95,10 @@ function(get_solution_name TARGET)
     set(${TARGET}_SOLUTION_NAME
         "${TARGET}-universal-${CMAKE_SYSTEM_NAME}-${CMAKE_CXX_COMPILER_ID}.zip"
         PARENT_SCOPE)
+  elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC" AND CMAKE_SYSTEM_NAME STREQUAL "Windows")
+  set(${TARGET}_SOLUTION_NAME
+      "${TARGET}-${CMAKE_SYSTEM_PROCESSOR}-${CMAKE_SYSTEM_NAME}-Clang.zip"
+      PARENT_SCOPE)
   else()
     set(${TARGET}_SOLUTION_NAME
         "${TARGET}-${CMAKE_SYSTEM_PROCESSOR}-${CMAKE_SYSTEM_NAME}-${CMAKE_CXX_COMPILER_ID}.zip"

@@ -100,7 +100,6 @@ protected:
 
     std::default_random_engine rand_e(seed);
     std::uniform_int_distribution<int> rand_d(0xFF);
-    
 
     uint8_t *send_buffer = (uint8_t *)malloc(buffer_size);
     uint8_t *recv_buffer = (uint8_t *)malloc(buffer_size);
@@ -286,10 +285,8 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Send_Symmetric) {
   accept_env["RANDOM_SEED"] = seed;
   connect_env["RANDOM_SEED"] = seed;
 
-  uint8_t ip1[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],
@@ -341,10 +338,8 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Send_EOF) {
   accept_env["RANDOM_SEED"] = seed;
   connect_env["RANDOM_SEED"] = seed;
 
-  uint8_t ip1[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],
@@ -398,10 +393,8 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Recv_Symmetric) {
   accept_env["RANDOM_SEED"] = seed;
   connect_env["RANDOM_SEED"] = seed;
 
-  uint8_t ip1[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],
@@ -453,10 +446,8 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Recv_EOF) {
   accept_env["RANDOM_SEED"] = seed;
   connect_env["RANDOM_SEED"] = seed;
 
-  uint8_t ip1[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],
@@ -508,10 +499,8 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Recv_SmallBuffer1) {
   accept_env["RANDOM_SEED"] = seed;
   connect_env["RANDOM_SEED"] = seed;
 
-  uint8_t ip1[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],
@@ -563,10 +552,8 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Recv_SmallBuffer2) {
   accept_env["RANDOM_SEED"] = seed;
   connect_env["RANDOM_SEED"] = seed;
 
-  uint8_t ip1[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],
@@ -620,10 +607,8 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Send_Symmetric) {
   accept_env["RANDOM_SEED"] = seed;
   connect_env["RANDOM_SEED"] = seed;
 
-  uint8_t ip1[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],
@@ -675,10 +660,8 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Send_EOF) {
   accept_env["RANDOM_SEED"] = seed;
   connect_env["RANDOM_SEED"] = seed;
 
-  uint8_t ip1[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],
@@ -732,10 +715,8 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Recv_Symmetric) {
   accept_env["RANDOM_SEED"] = seed;
   connect_env["RANDOM_SEED"] = seed;
 
-  uint8_t ip1[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],
@@ -787,10 +768,8 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Recv_EOF) {
   accept_env["RANDOM_SEED"] = seed;
   connect_env["RANDOM_SEED"] = seed;
 
-  uint8_t ip1[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],
@@ -842,10 +821,8 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Recv_SmallBuffer1) {
   accept_env["RANDOM_SEED"] = seed;
   connect_env["RANDOM_SEED"] = seed;
 
-  uint8_t ip1[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],
@@ -897,10 +874,8 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Recv_SmallBuffer2) {
   accept_env["RANDOM_SEED"] = seed;
   connect_env["RANDOM_SEED"] = seed;
 
-  uint8_t ip1[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],

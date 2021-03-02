@@ -37,17 +37,15 @@ void Ethernet::packetArrived(std::string fromModule, Packet &&packet) {
     packet.writeData(12, &first_byte, 1);
     packet.writeData(13, &second_byte, 1);
 
-    uint8_t dst_ip[4];
-    packet.readData(30, dst_ip, 4);
+    ipv4_t dst_ip;
+    packet.readData(30, dst_ip.data(), 4);
 
     int port = this->getHost()->getRoutingTable(dst_ip);
-    uint8_t src_mac[6];
-    uint8_t dst_mac[6];
-    this->getHost()->getMACAddr(src_mac, port);
-    this->getHost()->getARPTable(dst_mac, dst_ip);
+    auto src = this->getHost()->getMACAddr(port);
+    auto dst = this->getHost()->getARPTable(dst_ip);
 
-    packet.writeData(0, dst_mac, 6);
-    packet.writeData(6, src_mac, 6);
+    packet.writeData(0, dst.value().data(), 6);
+    packet.writeData(6, src.value().data(), 6);
 
     this->sendPacket("Host", std::move(packet));
   } else if (fromModule.compare("IPv6") == 0) {

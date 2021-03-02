@@ -88,7 +88,10 @@ protected:
    *
    */
   void print_log(uint64_t level, const char *format, ...)
-      __attribute__((format(printf, 3, 4)));
+#ifdef HAVE_ATTR_FORMAT
+      __attribute__((format(printf, 3, 4)))
+#endif
+      ;
 
 public:
   /**

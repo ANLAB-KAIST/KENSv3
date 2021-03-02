@@ -30,7 +30,7 @@ private:
 
   class Message : public Module::Message {
   public:
-    void *payload;
+    std::any payload;
   };
 
 protected:
@@ -46,7 +46,7 @@ protected:
    * @note TimerModule does nothing for the payload. You may deallocate payload
    * IF NEEDED.
    */
-  virtual void timerCallback(void *payload) = 0;
+  virtual void timerCallback(std::any payload) = 0;
 
   /**
    * @brief Request an alarm that rings after specified time.
@@ -57,7 +57,7 @@ protected:
    *
    * @note You cannot override this function.
    */
-  virtual UUID addTimer(void *payload, Time timeAfter) final;
+  virtual UUID addTimer(std::any payload, Time timeAfter) final;
 
   /**
    * @brief Cancel the timer request.

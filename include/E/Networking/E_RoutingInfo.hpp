@@ -19,22 +19,22 @@ namespace E {
 class RoutingInfo {
 private:
   struct mac_entry {
-    uint8_t mac[6];
+    mac_t mac;
     int port;
   };
 
   struct ip_entry {
-    uint8_t ip[4];
+    ipv4_t ip;
     int port;
   };
 
   struct arp_entry {
-    uint8_t ip[4];
-    uint8_t mac[6];
+    ipv4_t ip;
+    mac_t mac;
   };
 
   struct route_entry {
-    uint8_t ip_mask[4];
+    ipv4_t ip_mask;
     int prefix;
     int port;
   };
@@ -54,14 +54,14 @@ public:
    * @param port Interface index to bind the given IP address.
    * @note You cannot override this function.
    */
-  virtual void setIPAddr(const uint8_t *ip, int port) final;
+  virtual void setIPAddr(const ipv4_t &ip, int port) final;
 
   /**
    * @param mac MAC address.
    * @param port Interface index to bind the given MAC address.
    * @note You cannot override this function.
    */
-  virtual void setMACAddr(const uint8_t *mac, int port) final;
+  virtual void setMACAddr(const mac_t &mac, int port) final;
 
   /**
    * @brief Add (MAC,IP) entry to its ARP table.
@@ -69,7 +69,7 @@ public:
    * @param ip IP address.
    * @note You cannot override this function.
    */
-  virtual void setARPTable(const uint8_t *mac, const uint8_t *ipv4) final;
+  virtual void setARPTable(const mac_t &mac, const ipv4_t &ipv4) final;
 
   /**
    * @param mask IP address mask.
@@ -77,7 +77,7 @@ public:
    * @param port Interface index to bind the given routing entry.
    * @note You cannot override this function.
    */
-  virtual void setRoutingTable(const uint8_t *mask, int prefix, int port) final;
+  virtual void setRoutingTable(const ipv4_t &mask, int prefix, int port) final;
 
   /**
    * @param ip_buffer Address of the buffer to save the IP address.
@@ -85,7 +85,7 @@ public:
    * @return Whether this request is successful or not.
    * @note You cannot override this function.
    */
-  virtual bool getIPAddr(uint8_t *ip_buffer, int port) final;
+  virtual std::optional<ipv4_t> getIPAddr(int port) final;
 
   /**
    * @param mac_buffer Address of the buffer to save the MAC address.
@@ -93,7 +93,7 @@ public:
    * @return Whether this request is successful or not.
    * @note You cannot override this function.
    */
-  virtual bool getMACAddr(uint8_t *mac_buffer, int port) final;
+  virtual std::optional<mac_t> getMACAddr(int port) final;
 
   /**
    * @param mac_buffer Address of the buffer to save the MAC address.
@@ -101,14 +101,14 @@ public:
    * @return Whether this request is successful or not.
    * @note You cannot override this function.
    */
-  virtual bool getARPTable(uint8_t *mac_buffer, const uint8_t *ipv4) final;
+  virtual std::optional<mac_t> getARPTable(const ipv4_t &ipv4) final;
 
   /**
    * @param ip_buffer IP address to find its destination.
    * @return Interface index to this packet should go to.
    * @note You cannot override this function.
    */
-  virtual int getRoutingTable(const uint8_t *ip_addr) final;
+  virtual int getRoutingTable(const ipv4_t &ip_addr) final;
 };
 
 } // namespace E

@@ -58,14 +58,14 @@ protected:
     host1 = new Host("TestHost1", 2, &netSystem);
     host2 = new Host("TestHost2", 2, &netSystem);
 
-    uint8_t mac1[6] = {0xBC, 0xBC, 0xBC, 0xBC, 0xBC, 0xBC};
-    uint8_t mac1_2[6] = {0xCB, 0xCB, 0xCB, 0xCB, 0xCB, 0xCB};
-    uint8_t mac2[6] = {0xCD, 0xCD, 0xCD, 0xCD, 0xCD, 0xCD};
-    uint8_t mac2_2[6] = {0xDC, 0xDC, 0xDC, 0xDC, 0xDC, 0xDC};
-    uint8_t ip1[4] = {192, 168, 0, 7};
-    uint8_t ip1_2[4] = {192, 168, 0, 8};
-    uint8_t ip2[4] = {10, 0, 1, 4};
-    uint8_t ip2_2[4] = {10, 0, 1, 5};
+    mac_t mac1{0xBC, 0xBC, 0xBC, 0xBC, 0xBC, 0xBC};
+    mac_t mac1_2{0xCB, 0xCB, 0xCB, 0xCB, 0xCB, 0xCB};
+    mac_t mac2{0xCD, 0xCD, 0xCD, 0xCD, 0xCD, 0xCD};
+    mac_t mac2_2{0xDC, 0xDC, 0xDC, 0xDC, 0xDC, 0xDC};
+    ipv4_t ip1{192, 168, 0, 7};
+    ipv4_t ip1_2{192, 168, 0, 8};
+    ipv4_t ip2{10, 0, 1, 4};
+    ipv4_t ip2_2{10, 0, 1, 5};
     host1->setMACAddr(mac1, 0);
     host1->setMACAddr(mac1_2, 1);
     host1->setARPTable(mac2, ip2);
@@ -161,14 +161,14 @@ protected:
     host1 = new Host("TestHost1", 2, &netSystem);
     host2 = new Host("TestHost2", 2, &netSystem);
 
-    uint8_t mac1[6] = {0xBC, 0xBC, 0xBC, 0xBC, 0xBC, 0xBC};
-    uint8_t mac1_2[6] = {0xCB, 0xCB, 0xCB, 0xCB, 0xCB, 0xCB};
-    uint8_t mac2[6] = {0xCD, 0xCD, 0xCD, 0xCD, 0xCD, 0xCD};
-    uint8_t mac2_2[6] = {0xDC, 0xDC, 0xDC, 0xDC, 0xDC, 0xDC};
-    uint8_t ip1[4] = {192, 168, 0, 7};
-    uint8_t ip1_2[4] = {192, 168, 0, 8};
-    uint8_t ip2[4] = {10, 0, 1, 4};
-    uint8_t ip2_2[4] = {10, 0, 1, 5};
+    mac_t mac1{0xBC, 0xBC, 0xBC, 0xBC, 0xBC, 0xBC};
+    mac_t mac1_2{0xCB, 0xCB, 0xCB, 0xCB, 0xCB, 0xCB};
+    mac_t mac2{0xCD, 0xCD, 0xCD, 0xCD, 0xCD, 0xCD};
+    mac_t mac2_2{0xDC, 0xDC, 0xDC, 0xDC, 0xDC, 0xDC};
+    ipv4_t ip1{192, 168, 0, 7};
+    ipv4_t ip1_2{192, 168, 0, 8};
+    ipv4_t ip2{10, 0, 1, 4};
+    ipv4_t ip2_2{10, 0, 1, 5};
     host1->setMACAddr(mac1, 0);
     host1->setMACAddr(mac1_2, 1);
     host1->setARPTable(mac2, ip2);
@@ -296,10 +296,10 @@ protected:
 
     server_host = new Host("CongestionServer", 1, &netSystem);
 
-    uint8_t server_mac[6] = {0xBC, 0xBC, 0xBC, 0xBC, 0xBC, 0xBC};
-    uint8_t server_ip[4] = {192, 168, 1, 7};
-    uint8_t server_mask[4] = {192, 168, 1, 0};
-    uint8_t client_mask[4] = {10, 0, 1, 0};
+    mac_t server_mac{0xBC, 0xBC, 0xBC, 0xBC, 0xBC, 0xBC};
+    ipv4_t server_ip{192, 168, 1, 7};
+    ipv4_t server_mask{192, 168, 1, 0};
+    ipv4_t client_mask{10, 0, 1, 0};
 
     ethernet_server = new Ethernet(server_host);
     ipv4_server = new IPv4(server_host);
@@ -326,9 +326,9 @@ protected:
       interface_clients[k] = Target::allocate(client_hosts[k]);
       interface_clients[k]->initialize();
 
-      uint8_t client_ip[4] = {10, 0, 1, 10};
+      ipv4_t client_ip{10, 0, 1, 10};
       client_ip[3] += k;
-      uint8_t client_mac[6] = {0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0x00};
+      mac_t client_mac{0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0x00};
       client_mac[5] += k;
 
       client_hosts[k]->setMACAddr(client_mac, 0);

@@ -60,22 +60,22 @@ Size TimeUtil::getMultiplier(enum TimeUnit unit) {
   switch (unit) {
   case DAY:
     multiplier *= 24;
-    /* FALLTHRU */
+    [[fallthrough]];
   case HOUR:
     multiplier *= 60;
-    /* FALLTHRU */
+    [[fallthrough]];
   case MINUTE:
     multiplier *= 60;
-    /* FALLTHRU */
+    [[fallthrough]];
   case SEC:
     multiplier *= 1000;
-    /* FALLTHRU */
+    [[fallthrough]];
   case MSEC:
     multiplier *= 1000;
-    /* FALLTHRU */
+    [[fallthrough]];
   case USEC:
     multiplier *= 1000;
-    /* FALLTHRU */
+    [[fallthrough]];
   case NSEC:
   default:
     break;
@@ -101,22 +101,22 @@ std::string TimeUtil::printTime(Time time, enum TimeUnit unit) {
   switch (unit) {
   case DAY:
     multiplier *= 24;
-    /* FALLTHRU */
+    [[fallthrough]];
   case HOUR:
     multiplier *= 60;
-    /* FALLTHRU */
+    [[fallthrough]];
   case MINUTE:
     multiplier *= 60;
-    /* FALLTHRU */
+    [[fallthrough]];
   case SEC:
     multiplier *= 1000;
-    /* FALLTHRU */
+    [[fallthrough]];
   case MSEC:
     multiplier *= 1000;
-    /* FALLTHRU */
+    [[fallthrough]];
   case USEC:
     multiplier *= 1000;
-    /* FALLTHRU */
+    [[fallthrough]];
   case NSEC:
   default:
     break;

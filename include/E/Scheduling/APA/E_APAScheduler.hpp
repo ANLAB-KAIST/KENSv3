@@ -22,7 +22,7 @@ private:
 protected:
   void jobRaised(Computer *computer, Job *job);
   void jobFinished(Computer *computer, Processor *processor, Job *job);
-  void timerCallback(void *arg) { (void)arg; };
+  void timerCallback(std::any arg) { (void)arg; };
 
 public:
   APAWeakScheduler(Size maxTask);
@@ -42,7 +42,7 @@ private:
 protected:
   void jobRaised(Computer *computer, Job *job);
   void jobFinished(Computer *computer, Processor *processor, Job *job);
-  void timerCallback(void *arg) { (void)arg; };
+  void timerCallback(std::any arg) { (void)arg; };
 
 public:
   APAStrongScheduler(Size maxTask);

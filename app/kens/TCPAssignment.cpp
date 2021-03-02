@@ -90,7 +90,7 @@ void TCPAssignment::packetArrived(std::string fromModule, Packet &&packet) {
   (void)packet;
 }
 
-void TCPAssignment::timerCallback(void *payload) {
+void TCPAssignment::timerCallback(std::any payload) {
   // Remove below
   (void)payload;
 }

@@ -148,10 +148,8 @@ TEST_F(TestEnv_Any, TestClose_Connect_CloseFirst) {
   std::unordered_map<std::string, std::string> accept_env;
   std::unordered_map<std::string, std::string> connect_env;
 
-  uint8_t ip1[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],
@@ -190,10 +188,8 @@ TEST_F(TestEnv_Any, TestClose_Connect_CloseLater) {
   std::unordered_map<std::string, std::string> accept_env;
   std::unordered_map<std::string, std::string> connect_env;
 
-  uint8_t ip1[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],
@@ -232,10 +228,8 @@ TEST_F(TestEnv_Any, TestClose_Connect_CloseSimultaneous) {
   std::unordered_map<std::string, std::string> accept_env;
   std::unordered_map<std::string, std::string> connect_env;
 
-  uint8_t ip1[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],
@@ -276,10 +270,8 @@ TEST_F(TestEnv_Any, TestClose_Accept_CloseLater) {
   std::unordered_map<std::string, std::string> accept_env;
   std::unordered_map<std::string, std::string> connect_env;
 
-  uint8_t ip1[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],
@@ -318,10 +310,8 @@ TEST_F(TestEnv_Any, TestClose_Accept_CloseFirst) {
   std::unordered_map<std::string, std::string> accept_env;
   std::unordered_map<std::string, std::string> connect_env;
 
-  uint8_t ip1[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],
@@ -360,10 +350,8 @@ TEST_F(TestEnv_Any, TestClose_Accept_CloseSimultaneous) {
   std::unordered_map<std::string, std::string> accept_env;
   std::unordered_map<std::string, std::string> connect_env;
 
-  uint8_t ip1[4];
-  uint8_t ip2[4];
-  host1->getIPAddr(ip1, 0);
-  host2->getIPAddr(ip2, 0);
+  ipv4_t ip1 = host1->getIPAddr(0).value();
+  ipv4_t ip2 = host2->getIPAddr(0).value();
 
   char str_buffer[128];
   snprintf(str_buffer, sizeof(str_buffer), "%u.%u.%u.%u", ip1[0], ip1[1],

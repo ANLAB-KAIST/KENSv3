@@ -39,7 +39,7 @@ protected:
   virtual void jobRaised(Computer *computer, Job *job) = 0;
   virtual void jobFinished(Computer *computer, Processor *processor,
                            Job *job) = 0;
-  virtual void timerCallback(void *arg) = 0;
+  virtual void timerCallback(std::any arg) = 0;
   virtual void setTimer(Time time, void *arg) final;
   virtual void cancelTimer() final;
 
