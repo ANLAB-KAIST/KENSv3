@@ -44,7 +44,7 @@ Module::Message *Link::messageReceived(Module *from, Module::Message *message) {
         current_queue.pop_front();
 
         print_log(NetworkLog::PACKET_QUEUE,
-                  "Output queue length for port[%s] decreased to [%lu]",
+                  "Output queue length for port[%s] decreased to [%zu]",
                   port->getModuleName().c_str(), current_queue.size());
 
         Time trans_delay = 0;
@@ -134,8 +134,8 @@ void Link::sendPacket(Port *port, Packet &&packet) {
       current_queue.erase(iter);
 
       print_log(NetworkLog::PACKET_QUEUE,
-                "Output queue for port[%s] is full, remove at %lu, packet "
-                "length: %lu",
+                "Output queue for port[%s] is full, remove at %zu, packet "
+                "length: %zu",
                 port->getModuleName().c_str(), index, toBeRemoved.getSize());
     }
   }
@@ -143,7 +143,7 @@ void Link::sendPacket(Port *port, Packet &&packet) {
          current_queue.size() < this->max_queue_length);
   current_queue.push_back(packet);
   print_log(NetworkLog::PACKET_QUEUE,
-            "Output queue length for port[%s] increased to [%lu]",
+            "Output queue length for port[%s] increased to [%zu]",
             port->getModuleName().c_str(), current_queue.size());
   if (current_queue.size() == 1) {
     Time wait_time = 0;

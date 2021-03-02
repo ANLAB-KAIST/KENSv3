@@ -100,6 +100,9 @@ protected:
     int loop_count = atoi(env["LOOP_COUNT"].c_str());
     long expect_size = atoi(env["EXPECT_SIZE"].c_str());
 
+    std::default_random_engine rand_e(seed);
+    std::uniform_int_distribution<int> rand_d(0xFF);
+
     uint8_t *send_buffer = (uint8_t *)malloc(buffer_size);
     uint8_t *recv_buffer = (uint8_t *)malloc(buffer_size);
 
@@ -108,7 +111,7 @@ protected:
     long total_size = 0;
     while (!stop) {
       for (int k = 0; k < buffer_size; k++)
-        send_buffer[k] = rand_r(&seed) & 0xFF;
+        send_buffer[k] = rand_d(rand_e);
 
       if (is_send) {
         int remaining = buffer_size;
@@ -216,6 +219,9 @@ protected:
     int buffer_size = atoi(env["BUFFER_SIZE"].c_str());
     int loop_count = atoi(env["LOOP_COUNT"].c_str());
     long expect_size = atoi(env["EXPECT_SIZE"].c_str());
+    
+    std::default_random_engine rand_e(seed);
+    std::uniform_int_distribution<int> rand_d(0xFF);
 
     uint8_t *send_buffer = (uint8_t *)malloc(buffer_size);
     uint8_t *recv_buffer = (uint8_t *)malloc(buffer_size);
@@ -225,7 +231,7 @@ protected:
     long total_size = 0;
     while (!stop) {
       for (int k = 0; k < buffer_size; k++)
-        send_buffer[k] = rand_r(&seed) & 0xFF;
+        send_buffer[k] = rand_d(rand_e);
 
       if (is_send) {
         int remaining = buffer_size;

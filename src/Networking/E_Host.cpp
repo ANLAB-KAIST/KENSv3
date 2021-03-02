@@ -21,7 +21,7 @@ Host::Host(std::string name, size_t portNumber, NetworkSystem *system)
   allPort.clear();
   for (k = 0; k < portNumber; k++) {
     char nameBuffer[1024];
-    snprintf(nameBuffer, sizeof(nameBuffer), "%s's port[%lu]", name.c_str(), k);
+    snprintf(nameBuffer, sizeof(nameBuffer), "%s's port[%zu]", name.c_str(), k);
     Port *newPort = new Port(std::string(nameBuffer), system);
     newPort->connect(this);
     allPort.push_back(newPort);
@@ -73,7 +73,7 @@ Module::Message *Host::messageReceived(Module *from, Module::Message *message) {
     assert(portMessage->type == Port::MessageType::PACKET_FROM_PORT);
     if (this->running == true) {
       print_log(PACKET_FROM_HOST,
-                "Host [%s] get a packet [size:%lu] from module [%s]",
+                "Host [%s] get a packet [size:%zu] from module [%s]",
                 this->getModuleName().c_str(), portMessage->packet.getSize(),
                 netModule->getModuleName().c_str());
       // this->freePacket(hostMessage->packet);

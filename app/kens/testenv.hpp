@@ -24,7 +24,20 @@
 #include "TCPAssignment.hpp"
 #include <gtest/gtest.h>
 
+#define RANDOM_SEED_DEFAULT 1614233283
+
 using namespace E;
+
+static void setup_random() {
+  const char *random_seed = std::getenv("RANDOM_SEED");
+  if (random_seed) {
+    printf("[RANDOM_SEED : %s]\n", random_seed);
+    srand(atoi(random_seed));
+  } else {
+    printf("[RANDOM_SEED : %d]\n", RANDOM_SEED_DEFAULT);
+    srand(RANDOM_SEED_DEFAULT);
+  }
+}
 
 template <class Target> class TestEnv1 : public ::testing::Test {
 protected:
@@ -40,10 +53,7 @@ protected:
   HostModule *interface2;
 
   virtual void SetUp() {
-    if (getenv("RANDOM_SEED") == NULL)
-      setenv("RANDOM_SEED", std::to_string(time(0)).c_str(), true);
-    printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
-    srand(atoi(getenv("RANDOM_SEED")));
+    setup_random();
 
     host1 = new Host("TestHost1", 2, &netSystem);
     host2 = new Host("TestHost2", 2, &netSystem);
@@ -146,10 +156,7 @@ protected:
   HostModule *interface2;
 
   virtual void SetUp() {
-    if (getenv("RANDOM_SEED") == NULL)
-      setenv("RANDOM_SEED", std::to_string(time(0)).c_str(), true);
-    printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
-    srand(atoi(getenv("RANDOM_SEED")));
+    setup_random();
 
     host1 = new Host("TestHost1", 2, &netSystem);
     host2 = new Host("TestHost2", 2, &netSystem);
@@ -264,10 +271,8 @@ protected:
   uint64_t prev_log;
 
   virtual void SetUp() {
-    if (getenv("RANDOM_SEED") == NULL)
-      setenv("RANDOM_SEED", std::to_string(time(0)).c_str(), true);
-    printf("[RANDOM_SEED : %s]\n", getenv("RANDOM_SEED"));
-    srand(atoi(getenv("RANDOM_SEED")));
+
+    setup_random();
 
     prev_log = NetworkLog::defaultLevel;
     NetworkLog::defaultLevel |= (

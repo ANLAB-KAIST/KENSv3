@@ -3,13 +3,29 @@ cmake_minimum_required(VERSION 3.11)
 project(e VERSION 3.1)
 
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_C_STANDARD 11)
 # Build E
 file(GLOB_RECURSE e_SOURCES "src/*.cpp")
 file(GLOB_RECURSE e_HEADERS "include/*.hpp")
 
 add_library(e STATIC ${e_SOURCES} ${e_HEADERS})
 target_include_directories(e PUBLIC ${PROJECT_SOURCE_DIR}/include)
+
+if (NOT WIN32)
 target_compile_options(e PRIVATE -g -O0 -Wall)
+endif()
+
+
+
+if (WIN32)
+  add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
+  add_subdirectory(musl)
+  target_link_libraries(e PUBLIC musl_compat)
+
+  set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+endif (WIN32)
 
 # Find Solution
 
@@ -54,7 +70,11 @@ function(get_solution)
         FetchContent_Populate(${arg}_solution)
       endif()
 
+      if (WIN32)
+      file(GLOB ${arg}_solution_static "${${arg}_solution_SOURCE_DIR}/*.lib")
+      else()
       file(GLOB ${arg}_solution_static "${${arg}_solution_SOURCE_DIR}/*.a")
+      endif()
 
       add_library(${arg}_solution STATIC IMPORTED GLOBAL)
       set_property(TARGET ${arg}_solution PROPERTY IMPORTED_LOCATION
@@ -115,4 +135,7 @@ add_custom_target(
           ${kens_dist_path}/include
   COMMAND ${CMAKE_COMMAND} -E make_directory ${kens_dist_path}/src
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/src
-          ${kens_dist_path}/src)
+          ${kens_dist_path}/src
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${kens_dist_path}/musl
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/musl
+          ${kens_dist_path}/musl)

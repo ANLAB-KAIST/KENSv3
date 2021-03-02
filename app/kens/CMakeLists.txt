@@ -19,7 +19,11 @@ endif()
 set(kens_SOURCES TCPAssignment.cpp TCPAssignment.hpp testenv.hpp)
 
 add_library(kens ${kens_SOURCES})
+
+if (NOT WIN32)
 target_compile_options(kens PUBLIC -g -O0 -Wall)
+endif()
+
 target_link_libraries(kens PUBLIC e)
 
 get_solution(kens)

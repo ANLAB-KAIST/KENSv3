@@ -44,7 +44,7 @@ Module::Message *Port::messageReceived(Module *from, Module::Message *message) {
 
   NetworkLog::print_log(
       PACKET_FROM_MODULE,
-      "Port [%s] received a packet [size:%lu] from module [%s]",
+      "Port [%s] received a packet [size:%zu] from module [%s]",
       this->getModuleName().c_str(), portMessage->packet.getSize(),
       netFrom->getModuleName().c_str());
 
@@ -75,7 +75,7 @@ Module::Message *Port::messageReceived(Module *from, Module::Message *message) {
   assert(netTo != nullptr);
   NetworkLog::print_log(
       PACKET_TO_MODULE,
-      "Port [%s] send a packet [size:%lu] to module [%s] with transmission "
+      "Port [%s] send a packet [size:%zu] to module [%s] with transmission "
       "delay [%" PRIu64 "], propagation delay [%" PRIu64 "]",
       this->getModuleName().c_str(), portMessage->packet.getSize(),
       netTo->getModuleName().c_str(), trans_delay, propagationDelay);
