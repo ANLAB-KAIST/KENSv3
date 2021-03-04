@@ -18,10 +18,32 @@ private:
   virtual ~NetworkUtil();
 
 public:
+  /**
+   * Calculate checksum once
+   * @param buffer Buffer to calculate.
+   * @param size Size of buffer.
+   * @return Checksum
+   */
   static uint16_t one_sum(const uint8_t *buffer, size_t size);
+
+  /**
+   * Calculate TCP checksum.
+   * @param source Source address (pseudo header)
+   * @param dest  Destination address (pseudo header)
+   * @param tcp_seg TCP segment
+   * @param length TCP length (pseudo header)
+   * @return Checksum
+   * @note See RFC 793 Checksum
+   */
   static uint16_t tcp_sum(uint32_t source, uint32_t dest,
                           const uint8_t *tcp_seg, size_t length);
 
+  /**
+   * Converts a uint64_t variable to std::array
+   * @param N Size of array
+   * @param val uint64_t variable
+   * @return Converted array
+   */
   template <size_t N>
   static std::array<uint8_t, N> UINT64ToArray(uint64_t val) {
     static_assert(N <= sizeof(uint64_t),
@@ -33,6 +55,13 @@ public:
     }
     return array;
   }
+
+  /**
+   * Converts a std::array to uint64_t.
+   * @param N Size of array
+   * @param array Array to convert. ipv4_t and mac_t are also okay.
+   * @return Converted uint64_t
+   */
   template <size_t N>
   static uint64_t arrayToUINT64(const std::array<uint8_t, N> &array) {
     static_assert(N <= sizeof(uint64_t),

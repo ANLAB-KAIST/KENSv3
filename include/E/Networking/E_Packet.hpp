@@ -37,10 +37,29 @@ private:
   static void freePacketUUID(UUID uuid);
 
 public:
+  /**
+   * Copy constructor. (Copied packet has same UUID)
+   * @param other Packet to copy.
+   */
   Packet(const Packet &other);
+
+  /**
+   * Move constructor. (Moved packet become emtpy)
+   * @param other Packet to move.
+   */
   Packet(Packet &&other) noexcept;
+
+  /**
+   * @param maxSize Maximum packet size.
+   */
   Packet(size_t maxSize);
+
   ~Packet();
+
+  /**
+   * Clone packet (Cloned packet has a different UUID)
+   * @return Cloned packet.
+   */
   Packet clone() const;
 
   /**

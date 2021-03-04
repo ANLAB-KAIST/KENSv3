@@ -80,25 +80,22 @@ public:
   virtual void setRoutingTable(const ipv4_t &mask, int prefix, int port) final;
 
   /**
-   * @param ip_buffer Address of the buffer to save the IP address.
    * @param port Interface index to retrieve its IP address.
-   * @return Whether this request is successful or not.
+   * @return IP address if successful.
    * @note You cannot override this function.
    */
   virtual std::optional<ipv4_t> getIPAddr(int port) final;
 
   /**
-   * @param mac_buffer Address of the buffer to save the MAC address.
    * @param port Interface index to retrieve its MAC address.
-   * @return Whether this request is successful or not.
+   * @return MAC address if successful.
    * @note You cannot override this function.
    */
   virtual std::optional<mac_t> getMACAddr(int port) final;
 
   /**
-   * @param mac_buffer Address of the buffer to save the MAC address.
-   * @param ip_buffer IP address to find its corresponding MAC address.
-   * @return Whether this request is successful or not.
+   * @param ipv4 IP address to find its corresponding MAC address.
+   * @return MAC address if successful.
    * @note You cannot override this function.
    */
   virtual std::optional<mac_t> getARPTable(const ipv4_t &ipv4) final;
