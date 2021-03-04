@@ -1,0 +1,79 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Doxygen
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install doxygen
+      run: sudo apt-get install doxygen
+      
+    - uses: actions/checkout@v2
+      with:
+        path: main
+
+    - name: Create Build Environment
+      run: cmake -E make_directory ${{github.workspace}}/build
+
+    - name: Configure CMake
+      shell: bash
+      working-directory: ${{github.workspace}}/build
+      run: cmake $GITHUB_WORKSPACE/main
+    
+
+    - name: Build
+      working-directory: ${{github.workspace}}/build
+      shell: bash
+      run: cmake --build . --target doxygen
+
+    - name: Checkout GH Pages
+      uses: actions/checkout@v2
+      with:
+        path: gh-pages
+        ref: gh-pages
+        ssh-key: ${{secrets.GH_PAGES_SSH_KEY}}
+        
+    - name: GIT config
+      working-directory: ${{github.workspace}}/gh-pages
+      shell: bash
+      run : |
+            git config user.email "support@an.kaist.ac.kr"
+            git config user.name "ANLAB Support"
+      
+    - name: Remove old doxygen
+      working-directory: ${{github.workspace}}/gh-pages
+      shell: bash
+      run: rm -rf doxygen
+      
+    - name: Copy new doxygen
+      working-directory: ${{github.workspace}}/gh-pages
+      shell: bash
+      run: cp -r ${{github.workspace}}/build/doc/html doxygen
+      
+      
+    - name: Commit new doxygen
+      working-directory: ${{github.workspace}}/gh-pages
+      shell: bash
+      run: |
+          git add -A
+          git commit -m "Update doc from $GITHUB_SHA"
+          
+    - name: Push new doxygen
+      working-directory: ${{github.workspace}}/gh-pages
+      shell: bash
+      run: |
+          git push
+      
+      
+
