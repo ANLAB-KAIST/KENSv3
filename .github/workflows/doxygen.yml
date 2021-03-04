@@ -54,12 +54,12 @@ jobs:
     - name: Remove old doxygen
       working-directory: ${{github.workspace}}/gh-pages
       shell: bash
-      run: rm -rf doxygen
+      run: rm -rf doc
       
     - name: Copy new doxygen
       working-directory: ${{github.workspace}}/gh-pages
       shell: bash
-      run: cp -r ${{github.workspace}}/build/doc/html doxygen
+      run: cp -r ${{github.workspace}}/build/doc/html doc
       
       
     - name: Commit new doxygen
