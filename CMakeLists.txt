@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.11)
 
 project(e VERSION 3.1)
 
-
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -13,23 +12,22 @@ set(CMAKE_C_STANDARD 11)
 include(CheckCXXSourceCompiles)
 
 check_cxx_source_compiles(
-    "
+  "
     class a{
     int f(int leverl, const char *format, ...)
     __attribute__((format(printf, 3, 4)));
     };
     int main(void) {return 0;}
     "
-    HAVE_ATTR_FORMAT
-)
+  HAVE_ATTR_FORMAT)
 
 if(HAVE_ATTR_FORMAT)
-add_compile_definitions(HAVE_ATTR_FORMAT)
+  add_compile_definitions(HAVE_ATTR_FORMAT)
 endif()
 
 check_cxx_source_compiles(
-    "
-    struct a{ 
+  "
+    struct a{
     char b;
     long c;
     } __attribute__((packed));
@@ -38,14 +36,12 @@ check_cxx_source_compiles(
       return 0;
     }
     "
-    HAVE_ATTR_PACK
-)
-
+  HAVE_ATTR_PACK)
 
 check_cxx_source_compiles(
-    "
+  "
     #pragma pack(push, 1)
-    struct a{ 
+    struct a{
       char b;
       long c;
     };
@@ -55,15 +51,14 @@ check_cxx_source_compiles(
       return 0;
     }
     "
-    HAVE_PRAGMA_PACK
-)
+  HAVE_PRAGMA_PACK)
 
 if(HAVE_ATTR_PACK)
-add_compile_definitions(HAVE_ATTR_PACK)
+  add_compile_definitions(HAVE_ATTR_PACK)
 elseif(HAVE_PRAGMA_PACK)
-add_compile_definitions(HAVE_PRAGMA_PACK)
+  add_compile_definitions(HAVE_PRAGMA_PACK)
 else()
-message(FATAL_ERROR "Compiler must support packing")
+  message(FATAL_ERROR "Compiler must support packing")
 endif()
 
 # Build E
@@ -73,19 +68,19 @@ file(GLOB_RECURSE e_HEADERS "include/*.hpp")
 add_library(e STATIC ${e_SOURCES} ${e_HEADERS})
 target_include_directories(e PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
-if (NOT WIN32)
-target_compile_options(e PRIVATE -g -O0 -Wall)
+if(NOT WIN32)
+  target_compile_options(e PRIVATE -g -O0 -Wall)
 endif()
 
-
-
-if (WIN32)
+if(WIN32)
   add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
   add_subdirectory(musl)
   target_link_libraries(e PUBLIC musl_compat)
 
-  set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-endif (WIN32)
+  set(gtest_force_shared_crt
+      ON
+      CACHE BOOL "" FORCE)
+endif(WIN32)
 
 # Find Solution
 
@@ -95,10 +90,11 @@ function(get_solution_name TARGET)
     set(${TARGET}_SOLUTION_NAME
         "${TARGET}-universal-${CMAKE_SYSTEM_NAME}-${CMAKE_CXX_COMPILER_ID}.zip"
         PARENT_SCOPE)
-  elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC" AND CMAKE_SYSTEM_NAME STREQUAL "Windows")
-  set(${TARGET}_SOLUTION_NAME
-      "${TARGET}-${CMAKE_SYSTEM_PROCESSOR}-${CMAKE_SYSTEM_NAME}-Clang.zip"
-      PARENT_SCOPE)
+  elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC" AND CMAKE_SYSTEM_NAME STREQUAL
+                                                   "Windows")
+    set(${TARGET}_SOLUTION_NAME
+        "${TARGET}-${CMAKE_SYSTEM_PROCESSOR}-${CMAKE_SYSTEM_NAME}-Clang.zip"
+        PARENT_SCOPE)
   else()
     set(${TARGET}_SOLUTION_NAME
         "${TARGET}-${CMAKE_SYSTEM_PROCESSOR}-${CMAKE_SYSTEM_NAME}-${CMAKE_CXX_COMPILER_ID}.zip"
@@ -134,10 +130,10 @@ function(get_solution)
         FetchContent_Populate(${arg}_solution)
       endif()
 
-      if (WIN32)
-      file(GLOB ${arg}_solution_static "${${arg}_solution_SOURCE_DIR}/*.lib")
+      if(WIN32)
+        file(GLOB ${arg}_solution_static "${${arg}_solution_SOURCE_DIR}/*.lib")
       else()
-      file(GLOB ${arg}_solution_static "${${arg}_solution_SOURCE_DIR}/*.a")
+        file(GLOB ${arg}_solution_static "${${arg}_solution_SOURCE_DIR}/*.a")
       endif()
 
       add_library(${arg}_solution STATIC IMPORTED GLOBAL)
@@ -159,8 +155,6 @@ foreach(cmakelists ${e_apps_CMAKELISTS})
   add_subdirectory(${e_apps_DIR})
 endforeach()
 
-# Doxygen
-
 find_package(Doxygen)
 if(DOXYGEN_FOUND)
 
@@ -174,32 +168,4 @@ if(DOXYGEN_FOUND)
 
 endif(DOXYGEN_FOUND)
 
-# KENS dist
-
-set(kens_dist_path ${PROJECT_BINARY_DIR}/dist/kens)
-
-add_custom_target(
-  dist_kens
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${kens_dist_path}
-  COMMAND
-    ${CMAKE_COMMAND} -E copy ${PROJECT_SOURCE_DIR}/.clang-format
-    ${PROJECT_SOURCE_DIR}/.gitignore ${PROJECT_SOURCE_DIR}/CMakeLists.txt
-    ${PROJECT_SOURCE_DIR}/Dockerfile ${PROJECT_SOURCE_DIR}/entrypoint.sh
-    ${PROJECT_SOURCE_DIR}/LICENSE ${kens_dist_path}
-  COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_SOURCE_DIR}/README_KENS.md
-          ${kens_dist_path}/README.md
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${kens_dist_path}/app/kens
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/app/kens
-          ${kens_dist_path}/app/kens
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${kens_dist_path}/doxygen
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/doxygen
-          ${kens_dist_path}/doxygen
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${kens_dist_path}/include
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/include
-          ${kens_dist_path}/include
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${kens_dist_path}/src
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/src
-          ${kens_dist_path}/src
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${kens_dist_path}/musl
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/musl
-          ${kens_dist_path}/musl)
+include(cmake/kens-dist.cmake OPTIONAL)
