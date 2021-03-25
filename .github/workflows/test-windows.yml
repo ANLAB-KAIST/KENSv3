@@ -1,0 +1,37 @@
+name: Test Windows Environment
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  vcvars: C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvars64.bat
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Create Build Environment
+      run: cmake -E make_directory ${{github.workspace}}\build
+      shell: powershell
+
+    - name: Configure CMake
+      shell: cmd
+      working-directory: ${{github.workspace}}/build
+      run:  |
+            "${{env.vcvars}}" && cmake ${{github.workspace}}  -G "NMake Makefiles"
+
+    - name: Build
+      shell: cmd
+      working-directory: ${{github.workspace}}/build
+      run: |
+           "${{env.vcvars}}" && cmake --build ${{github.workspace}}\build
+
+    - name: Test
+      shell: cmd
+      working-directory: ${{github.workspace}}/build
+      run: |
+           "${{env.vcvars}}" &&  app\kens\Debug\kens-all-run-solution.exe
