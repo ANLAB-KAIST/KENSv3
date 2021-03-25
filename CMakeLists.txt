@@ -83,7 +83,6 @@ if(WIN32)
 endif(WIN32)
 
 # Find Solution
-
 function(get_solution_name TARGET)
   if(CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang" AND CMAKE_SYSTEM_NAME STREQUAL
                                                      "Darwin")
@@ -94,6 +93,13 @@ function(get_solution_name TARGET)
                                                    "Windows")
     set(${TARGET}_SOLUTION_NAME
         "${TARGET}-${CMAKE_SYSTEM_PROCESSOR}-${CMAKE_SYSTEM_NAME}-Clang.zip"
+        PARENT_SCOPE)
+  elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    string(REPLACE "." ";" CMAKE_CXX_COMPILER_VERSION_LIST
+                   "${CMAKE_CXX_COMPILER_VERSION}")
+    list(GET CMAKE_CXX_COMPILER_VERSION_LIST 0 CMAKE_CXX_COMPILER_VERSION_MAJOR)
+    set(${TARGET}_SOLUTION_NAME
+        "${TARGET}-${CMAKE_SYSTEM_PROCESSOR}-${CMAKE_SYSTEM_NAME}-${CMAKE_CXX_COMPILER_ID}-${CMAKE_CXX_COMPILER_VERSION_MAJOR}.zip"
         PARENT_SCOPE)
   else()
     set(${TARGET}_SOLUTION_NAME
