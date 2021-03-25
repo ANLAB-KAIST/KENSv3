@@ -22,7 +22,7 @@ jobs:
       shell: cmd
       working-directory: ${{github.workspace}}/build
       run:  |
-            "${{env.vcvars}}" && cmake ${{github.workspace}}  -G "NMake Makefiles"
+            "${{env.vcvars}}" && cmake ${{github.workspace}}
 
     - name: Build
       shell: cmd
