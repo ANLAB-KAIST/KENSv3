@@ -28,15 +28,29 @@
 
 using namespace E;
 
-static void setup_random() {
+static void setup_env() {
+
+#ifdef RUN_SOLUTION
+  const bool run_solution = true;
+#else
+  const bool run_solution = false;
+#endif
+
+#ifdef UNRELIABLE
+  const bool unreliable = true;
+#else
+  const bool unreliable = false;
+#endif
+
+  int seed = RANDOM_SEED_DEFAULT;
+
   const char *random_seed = std::getenv("RANDOM_SEED");
   if (random_seed) {
-    printf("[RANDOM_SEED : %s]\n", random_seed);
-    srand(atoi(random_seed));
-  } else {
-    printf("[RANDOM_SEED : %d]\n", RANDOM_SEED_DEFAULT);
-    srand(RANDOM_SEED_DEFAULT);
+    seed = atoi(random_seed);
   }
+  srand(seed);
+  printf("[RANDOM_SEED : %d RUN_SOLUTION : %d UNRELIABLE : %d]\n", seed,
+         run_solution, unreliable);
 }
 
 template <class Target> class TestEnv1 : public ::testing::Test {
@@ -53,7 +67,7 @@ protected:
   HostModule *interface2;
 
   virtual void SetUp() {
-    setup_random();
+    setup_env();
 
     host1 = new Host("TestHost1", 2, &netSystem);
     host2 = new Host("TestHost2", 2, &netSystem);
@@ -156,7 +170,7 @@ protected:
   HostModule *interface2;
 
   virtual void SetUp() {
-    setup_random();
+    setup_env();
 
     host1 = new Host("TestHost1", 2, &netSystem);
     host2 = new Host("TestHost2", 2, &netSystem);
@@ -272,7 +286,7 @@ protected:
 
   virtual void SetUp() {
 
-    setup_random();
+    setup_env();
 
     prev_log = NetworkLog::defaultLevel;
     NetworkLog::defaultLevel |= (
