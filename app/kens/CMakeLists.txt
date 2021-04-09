@@ -20,8 +20,8 @@ set(kens_SOURCES TCPAssignment.cpp TCPAssignment.hpp testenv.hpp)
 
 add_library(kens ${kens_SOURCES})
 
-if (NOT WIN32)
-target_compile_options(kens PUBLIC -g -O0 -Wall)
+if(NOT WIN32)
+  target_compile_options(kens PUBLIC -g -O0 -Wall)
 endif()
 
 target_link_libraries(kens PUBLIC e)
@@ -37,72 +37,31 @@ set(kens_part1_SOURCES testopen.cpp testbind.cpp)
 set(kens_part2_SOURCES testhandshake.cpp testclose.cpp)
 set(kens_part3_SOURCES testtransfer.cpp)
 set(kens_part4_SOURCES testcongestion.cpp)
+set(kens_all_SOURCES ${kens_part1_SOURCES} ${kens_part2_SOURCES}
+                     ${kens_part3_SOURCES} ${kens_part4_SOURCES})
 
-add_executable(kens-part1 ${kens_part1_SOURCES})
-target_link_libraries(kens-part1 kens)
+foreach(part part1 part2 part3 part4 all)
+  add_executable(kens-${part} ${kens_${part}_SOURCES})
+  target_link_libraries(kens-${part} kens)
+  add_executable(kens-${part}-unreliable ${kens_${part}_SOURCES})
+  target_link_libraries(kens-${part}-unreliable kens)
+  add_executable(kens-${part}-run-solution ${kens_${part}_SOURCES})
+  target_link_libraries(kens-${part}-run-solution kens)
+  add_executable(kens-${part}-unreliable-run-solution ${kens_${part}_SOURCES})
+  target_link_libraries(kens-${part}-unreliable-run-solution kens)
 
-add_executable(kens-part2 ${kens_part2_SOURCES})
-target_link_libraries(kens-part2 kens)
+  target_compile_definitions(kens-${part}-run-solution PRIVATE RUN_SOLUTION)
+  target_compile_definitions(kens-${part}-unreliable-run-solution
+                             PRIVATE RUN_SOLUTION UNRELIABLE)
+  target_compile_definitions(kens-${part}-unreliable PRIVATE UNRELIABLE)
 
-add_executable(kens-part3 ${kens_part3_SOURCES})
-target_link_libraries(kens-part3 kens)
-
-add_executable(kens-part4 ${kens_part4_SOURCES})
-target_link_libraries(kens-part4 kens)
-
-add_executable(kens-all ${kens_part1_SOURCES} ${kens_part2_SOURCES}
-                        ${kens_part3_SOURCES} ${kens_part4_SOURCES})
-target_link_libraries(kens-all kens)
-
-add_executable(kens-part1-run-solution ${kens_part1_SOURCES})
-target_link_libraries(kens-part1-run-solution kens)
-
-add_executable(kens-part2-run-solution ${kens_part2_SOURCES})
-target_link_libraries(kens-part2-run-solution kens)
-
-add_executable(kens-part3-run-solution ${kens_part3_SOURCES})
-target_link_libraries(kens-part3-run-solution kens)
-
-add_executable(kens-part4-run-solution ${kens_part4_SOURCES})
-target_link_libraries(kens-part4-run-solution kens)
-
-add_executable(
-  kens-all-run-solution ${kens_part1_SOURCES} ${kens_part2_SOURCES}
-                        ${kens_part3_SOURCES} ${kens_part4_SOURCES})
-target_link_libraries(kens-all-run-solution kens)
-
-target_compile_definitions(kens-part1-run-solution PRIVATE RUN_SOLUTION)
-target_compile_definitions(kens-part2-run-solution PRIVATE RUN_SOLUTION)
-target_compile_definitions(kens-part3-run-solution PRIVATE RUN_SOLUTION)
-target_compile_definitions(kens-part4-run-solution PRIVATE RUN_SOLUTION)
-target_compile_definitions(kens-all-run-solution PRIVATE RUN_SOLUTION)
-
-# XCode does not support color
-
-if(${CMAKE_VERSION} VERSION_GREATER "3.15.0")
-  set_target_properties(
-    kens-part1
-    kens-part2
-    kens-part3
-    kens-part4
-    kens-all
-    kens-part1-run-solution
-    kens-part2-run-solution
-    kens-part3-run-solution
-    kens-part4-run-solution
-    kens-all-run-solution
-    PROPERTIES XCODE_GENERATE_SCHEME ON)
-  set_target_properties(
-    kens-part1
-    kens-part2
-    kens-part3
-    kens-part4
-    kens-all
-    kens-part1-run-solution
-    kens-part2-run-solution
-    kens-part3-run-solution
-    kens-part4-run-solution
-    kens-all-run-solution
-    PROPERTIES XCODE_SCHEME_ARGUMENTS "--gtest_color=no")
-
-endif()
+  if(${CMAKE_VERSION} VERSION_GREATER "3.15.0")
+    set_target_properties(
+      kens-${part} kens-${part}-run-solution kens-${part}-unreliable
+      kens-${part}-unreliable-run-solution PROPERTIES XCODE_GENERATE_SCHEME ON)
+    set_target_properties(
+      kens-${part} kens-${part}-run-solution kens-${part}-unreliable
+      kens-${part}-unreliable-run-solution PROPERTIES XCODE_SCHEME_ARGUMENTS
+                                                      "--gtest_color=no")
+  endif()
+endforeach(part)
