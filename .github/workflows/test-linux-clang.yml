@@ -40,3 +40,8 @@ jobs:
         working-directory: ${{github.workspace}}/build
         shell: bash
         run: ./app/kens/kens-all-run-solution 
+
+      - name: Test (Unreliable)
+        working-directory: ${{github.workspace}}/build
+        shell: bash
+        run: ./app/kens/kens-all-unreliable-run-solution 

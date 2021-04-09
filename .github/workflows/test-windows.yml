@@ -30,3 +30,8 @@ jobs:
       shell: cmd
       working-directory: ${{github.workspace}}/build/app/kens/Debug
       run: kens-all-run-solution.exe
+
+    - name: Test (Unreliable)
+      shell: cmd
+      working-directory: ${{github.workspace}}/build/app/kens/Debug
+      run: kens-all-unreliable-run-solution.exe
