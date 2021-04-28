@@ -118,6 +118,12 @@ protected:
     switchingHub->addMACEntry(host2->getPort(0), mac2);
     switchingHub->addMACEntry(host2->getPort(1), mac2_2);
 
+    const ::testing::TestInfo *const test_info =
+        ::testing::UnitTest::GetInstance()->current_test_info();
+    std::string file_name(test_info->name());
+    file_name.append(".pcap");
+    switchingHub->enablePCAPLogging(file_name);
+
     ethernet1 = new Ethernet(host1);
     ethernet2 = new Ethernet(host2);
     ipv4_1 = new IPv4(host1);
