@@ -198,7 +198,7 @@ struct pcap_file_header {
 
 void Link::enablePCAPLogging(const std::string &filename, Size snaplen) {
   if (!pcap_enabled) {
-    pcap_file.open(filename);
+    pcap_file.open(filename, std::ofstream::binary);
     pcap_enabled = true;
     this->snaplen = snaplen;
 
