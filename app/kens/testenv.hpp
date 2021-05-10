@@ -28,32 +28,38 @@
 
 using namespace E;
 
-static void setup_env() {
+class KensTesting : public ::testing::Test {
+protected:
+  void setup_env() {
 
 #ifdef RUN_SOLUTION
-  const bool run_solution = true;
+    const bool run_solution = true;
 #else
-  const bool run_solution = false;
+    const bool run_solution = false;
 #endif
 
 #ifdef UNRELIABLE
-  const bool unreliable = true;
+    const bool unreliable = true;
 #else
-  const bool unreliable = false;
+    const bool unreliable = false;
 #endif
 
-  int seed = RANDOM_SEED_DEFAULT;
+    int seed = RANDOM_SEED_DEFAULT;
 
-  const char *random_seed = std::getenv("RANDOM_SEED");
-  if (random_seed) {
-    seed = atoi(random_seed);
+    const char *random_seed = std::getenv("RANDOM_SEED");
+    if (random_seed) {
+      seed = atoi(random_seed);
+    }
+    srand(seed);
+    RecordProperty("random_seed", seed);
+    RecordProperty("run_solution", run_solution);
+    RecordProperty("unreliable", unreliable);
+    printf("[RANDOM_SEED : %d RUN_SOLUTION : %d UNRELIABLE : %d]\n", seed,
+           run_solution, unreliable);
   }
-  srand(seed);
-  printf("[RANDOM_SEED : %d RUN_SOLUTION : %d UNRELIABLE : %d]\n", seed,
-         run_solution, unreliable);
-}
+};
 
-template <class Target> class TestEnv1 : public ::testing::Test {
+template <class Target> class TestEnv1 : public KensTesting {
 protected:
   NetworkSystem netSystem;
   Host *host1;
@@ -162,7 +168,7 @@ protected:
 };
 
 template <class Target, class Adversary, bool Unreliable>
-class TestEnv2 : public ::testing::Test {
+class TestEnv2 : public KensTesting {
 protected:
   NetworkSystem netSystem;
   Host *host1;
@@ -272,7 +278,7 @@ protected:
 };
 
 template <class Target, class Adversary, int CLIENTS, int TIMEOUT>
-class TestEnv3 : public ::testing::Test {
+class TestEnv3 : public KensTesting {
 protected:
   NetworkSystem netSystem;
   Host *server_host;
