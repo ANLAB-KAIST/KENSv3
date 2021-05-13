@@ -9,10 +9,11 @@ var searchData=
   ['getmodulename_44',['getModuleName',['../class_e_1_1_network_module.html#aae04af1bd9fd7eef7c833930657e0054',1,'E::NetworkModule']]],
   ['getmultiplier_45',['getMultiplier',['../class_e_1_1_time_util.html#a2bd1f743d5a4bb17f43e8ddf8d33a30f',1,'E::TimeUtil']]],
   ['getnetworksystem_46',['getNetworkSystem',['../class_e_1_1_network_module.html#ad260b0b7777bed4a9a01725494bb9b16',1,'E::NetworkModule']]],
-  ['getroutingtable_47',['getRoutingTable',['../class_e_1_1_routing_info.html#aeab6a18b430319e2ef21e4ca852ede1c',1,'E::RoutingInfo']]],
-  ['getsize_48',['getSize',['../class_e_1_1_packet.html#a5a990ef245fa94c2018cab067c41cb60',1,'E::Packet']]],
-  ['getsystem_49',['getSystem',['../class_e_1_1_module.html#ad08bf4421810b107202392cb2c1fd083',1,'E::Module']]],
-  ['getsystemlock_50',['getSystemLock',['../class_e_1_1_system.html#a1821077e644025ee4fe59872acaef651',1,'E::System']]],
-  ['gettime_51',['getTime',['../class_e_1_1_time_util.html#a8839a4e00904553e030a0b8ab7d631e2',1,'E::TimeUtil']]],
-  ['graphnode_52',['GraphNode',['../class_e_1_1_graph_node.html',1,'E']]]
+  ['getportspeed_47',['getPortSpeed',['../class_e_1_1_port.html#adfd309c9ad86f60eed837632822299cb',1,'E::Port']]],
+  ['getroutingtable_48',['getRoutingTable',['../class_e_1_1_routing_info.html#aeab6a18b430319e2ef21e4ca852ede1c',1,'E::RoutingInfo']]],
+  ['getsize_49',['getSize',['../class_e_1_1_packet.html#a5a990ef245fa94c2018cab067c41cb60',1,'E::Packet']]],
+  ['getsystem_50',['getSystem',['../class_e_1_1_module.html#ad08bf4421810b107202392cb2c1fd083',1,'E::Module']]],
+  ['getsystemlock_51',['getSystemLock',['../class_e_1_1_system.html#a1821077e644025ee4fe59872acaef651',1,'E::System']]],
+  ['gettime_52',['getTime',['../class_e_1_1_time_util.html#a8839a4e00904553e030a0b8ab7d631e2',1,'E::TimeUtil']]],
+  ['graphnode_53',['GraphNode',['../class_e_1_1_graph_node.html',1,'E']]]
 ];
