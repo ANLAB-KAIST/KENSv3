@@ -32,6 +32,7 @@ Port::~Port() {}
 void Port::setSpeedLimit(bool do_limit) { this->limit_speed = do_limit; }
 
 void Port::setPortSpeed(Size bps) { this->bps = bps; }
+Size Port::getPortSpeed() { return this->bps; }
 
 void Port::setPropagationDelay(Time delay) { propagationDelay = delay; }
 

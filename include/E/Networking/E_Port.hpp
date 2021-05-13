@@ -60,6 +60,12 @@ public:
   virtual void setPortSpeed(Size bps) final;
 
   /**
+   * @return Get data rate.
+   * @note You cannot override this function.
+   */
+  virtual Size getPortSpeed() final;
+
+  /**
    * @param delay Set propagation delay.
    * @note You cannot override this function.
    */

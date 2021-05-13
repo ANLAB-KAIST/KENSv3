@@ -1,19 +1,5 @@
 project(kens)
 
-# Get Library: GTest
-
-include(FetchContent)
-
-FetchContent_Declare(
-  googletest
-  URL https://github.com/google/googletest/archive/release-1.10.0.zip)
-
-FetchContent_GetProperties(googletest)
-if(NOT googletest_POPULATED)
-  FetchContent_Populate(googletest)
-  add_subdirectory(${googletest_SOURCE_DIR}/googletest ${googletest_BINARY_DIR})
-endif()
-
 # Build KENS
 
 set(kens_SOURCES TCPAssignment.cpp TCPAssignment.hpp testenv.hpp)

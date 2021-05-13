@@ -39,14 +39,23 @@ void Ethernet::packetArrived(std::string fromModule, Packet &&packet) {
 
     ipv4_t dst_ip;
     packet.readData(30, dst_ip.data(), 4);
-
-    int port = this->getHost()->getRoutingTable(dst_ip);
-    auto src = this->getHost()->getMACAddr(port);
-    auto dst = this->getHost()->getARPTable(dst_ip);
-
-    packet.writeData(0, dst.value().data(), 6);
-    packet.writeData(6, src.value().data(), 6);
-
+    constexpr ipv4_t ip_broadcast = {255, 255, 255, 255};
+    constexpr mac_t mac_broadcast = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+    if (dst_ip == ip_broadcast) {
+      // TODO: general IP broadcast
+      ipv4_t src_ip;
+      packet.readData(26, src_ip.data(), 4);
+      int port = this->getHost()->getRoutingTable(src_ip);
+      auto src = this->getHost()->getMACAddr(port);
+      packet.writeData(0, mac_broadcast.data(), 6);
+      packet.writeData(6, src.value().data(), 6);
+    } else {
+      int port = this->getHost()->getRoutingTable(dst_ip);
+      auto src = this->getHost()->getMACAddr(port);
+      auto dst = this->getHost()->getARPTable(dst_ip);
+      packet.writeData(0, dst.value().data(), 6);
+      packet.writeData(6, src.value().data(), 6);
+    }
     this->sendPacket("Host", std::move(packet));
   } else if (fromModule.compare("IPv6") == 0) {
     uint8_t first_byte = 0x86;
