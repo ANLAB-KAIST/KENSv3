@@ -398,7 +398,7 @@ protected:
         {0, 1, 1}, {0, 3, 1}, {1, 2, 1}, {1, 4, 1}, {3, 4, 1}, {3, 6, 1},
         {4, 5, 1}, {4, 7, 1}, {5, 8, 1}, {6, 7, 1}, {7, 8, 1}};
 
-        setupGraph(graph);
+    setupGraph(graph);
   }
   void runTest() {
     netSystem.run(TimeUtil::makeTime(routing_run_time, TimeUtil::SEC));
