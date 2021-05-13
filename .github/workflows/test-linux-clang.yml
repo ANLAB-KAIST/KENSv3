@@ -3,7 +3,7 @@ name: Test Linux Environment (Clang)
 on:
   push:
     branches:
-      - master
+      - clang
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
