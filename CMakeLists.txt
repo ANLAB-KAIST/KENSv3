@@ -61,20 +61,6 @@ else()
   message(FATAL_ERROR "Compiler must support packing")
 endif()
 
-# Get Library: GTest
-
-include(FetchContent)
-
-FetchContent_Declare(
-  googletest
-  URL https://github.com/google/googletest/archive/release-1.10.0.zip)
-
-FetchContent_GetProperties(googletest)
-if(NOT googletest_POPULATED)
-  FetchContent_Populate(googletest)
-  add_subdirectory(${googletest_SOURCE_DIR}/googletest ${googletest_BINARY_DIR})
-endif()
-
 # Build E
 file(GLOB_RECURSE e_SOURCES "src/*.cpp")
 file(GLOB_RECURSE e_HEADERS "include/*.hpp")
@@ -95,6 +81,20 @@ if(WIN32)
       ON
       CACHE BOOL "" FORCE)
 endif(WIN32)
+
+# Get Library: GTest
+
+include(FetchContent)
+
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/release-1.10.0.zip)
+
+FetchContent_GetProperties(googletest)
+if(NOT googletest_POPULATED)
+  FetchContent_Populate(googletest)
+  add_subdirectory(${googletest_SOURCE_DIR}/googletest ${googletest_BINARY_DIR})
+endif()
 
 # Find Solution
 function(get_solution_name TARGET)
