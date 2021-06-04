@@ -14,8 +14,8 @@ function grade() {
     tmp_src=$(mktemp -d)
 
     cp -r /init/* "$tmp_src"
-    cp "/submission/*Assignment.hpp" "$tmp_src/app/$1/"
-    cp "/submission/*Assignment.cpp" "$tmp_src/app/$1/"
+    cp /submission/*Assignment.hpp "$tmp_src/app/$1/"
+    cp /submission/*Assignment.cpp "$tmp_src/app/$1/"
 
     tmp_build=$(mktemp -d)
     cd "$tmp_build" || exit 1
