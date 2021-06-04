@@ -13,7 +13,11 @@ if ! [ "$(ls -A /workspace/)" ]; then
 fi
 
 function grade() {
-    echo "Grading part $*"
+    if [ "$#" -lt 2 ]; then
+        echo "Usage: grade [app_name] [parts ...]"
+        exit 1
+    fi
+    echo "Grading $1: ${*:2}"
     tmp_src=$(mktemp -d)
 
     cp -r /init/* "$tmp_src"
@@ -29,8 +33,8 @@ function grade() {
     cmake -G Ninja "$tmp_src"
     cmake --build .
 
-    for part in "$@"; do
-        "./app/$part"
+    for part in "${@:2}"; do
+        "./app/$1/$part"
     done
 }
 
