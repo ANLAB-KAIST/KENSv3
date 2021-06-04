@@ -23,31 +23,32 @@ set(kens_part1_SOURCES testopen.cpp testbind.cpp)
 set(kens_part2_SOURCES testhandshake.cpp testclose.cpp)
 set(kens_part3_SOURCES testtransfer.cpp)
 set(kens_part4_SOURCES testcongestion.cpp)
-set(kens_parts-all_SOURCES ${kens_part1_SOURCES} ${kens_part2_SOURCES}
+set(kens_all_SOURCES ${kens_part1_SOURCES} ${kens_part2_SOURCES}
                      ${kens_part3_SOURCES} ${kens_part4_SOURCES})
 
-foreach(part part1 part2 part3 part4 parts-all)
-  add_executable(${part} testenv.hpp ${kens_${part}_SOURCES})
-  target_link_libraries(${part} kens)
-  add_executable(${part}-unreliable testenv.hpp ${kens_${part}_SOURCES})
-  target_link_libraries(${part}-unreliable kens)
-  add_executable(${part}-run-solution testenv.hpp ${kens_${part}_SOURCES})
-  target_link_libraries(${part}-run-solution kens)
-  add_executable(${part}-unreliable-run-solution testenv.hpp ${kens_${part}_SOURCES})
-  target_link_libraries(${part}-unreliable-run-solution kens)
+foreach(part part1 part2 part3 part4 all)
+  add_executable(kens-${part} testenv.hpp ${kens_${part}_SOURCES})
+  target_link_libraries(kens-${part} kens)
+  add_executable(kens-${part}-unreliable testenv.hpp ${kens_${part}_SOURCES})
+  target_link_libraries(kens-${part}-unreliable kens)
+  add_executable(kens-${part}-run-solution testenv.hpp ${kens_${part}_SOURCES})
+  target_link_libraries(kens-${part}-run-solution kens)
+  add_executable(kens-${part}-unreliable-run-solution testenv.hpp
+                                                      ${kens_${part}_SOURCES})
+  target_link_libraries(kens-${part}-unreliable-run-solution kens)
 
-  target_compile_definitions(${part}-run-solution PRIVATE RUN_SOLUTION)
-  target_compile_definitions(${part}-unreliable-run-solution
+  target_compile_definitions(kens-${part}-run-solution PRIVATE RUN_SOLUTION)
+  target_compile_definitions(kens-${part}-unreliable-run-solution
                              PRIVATE RUN_SOLUTION UNRELIABLE)
-  target_compile_definitions(${part}-unreliable PRIVATE UNRELIABLE)
+  target_compile_definitions(kens-${part}-unreliable PRIVATE UNRELIABLE)
 
   if(${CMAKE_VERSION} VERSION_GREATER "3.13.0")
     set_target_properties(
-      ${part} ${part}-run-solution ${part}-unreliable
-      ${part}-unreliable-run-solution PROPERTIES XCODE_GENERATE_SCHEME ON)
+      kens-${part} kens-${part}-run-solution kens-${part}-unreliable
+      kens-${part}-unreliable-run-solution PROPERTIES XCODE_GENERATE_SCHEME ON)
     set_target_properties(
-      ${part} ${part}-run-solution ${part}-unreliable
-      ${part}-unreliable-run-solution PROPERTIES XCODE_SCHEME_ENVIRONMENT
+      kens-${part} kens-${part}-run-solution kens-${part}-unreliable
+      kens-${part}-unreliable-run-solution PROPERTIES XCODE_SCHEME_ENVIRONMENT
                                                       "GTEST_COLOR=no")
   endif()
 endforeach(part)
