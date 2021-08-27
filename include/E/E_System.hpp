@@ -126,6 +126,7 @@ public:
     auto module = std::make_shared<T>(std::forward<Args>(args)...);
     module->id = newModuleID();
     bool ret = registeredModule.insert({module->id, module}).second;
+    (void)ret;
     assert(ret);
     return module;
   }

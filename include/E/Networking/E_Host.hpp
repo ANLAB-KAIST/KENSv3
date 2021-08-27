@@ -378,12 +378,14 @@ public:
     if constexpr (std::is_base_of<HostModule, T>::value) {
       auto hostModuleName = hostModule->getHostModuleName();
       bool ret = hostModuleMap.insert({hostModuleName, hostModule}).second;
+      (void)ret;
       assert(ret);
     }
 
     if constexpr (std::is_base_of<TimerModule, T>::value) {
       auto timerModuleName = hostModule->getTimerModuleName();
       bool ret = timerModuleMap.insert({timerModuleName, hostModule}).second;
+      (void)ret;
       assert(ret);
     }
 
@@ -393,6 +395,7 @@ public:
               .insert({Namespace(hostModule->domain, hostModule->protocol),
                        hostModule})
               .second;
+      (void)ret;
       assert(ret);
     }
   }

@@ -147,6 +147,7 @@ Module::Message Host::messageReceived(const ModuleID from,
     assert(iter != processInfoMap.end());
 
     for (auto allSyscall : syscallMap) {
+      (void)allSyscall;
       assert(
           allSyscall.second !=
           iter->second.application->pid); // no syscall pending for returned app
