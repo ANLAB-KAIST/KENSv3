@@ -70,6 +70,8 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_e_1_1_system-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -101,25 +103,42 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a67e932b7cf9d388f401495e138e119f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_system.html#a67e932b7cf9d388f401495e138e119f6">run</a> (Time till)</td></tr>
 <tr class="memdesc:a67e932b7cf9d388f401495e138e119f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute all registered <a class="el" href="class_e_1_1_module.html" title="Module is an interface for classes which can send/receive Message to/from the System.">Module</a>. Virtual clock will move to the end of the simulation.  <a href="class_e_1_1_system.html#a67e932b7cf9d388f401495e138e119f6">More...</a><br /></td></tr>
 <tr class="separator:a67e932b7cf9d388f401495e138e119f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1821077e644025ee4fe59872acaef651"><td class="memItemLeft" align="right" valign="top">std::mutex &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_system.html#a1821077e644025ee4fe59872acaef651">getSystemLock</a> ()</td></tr>
-<tr class="separator:a1821077e644025ee4fe59872acaef651"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9be9f7750af9ae255c157902399bff6f"><td class="memItemLeft" align="right" valign="top">Time&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_system.html#a9be9f7750af9ae255c157902399bff6f">getCurrentTime</a> ()</td></tr>
 <tr class="separator:a9be9f7750af9ae255c157902399bff6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a417627aa3784d1b8c8576a446aeb3f59"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_system.html#a417627aa3784d1b8c8576a446aeb3f59">addRunnable</a> (<a class="el" href="class_e_1_1_runnable.html">Runnable</a> *runnable) final</td></tr>
-<tr class="memdesc:a417627aa3784d1b8c8576a446aeb3f59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a <a class="el" href="class_e_1_1_runnable.html" title="Runnable is executed via System. The total ordering of execution is guaranteed by the System.">Runnable</a> interface to this <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>.  <a href="class_e_1_1_system.html#a417627aa3784d1b8c8576a446aeb3f59">More...</a><br /></td></tr>
-<tr class="separator:a417627aa3784d1b8c8576a446aeb3f59"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa329eca8eefe055a17bd030bb54930dc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_system.html#aa329eca8eefe055a17bd030bb54930dc">delRunnable</a> (<a class="el" href="class_e_1_1_runnable.html">Runnable</a> *runnable) final</td></tr>
-<tr class="memdesc:aa329eca8eefe055a17bd030bb54930dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unregister a <a class="el" href="class_e_1_1_runnable.html" title="Runnable is executed via System. The total ordering of execution is guaranteed by the System.">Runnable</a> interface to this <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>.  <a href="class_e_1_1_system.html#aa329eca8eefe055a17bd030bb54930dc">More...</a><br /></td></tr>
-<tr class="separator:aa329eca8eefe055a17bd030bb54930dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adea9fd6927b57e6593e109fe6f637835"><td class="memItemLeft" align="right" valign="top"><a id="adea9fd6927b57e6593e109fe6f637835"></a>
-friend&#160;</td><td class="memItemRight" valign="bottom"><b>Module::Module</b> (<a class="el" href="class_e_1_1_system.html">System</a> *system)</td></tr>
-<tr class="separator:adea9fd6927b57e6593e109fe6f637835"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a783ddf9b6ef4aa7ae8f898da77f36b28"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_system.html#a783ddf9b6ef4aa7ae8f898da77f36b28">addRunnable</a> (std::shared_ptr&lt; <a class="el" href="class_e_1_1_runnable.html">Runnable</a> &gt; runnable) final</td></tr>
+<tr class="memdesc:a783ddf9b6ef4aa7ae8f898da77f36b28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a <a class="el" href="class_e_1_1_runnable.html" title="Runnable is executed via System. The total ordering of execution is guaranteed by the System.">Runnable</a> interface to this <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>.  <a href="class_e_1_1_system.html#a783ddf9b6ef4aa7ae8f898da77f36b28">More...</a><br /></td></tr>
+<tr class="separator:a783ddf9b6ef4aa7ae8f898da77f36b28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d71d8ad5b3dedca31e2a5378f0919ee"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_system.html#a4d71d8ad5b3dedca31e2a5378f0919ee">delRunnable</a> (std::shared_ptr&lt; <a class="el" href="class_e_1_1_runnable.html">Runnable</a> &gt; runnable) final</td></tr>
+<tr class="memdesc:a4d71d8ad5b3dedca31e2a5378f0919ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unregister a <a class="el" href="class_e_1_1_runnable.html" title="Runnable is executed via System. The total ordering of execution is guaranteed by the System.">Runnable</a> interface to this <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>.  <a href="class_e_1_1_system.html#a4d71d8ad5b3dedca31e2a5378f0919ee">More...</a><br /></td></tr>
+<tr class="separator:a4d71d8ad5b3dedca31e2a5378f0919ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af207943f43df3589d7c98240a445d79d"><td class="memTemplParams" colspan="2"><a id="af207943f43df3589d7c98240a445d79d"></a>
+template&lt;typename T , typename... Args&gt; </td></tr>
+<tr class="memitem:af207943f43df3589d7c98240a445d79d"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>addModule</b> (Args &amp;&amp;...args)</td></tr>
+<tr class="separator:af207943f43df3589d7c98240a445d79d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af32f1870f1ae782b7d94d5c1ebbf2efe"><td class="memItemLeft" align="right" valign="top"><a id="af32f1870f1ae782b7d94d5c1ebbf2efe"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getModuleName</b> (const ModuleID moduleID)</td></tr>
+<tr class="separator:af32f1870f1ae782b7d94d5c1ebbf2efe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14fb57352d468e47459ab7c9125e14a0"><td class="memItemLeft" align="right" valign="top"><a id="a14fb57352d468e47459ab7c9125e14a0"></a>
+friend&#160;</td><td class="memItemRight" valign="bottom"><b>Module::Module</b> (<a class="el" href="class_e_1_1_system.html">System</a> &amp;system)</td></tr>
+<tr class="separator:a14fb57352d468e47459ab7c9125e14a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:ad6ba15634933d225d62d37c0192d2108"><td class="memItemLeft" align="right" valign="top"><a id="ad6ba15634933d225d62d37c0192d2108"></a>
+ModuleID&#160;</td><td class="memItemRight" valign="bottom"><b>lookupModuleID</b> (<a class="el" href="class_e_1_1_module.html">Module</a> &amp;module)</td></tr>
+<tr class="separator:ad6ba15634933d225d62d37c0192d2108"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a11ae1c429814e74d275012cd83c6a982"><td class="memItemLeft" align="right" valign="top"><a id="a11ae1c429814e74d275012cd83c6a982"></a>
+std::unordered_map&lt; ModuleID, std::shared_ptr&lt; <a class="el" href="class_e_1_1_module.html">Module</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>registeredModule</b></td></tr>
+<tr class="separator:a11ae1c429814e74d275012cd83c6a982"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
-<tr class="memitem:aab1f74684e02a0c68df0ef234febd4fc"><td class="memItemLeft" align="right" valign="top"><a id="aab1f74684e02a0c68df0ef234febd4fc"></a>
-UUID&#160;</td><td class="memItemRight" valign="bottom"><b>Module::sendMessage</b> (<a class="el" href="class_e_1_1_module.html">Module</a> *to, <a class="el" href="class_e_1_1_module_1_1_message.html">Module::Message</a> *message, Time timeAfter)</td></tr>
-<tr class="separator:aab1f74684e02a0c68df0ef234febd4fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a817c900ab6e9d05f64823597fd29c32e"><td class="memItemLeft" align="right" valign="top"><a id="a817c900ab6e9d05f64823597fd29c32e"></a>
+UUID&#160;</td><td class="memItemRight" valign="bottom"><b>Module::sendMessage</b> (const ModuleID to, Module::Message message, Time timeAfter)</td></tr>
+<tr class="separator:a817c900ab6e9d05f64823597fd29c32e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0915cfef4eec05acf8c123b06a538682"><td class="memItemLeft" align="right" valign="top"><a id="a0915cfef4eec05acf8c123b06a538682"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>Module::cancelMessage</b> (UUID timer)</td></tr>
 <tr class="separator:a0915cfef4eec05acf8c123b06a538682"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -130,8 +149,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>Module::cancelMessage
 <dd>
 <a class="el" href="class_e_1_1_module.html" title="Module is an interface for classes which can send/receive Message to/from the System.">Module</a> </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a417627aa3784d1b8c8576a446aeb3f59"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a417627aa3784d1b8c8576a446aeb3f59">&#9670;&nbsp;</a></span>addRunnable()</h2>
+<a id="a783ddf9b6ef4aa7ae8f898da77f36b28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a783ddf9b6ef4aa7ae8f898da77f36b28">&#9670;&nbsp;</a></span>addRunnable()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -142,7 +161,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>Module::cancelMessage
         <tr>
           <td class="memname">void E::System::addRunnable </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_e_1_1_runnable.html">Runnable</a> *&#160;</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="class_e_1_1_runnable.html">Runnable</a> &gt;&#160;</td>
           <td class="paramname"><em>runnable</em></td><td>)</td>
           <td></td>
         </tr>
@@ -166,8 +185,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>Module::cancelMessage
 
 </div>
 </div>
-<a id="aa329eca8eefe055a17bd030bb54930dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa329eca8eefe055a17bd030bb54930dc">&#9670;&nbsp;</a></span>delRunnable()</h2>
+<a id="a4d71d8ad5b3dedca31e2a5378f0919ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d71d8ad5b3dedca31e2a5378f0919ee">&#9670;&nbsp;</a></span>delRunnable()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -178,7 +197,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>Module::cancelMessage
         <tr>
           <td class="memname">void E::System::delRunnable </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_e_1_1_runnable.html">Runnable</a> *&#160;</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="class_e_1_1_runnable.html">Runnable</a> &gt;&#160;</td>
           <td class="paramname"><em>runnable</em></td><td>)</td>
           <td></td>
         </tr>
@@ -220,24 +239,6 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>Module::cancelMessage
 
 </div>
 </div>
-<a id="a1821077e644025ee4fe59872acaef651"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1821077e644025ee4fe59872acaef651">&#9670;&nbsp;</a></span>getSystemLock()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::mutex &amp; E::System::getSystemLock </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Global lock object used in this <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a> </dd></dl>
-
-</div>
-</div>
 <a id="a67e932b7cf9d388f401495e138e119f6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a67e932b7cf9d388f401495e138e119f6">&#9670;&nbsp;</a></span>run()</h2>
 
@@ -271,7 +272,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>Module::cancelMessage
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 4 2021 10:05:17 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Aug 27 2021 10:16:33 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

@@ -81,61 +81,61 @@ $(function() {
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>E {</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">class </span>NetworkSystem;</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="class_e_1_1_packet.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_e_1_1_packet.html">Packet</a> : <span class="keyword">public</span> <a class="code" href="class_e_1_1_module_1_1_message.html">Module::Message</a> {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <a class="code" href="class_e_1_1_packet.html">Packet</a>(UUID uuid, <span class="keywordtype">size_t</span> maxSize);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  std::unique_ptr&lt;char[]&gt; buffer;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">size_t</span> bufferSize;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keywordtype">size_t</span> dataSize;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keyword">const</span> UUID packetID;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keyword">static</span> std::unordered_set&lt;UUID&gt; packetUUIDSet;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keyword">static</span> UUID packetUUIDStart;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keyword">static</span> UUID allocatePacketUUID();</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> freePacketUUID(UUID uuid);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <a class="code" href="class_e_1_1_packet.html">Packet</a>(<span class="keyword">const</span> <a class="code" href="class_e_1_1_packet.html">Packet</a> &amp;other);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <a class="code" href="class_e_1_1_packet.html">Packet</a>(<a class="code" href="class_e_1_1_packet.html">Packet</a> &amp;&amp;other) noexcept;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <a class="code" href="class_e_1_1_packet.html">Packet</a>(<span class="keywordtype">size_t</span> maxSize);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  ~<a class="code" href="class_e_1_1_packet.html">Packet</a>();</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <a class="code" href="class_e_1_1_packet.html">Packet</a> <a class="code" href="class_e_1_1_packet.html#a2b1e50112d48a62c79f35ad2581f162d">clone</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <span class="keywordtype">size_t</span> <a class="code" href="class_e_1_1_packet.html#a3857ad76330952373ff891352e520a54">writeData</a>(<span class="keywordtype">size_t</span> offset, <span class="keyword">const</span> <span class="keywordtype">void</span> *data, <span class="keywordtype">size_t</span> length);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="keywordtype">size_t</span> <a class="code" href="class_e_1_1_packet.html#a43c1aced953066d640004d990f8a7d74">readData</a>(<span class="keywordtype">size_t</span> offset, <span class="keywordtype">void</span> *data, <span class="keywordtype">size_t</span> length) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  <span class="keywordtype">size_t</span> <a class="code" href="class_e_1_1_packet.html#a545aaf56d0ef92066748eeedb52d933b">setSize</a>(<span class="keywordtype">size_t</span> size);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="keywordtype">size_t</span> <a class="code" href="class_e_1_1_packet.html#a5a990ef245fa94c2018cab067c41cb60">getSize</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="keywordtype">void</span> clearContext();</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_e_1_1_network_system.html">NetworkSystem</a>;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;};</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;} <span class="comment">// namespace E</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* E_PACKET_HPP_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="class_e_1_1_packet.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_e_1_1_packet.html">Packet</a> : <span class="keyword">public</span> <a class="code" href="class_e_1_1_module_1_1_message_base.html">Module::MessageBase</a> {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <a class="code" href="class_e_1_1_packet.html">Packet</a>(UUID uuid, <span class="keywordtype">size_t</span> maxSize);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  std::vector&lt;char&gt; buffer;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">size_t</span> bufferSize;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keywordtype">size_t</span> dataSize;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keyword">const</span> UUID packetID;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keyword">static</span> std::unordered_set&lt;UUID&gt; packetUUIDSet;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keyword">static</span> UUID packetUUIDStart;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keyword">static</span> UUID allocatePacketUUID();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> freePacketUUID(UUID uuid);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <a class="code" href="class_e_1_1_packet.html">Packet</a>(<span class="keyword">const</span> <a class="code" href="class_e_1_1_packet.html">Packet</a> &amp;other);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <a class="code" href="class_e_1_1_packet.html">Packet</a>(<a class="code" href="class_e_1_1_packet.html">Packet</a> &amp;&amp;other) noexcept;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <a class="code" href="class_e_1_1_packet.html">Packet</a>(<span class="keywordtype">size_t</span> maxSize);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  ~<a class="code" href="class_e_1_1_packet.html">Packet</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <a class="code" href="class_e_1_1_packet.html">Packet</a> <a class="code" href="class_e_1_1_packet.html#a2b1e50112d48a62c79f35ad2581f162d">clone</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keywordtype">size_t</span> <a class="code" href="class_e_1_1_packet.html#a3857ad76330952373ff891352e520a54">writeData</a>(<span class="keywordtype">size_t</span> offset, <span class="keyword">const</span> <span class="keywordtype">void</span> *data, <span class="keywordtype">size_t</span> length);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keywordtype">size_t</span> <a class="code" href="class_e_1_1_packet.html#a43c1aced953066d640004d990f8a7d74">readData</a>(<span class="keywordtype">size_t</span> offset, <span class="keywordtype">void</span> *data, <span class="keywordtype">size_t</span> length) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="keywordtype">size_t</span> <a class="code" href="class_e_1_1_packet.html#a545aaf56d0ef92066748eeedb52d933b">setSize</a>(<span class="keywordtype">size_t</span> size);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <span class="keywordtype">size_t</span> <a class="code" href="class_e_1_1_packet.html#a5a990ef245fa94c2018cab067c41cb60">getSize</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <span class="keywordtype">void</span> clearContext();</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_e_1_1_network_system.html">NetworkSystem</a>;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;};</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;} <span class="comment">// namespace E</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* E_PACKET_HPP_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclass_e_1_1_packet_html_a43c1aced953066d640004d990f8a7d74"><div class="ttname"><a href="class_e_1_1_packet.html#a43c1aced953066d640004d990f8a7d74">E::Packet::readData</a></div><div class="ttdeci">size_t readData(size_t offset, void *data, size_t length) const</div><div class="ttdef"><b>Definition:</b> E_Packet.cpp:73</div></div>
-<div class="ttc" id="aclass_e_1_1_packet_html"><div class="ttname"><a href="class_e_1_1_packet.html">E::Packet</a></div><div class="ttdoc">This class abstracts a packet. You cannot directly allocate/deallocate Packet. Also you cannot direct...</div><div class="ttdef"><b>Definition:</b> E_Packet.hpp:25</div></div>
-<div class="ttc" id="aclass_e_1_1_packet_html_a545aaf56d0ef92066748eeedb52d933b"><div class="ttname"><a href="class_e_1_1_packet.html#a545aaf56d0ef92066748eeedb52d933b">E::Packet::setSize</a></div><div class="ttdeci">size_t setSize(size_t size)</div><div class="ttdoc">Change the size of this Packet The size cannot be larger than the internal buffer.</div><div class="ttdef"><b>Definition:</b> E_Packet.cpp:84</div></div>
+<div class="ttc" id="aclass_e_1_1_packet_html_a43c1aced953066d640004d990f8a7d74"><div class="ttname"><a href="class_e_1_1_packet.html#a43c1aced953066d640004d990f8a7d74">E::Packet::readData</a></div><div class="ttdeci">size_t readData(size_t offset, void *data, size_t length) const</div><div class="ttdef"><b>Definition:</b> E_Packet.cpp:69</div></div>
+<div class="ttc" id="aclass_e_1_1_packet_html"><div class="ttname"><a href="class_e_1_1_packet.html">E::Packet</a></div><div class="ttdoc">This class abstracts a packet. You cannot directly allocate/deallocate Packet. Also you cannot direct...</div><div class="ttdef"><b>Definition:</b> E_Packet.hpp:24</div></div>
+<div class="ttc" id="aclass_e_1_1_packet_html_a545aaf56d0ef92066748eeedb52d933b"><div class="ttname"><a href="class_e_1_1_packet.html#a545aaf56d0ef92066748eeedb52d933b">E::Packet::setSize</a></div><div class="ttdeci">size_t setSize(size_t size)</div><div class="ttdoc">Change the size of this Packet The size cannot be larger than the internal buffer.</div><div class="ttdef"><b>Definition:</b> E_Packet.cpp:80</div></div>
 <div class="ttc" id="a_e___common_8hpp_html"><div class="ttname"><a href="_e___common_8hpp.html">E_Common.hpp</a></div><div class="ttdoc">This header contains standard C++11 headers and compatibility definitions.</div></div>
-<div class="ttc" id="aclass_e_1_1_packet_html_a3857ad76330952373ff891352e520a54"><div class="ttname"><a href="class_e_1_1_packet.html#a3857ad76330952373ff891352e520a54">E::Packet::writeData</a></div><div class="ttdeci">size_t writeData(size_t offset, const void *data, size_t length)</div><div class="ttdef"><b>Definition:</b> E_Packet.cpp:62</div></div>
-<div class="ttc" id="aclass_e_1_1_module_1_1_message_html"><div class="ttname"><a href="class_e_1_1_module_1_1_message.html">E::Module::Message</a></div><div class="ttdoc">Interface of Message. Every message implementation must inherit this class.</div><div class="ttdef"><b>Definition:</b> E_Module.hpp:48</div></div>
-<div class="ttc" id="aclass_e_1_1_network_system_html"><div class="ttname"><a href="class_e_1_1_network_system.html">E::NetworkSystem</a></div><div class="ttdoc">NetworkSystem is a kind of System which has extensions for handling Packet network.</div><div class="ttdef"><b>Definition:</b> E_Networking.hpp:67</div></div>
+<div class="ttc" id="aclass_e_1_1_packet_html_a3857ad76330952373ff891352e520a54"><div class="ttname"><a href="class_e_1_1_packet.html#a3857ad76330952373ff891352e520a54">E::Packet::writeData</a></div><div class="ttdeci">size_t writeData(size_t offset, const void *data, size_t length)</div><div class="ttdef"><b>Definition:</b> E_Packet.cpp:58</div></div>
+<div class="ttc" id="aclass_e_1_1_network_system_html"><div class="ttname"><a href="class_e_1_1_network_system.html">E::NetworkSystem</a></div><div class="ttdoc">NetworkSystem is a kind of System which has extensions for handling Packet network.</div><div class="ttdef"><b>Definition:</b> E_Networking.hpp:38</div></div>
 <div class="ttc" id="a_e___module_8hpp_html"><div class="ttname"><a href="_e___module_8hpp.html">E_Module.hpp</a></div><div class="ttdoc">Header for E::Module.</div></div>
-<div class="ttc" id="aclass_e_1_1_packet_html_a2b1e50112d48a62c79f35ad2581f162d"><div class="ttname"><a href="class_e_1_1_packet.html#a2b1e50112d48a62c79f35ad2581f162d">E::Packet::clone</a></div><div class="ttdeci">Packet clone() const</div><div class="ttdef"><b>Definition:</b> E_Packet.cpp:53</div></div>
-<div class="ttc" id="aclass_e_1_1_packet_html_a5a990ef245fa94c2018cab067c41cb60"><div class="ttname"><a href="class_e_1_1_packet.html#a5a990ef245fa94c2018cab067c41cb60">E::Packet::getSize</a></div><div class="ttdeci">size_t getSize() const</div><div class="ttdef"><b>Definition:</b> E_Packet.cpp:88</div></div>
+<div class="ttc" id="aclass_e_1_1_packet_html_a2b1e50112d48a62c79f35ad2581f162d"><div class="ttname"><a href="class_e_1_1_packet.html#a2b1e50112d48a62c79f35ad2581f162d">E::Packet::clone</a></div><div class="ttdeci">Packet clone() const</div><div class="ttdef"><b>Definition:</b> E_Packet.cpp:50</div></div>
+<div class="ttc" id="aclass_e_1_1_module_1_1_message_base_html"><div class="ttname"><a href="class_e_1_1_module_1_1_message_base.html">E::Module::MessageBase</a></div><div class="ttdoc">Interface of Message. Every message implementation must inherit this class.</div><div class="ttdef"><b>Definition:</b> E_Module.hpp:48</div></div>
+<div class="ttc" id="aclass_e_1_1_packet_html_a5a990ef245fa94c2018cab067c41cb60"><div class="ttname"><a href="class_e_1_1_packet.html#a5a990ef245fa94c2018cab067c41cb60">E::Packet::getSize</a></div><div class="ttdeci">size_t getSize() const</div><div class="ttdef"><b>Definition:</b> E_Packet.cpp:84</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 4 2021 10:05:17 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Aug 27 2021 10:16:33 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

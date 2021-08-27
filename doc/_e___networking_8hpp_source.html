@@ -79,62 +79,56 @@ $(function() {
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="_e___module_8hpp.html">E/E_Module.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="_e___system_8hpp.html">E/E_System.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="_e___network_log_8hpp.html">E/Networking/E_NetworkLog.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>E {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">class </span>Packet;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span>NetworkSystem;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="_e___wire_8hpp.html">E/Networking/E_Wire.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>E {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span>Packet;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="class_e_1_1_network_module.html">   23</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_e_1_1_network_module.html">NetworkModule</a> {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <a class="code" href="class_e_1_1_network_system.html">NetworkSystem</a> *system;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  std::string name;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <a class="code" href="class_e_1_1_network_module.html#a7eebe1bd7fbb59cfa7fc453b1b2c036f">NetworkModule</a>(std::string name, <a class="code" href="class_e_1_1_network_system.html">NetworkSystem</a> *system);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_e_1_1_network_module.html">NetworkModule</a>();</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keyword">virtual</span> std::string <a class="code" href="class_e_1_1_network_module.html#aae04af1bd9fd7eef7c833930657e0054">getModuleName</a>() <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keyword">virtual</span> <a class="code" href="class_e_1_1_network_system.html">NetworkSystem</a> *<a class="code" href="class_e_1_1_network_module.html#ad260b0b7777bed4a9a01725494bb9b16">getNetworkSystem</a>() <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="comment">// virtual Packet *clonePacket(Packet *packet) final;</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="class_e_1_1_network_module.html#a53bab8a629589630c8b7bffd301495e1">   59</a></span>&#160;  <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_e_1_1_network_system.html">NetworkSystem</a>;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;};</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="class_e_1_1_network_system.html">   67</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_e_1_1_network_system.html">NetworkSystem</a> : <span class="keyword">public</span> <a class="code" href="class_e_1_1_system.html">System</a>, <span class="keyword">private</span> <a class="code" href="class_e_1_1_network_log.html">NetworkLog</a> {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  UUID packetUUIDStart;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  std::unordered_set&lt;UUID&gt; packetUUIDSet;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keywordtype">void</span> freePacketUUID(UUID uuid);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  UUID allocatePacketUUID();</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  std::unordered_map&lt;std::string, NetworkModule *&gt; moduleNameMap;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <a class="code" href="class_e_1_1_network_system.html">NetworkSystem</a>();</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_e_1_1_network_system.html">NetworkSystem</a>();</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;};</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;} <span class="comment">// namespace E</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* E_NETWORKING_HPP_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="class_e_1_1_network_module.html">   23</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_e_1_1_network_module.html">NetworkModule</a> : <span class="keyword">public</span> <a class="code" href="class_e_1_1_module.html">Module</a> {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <a class="code" href="class_e_1_1_network_module.html">NetworkModule</a>(<a class="code" href="class_e_1_1_system.html">System</a> &amp;system);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="keywordtype">int</span> connectWire(<span class="keyword">const</span> ModuleID moduleID);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keywordtype">size_t</span> getPortCount() { <span class="keywordflow">return</span> ports.size(); }</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  std::vector&lt;ModuleID&gt; ports;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="class_e_1_1_network_system.html">   38</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_e_1_1_network_system.html">NetworkSystem</a> : <span class="keyword">public</span> <a class="code" href="class_e_1_1_system.html">System</a>, <span class="keyword">private</span> <a class="code" href="class_e_1_1_network_log.html">NetworkLog</a> {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  UUID packetUUIDStart;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  std::unordered_set&lt;UUID&gt; packetUUIDSet;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keywordtype">void</span> freePacketUUID(UUID uuid);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  UUID allocatePacketUUID();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <a class="code" href="class_e_1_1_network_system.html">NetworkSystem</a>();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_e_1_1_network_system.html">NetworkSystem</a>();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  std::pair&lt;std::shared_ptr&lt;Wire&gt;, std::pair&lt;int, int&gt;&gt;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  addWire(<a class="code" href="class_e_1_1_network_module.html">NetworkModule</a> &amp;left, <a class="code" href="class_e_1_1_network_module.html">NetworkModule</a> &amp;right,</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;          Time propagationDelay = 1000000, Size bps = 1000000000UL,</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;          <span class="keywordtype">bool</span> limit_speed = <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  Size getWireSpeed(<span class="keyword">const</span> ModuleID moduleID);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;};</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;} <span class="comment">// namespace E</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* E_NETWORKING_HPP_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="a_e___network_log_8hpp_html"><div class="ttname"><a href="_e___network_log_8hpp.html">E_NetworkLog.hpp</a></div><div class="ttdoc">Header for E::NetworkLog.</div></div>
 <div class="ttc" id="aclass_e_1_1_system_html"><div class="ttname"><a href="class_e_1_1_system.html">E::System</a></div><div class="ttdoc">System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...</div><div class="ttdef"><b>Definition:</b> E_System.hpp:29</div></div>
 <div class="ttc" id="a_e___common_8hpp_html"><div class="ttname"><a href="_e___common_8hpp.html">E_Common.hpp</a></div><div class="ttdoc">This header contains standard C++11 headers and compatibility definitions.</div></div>
-<div class="ttc" id="aclass_e_1_1_network_system_html"><div class="ttname"><a href="class_e_1_1_network_system.html">E::NetworkSystem</a></div><div class="ttdoc">NetworkSystem is a kind of System which has extensions for handling Packet network.</div><div class="ttdef"><b>Definition:</b> E_Networking.hpp:67</div></div>
+<div class="ttc" id="aclass_e_1_1_network_system_html"><div class="ttname"><a href="class_e_1_1_network_system.html">E::NetworkSystem</a></div><div class="ttdoc">NetworkSystem is a kind of System which has extensions for handling Packet network.</div><div class="ttdef"><b>Definition:</b> E_Networking.hpp:38</div></div>
 <div class="ttc" id="aclass_e_1_1_network_log_html"><div class="ttname"><a href="class_e_1_1_network_log.html">E::NetworkLog</a></div><div class="ttdef"><b>Definition:</b> E_NetworkLog.hpp:23</div></div>
-<div class="ttc" id="aclass_e_1_1_network_module_html_ad260b0b7777bed4a9a01725494bb9b16"><div class="ttname"><a href="class_e_1_1_network_module.html#ad260b0b7777bed4a9a01725494bb9b16">E::NetworkModule::getNetworkSystem</a></div><div class="ttdeci">virtual NetworkSystem * getNetworkSystem() final</div><div class="ttdef"><b>Definition:</b> E_Networking.cpp:26</div></div>
-<div class="ttc" id="aclass_e_1_1_network_module_html"><div class="ttname"><a href="class_e_1_1_network_module.html">E::NetworkModule</a></div><div class="ttdoc">NetworkModule can allocate/deallocate Packets.</div><div class="ttdef"><b>Definition:</b> E_Networking.hpp:23</div></div>
+<div class="ttc" id="aclass_e_1_1_network_module_html"><div class="ttname"><a href="class_e_1_1_network_module.html">E::NetworkModule</a></div><div class="ttdoc">NetworkModule is a abstract class for wired connection.</div><div class="ttdef"><b>Definition:</b> E_Networking.hpp:23</div></div>
+<div class="ttc" id="aclass_e_1_1_module_html"><div class="ttname"><a href="class_e_1_1_module.html">E::Module</a></div><div class="ttdoc">Module is an interface for classes which can send/receive Message to/from the System.</div><div class="ttdef"><b>Definition:</b> E_Module.hpp:23</div></div>
 <div class="ttc" id="a_e___system_8hpp_html"><div class="ttname"><a href="_e___system_8hpp.html">E_System.hpp</a></div><div class="ttdoc">Header for E::System and E::Runnable.</div></div>
 <div class="ttc" id="a_e___module_8hpp_html"><div class="ttname"><a href="_e___module_8hpp.html">E_Module.hpp</a></div><div class="ttdoc">Header for E::Module.</div></div>
-<div class="ttc" id="aclass_e_1_1_network_module_html_aae04af1bd9fd7eef7c833930657e0054"><div class="ttname"><a href="class_e_1_1_network_module.html#aae04af1bd9fd7eef7c833930657e0054">E::NetworkModule::getModuleName</a></div><div class="ttdeci">virtual std::string getModuleName() final</div><div class="ttdef"><b>Definition:</b> E_Networking.cpp:28</div></div>
-<div class="ttc" id="aclass_e_1_1_network_module_html_a7eebe1bd7fbb59cfa7fc453b1b2c036f"><div class="ttname"><a href="class_e_1_1_network_module.html#a7eebe1bd7fbb59cfa7fc453b1b2c036f">E::NetworkModule::NetworkModule</a></div><div class="ttdeci">NetworkModule(std::string name, NetworkSystem *system)</div><div class="ttdoc">NetworkModule is registered to the NetworkSystem when it is created.</div><div class="ttdef"><b>Definition:</b> E_Networking.cpp:19</div></div>
+<div class="ttc" id="a_e___wire_8hpp_html"><div class="ttname"><a href="_e___wire_8hpp.html">E_Wire.hpp</a></div><div class="ttdoc">Header for E::Wire.</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 4 2021 10:05:17 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Aug 27 2021 10:16:33 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

@@ -70,7 +70,8 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#define-members">Macros</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">E_Common.hpp File Reference</div>  </div>
 </div><!--header-->
@@ -92,6 +93,7 @@ $(function() {
 <code>#include &lt;cstdlib&gt;</code><br />
 <code>#include &lt;cstring&gt;</code><br />
 <code>#include &lt;ctime&gt;</code><br />
+<code>#include &lt;functional&gt;</code><br />
 <code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;list&gt;</code><br />
 <code>#include &lt;map&gt;</code><br />
@@ -105,14 +107,18 @@ $(function() {
 <code>#include &lt;set&gt;</code><br />
 <code>#include &lt;stack&gt;</code><br />
 <code>#include &lt;thread&gt;</code><br />
+<code>#include &lt;typeinfo&gt;</code><br />
 <code>#include &lt;unordered_map&gt;</code><br />
 <code>#include &lt;unordered_set&gt;</code><br />
 <code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;variant&gt;</code><br />
 </div>
 <p><a href="_e___common_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_1_1overloaded.html">E::overloaded&lt; Ts &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstd_1_1hash_3_01std_1_1pair_3_01_k_00_01_v_01_4_01_4.html">std::hash&lt; std::pair&lt; K, V &gt; &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -148,6 +154,13 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>E::ipv4_t</b> = std:
 <tr class="memitem:a55e314cd3490bce0e1db48fb443d2297"><td class="memItemLeft" align="right" valign="top"><a id="a55e314cd3490bce0e1db48fb443d2297"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>E::mac_t</b> = std::array&lt; uint8_t, 6 &gt;</td></tr>
 <tr class="separator:a55e314cd3490bce0e1db48fb443d2297"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a0b2e92ff89265e9a65f5b35803eabf0c"><td class="memTemplParams" colspan="2"><a id="a0b2e92ff89265e9a65f5b35803eabf0c"></a>
+template&lt;class... Ts&gt; </td></tr>
+<tr class="memitem:a0b2e92ff89265e9a65f5b35803eabf0c"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>E::overloaded</b> (Ts...) -&gt; overloaded&lt; Ts... &gt;</td></tr>
+<tr class="separator:a0b2e92ff89265e9a65f5b35803eabf0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This header contains standard C++11 headers and compatibility definitions. </p>
@@ -155,7 +168,7 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>E::mac_t</b> = std::
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 4 2021 10:05:17 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Aug 27 2021 10:16:33 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

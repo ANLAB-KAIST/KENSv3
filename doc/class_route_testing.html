@@ -64,7 +64,6 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="class_route_testing-members.html">List of all members</a>  </div>
@@ -79,11 +78,6 @@ Inheritance diagram for RouteTesting&lt; N &gt;:</div>
   <img src="class_route_testing.png" alt=""/>
  </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_route_testing_1_1_router.html">Router</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a01a78b64a7f1d8d0e5a6b35444fc303c"><td class="memItemLeft" align="right" valign="top"><a id="a01a78b64a7f1d8d0e5a6b35444fc303c"></a>
@@ -113,18 +107,18 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a95d422bac91dde7e11e38f36f877b891"><td class="memItemLeft" align="right" valign="top"><a id="a95d422bac91dde7e11e38f36f877b891"></a>
 <a class="el" href="class_e_1_1_network_system.html">NetworkSystem</a>&#160;</td><td class="memItemRight" valign="bottom"><b>netSystem</b></td></tr>
 <tr class="separator:a95d422bac91dde7e11e38f36f877b891"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a827c6bc1b55556979e29e617b35d33cd"><td class="memItemLeft" align="right" valign="top"><a id="a827c6bc1b55556979e29e617b35d33cd"></a>
-std::array&lt; <a class="el" href="struct_route_testing_1_1_router.html">Router</a>, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>routers</b></td></tr>
-<tr class="separator:a827c6bc1b55556979e29e617b35d33cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a013edc8281f60fbebadc12490247192f"><td class="memItemLeft" align="right" valign="top"><a id="a013edc8281f60fbebadc12490247192f"></a>
+std::array&lt; std::shared_ptr&lt; <a class="el" href="class_e_1_1_host.html">Host</a> &gt;, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>routers</b></td></tr>
+<tr class="separator:a013edc8281f60fbebadc12490247192f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5f021b868a58855aac973ffc4b3fdc9"><td class="memItemLeft" align="right" valign="top"><a id="ac5f021b868a58855aac973ffc4b3fdc9"></a>
 size_t&#160;</td><td class="memItemRight" valign="bottom"><b>next_mac_id</b></td></tr>
 <tr class="separator:ac5f021b868a58855aac973ffc4b3fdc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ef66327a6fe257c433d33dffc36a5e5"><td class="memItemLeft" align="right" valign="top"><a id="a3ef66327a6fe257c433d33dffc36a5e5"></a>
 size_t&#160;</td><td class="memItemRight" valign="bottom"><b>next_network_id</b></td></tr>
 <tr class="separator:a3ef66327a6fe257c433d33dffc36a5e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca94e029a1265732dc948f88703498ee"><td class="memItemLeft" align="right" valign="top"><a id="aca94e029a1265732dc948f88703498ee"></a>
-std::vector&lt; <a class="el" href="class_e_1_1_switch.html">Switch</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>switches</b></td></tr>
-<tr class="separator:aca94e029a1265732dc948f88703498ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca80ab40ab78d61b4ad607bc3957eab9"><td class="memItemLeft" align="right" valign="top"><a id="aca80ab40ab78d61b4ad607bc3957eab9"></a>
+std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_e_1_1_switch.html">Switch</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>switches</b></td></tr>
+<tr class="separator:aca80ab40ab78d61b4ad607bc3957eab9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af155b55812203918b549aa7c1673d9ba"><td class="memItemLeft" align="right" valign="top"><a id="af155b55812203918b549aa7c1673d9ba"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>intialized</b> = false</td></tr>
 <tr class="separator:af155b55812203918b549aa7c1673d9ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -135,7 +129,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>intialized</b> = fals
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 4 2021 10:05:17 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Aug 27 2021 10:16:33 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

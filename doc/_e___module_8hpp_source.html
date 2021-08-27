@@ -79,72 +79,87 @@ $(function() {
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>E {</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">class </span>System;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="class_e_1_1_module.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_e_1_1_module.html">Module</a> {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <a class="code" href="class_e_1_1_system.html">System</a> *system;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <a class="code" href="class_e_1_1_module.html#a6901bcc7aa7b920a394d44c2fdccee7d">Module</a>(<a class="code" href="class_e_1_1_system.html">System</a> *system);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_e_1_1_module.html">Module</a>();</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keyword">virtual</span> <a class="code" href="class_e_1_1_system.html">System</a> *<a class="code" href="class_e_1_1_module.html#ad08bf4421810b107202392cb2c1fd083">getSystem</a>() <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">using</span> ModuleID = uintptr_t;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="class_e_1_1_module.html">   23</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_e_1_1_module.html">Module</a> {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <a class="code" href="class_e_1_1_system.html">System</a> &amp;system;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  ModuleID id;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <a class="code" href="class_e_1_1_module.html#a54dec36cae2191adecc934eb0a5e54e8">Module</a>(<a class="code" href="class_e_1_1_system.html">System</a> &amp;system);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_e_1_1_module.html">Module</a>();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  std::string getModuleName();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  std::string getModuleName(<span class="keyword">const</span> ModuleID moduleID);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  Time getCurrentTime();</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="class_e_1_1_module_1_1_message.html">   48</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_e_1_1_module_1_1_message.html">Message</a> {</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="class_e_1_1_module_1_1_message_base.html">   48</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_e_1_1_module_1_1_message_base.html">MessageBase</a> {</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="class_e_1_1_module_1_1_message.html">Message</a>() {}</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="class_e_1_1_module_1_1_message.html">Message</a>() {}</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="class_e_1_1_module_1_1_message_base.html">MessageBase</a>() {}</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="class_e_1_1_module_1_1_message_base.html">MessageBase</a>() {}</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  };</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="class_e_1_1_module.html#a268d7fe2fec3144435777baf5fb45be4">   73</a></span>&#160;  <span class="keyword">virtual</span> <a class="code" href="class_e_1_1_module_1_1_message.html">Module::Message</a> *<a class="code" href="class_e_1_1_module.html#a268d7fe2fec3144435777baf5fb45be4">messageReceived</a>(<a class="code" href="class_e_1_1_module.html">Module</a> *from,</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                                           <a class="code" href="class_e_1_1_module_1_1_message.html">Module::Message</a> *message) {</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    (void)from;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    (void)message;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    assert(0);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  }</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="class_e_1_1_module.html#ad0e5eb85754686aeac8ce7e5a1c134f3">  103</a></span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_module.html#ad0e5eb85754686aeac8ce7e5a1c134f3">messageFinished</a>(<a class="code" href="class_e_1_1_module.html">Module</a> *to, <a class="code" href="class_e_1_1_module_1_1_message.html">Module::Message</a> *message,</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                               <a class="code" href="class_e_1_1_module_1_1_message.html">Module::Message</a> *response) {</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    (void)to;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    (void)message;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    (void)response;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    assert(0);</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  }</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno"><a class="line" href="class_e_1_1_module.html#ac1f2bfbcd155c4641e6a78e2b4156588">  131</a></span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_module.html#ac1f2bfbcd155c4641e6a78e2b4156588">messageCancelled</a>(<a class="code" href="class_e_1_1_module.html">Module</a> *to, <a class="code" href="class_e_1_1_module_1_1_message.html">Module::Message</a> *message) {</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    (void)to;</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    (void)message;</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    assert(0);</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  }</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;  <span class="keyword">virtual</span> UUID <a class="code" href="class_e_1_1_module.html#a4db52952d3bd42f5f9109c8e570b6b50">sendMessage</a>(<a class="code" href="class_e_1_1_module.html">Module</a> *to, <a class="code" href="class_e_1_1_module_1_1_message.html">Module::Message</a> *message,</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                           Time timeAfter) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_e_1_1_module.html#a6d818645bf7e6e056c6373af7851fed6">cancelMessage</a>(UUID messageID) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;  <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_e_1_1_system.html">System</a>;</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;};</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;} <span class="comment">// namespace E</span></div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* E_MODULE_HPP_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="class_e_1_1_module_1_1_empty_message.html">   54</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_e_1_1_module_1_1_empty_message.html">EmptyMessage</a> : <span class="keyword">public</span> <a class="code" href="class_e_1_1_module_1_1_message_base.html">MessageBase</a> {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_e_1_1_module_1_1_empty_message.html">EmptyMessage</a> &amp;shared();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code" href="class_e_1_1_module_1_1_empty_message.html">EmptyMessage</a> &amp;b)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  };</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keyword">using</span> Message = std::unique_ptr&lt;MessageBase&gt;;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="class_e_1_1_module.html#ac74f9dde98ddf341ba3a54162885ccf8">   81</a></span>&#160;  <span class="keyword">virtual</span> Module::Message <a class="code" href="class_e_1_1_module.html#ac74f9dde98ddf341ba3a54162885ccf8">messageReceived</a>(<span class="keyword">const</span> ModuleID from,</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                                          <a class="code" href="class_e_1_1_module_1_1_message_base.html">Module::MessageBase</a> &amp;message) {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    (void)from;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    (void)message;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    assert(0);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  }</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="class_e_1_1_module.html#ac8d8638a838dc90c1985a045c67637c6">  111</a></span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_module.html#ac8d8638a838dc90c1985a045c67637c6">messageFinished</a>(<span class="keyword">const</span> ModuleID to, Message message,</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;                               <a class="code" href="class_e_1_1_module_1_1_message_base.html">Module::MessageBase</a> &amp;response) {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    (void)to;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    (void)message;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    (void)response;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    assert(0);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  }</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00139"></a><span class="lineno"><a class="line" href="class_e_1_1_module.html#a4880b3839a12c69204e19d195ffdc9be">  139</a></span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_module.html#a4880b3839a12c69204e19d195ffdc9be">messageCancelled</a>(<span class="keyword">const</span> ModuleID to, Message message) {</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    (void)to;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    (void)message;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    assert(0);</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;  }</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;  <span class="keyword">virtual</span> UUID <a class="code" href="class_e_1_1_module.html#a697e6dcea6c04440dabf8939a142731e">sendMessage</a>(<span class="keyword">const</span> ModuleID to, Module::Message message,</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                           Time timeAfter) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;  <span class="keyword">virtual</span> UUID <a class="code" href="class_e_1_1_module.html#abf19ba7eb7b7ff26fa4d2f01a2798944">sendMessageSelf</a>(Module::Message message, Time timeAfter) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_e_1_1_module.html#a6d818645bf7e6e056c6373af7851fed6">cancelMessage</a>(UUID messageID) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;  <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_e_1_1_system.html">System</a>;</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;};</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;} <span class="comment">// namespace E</span></div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160; </div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* E_MODULE_HPP_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclass_e_1_1_system_html"><div class="ttname"><a href="class_e_1_1_system.html">E::System</a></div><div class="ttdoc">System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...</div><div class="ttdef"><b>Definition:</b> E_System.hpp:29</div></div>
 <div class="ttc" id="a_e___common_8hpp_html"><div class="ttname"><a href="_e___common_8hpp.html">E_Common.hpp</a></div><div class="ttdoc">This header contains standard C++11 headers and compatibility definitions.</div></div>
-<div class="ttc" id="aclass_e_1_1_module_1_1_message_html"><div class="ttname"><a href="class_e_1_1_module_1_1_message.html">E::Module::Message</a></div><div class="ttdoc">Interface of Message. Every message implementation must inherit this class.</div><div class="ttdef"><b>Definition:</b> E_Module.hpp:48</div></div>
-<div class="ttc" id="aclass_e_1_1_module_html_a4db52952d3bd42f5f9109c8e570b6b50"><div class="ttname"><a href="class_e_1_1_module.html#a4db52952d3bd42f5f9109c8e570b6b50">E::Module::sendMessage</a></div><div class="ttdeci">virtual UUID sendMessage(Module *to, Module::Message *message, Time timeAfter) final</div><div class="ttdoc">Send a Message to other Module. Every message has its own delay before it is actually sent....</div><div class="ttdef"><b>Definition:</b> E_Module.cpp:26</div></div>
-<div class="ttc" id="aclass_e_1_1_module_html_a6901bcc7aa7b920a394d44c2fdccee7d"><div class="ttname"><a href="class_e_1_1_module.html#a6901bcc7aa7b920a394d44c2fdccee7d">E::Module::Module</a></div><div class="ttdeci">Module(System *system)</div><div class="ttdoc">Module must belong to a System. Module is registered to a System when it is created.</div><div class="ttdef"><b>Definition:</b> E_Module.cpp:15</div></div>
-<div class="ttc" id="aclass_e_1_1_module_html"><div class="ttname"><a href="class_e_1_1_module.html">E::Module</a></div><div class="ttdoc">Module is an interface for classes which can send/receive Message to/from the System.</div><div class="ttdef"><b>Definition:</b> E_Module.hpp:22</div></div>
-<div class="ttc" id="aclass_e_1_1_module_html_ad0e5eb85754686aeac8ce7e5a1c134f3"><div class="ttname"><a href="class_e_1_1_module.html#ad0e5eb85754686aeac8ce7e5a1c134f3">E::Module::messageFinished</a></div><div class="ttdeci">virtual void messageFinished(Module *to, Module::Message *message, Module::Message *response)</div><div class="ttdoc">This is a callback function called by the System. This function is automatically called after your me...</div><div class="ttdef"><b>Definition:</b> E_Module.hpp:103</div></div>
-<div class="ttc" id="aclass_e_1_1_module_html_ac1f2bfbcd155c4641e6a78e2b4156588"><div class="ttname"><a href="class_e_1_1_module.html#ac1f2bfbcd155c4641e6a78e2b4156588">E::Module::messageCancelled</a></div><div class="ttdeci">virtual void messageCancelled(Module *to, Module::Message *message)</div><div class="ttdoc">This is a callback function called by the System. This function is automatically called when the mess...</div><div class="ttdef"><b>Definition:</b> E_Module.hpp:131</div></div>
-<div class="ttc" id="aclass_e_1_1_module_html_a268d7fe2fec3144435777baf5fb45be4"><div class="ttname"><a href="class_e_1_1_module.html#a268d7fe2fec3144435777baf5fb45be4">E::Module::messageReceived</a></div><div class="ttdeci">virtual Module::Message * messageReceived(Module *from, Module::Message *message)</div><div class="ttdoc">This is a callback function called by the System. This function is automatically called when you rece...</div><div class="ttdef"><b>Definition:</b> E_Module.hpp:73</div></div>
-<div class="ttc" id="aclass_e_1_1_module_html_a6d818645bf7e6e056c6373af7851fed6"><div class="ttname"><a href="class_e_1_1_module.html#a6d818645bf7e6e056c6373af7851fed6">E::Module::cancelMessage</a></div><div class="ttdeci">virtual bool cancelMessage(UUID messageID) final</div><div class="ttdoc">Cancel the raised Message. If a message is not actually sent yet, you can cancel the message....</div><div class="ttdef"><b>Definition:</b> E_Module.cpp:22</div></div>
-<div class="ttc" id="aclass_e_1_1_module_html_ad08bf4421810b107202392cb2c1fd083"><div class="ttname"><a href="class_e_1_1_module.html#ad08bf4421810b107202392cb2c1fd083">E::Module::getSystem</a></div><div class="ttdeci">virtual System * getSystem() final</div><div class="ttdef"><b>Definition:</b> E_Module.cpp:13</div></div>
+<div class="ttc" id="aclass_e_1_1_module_html_abf19ba7eb7b7ff26fa4d2f01a2798944"><div class="ttname"><a href="class_e_1_1_module.html#abf19ba7eb7b7ff26fa4d2f01a2798944">E::Module::sendMessageSelf</a></div><div class="ttdeci">virtual UUID sendMessageSelf(Module::Message message, Time timeAfter) final</div><div class="ttdoc">Send a Message to self Every message has its own delay before it is actually sent....</div><div class="ttdef"><b>Definition:</b> E_Module.cpp:30</div></div>
+<div class="ttc" id="aclass_e_1_1_module_html_ac8d8638a838dc90c1985a045c67637c6"><div class="ttname"><a href="class_e_1_1_module.html#ac8d8638a838dc90c1985a045c67637c6">E::Module::messageFinished</a></div><div class="ttdeci">virtual void messageFinished(const ModuleID to, Message message, Module::MessageBase &amp;response)</div><div class="ttdoc">This is a callback function called by the System. This function is automatically called after your me...</div><div class="ttdef"><b>Definition:</b> E_Module.hpp:111</div></div>
+<div class="ttc" id="aclass_e_1_1_module_1_1_empty_message_html"><div class="ttname"><a href="class_e_1_1_module_1_1_empty_message.html">E::Module::EmptyMessage</a></div><div class="ttdef"><b>Definition:</b> E_Module.hpp:54</div></div>
+<div class="ttc" id="aclass_e_1_1_module_html_a54dec36cae2191adecc934eb0a5e54e8"><div class="ttname"><a href="class_e_1_1_module.html#a54dec36cae2191adecc934eb0a5e54e8">E::Module::Module</a></div><div class="ttdeci">Module(System &amp;system)</div><div class="ttdoc">Module must belong to a System. Module is registered to a System when it is created.</div><div class="ttdef"><b>Definition:</b> E_Module.cpp:17</div></div>
+<div class="ttc" id="aclass_e_1_1_module_html"><div class="ttname"><a href="class_e_1_1_module.html">E::Module</a></div><div class="ttdoc">Module is an interface for classes which can send/receive Message to/from the System.</div><div class="ttdef"><b>Definition:</b> E_Module.hpp:23</div></div>
+<div class="ttc" id="aclass_e_1_1_module_html_a4880b3839a12c69204e19d195ffdc9be"><div class="ttname"><a href="class_e_1_1_module.html#a4880b3839a12c69204e19d195ffdc9be">E::Module::messageCancelled</a></div><div class="ttdeci">virtual void messageCancelled(const ModuleID to, Message message)</div><div class="ttdoc">This is a callback function called by the System. This function is automatically called when the mess...</div><div class="ttdef"><b>Definition:</b> E_Module.hpp:139</div></div>
+<div class="ttc" id="aclass_e_1_1_module_html_a697e6dcea6c04440dabf8939a142731e"><div class="ttname"><a href="class_e_1_1_module.html#a697e6dcea6c04440dabf8939a142731e">E::Module::sendMessage</a></div><div class="ttdeci">virtual UUID sendMessage(const ModuleID to, Module::Message message, Time timeAfter) final</div><div class="ttdoc">Send a Message to other Module. Every message has its own delay before it is actually sent....</div><div class="ttdef"><b>Definition:</b> E_Module.cpp:25</div></div>
+<div class="ttc" id="aclass_e_1_1_module_html_a6d818645bf7e6e056c6373af7851fed6"><div class="ttname"><a href="class_e_1_1_module.html#a6d818645bf7e6e056c6373af7851fed6">E::Module::cancelMessage</a></div><div class="ttdeci">virtual bool cancelMessage(UUID messageID) final</div><div class="ttdoc">Cancel the raised Message. If a message is not actually sent yet, you can cancel the message....</div><div class="ttdef"><b>Definition:</b> E_Module.cpp:21</div></div>
+<div class="ttc" id="aclass_e_1_1_module_1_1_message_base_html"><div class="ttname"><a href="class_e_1_1_module_1_1_message_base.html">E::Module::MessageBase</a></div><div class="ttdoc">Interface of Message. Every message implementation must inherit this class.</div><div class="ttdef"><b>Definition:</b> E_Module.hpp:48</div></div>
+<div class="ttc" id="aclass_e_1_1_module_html_ac74f9dde98ddf341ba3a54162885ccf8"><div class="ttname"><a href="class_e_1_1_module.html#ac74f9dde98ddf341ba3a54162885ccf8">E::Module::messageReceived</a></div><div class="ttdeci">virtual Module::Message messageReceived(const ModuleID from, Module::MessageBase &amp;message)</div><div class="ttdoc">This is a callback function called by the System. This function is automatically called when you rece...</div><div class="ttdef"><b>Definition:</b> E_Module.hpp:81</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 4 2021 10:05:17 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Aug 27 2021 10:16:33 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

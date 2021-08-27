@@ -69,6 +69,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#friends">Friends</a> &#124;
@@ -78,7 +79,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="class_e_1_1_module.html" title="Module is an interface for classes which can send/receive Message to/from the System.">Module</a> is an interface for classes which can send/receive <a class="el" href="class_e_1_1_module_1_1_message.html" title="Interface of Message. Every message implementation must inherit this class.">Message</a> to/from the <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>.  
+<p><a class="el" href="class_e_1_1_module.html" title="Module is an interface for classes which can send/receive Message to/from the System.">Module</a> is an interface for classes which can send/receive Message to/from the <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>.  
  <a href="class_e_1_1_module.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_e___module_8hpp_source.html">E_Module.hpp</a>&gt;</code></p>
@@ -88,48 +89,63 @@ Inheritance diagram for E::Module:</div>
  <div class="center">
   <img src="class_e_1_1_module.png" usemap="#E::Module_map" alt=""/>
   <map id="E::Module_map" name="E::Module_map">
-<area href="class_e_1_1_computer.html" alt="E::Computer" shape="rect" coords="161,56,312,80"/>
-<area href="class_e_1_1_host.html" title="This class abstract a single host machine." alt="E::Host" shape="rect" coords="161,112,312,136"/>
-<area href="class_e_1_1_link.html" title="Link makes connections among multiple Port. It supports packet switching and output queuing...." alt="E::Link" shape="rect" coords="161,168,312,192"/>
-<area href="class_e_1_1_periodic_task.html" alt="E::PeriodicTask" shape="rect" coords="161,224,312,248"/>
-<area href="class_e_1_1_port.html" title="Port does a role of 2-ended wire. However there is a speed limit and delayed packets are queued (curr..." alt="E::Port" shape="rect" coords="161,280,312,304"/>
-<area href="class_e_1_1_processor.html" alt="E::Processor" shape="rect" coords="161,336,312,360"/>
-<area href="class_e_1_1_sporadic_task.html" alt="E::SporadicTask" shape="rect" coords="161,392,312,416"/>
-<area href="class_e_1_1_system_call_application.html" title="This provides system call interface to an application. This provides basic system call invoking mecha..." alt="E::SystemCallApplication" shape="rect" coords="161,448,312,472"/>
-<area href="class_e_1_1_timer_module.html" title="TimerModule provides convenient interface of timer/alarm." alt="E::TimerModule" shape="rect" coords="161,504,312,528"/>
+<area href="class_e_1_1_network_module.html" title="NetworkModule is a abstract class for wired connection." alt="E::NetworkModule" shape="rect" coords="62,56,176,80"/>
+<area href="class_e_1_1_wire.html" title="Wire does a role of 2-ended wire. However there is a speed limit and delayed packets are queued (curr..." alt="E::Wire" shape="rect" coords="186,56,300,80"/>
+<area href="class_e_1_1_host.html" title="This class abstract a single host machine." alt="E::Host" shape="rect" coords="0,112,114,136"/>
+<area href="class_e_1_1_link.html" title="Link makes connections among multiple Wires. It supports packet switching and output queuing...." alt="E::Link" shape="rect" coords="124,112,238,136"/>
+<area href="class_e_1_1_hub.html" alt="E::Hub" shape="rect" coords="62,168,176,192"/>
+<area href="class_e_1_1_switch.html" alt="E::Switch" shape="rect" coords="186,168,300,192"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_module_1_1_message.html">Message</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface of <a class="el" href="class_e_1_1_module_1_1_message.html" title="Interface of Message. Every message implementation must inherit this class.">Message</a>. Every message implementation must inherit this class.  <a href="class_e_1_1_module_1_1_message.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_module_1_1_empty_message.html">EmptyMessage</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_module_1_1_message_base.html">MessageBase</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface of Message. Every message implementation must inherit this class.  <a href="class_e_1_1_module_1_1_message_base.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:aaeb8241ed8d7dc58dc01085cce83b53e"><td class="memItemLeft" align="right" valign="top"><a id="aaeb8241ed8d7dc58dc01085cce83b53e"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>Message</b> = std::unique_ptr&lt; <a class="el" href="class_e_1_1_module_1_1_message_base.html">MessageBase</a> &gt;</td></tr>
+<tr class="separator:aaeb8241ed8d7dc58dc01085cce83b53e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6901bcc7aa7b920a394d44c2fdccee7d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_module.html#a6901bcc7aa7b920a394d44c2fdccee7d">Module</a> (<a class="el" href="class_e_1_1_system.html">System</a> *system)</td></tr>
-<tr class="memdesc:a6901bcc7aa7b920a394d44c2fdccee7d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_e_1_1_module.html" title="Module is an interface for classes which can send/receive Message to/from the System.">Module</a> must belong to a <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>. <a class="el" href="class_e_1_1_module.html" title="Module is an interface for classes which can send/receive Message to/from the System.">Module</a> is registered to a <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a> when it is created.  <a href="class_e_1_1_module.html#a6901bcc7aa7b920a394d44c2fdccee7d">More...</a><br /></td></tr>
-<tr class="separator:a6901bcc7aa7b920a394d44c2fdccee7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad08bf4421810b107202392cb2c1fd083"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_e_1_1_system.html">System</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_module.html#ad08bf4421810b107202392cb2c1fd083">getSystem</a> () final</td></tr>
-<tr class="separator:ad08bf4421810b107202392cb2c1fd083"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54dec36cae2191adecc934eb0a5e54e8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_module.html#a54dec36cae2191adecc934eb0a5e54e8">Module</a> (<a class="el" href="class_e_1_1_system.html">System</a> &amp;system)</td></tr>
+<tr class="memdesc:a54dec36cae2191adecc934eb0a5e54e8"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_e_1_1_module.html" title="Module is an interface for classes which can send/receive Message to/from the System.">Module</a> must belong to a <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>. <a class="el" href="class_e_1_1_module.html" title="Module is an interface for classes which can send/receive Message to/from the System.">Module</a> is registered to a <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a> when it is created.  <a href="class_e_1_1_module.html#a54dec36cae2191adecc934eb0a5e54e8">More...</a><br /></td></tr>
+<tr class="separator:a54dec36cae2191adecc934eb0a5e54e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa558bcbc998cbad57e46da777f9093f8"><td class="memItemLeft" align="right" valign="top"><a id="aa558bcbc998cbad57e46da777f9093f8"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getModuleName</b> ()</td></tr>
+<tr class="separator:aa558bcbc998cbad57e46da777f9093f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c36464744c790ad6a9046a98d3e7a1c"><td class="memItemLeft" align="right" valign="top"><a id="a2c36464744c790ad6a9046a98d3e7a1c"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getModuleName</b> (const ModuleID moduleID)</td></tr>
+<tr class="separator:a2c36464744c790ad6a9046a98d3e7a1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47261cb677b4c68ce6c15d8879334707"><td class="memItemLeft" align="right" valign="top"><a id="a47261cb677b4c68ce6c15d8879334707"></a>
+Time&#160;</td><td class="memItemRight" valign="bottom"><b>getCurrentTime</b> ()</td></tr>
+<tr class="separator:a47261cb677b4c68ce6c15d8879334707"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a268d7fe2fec3144435777baf5fb45be4"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_e_1_1_module_1_1_message.html">Module::Message</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_module.html#a268d7fe2fec3144435777baf5fb45be4">messageReceived</a> (<a class="el" href="class_e_1_1_module.html">Module</a> *from, <a class="el" href="class_e_1_1_module_1_1_message.html">Module::Message</a> *message)</td></tr>
-<tr class="memdesc:a268d7fe2fec3144435777baf5fb45be4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a callback function called by the <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>. This function is automatically called when you received a <a class="el" href="class_e_1_1_module_1_1_message.html" title="Interface of Message. Every message implementation must inherit this class.">Message</a>. If you want to handle <a class="el" href="class_e_1_1_module_1_1_message.html" title="Interface of Message. Every message implementation must inherit this class.">Message</a>, override this function with your own handler.  <a href="class_e_1_1_module.html#a268d7fe2fec3144435777baf5fb45be4">More...</a><br /></td></tr>
-<tr class="separator:a268d7fe2fec3144435777baf5fb45be4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0e5eb85754686aeac8ce7e5a1c134f3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_module.html#ad0e5eb85754686aeac8ce7e5a1c134f3">messageFinished</a> (<a class="el" href="class_e_1_1_module.html">Module</a> *to, <a class="el" href="class_e_1_1_module_1_1_message.html">Module::Message</a> *message, <a class="el" href="class_e_1_1_module_1_1_message.html">Module::Message</a> *response)</td></tr>
-<tr class="memdesc:ad0e5eb85754686aeac8ce7e5a1c134f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a callback function called by the <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>. This function is automatically called after your message is processed by the destination module. If you want to handle <a class="el" href="class_e_1_1_module_1_1_message.html" title="Interface of Message. Every message implementation must inherit this class.">Message</a>, override this function with your own handler. YOU MUST DEALLOCATE EVERY SUCCESSFUL MESSAGE YOU ALLOCATED JUST HERE. INSTANT RESPONSE messages(return value of messageReceived) are also deallocated here. SELF messages are also deallocated here.  <a href="class_e_1_1_module.html#ad0e5eb85754686aeac8ce7e5a1c134f3">More...</a><br /></td></tr>
-<tr class="separator:ad0e5eb85754686aeac8ce7e5a1c134f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1f2bfbcd155c4641e6a78e2b4156588"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_module.html#ac1f2bfbcd155c4641e6a78e2b4156588">messageCancelled</a> (<a class="el" href="class_e_1_1_module.html">Module</a> *to, <a class="el" href="class_e_1_1_module_1_1_message.html">Module::Message</a> *message)</td></tr>
-<tr class="memdesc:ac1f2bfbcd155c4641e6a78e2b4156588"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a callback function called by the <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>. This function is automatically called when the message is cancelled before it is processed. This function is called AT THE TIME WHEN THE MESSAGE WAS SUPPOSED TO BE SENT. If you want to handle <a class="el" href="class_e_1_1_module_1_1_message.html" title="Interface of Message. Every message implementation must inherit this class.">Message</a>, override this function with your own handler. YOU MUST DEALLOCATE EVERY CANCELLED MESSAGE YOU ALLOCATED JUST HERE.  <a href="class_e_1_1_module.html#ac1f2bfbcd155c4641e6a78e2b4156588">More...</a><br /></td></tr>
-<tr class="separator:ac1f2bfbcd155c4641e6a78e2b4156588"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4db52952d3bd42f5f9109c8e570b6b50"><td class="memItemLeft" align="right" valign="top">virtual UUID&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_module.html#a4db52952d3bd42f5f9109c8e570b6b50">sendMessage</a> (<a class="el" href="class_e_1_1_module.html">Module</a> *to, <a class="el" href="class_e_1_1_module_1_1_message.html">Module::Message</a> *message, Time timeAfter) final</td></tr>
-<tr class="memdesc:a4db52952d3bd42f5f9109c8e570b6b50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a <a class="el" href="class_e_1_1_module_1_1_message.html" title="Interface of Message. Every message implementation must inherit this class.">Message</a> to other <a class="el" href="class_e_1_1_module.html" title="Module is an interface for classes which can send/receive Message to/from the System.">Module</a>. Every message has its own delay before it is actually sent. The <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a> guarantees the total ordering of all delayed messages in the <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>.  <a href="class_e_1_1_module.html#a4db52952d3bd42f5f9109c8e570b6b50">More...</a><br /></td></tr>
-<tr class="separator:a4db52952d3bd42f5f9109c8e570b6b50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac74f9dde98ddf341ba3a54162885ccf8"><td class="memItemLeft" align="right" valign="top">virtual Module::Message&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_module.html#ac74f9dde98ddf341ba3a54162885ccf8">messageReceived</a> (const ModuleID from, <a class="el" href="class_e_1_1_module_1_1_message_base.html">Module::MessageBase</a> &amp;message)</td></tr>
+<tr class="memdesc:ac74f9dde98ddf341ba3a54162885ccf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a callback function called by the <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>. This function is automatically called when you received a Message. If you want to handle Message, override this function with your own handler.  <a href="class_e_1_1_module.html#ac74f9dde98ddf341ba3a54162885ccf8">More...</a><br /></td></tr>
+<tr class="separator:ac74f9dde98ddf341ba3a54162885ccf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8d8638a838dc90c1985a045c67637c6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_module.html#ac8d8638a838dc90c1985a045c67637c6">messageFinished</a> (const ModuleID to, Message message, <a class="el" href="class_e_1_1_module_1_1_message_base.html">Module::MessageBase</a> &amp;response)</td></tr>
+<tr class="memdesc:ac8d8638a838dc90c1985a045c67637c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a callback function called by the <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>. This function is automatically called after your message is processed by the destination module. If you want to handle Message, override this function with your own handler. YOU MUST DEALLOCATE EVERY SUCCESSFUL MESSAGE YOU ALLOCATED JUST HERE. INSTANT RESPONSE messages(return value of messageReceived) are also deallocated here. SELF messages are also deallocated here.  <a href="class_e_1_1_module.html#ac8d8638a838dc90c1985a045c67637c6">More...</a><br /></td></tr>
+<tr class="separator:ac8d8638a838dc90c1985a045c67637c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4880b3839a12c69204e19d195ffdc9be"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_module.html#a4880b3839a12c69204e19d195ffdc9be">messageCancelled</a> (const ModuleID to, Message message)</td></tr>
+<tr class="memdesc:a4880b3839a12c69204e19d195ffdc9be"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a callback function called by the <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>. This function is automatically called when the message is cancelled before it is processed. This function is called AT THE TIME WHEN THE MESSAGE WAS SUPPOSED TO BE SENT. If you want to handle Message, override this function with your own handler. YOU MUST DEALLOCATE EVERY CANCELLED MESSAGE YOU ALLOCATED JUST HERE.  <a href="class_e_1_1_module.html#a4880b3839a12c69204e19d195ffdc9be">More...</a><br /></td></tr>
+<tr class="separator:a4880b3839a12c69204e19d195ffdc9be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a697e6dcea6c04440dabf8939a142731e"><td class="memItemLeft" align="right" valign="top">virtual UUID&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_module.html#a697e6dcea6c04440dabf8939a142731e">sendMessage</a> (const ModuleID to, Module::Message message, Time timeAfter) final</td></tr>
+<tr class="memdesc:a697e6dcea6c04440dabf8939a142731e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a Message to other <a class="el" href="class_e_1_1_module.html" title="Module is an interface for classes which can send/receive Message to/from the System.">Module</a>. Every message has its own delay before it is actually sent. The <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a> guarantees the total ordering of all delayed messages in the <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>.  <a href="class_e_1_1_module.html#a697e6dcea6c04440dabf8939a142731e">More...</a><br /></td></tr>
+<tr class="separator:a697e6dcea6c04440dabf8939a142731e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf19ba7eb7b7ff26fa4d2f01a2798944"><td class="memItemLeft" align="right" valign="top">virtual UUID&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_module.html#abf19ba7eb7b7ff26fa4d2f01a2798944">sendMessageSelf</a> (Module::Message message, Time timeAfter) final</td></tr>
+<tr class="memdesc:abf19ba7eb7b7ff26fa4d2f01a2798944"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a Message to self Every message has its own delay before it is actually sent. The <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a> guarantees the total ordering of all delayed messages in the <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>.  <a href="class_e_1_1_module.html#abf19ba7eb7b7ff26fa4d2f01a2798944">More...</a><br /></td></tr>
+<tr class="separator:abf19ba7eb7b7ff26fa4d2f01a2798944"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d818645bf7e6e056c6373af7851fed6"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_module.html#a6d818645bf7e6e056c6373af7851fed6">cancelMessage</a> (UUID messageID) final</td></tr>
-<tr class="memdesc:a6d818645bf7e6e056c6373af7851fed6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancel the raised <a class="el" href="class_e_1_1_module_1_1_message.html" title="Interface of Message. Every message implementation must inherit this class.">Message</a>. If a message is not actually sent yet, you can cancel the message. If the message is already sent, this function has no effect.  <a href="class_e_1_1_module.html#a6d818645bf7e6e056c6373af7851fed6">More...</a><br /></td></tr>
+<tr class="memdesc:a6d818645bf7e6e056c6373af7851fed6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancel the raised Message. If a message is not actually sent yet, you can cancel the message. If the message is already sent, this function has no effect.  <a href="class_e_1_1_module.html#a6d818645bf7e6e056c6373af7851fed6">More...</a><br /></td></tr>
 <tr class="separator:a6d818645bf7e6e056c6373af7851fed6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
@@ -139,11 +155,11 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>System</b></td></tr>
 <tr class="separator:af18a9ee98e70982bfe2975391d7221a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="class_e_1_1_module.html" title="Module is an interface for classes which can send/receive Message to/from the System.">Module</a> is an interface for classes which can send/receive <a class="el" href="class_e_1_1_module_1_1_message.html" title="Interface of Message. Every message implementation must inherit this class.">Message</a> to/from the <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>. </p>
+<div class="textblock"><p><a class="el" href="class_e_1_1_module.html" title="Module is an interface for classes which can send/receive Message to/from the System.">Module</a> is an interface for classes which can send/receive Message to/from the <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>. </p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a> </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a6901bcc7aa7b920a394d44c2fdccee7d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6901bcc7aa7b920a394d44c2fdccee7d">&#9670;&nbsp;</a></span>Module()</h2>
+<a id="a54dec36cae2191adecc934eb0a5e54e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54dec36cae2191adecc934eb0a5e54e8">&#9670;&nbsp;</a></span>Module()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -151,7 +167,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>System</b></td></tr>
         <tr>
           <td class="memname">E::Module::Module </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_e_1_1_system.html">System</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="class_e_1_1_system.html">System</a> &amp;&#160;</td>
           <td class="paramname"><em>system</em></td><td>)</td>
           <td></td>
         </tr>
@@ -193,48 +209,21 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>System</b></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Cancel the raised <a class="el" href="class_e_1_1_module_1_1_message.html" title="Interface of Message. Every message implementation must inherit this class.">Message</a>. If a message is not actually sent yet, you can cancel the message. If the message is already sent, this function has no effect. </p>
+<p>Cancel the raised Message. If a message is not actually sent yet, you can cancel the message. If the message is already sent, this function has no effect. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">messageID</td><td>Unique ID that represents the target <a class="el" href="class_e_1_1_module_1_1_message.html" title="Interface of Message. Every message implementation must inherit this class.">Message</a> to be cancelled. </td></tr>
+    <tr><td class="paramname">messageID</td><td>Unique ID that represents the target Message to be cancelled. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Whether the cancellation is successful.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>You cannot override this function. </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_e_1_1_module.html#a4db52952d3bd42f5f9109c8e570b6b50" title="Send a Message to other Module. Every message has its own delay before it is actually sent....">sendMessage</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_e_1_1_module.html#a697e6dcea6c04440dabf8939a142731e" title="Send a Message to other Module. Every message has its own delay before it is actually sent....">sendMessage</a> </dd></dl>
 
 </div>
 </div>
-<a id="ad08bf4421810b107202392cb2c1fd083"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad08bf4421810b107202392cb2c1fd083">&#9670;&nbsp;</a></span>getSystem()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_e_1_1_system.html">System</a> * E::Module::getSystem </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a> this module is registered. </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>You cannot override this function. </dd></dl>
-
-</div>
-</div>
-<a id="ac1f2bfbcd155c4641e6a78e2b4156588"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac1f2bfbcd155c4641e6a78e2b4156588">&#9670;&nbsp;</a></span>messageCancelled()</h2>
+<a id="a4880b3839a12c69204e19d195ffdc9be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4880b3839a12c69204e19d195ffdc9be">&#9670;&nbsp;</a></span>messageCancelled()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -245,13 +234,13 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>System</b></td></tr>
         <tr>
           <td class="memname">virtual void E::Module::messageCancelled </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_e_1_1_module.html">Module</a> *&#160;</td>
+          <td class="paramtype">const ModuleID&#160;</td>
           <td class="paramname"><em>to</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_e_1_1_module_1_1_message.html">Module::Message</a> *&#160;</td>
+          <td class="paramtype">Message&#160;</td>
           <td class="paramname"><em>message</em>&#160;</td>
         </tr>
         <tr>
@@ -267,21 +256,21 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>System</b></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>This is a callback function called by the <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>. This function is automatically called when the message is cancelled before it is processed. This function is called AT THE TIME WHEN THE MESSAGE WAS SUPPOSED TO BE SENT. If you want to handle <a class="el" href="class_e_1_1_module_1_1_message.html" title="Interface of Message. Every message implementation must inherit this class.">Message</a>, override this function with your own handler. YOU MUST DEALLOCATE EVERY CANCELLED MESSAGE YOU ALLOCATED JUST HERE. </p>
+<p>This is a callback function called by the <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>. This function is automatically called when the message is cancelled before it is processed. This function is called AT THE TIME WHEN THE MESSAGE WAS SUPPOSED TO BE SENT. If you want to handle Message, override this function with your own handler. YOU MUST DEALLOCATE EVERY CANCELLED MESSAGE YOU ALLOCATED JUST HERE. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">to</td><td>Destination of the Message(including [this]). If you sent a message to yourself, this parameter would be [this]. </td></tr>
-    <tr><td class="paramname">message</td><td><a class="el" href="class_e_1_1_module_1_1_message.html" title="Interface of Message. Every message implementation must inherit this class.">Message</a> to be deallocated. This is the message you allocated.</td></tr>
+    <tr><td class="paramname">message</td><td>Message to be deallocated. This is the message you allocated.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Using default implementation is forbidden. If you use send any message, you must override this function with your own implementation. This function is similar to messageFinished except its response message is always null.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_e_1_1_module.html#ad0e5eb85754686aeac8ce7e5a1c134f3" title="This is a callback function called by the System. This function is automatically called after your me...">messageFinished</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_e_1_1_module.html#ac8d8638a838dc90c1985a045c67637c6" title="This is a callback function called by the System. This function is automatically called after your me...">messageFinished</a> </dd></dl>
 
 </div>
 </div>
-<a id="ad0e5eb85754686aeac8ce7e5a1c134f3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0e5eb85754686aeac8ce7e5a1c134f3">&#9670;&nbsp;</a></span>messageFinished()</h2>
+<a id="ac8d8638a838dc90c1985a045c67637c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8d8638a838dc90c1985a045c67637c6">&#9670;&nbsp;</a></span>messageFinished()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -292,19 +281,19 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>System</b></td></tr>
         <tr>
           <td class="memname">virtual void E::Module::messageFinished </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_e_1_1_module.html">Module</a> *&#160;</td>
+          <td class="paramtype">const ModuleID&#160;</td>
           <td class="paramname"><em>to</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_e_1_1_module_1_1_message.html">Module::Message</a> *&#160;</td>
+          <td class="paramtype">Message&#160;</td>
           <td class="paramname"><em>message</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_e_1_1_module_1_1_message.html">Module::Message</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="class_e_1_1_module_1_1_message_base.html">Module::MessageBase</a> &amp;&#160;</td>
           <td class="paramname"><em>response</em>&#160;</td>
         </tr>
         <tr>
@@ -320,11 +309,11 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>System</b></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>This is a callback function called by the <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>. This function is automatically called after your message is processed by the destination module. If you want to handle <a class="el" href="class_e_1_1_module_1_1_message.html" title="Interface of Message. Every message implementation must inherit this class.">Message</a>, override this function with your own handler. YOU MUST DEALLOCATE EVERY SUCCESSFUL MESSAGE YOU ALLOCATED JUST HERE. INSTANT RESPONSE messages(return value of messageReceived) are also deallocated here. SELF messages are also deallocated here. </p>
+<p>This is a callback function called by the <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>. This function is automatically called after your message is processed by the destination module. If you want to handle Message, override this function with your own handler. YOU MUST DEALLOCATE EVERY SUCCESSFUL MESSAGE YOU ALLOCATED JUST HERE. INSTANT RESPONSE messages(return value of messageReceived) are also deallocated here. SELF messages are also deallocated here. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">to</td><td>Destination of the Message(including [this]). If you sent a message to yourself, this parameter would be [this]. </td></tr>
-    <tr><td class="paramname">message</td><td><a class="el" href="class_e_1_1_module_1_1_message.html" title="Interface of Message. Every message implementation must inherit this class.">Message</a> to be deallocated. This is the message you allocated. </td></tr>
+    <tr><td class="paramname">message</td><td>Message to be deallocated. This is the message you allocated. </td></tr>
     <tr><td class="paramname">response</td><td>If the message is successfully processed, the receiver may give an instance response by return value. Response message is deallocated by the responder's messageFinished, so DO NOT DEALLOCATE THE RESPONSE MESSAGE.</td></tr>
   </table>
   </dd>
@@ -333,8 +322,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>System</b></td></tr>
 
 </div>
 </div>
-<a id="a268d7fe2fec3144435777baf5fb45be4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a268d7fe2fec3144435777baf5fb45be4">&#9670;&nbsp;</a></span>messageReceived()</h2>
+<a id="ac74f9dde98ddf341ba3a54162885ccf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac74f9dde98ddf341ba3a54162885ccf8">&#9670;&nbsp;</a></span>messageReceived()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -343,15 +332,15 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>System</b></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="class_e_1_1_module_1_1_message.html">Module::Message</a>* E::Module::messageReceived </td>
+          <td class="memname">virtual Module::Message E::Module::messageReceived </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_e_1_1_module.html">Module</a> *&#160;</td>
+          <td class="paramtype">const ModuleID&#160;</td>
           <td class="paramname"><em>from</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_e_1_1_module_1_1_message.html">Module::Message</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="class_e_1_1_module_1_1_message_base.html">Module::MessageBase</a> &amp;&#160;</td>
           <td class="paramname"><em>message</em>&#160;</td>
         </tr>
         <tr>
@@ -367,11 +356,11 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>System</b></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>This is a callback function called by the <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>. This function is automatically called when you received a <a class="el" href="class_e_1_1_module_1_1_message.html" title="Interface of Message. Every message implementation must inherit this class.">Message</a>. If you want to handle <a class="el" href="class_e_1_1_module_1_1_message.html" title="Interface of Message. Every message implementation must inherit this class.">Message</a>, override this function with your own handler. </p>
+<p>This is a callback function called by the <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>. This function is automatically called when you received a Message. If you want to handle Message, override this function with your own handler. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">from</td><td>Source module which created and sent the message. This cannot be null (someone must create the message). If you sent a message to yourself, this parameter would be [this]. </td></tr>
-    <tr><td class="paramname">message</td><td><a class="el" href="class_e_1_1_module_1_1_message.html" title="Interface of Message. Every message implementation must inherit this class.">Message</a> you received. This message is allocated by other module, so DO NOT DEALLOCATE THE GIVEN MESSAGE (even it is your self message). </td></tr>
+    <tr><td class="paramname">message</td><td>Message you received. This message is allocated by other module, so DO NOT DEALLOCATE THE GIVEN MESSAGE (even it is your self message). </td></tr>
   </table>
   </dd>
 </dl>
@@ -380,8 +369,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>System</b></td></tr>
 
 </div>
 </div>
-<a id="a4db52952d3bd42f5f9109c8e570b6b50"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4db52952d3bd42f5f9109c8e570b6b50">&#9670;&nbsp;</a></span>sendMessage()</h2>
+<a id="a697e6dcea6c04440dabf8939a142731e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a697e6dcea6c04440dabf8939a142731e">&#9670;&nbsp;</a></span>sendMessage()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -392,13 +381,13 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>System</b></td></tr>
         <tr>
           <td class="memname">UUID E::Module::sendMessage </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_e_1_1_module.html">Module</a> *&#160;</td>
+          <td class="paramtype">const ModuleID&#160;</td>
           <td class="paramname"><em>to</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_e_1_1_module_1_1_message.html">Module::Message</a> *&#160;</td>
+          <td class="paramtype">Module::Message&#160;</td>
           <td class="paramname"><em>message</em>, </td>
         </tr>
         <tr>
@@ -420,18 +409,66 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>System</b></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Send a <a class="el" href="class_e_1_1_module_1_1_message.html" title="Interface of Message. Every message implementation must inherit this class.">Message</a> to other <a class="el" href="class_e_1_1_module.html" title="Module is an interface for classes which can send/receive Message to/from the System.">Module</a>. Every message has its own delay before it is actually sent. The <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a> guarantees the total ordering of all delayed messages in the <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>. </p>
+<p>Send a Message to other <a class="el" href="class_e_1_1_module.html" title="Module is an interface for classes which can send/receive Message to/from the System.">Module</a>. Every message has its own delay before it is actually sent. The <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a> guarantees the total ordering of all delayed messages in the <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">to</td><td>Destination <a class="el" href="class_e_1_1_module.html" title="Module is an interface for classes which can send/receive Message to/from the System.">Module</a>. You can send a <a class="el" href="class_e_1_1_module_1_1_message.html" title="Interface of Message. Every message implementation must inherit this class.">Message</a> to yourself (this). </td></tr>
-    <tr><td class="paramname">message</td><td><a class="el" href="class_e_1_1_module_1_1_message.html" title="Interface of Message. Every message implementation must inherit this class.">Message</a> to be sent. YOU MUST ALLOCATE THE MESSAGE TO BE SENT. </td></tr>
-    <tr><td class="paramname">timeAfter</td><td>Delay of this message. The receiver will receive the <a class="el" href="class_e_1_1_module_1_1_message.html" title="Interface of Message. Every message implementation must inherit this class.">Message</a> at [current time] + [delay]. </td></tr>
+    <tr><td class="paramname">to</td><td>Destination <a class="el" href="class_e_1_1_module.html" title="Module is an interface for classes which can send/receive Message to/from the System.">Module</a>. You can send a Message to yourself (this). </td></tr>
+    <tr><td class="paramname">message</td><td>Message to be sent. YOU MUST ALLOCATE THE MESSAGE TO BE SENT. </td></tr>
+    <tr><td class="paramname">timeAfter</td><td>Delay of this message. The receiver will receive the Message at [current time] + [delay]. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>UUID of generated message. This UUID is used for cancellation of the message.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>You cannot override this function. </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_e_1_1_module.html#ad0e5eb85754686aeac8ce7e5a1c134f3" title="This is a callback function called by the System. This function is automatically called after your me...">messageFinished</a> and <a class="el" href="class_e_1_1_module.html#a268d7fe2fec3144435777baf5fb45be4" title="This is a callback function called by the System. This function is automatically called when you rece...">messageReceived</a> for allocate/deallocate convention. </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_e_1_1_module.html#ac8d8638a838dc90c1985a045c67637c6" title="This is a callback function called by the System. This function is automatically called after your me...">messageFinished</a> and <a class="el" href="class_e_1_1_module.html#ac74f9dde98ddf341ba3a54162885ccf8" title="This is a callback function called by the System. This function is automatically called when you rece...">messageReceived</a> for allocate/deallocate convention. </dd></dl>
+
+</div>
+</div>
+<a id="abf19ba7eb7b7ff26fa4d2f01a2798944"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf19ba7eb7b7ff26fa4d2f01a2798944">&#9670;&nbsp;</a></span>sendMessageSelf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">UUID E::Module::sendMessageSelf </td>
+          <td>(</td>
+          <td class="paramtype">Module::Message&#160;</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Time&#160;</td>
+          <td class="paramname"><em>timeAfter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Send a Message to self Every message has its own delay before it is actually sent. The <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a> guarantees the total ordering of all delayed messages in the <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">message</td><td>Message to be sent. YOU MUST ALLOCATE THE MESSAGE TO BE SENT. </td></tr>
+    <tr><td class="paramname">timeAfter</td><td>Delay of this message. The receiver will receive the Message at [current time] + [delay]. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>UUID of generated message. This UUID is used for cancellation of the message.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>You cannot override this function. </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_e_1_1_module.html#ac8d8638a838dc90c1985a045c67637c6" title="This is a callback function called by the System. This function is automatically called after your me...">messageFinished</a> and <a class="el" href="class_e_1_1_module.html#ac74f9dde98ddf341ba3a54162885ccf8" title="This is a callback function called by the System. This function is automatically called when you rece...">messageReceived</a> for allocate/deallocate convention. </dd></dl>
 
 </div>
 </div>
@@ -442,7 +479,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>System</b></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 4 2021 10:05:17 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Aug 27 2021 10:16:33 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

@@ -88,74 +88,143 @@ Inheritance diagram for E::Host:</div>
  <div class="center">
   <img src="class_e_1_1_host.png" usemap="#E::Host_map" alt=""/>
   <map id="E::Host_map" name="E::Host_map">
+<area href="class_e_1_1_network_module.html" title="NetworkModule is a abstract class for wired connection." alt="E::NetworkModule" shape="rect" coords="0,56,114,80"/>
+<area href="class_e_1_1_network_log.html" alt="E::NetworkLog" shape="rect" coords="124,56,238,80"/>
+<area href="class_e_1_1_routing_info.html" title="This class provides routing information to its child class." alt="E::RoutingInfo" shape="rect" coords="248,56,362,80"/>
 <area href="class_e_1_1_module.html" title="Module is an interface for classes which can send/receive Message to/from the System." alt="E::Module" shape="rect" coords="0,0,114,24"/>
-<area href="class_e_1_1_network_module.html" title="NetworkModule can allocate/deallocate Packets." alt="E::NetworkModule" shape="rect" coords="124,0,238,24"/>
-<area href="class_e_1_1_network_log.html" alt="E::NetworkLog" shape="rect" coords="248,0,362,24"/>
-<area href="class_e_1_1_routing_info.html" title="This class provides routing information to its child class." alt="E::RoutingInfo" shape="rect" coords="372,0,486,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_host_1_1_message.html">Message</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_host_1_1_packet_pass.html">PacketPass</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_host_1_1_return.html">Return</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_host_1_1_syscall.html">Syscall</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_host_1_1_timer.html">Timer</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:aa1239829c946745697ba8540e1b4a28f"><td class="memItemLeft" align="right" valign="top"><a id="aa1239829c946745697ba8540e1b4a28f"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>MessageType</b> { <b>SYSCALL_CALLED</b>, 
-<b>PACKET_TRANSFER</b>
+<tr class="memitem:add867b3de0afc2c1370185bfcdb052ec"><td class="memItemLeft" align="right" valign="top"><a id="add867b3de0afc2c1370185bfcdb052ec"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>Domain</b> = int</td></tr>
+<tr class="separator:add867b3de0afc2c1370185bfcdb052ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdffc6a452b113c6aab20f9b9225d345"><td class="memItemLeft" align="right" valign="top"><a id="abdffc6a452b113c6aab20f9b9225d345"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>Protocol</b> = int</td></tr>
+<tr class="separator:abdffc6a452b113c6aab20f9b9225d345"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58257cb335fe1ebab850a4ffa5cca446"><td class="memItemLeft" align="right" valign="top"><a id="a58257cb335fe1ebab850a4ffa5cca446"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>Namespace</b> = std::pair&lt; Domain, Protocol &gt;</td></tr>
+<tr class="separator:a58257cb335fe1ebab850a4ffa5cca446"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_types_class_e_1_1_module"><td colspan="2" onclick="javascript:toggleInherit('pub_types_class_e_1_1_module')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="class_e_1_1_module.html">E::Module</a></td></tr>
+<tr class="memitem:aaeb8241ed8d7dc58dc01085cce83b53e inherit pub_types_class_e_1_1_module"><td class="memItemLeft" align="right" valign="top"><a id="aaeb8241ed8d7dc58dc01085cce83b53e"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>Message</b> = std::unique_ptr&lt; <a class="el" href="class_e_1_1_module_1_1_message_base.html">MessageBase</a> &gt;</td></tr>
+<tr class="separator:aaeb8241ed8d7dc58dc01085cce83b53e inherit pub_types_class_e_1_1_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_types_class_e_1_1_network_log"><td colspan="2" onclick="javascript:toggleInherit('pub_types_class_e_1_1_network_log')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="class_e_1_1_network_log.html">E::NetworkLog</a></td></tr>
+<tr class="memitem:a5079c90f3a2824c00fd3b8c806eccb0f inherit pub_types_class_e_1_1_network_log"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_network_log.html#a5079c90f3a2824c00fd3b8c806eccb0f">LOG_LEVEL</a> { <br />
+&#160;&#160;<b>PACKET_TO_MODULE</b> = 0UL, 
+<b>PACKET_FROM_MODULE</b>, 
+<b>PACKET_TO_HOST</b>, 
+<b>PACKET_FROM_HOST</b>, 
+<br />
+&#160;&#160;<b>PACKET_ALLOC</b>, 
+<b>PACKET_CLONE</b>, 
+<b>PACKET_FREE</b>, 
+<b>PACKET_QUEUE</b>, 
+<br />
+&#160;&#160;<b>PACKET_DROPPED</b>, 
+<b>SYSCALL_RAISED</b>, 
+<b>SYSCALL_FINISHED</b>, 
+<b>SYSCALL_BLOCKED</b>, 
+<br />
+&#160;&#160;<b>SYSCALL_UNBLOCKED</b>, 
+<b>SYSCALL_ERROR</b>, 
+<b>APPLICATION_RETRUN</b>, 
+<b>MODULE_ERROR</b>, 
+<br />
+&#160;&#160;<b>PROTOCOL_ERROR</b>, 
+<b>PROTOCOL_WARNING</b>, 
+<b>TCP_LOG</b>, 
+<b>LEVEL_COUNT</b>
+<br />
  }</td></tr>
-<tr class="separator:aa1239829c946745697ba8540e1b4a28f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aece0a85c925c2de90f8279b8ca60f270"><td class="memItemLeft" align="right" valign="top"><a id="aece0a85c925c2de90f8279b8ca60f270"></a>
-typedef int&#160;</td><td class="memItemRight" valign="bottom"><b>Domain</b></td></tr>
-<tr class="separator:aece0a85c925c2de90f8279b8ca60f270"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6722c8d9dad5d0a6997caa87d2384311"><td class="memItemLeft" align="right" valign="top"><a id="a6722c8d9dad5d0a6997caa87d2384311"></a>
-typedef int&#160;</td><td class="memItemRight" valign="bottom"><b>Protocol</b></td></tr>
-<tr class="separator:a6722c8d9dad5d0a6997caa87d2384311"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad67dd35087dd03f11b83142a03247045"><td class="memItemLeft" align="right" valign="top"><a id="ad67dd35087dd03f11b83142a03247045"></a>
-typedef std::pair&lt; Domain, Protocol &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Namespace</b></td></tr>
-<tr class="separator:ad67dd35087dd03f11b83142a03247045"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8e2cf9e61f7120b955f0ec762a0d3d0"><td class="memItemLeft" align="right" valign="top"><a id="ac8e2cf9e61f7120b955f0ec762a0d3d0"></a>
-typedef <a class="el" href="class_e_1_1_system_call_interface.html">SystemCallInterface</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>Interface</b></td></tr>
-<tr class="separator:ac8e2cf9e61f7120b955f0ec762a0d3d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98ad5531821ce4ff65a99c72aa79fd32"><td class="memItemLeft" align="right" valign="top"><a id="a98ad5531821ce4ff65a99c72aa79fd32"></a>
-typedef <a class="el" href="class_e_1_1_system_call_application.html">SystemCallApplication</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>Application</b></td></tr>
-<tr class="separator:a98ad5531821ce4ff65a99c72aa79fd32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memdesc:a5079c90f3a2824c00fd3b8c806eccb0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumerations for log levels.  <a href="class_e_1_1_network_log.html#a5079c90f3a2824c00fd3b8c806eccb0f">More...</a><br /></td></tr>
+<tr class="separator:a5079c90f3a2824c00fd3b8c806eccb0f inherit pub_types_class_e_1_1_network_log"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a92c585d3301bd44ce72e6ed5955aa966"><td class="memItemLeft" align="right" valign="top"><a id="a92c585d3301bd44ce72e6ed5955aa966"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Host</b> (std::string name, size_t portNumber, <a class="el" href="class_e_1_1_network_system.html">NetworkSystem</a> *system)</td></tr>
-<tr class="separator:a92c585d3301bd44ce72e6ed5955aa966"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3fd32fced8fff1e576c2ca6946aea96"><td class="memItemLeft" align="right" valign="top"><a id="ad3fd32fced8fff1e576c2ca6946aea96"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Host</b> (std::string name, <a class="el" href="class_e_1_1_network_system.html">NetworkSystem</a> &amp;system)</td></tr>
+<tr class="separator:ad3fd32fced8fff1e576c2ca6946aea96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a528d73da7805179200653dcbd4ef6cfd"><td class="memItemLeft" align="right" valign="top"><a id="a528d73da7805179200653dcbd4ef6cfd"></a>
 virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>cleanUp</b> (void) final</td></tr>
 <tr class="separator:a528d73da7805179200653dcbd4ef6cfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a26dc5bc6c9a8e78d03db93c18d85a4b1"><td class="memItemLeft" align="right" valign="top"><a id="a26dc5bc6c9a8e78d03db93c18d85a4b1"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>isRunning</b> (void) final</td></tr>
 <tr class="separator:a26dc5bc6c9a8e78d03db93c18d85a4b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e034384d3eb95998ff07c20f325e888"><td class="memItemLeft" align="right" valign="top"><a id="a1e034384d3eb95998ff07c20f325e888"></a>
-virtual <a class="el" href="class_e_1_1_port.html">Port</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getPort</b> (size_t portIndex) final</td></tr>
-<tr class="separator:a1e034384d3eb95998ff07c20f325e888"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9996096910fb2470624c1baffab77915"><td class="memItemLeft" align="right" valign="top"><a id="a9996096910fb2470624c1baffab77915"></a>
-virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><b>getPortCount</b> () final</td></tr>
-<tr class="separator:a9996096910fb2470624c1baffab77915"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb080223311b5c8fdf0b56accc9e5712"><td class="memTemplParams" colspan="2"><a id="adb080223311b5c8fdf0b56accc9e5712"></a>
+template&lt;typename T , typename... Args&gt; </td></tr>
+<tr class="memitem:adb080223311b5c8fdf0b56accc9e5712"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>addHostModule</b> (Args &amp;&amp;...args)</td></tr>
+<tr class="separator:adb080223311b5c8fdf0b56accc9e5712"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0e27cfe1cc26154d424734184499485"><td class="memTemplParams" colspan="2"><a id="af0e27cfe1cc26154d424734184499485"></a>
+template&lt;typename T , typename... Args&gt; </td></tr>
+<tr class="memitem:af0e27cfe1cc26154d424734184499485"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><b>addApplication</b> (Args &amp;&amp;...args)</td></tr>
+<tr class="separator:af0e27cfe1cc26154d424734184499485"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7802e103dc4320aac651c9063f8783ac"><td class="memItemLeft" align="right" valign="top"><a id="a7802e103dc4320aac651c9063f8783ac"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>initializeHostModule</b> (const char *name)</td></tr>
+<tr class="separator:a7802e103dc4320aac651c9063f8783ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6602eb16947a28e1ef3712a746040b8"><td class="memItemLeft" align="right" valign="top"><a id="ac6602eb16947a28e1ef3712a746040b8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>finalizeHostModule</b> (const char *name)</td></tr>
+<tr class="separator:ac6602eb16947a28e1ef3712a746040b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a084b957119ab2e429506077c55b81cae"><td class="memItemLeft" align="right" valign="top"><a id="a084b957119ab2e429506077c55b81cae"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>launchApplication</b> (int pid)</td></tr>
+<tr class="separator:a084b957119ab2e429506077c55b81cae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a870579902788744ef57b39a7d888ac99"><td class="memItemLeft" align="right" valign="top"><a id="a870579902788744ef57b39a7d888ac99"></a>
+std::any&#160;</td><td class="memItemRight" valign="bottom"><b>diagnoseHostModule</b> (const char *name, std::any param)</td></tr>
+<tr class="separator:a870579902788744ef57b39a7d888ac99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b42181ef875cb7f94309f28618ff4dc"><td class="memItemLeft" align="right" valign="top"><a id="a8b42181ef875cb7f94309f28618ff4dc"></a>
+Size&#160;</td><td class="memItemRight" valign="bottom"><b>getWireSpeed</b> (int port_num)</td></tr>
+<tr class="separator:a8b42181ef875cb7f94309f28618ff4dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a098791ad755a84fb65b2c47b813223ab"><td class="memItemLeft" align="right" valign="top"><a id="a098791ad755a84fb65b2c47b813223ab"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>sendPacket</b> (size_t portIndex, <a class="el" href="class_e_1_1_packet.html">Packet</a> &amp;&amp;packet) final</td></tr>
 <tr class="separator:a098791ad755a84fb65b2c47b813223ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_e_1_1_module"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_e_1_1_module')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_e_1_1_module.html">E::Module</a></td></tr>
-<tr class="memitem:a6901bcc7aa7b920a394d44c2fdccee7d inherit pub_methods_class_e_1_1_module"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_module.html#a6901bcc7aa7b920a394d44c2fdccee7d">Module</a> (<a class="el" href="class_e_1_1_system.html">System</a> *system)</td></tr>
-<tr class="memdesc:a6901bcc7aa7b920a394d44c2fdccee7d inherit pub_methods_class_e_1_1_module"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_e_1_1_module.html" title="Module is an interface for classes which can send/receive Message to/from the System.">Module</a> must belong to a <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>. <a class="el" href="class_e_1_1_module.html" title="Module is an interface for classes which can send/receive Message to/from the System.">Module</a> is registered to a <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a> when it is created.  <a href="class_e_1_1_module.html#a6901bcc7aa7b920a394d44c2fdccee7d">More...</a><br /></td></tr>
-<tr class="separator:a6901bcc7aa7b920a394d44c2fdccee7d inherit pub_methods_class_e_1_1_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad08bf4421810b107202392cb2c1fd083 inherit pub_methods_class_e_1_1_module"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_e_1_1_system.html">System</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_module.html#ad08bf4421810b107202392cb2c1fd083">getSystem</a> () final</td></tr>
-<tr class="separator:ad08bf4421810b107202392cb2c1fd083 inherit pub_methods_class_e_1_1_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_e_1_1_network_module"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_e_1_1_network_module')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_e_1_1_network_module.html">E::NetworkModule</a></td></tr>
-<tr class="memitem:a7eebe1bd7fbb59cfa7fc453b1b2c036f inherit pub_methods_class_e_1_1_network_module"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_network_module.html#a7eebe1bd7fbb59cfa7fc453b1b2c036f">NetworkModule</a> (std::string name, <a class="el" href="class_e_1_1_network_system.html">NetworkSystem</a> *system)</td></tr>
-<tr class="memdesc:a7eebe1bd7fbb59cfa7fc453b1b2c036f inherit pub_methods_class_e_1_1_network_module"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_e_1_1_network_module.html" title="NetworkModule can allocate/deallocate Packets.">NetworkModule</a> is registered to the <a class="el" href="class_e_1_1_network_system.html" title="NetworkSystem is a kind of System which has extensions for handling Packet network.">NetworkSystem</a> when it is created.  <a href="class_e_1_1_network_module.html#a7eebe1bd7fbb59cfa7fc453b1b2c036f">More...</a><br /></td></tr>
-<tr class="separator:a7eebe1bd7fbb59cfa7fc453b1b2c036f inherit pub_methods_class_e_1_1_network_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae04af1bd9fd7eef7c833930657e0054 inherit pub_methods_class_e_1_1_network_module"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_network_module.html#aae04af1bd9fd7eef7c833930657e0054">getModuleName</a> () final</td></tr>
-<tr class="separator:aae04af1bd9fd7eef7c833930657e0054 inherit pub_methods_class_e_1_1_network_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad260b0b7777bed4a9a01725494bb9b16 inherit pub_methods_class_e_1_1_network_module"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_e_1_1_network_system.html">NetworkSystem</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_network_module.html#ad260b0b7777bed4a9a01725494bb9b16">getNetworkSystem</a> () final</td></tr>
-<tr class="separator:ad260b0b7777bed4a9a01725494bb9b16 inherit pub_methods_class_e_1_1_network_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02ce62c29c46d04afec350ff416d063c inherit pub_methods_class_e_1_1_network_module"><td class="memItemLeft" align="right" valign="top"><a id="a02ce62c29c46d04afec350ff416d063c"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>NetworkModule</b> (<a class="el" href="class_e_1_1_system.html">System</a> &amp;system)</td></tr>
+<tr class="separator:a02ce62c29c46d04afec350ff416d063c inherit pub_methods_class_e_1_1_network_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a151f45d25ffb1c1d26b22b43026a0df7 inherit pub_methods_class_e_1_1_network_module"><td class="memItemLeft" align="right" valign="top"><a id="a151f45d25ffb1c1d26b22b43026a0df7"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>connectWire</b> (const ModuleID moduleID)</td></tr>
+<tr class="separator:a151f45d25ffb1c1d26b22b43026a0df7 inherit pub_methods_class_e_1_1_network_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3665a746775680cef946f52fff04a1e5 inherit pub_methods_class_e_1_1_network_module"><td class="memItemLeft" align="right" valign="top"><a id="a3665a746775680cef946f52fff04a1e5"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><b>getPortCount</b> ()</td></tr>
+<tr class="separator:a3665a746775680cef946f52fff04a1e5 inherit pub_methods_class_e_1_1_network_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_e_1_1_module"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_e_1_1_module')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_e_1_1_module.html">E::Module</a></td></tr>
+<tr class="memitem:a54dec36cae2191adecc934eb0a5e54e8 inherit pub_methods_class_e_1_1_module"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_module.html#a54dec36cae2191adecc934eb0a5e54e8">Module</a> (<a class="el" href="class_e_1_1_system.html">System</a> &amp;system)</td></tr>
+<tr class="memdesc:a54dec36cae2191adecc934eb0a5e54e8 inherit pub_methods_class_e_1_1_module"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_e_1_1_module.html" title="Module is an interface for classes which can send/receive Message to/from the System.">Module</a> must belong to a <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>. <a class="el" href="class_e_1_1_module.html" title="Module is an interface for classes which can send/receive Message to/from the System.">Module</a> is registered to a <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a> when it is created.  <a href="class_e_1_1_module.html#a54dec36cae2191adecc934eb0a5e54e8">More...</a><br /></td></tr>
+<tr class="separator:a54dec36cae2191adecc934eb0a5e54e8 inherit pub_methods_class_e_1_1_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa558bcbc998cbad57e46da777f9093f8 inherit pub_methods_class_e_1_1_module"><td class="memItemLeft" align="right" valign="top"><a id="aa558bcbc998cbad57e46da777f9093f8"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getModuleName</b> ()</td></tr>
+<tr class="separator:aa558bcbc998cbad57e46da777f9093f8 inherit pub_methods_class_e_1_1_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c36464744c790ad6a9046a98d3e7a1c inherit pub_methods_class_e_1_1_module"><td class="memItemLeft" align="right" valign="top"><a id="a2c36464744c790ad6a9046a98d3e7a1c"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getModuleName</b> (const ModuleID moduleID)</td></tr>
+<tr class="separator:a2c36464744c790ad6a9046a98d3e7a1c inherit pub_methods_class_e_1_1_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47261cb677b4c68ce6c15d8879334707 inherit pub_methods_class_e_1_1_module"><td class="memItemLeft" align="right" valign="top"><a id="a47261cb677b4c68ce6c15d8879334707"></a>
+Time&#160;</td><td class="memItemRight" valign="bottom"><b>getCurrentTime</b> ()</td></tr>
+<tr class="separator:a47261cb677b4c68ce6c15d8879334707 inherit pub_methods_class_e_1_1_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_e_1_1_network_log"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_e_1_1_network_log')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_e_1_1_network_log.html">E::NetworkLog</a></td></tr>
+<tr class="memitem:ae3cba3bced64815676319771fdf515c8 inherit pub_methods_class_e_1_1_network_log"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_network_log.html#ae3cba3bced64815676319771fdf515c8">NetworkLog</a> (<a class="el" href="class_e_1_1_system.html">System</a> &amp;system)</td></tr>
+<tr class="memdesc:ae3cba3bced64815676319771fdf515c8 inherit pub_methods_class_e_1_1_network_log"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="class_e_1_1_network_log.html">NetworkLog</a> instance.  <a href="class_e_1_1_network_log.html#ae3cba3bced64815676319771fdf515c8">More...</a><br /></td></tr>
+<tr class="separator:ae3cba3bced64815676319771fdf515c8 inherit pub_methods_class_e_1_1_network_log"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08794bd02b44dc00c0e91617978801cf inherit pub_methods_class_e_1_1_network_log"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_network_log.html#a08794bd02b44dc00c0e91617978801cf">NetworkLog</a> (<a class="el" href="class_e_1_1_system.html">System</a> &amp;system, uint64_t level)</td></tr>
+<tr class="memdesc:a08794bd02b44dc00c0e91617978801cf inherit pub_methods_class_e_1_1_network_log"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="class_e_1_1_network_log.html">NetworkLog</a> instance with log level.  <a href="class_e_1_1_network_log.html#a08794bd02b44dc00c0e91617978801cf">More...</a><br /></td></tr>
+<tr class="separator:a08794bd02b44dc00c0e91617978801cf inherit pub_methods_class_e_1_1_network_log"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc4a37a371a50b018732f6773f163465 inherit pub_methods_class_e_1_1_network_log"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_network_log.html#adc4a37a371a50b018732f6773f163465">~NetworkLog</a> ()</td></tr>
+<tr class="memdesc:adc4a37a371a50b018732f6773f163465 inherit pub_methods_class_e_1_1_network_log"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructs a <a class="el" href="class_e_1_1_network_log.html">NetworkLog</a> instance.  <a href="class_e_1_1_network_log.html#adc4a37a371a50b018732f6773f163465">More...</a><br /></td></tr>
+<tr class="separator:adc4a37a371a50b018732f6773f163465 inherit pub_methods_class_e_1_1_network_log"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5b93568ae9e7de9940cea51afabe9a8 inherit pub_methods_class_e_1_1_network_log"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_network_log.html#af5b93568ae9e7de9940cea51afabe9a8">print_log</a> (uint64_t level, const char *format,...)</td></tr>
+<tr class="memdesc:af5b93568ae9e7de9940cea51afabe9a8 inherit pub_methods_class_e_1_1_network_log"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints log with specified log level and format. <a class="el" href="class_e_1_1_network_log.html#af5b93568ae9e7de9940cea51afabe9a8" title="Prints log with specified log level and format. NetworkLog::print_log prints logs specified in log le...">NetworkLog::print_log</a> prints logs specified in log level parameter. For example, if log level is set to TCP_LOG, it only prints TCP_LOG logs. If you want to print multiple log levels in <a class="el" href="class_e_1_1_network_log.html">NetworkLog</a>, you can set log level with OR operation (i.e. SYSCALL_ERROR | MODULE_ERROR).  <a href="class_e_1_1_network_log.html#af5b93568ae9e7de9940cea51afabe9a8">More...</a><br /></td></tr>
+<tr class="separator:af5b93568ae9e7de9940cea51afabe9a8 inherit pub_methods_class_e_1_1_network_log"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_e_1_1_routing_info"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_e_1_1_routing_info')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_e_1_1_routing_info.html">E::RoutingInfo</a></td></tr>
 <tr class="memitem:a332df1f3e31614cda9f2772cf37d4dd5 inherit pub_methods_class_e_1_1_routing_info"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_routing_info.html#a332df1f3e31614cda9f2772cf37d4dd5">setIPAddr</a> (const ipv4_t &amp;ip, int port) final</td></tr>
 <tr class="separator:a332df1f3e31614cda9f2772cf37d4dd5 inherit pub_methods_class_e_1_1_routing_info"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -189,22 +258,39 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>SystemCallInterface::c
 <tr class="memitem:a2a1ad6427a6d77c80fb8d04f657a5d0f"><td class="memItemLeft" align="right" valign="top"><a id="a2a1ad6427a6d77c80fb8d04f657a5d0f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SystemCallInterface::removeFileDescriptor</b> (int processID, int fd)</td></tr>
 <tr class="separator:a2a1ad6427a6d77c80fb8d04f657a5d0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0b73e24f3a03828ca957c80917e849c"><td class="memItemLeft" align="right" valign="top"><a id="ad0b73e24f3a03828ca957c80917e849c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SystemCallApplication::registerApplication</b> ()</td></tr>
-<tr class="separator:ad0b73e24f3a03828ca957c80917e849c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adba25e06c5df7ca092157ea363659cf7"><td class="memItemLeft" align="right" valign="top"><a id="adba25e06c5df7ca092157ea363659cf7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SystemCallApplication::unregisterApplication</b> ()</td></tr>
-<tr class="separator:adba25e06c5df7ca092157ea363659cf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa33a3806e41f0af1343a6efe3034694"><td class="memItemLeft" align="right" valign="top"><a id="aaa33a3806e41f0af1343a6efe3034694"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>SystemCallApplication::E_Syscall</b> (const <a class="el" href="class_e_1_1_system_call_interface_1_1_system_call_parameter.html">SystemCallInterface::SystemCallParameter</a> &amp;param)</td></tr>
+<tr class="separator:aaa33a3806e41f0af1343a6efe3034694"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98409aa128a3ff92d24568ff1e2aaf7e"><td class="memItemLeft" align="right" valign="top"><a id="a98409aa128a3ff92d24568ff1e2aaf7e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SystemCallApplication::finalizeApplication</b> (int returnValue)</td></tr>
+<tr class="separator:a98409aa128a3ff92d24568ff1e2aaf7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a131fc2e309b9df9cf7321ef8785c6cee"><td class="memItemLeft" align="right" valign="top"><a id="a131fc2e309b9df9cf7321ef8785c6cee"></a>
+UUID&#160;</td><td class="memItemRight" valign="bottom"><b>TimerModule::addTimer</b> (std::any payload, Time timeAfter)</td></tr>
+<tr class="separator:a131fc2e309b9df9cf7321ef8785c6cee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86f1713af3babcdfc00486f2344402d3"><td class="memItemLeft" align="right" valign="top"><a id="a86f1713af3babcdfc00486f2344402d3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>TimerModule::cancelTimer</b> (UUID key)</td></tr>
+<tr class="separator:a86f1713af3babcdfc00486f2344402d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_static_attribs_class_e_1_1_network_log"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_class_e_1_1_network_log')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="class_e_1_1_network_log.html">E::NetworkLog</a></td></tr>
+<tr class="memitem:abc7e3ec4e8d147f846fd46979cdfffe6 inherit pub_static_attribs_class_e_1_1_network_log"><td class="memItemLeft" align="right" valign="top">static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_network_log.html#abc7e3ec4e8d147f846fd46979cdfffe6">defaultLevel</a></td></tr>
+<tr class="memdesc:abc7e3ec4e8d147f846fd46979cdfffe6 inherit pub_static_attribs_class_e_1_1_network_log"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default log level.  <a href="class_e_1_1_network_log.html#abc7e3ec4e8d147f846fd46979cdfffe6">More...</a><br /></td></tr>
+<tr class="separator:abc7e3ec4e8d147f846fd46979cdfffe6 inherit pub_static_attribs_class_e_1_1_network_log"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_class_e_1_1_module"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_e_1_1_module')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_e_1_1_module.html">E::Module</a></td></tr>
-<tr class="memitem:a4db52952d3bd42f5f9109c8e570b6b50 inherit pro_methods_class_e_1_1_module"><td class="memItemLeft" align="right" valign="top">virtual UUID&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_module.html#a4db52952d3bd42f5f9109c8e570b6b50">sendMessage</a> (<a class="el" href="class_e_1_1_module.html">Module</a> *to, <a class="el" href="class_e_1_1_module_1_1_message.html">Module::Message</a> *message, Time timeAfter) final</td></tr>
-<tr class="memdesc:a4db52952d3bd42f5f9109c8e570b6b50 inherit pro_methods_class_e_1_1_module"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a <a class="el" href="class_e_1_1_module_1_1_message.html" title="Interface of Message. Every message implementation must inherit this class.">Message</a> to other <a class="el" href="class_e_1_1_module.html" title="Module is an interface for classes which can send/receive Message to/from the System.">Module</a>. Every message has its own delay before it is actually sent. The <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a> guarantees the total ordering of all delayed messages in the <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>.  <a href="class_e_1_1_module.html#a4db52952d3bd42f5f9109c8e570b6b50">More...</a><br /></td></tr>
-<tr class="separator:a4db52952d3bd42f5f9109c8e570b6b50 inherit pro_methods_class_e_1_1_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a697e6dcea6c04440dabf8939a142731e inherit pro_methods_class_e_1_1_module"><td class="memItemLeft" align="right" valign="top">virtual UUID&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_module.html#a697e6dcea6c04440dabf8939a142731e">sendMessage</a> (const ModuleID to, Module::Message message, Time timeAfter) final</td></tr>
+<tr class="memdesc:a697e6dcea6c04440dabf8939a142731e inherit pro_methods_class_e_1_1_module"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a Message to other <a class="el" href="class_e_1_1_module.html" title="Module is an interface for classes which can send/receive Message to/from the System.">Module</a>. Every message has its own delay before it is actually sent. The <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a> guarantees the total ordering of all delayed messages in the <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>.  <a href="class_e_1_1_module.html#a697e6dcea6c04440dabf8939a142731e">More...</a><br /></td></tr>
+<tr class="separator:a697e6dcea6c04440dabf8939a142731e inherit pro_methods_class_e_1_1_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf19ba7eb7b7ff26fa4d2f01a2798944 inherit pro_methods_class_e_1_1_module"><td class="memItemLeft" align="right" valign="top">virtual UUID&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_module.html#abf19ba7eb7b7ff26fa4d2f01a2798944">sendMessageSelf</a> (Module::Message message, Time timeAfter) final</td></tr>
+<tr class="memdesc:abf19ba7eb7b7ff26fa4d2f01a2798944 inherit pro_methods_class_e_1_1_module"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a Message to self Every message has its own delay before it is actually sent. The <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a> guarantees the total ordering of all delayed messages in the <a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a>.  <a href="class_e_1_1_module.html#abf19ba7eb7b7ff26fa4d2f01a2798944">More...</a><br /></td></tr>
+<tr class="separator:abf19ba7eb7b7ff26fa4d2f01a2798944 inherit pro_methods_class_e_1_1_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d818645bf7e6e056c6373af7851fed6 inherit pro_methods_class_e_1_1_module"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_module.html#a6d818645bf7e6e056c6373af7851fed6">cancelMessage</a> (UUID messageID) final</td></tr>
-<tr class="memdesc:a6d818645bf7e6e056c6373af7851fed6 inherit pro_methods_class_e_1_1_module"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancel the raised <a class="el" href="class_e_1_1_module_1_1_message.html" title="Interface of Message. Every message implementation must inherit this class.">Message</a>. If a message is not actually sent yet, you can cancel the message. If the message is already sent, this function has no effect.  <a href="class_e_1_1_module.html#a6d818645bf7e6e056c6373af7851fed6">More...</a><br /></td></tr>
+<tr class="memdesc:a6d818645bf7e6e056c6373af7851fed6 inherit pro_methods_class_e_1_1_module"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancel the raised Message. If a message is not actually sent yet, you can cancel the message. If the message is already sent, this function has no effect.  <a href="class_e_1_1_module.html#a6d818645bf7e6e056c6373af7851fed6">More...</a><br /></td></tr>
 <tr class="separator:a6d818645bf7e6e056c6373af7851fed6 inherit pro_methods_class_e_1_1_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_class_e_1_1_network_module"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_e_1_1_network_module')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_e_1_1_network_module.html">E::NetworkModule</a></td></tr>
+<tr class="memitem:aad380847463e3ab5dcc38267b1d98b1a inherit pro_attribs_class_e_1_1_network_module"><td class="memItemLeft" align="right" valign="top"><a id="aad380847463e3ab5dcc38267b1d98b1a"></a>
+std::vector&lt; ModuleID &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ports</b></td></tr>
+<tr class="separator:aad380847463e3ab5dcc38267b1d98b1a inherit pro_attribs_class_e_1_1_network_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class abstract a single host machine. </p>
@@ -215,7 +301,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 4 2021 10:05:17 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Aug 27 2021 10:16:33 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

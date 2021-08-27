@@ -68,8 +68,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="class_e_1_1_timer_module-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">E::TimerModule Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
@@ -86,17 +86,18 @@ Inheritance diagram for E::TimerModule:</div>
  <div class="center">
   <img src="class_e_1_1_timer_module.png" usemap="#E::TimerModule_map" alt=""/>
   <map id="E::TimerModule_map" name="E::TimerModule_map">
-<area href="class_e_1_1_module.html" title="Module is an interface for classes which can send/receive Message to/from the System." alt="E::Module" shape="rect" coords="71,0,203,24"/>
-<area href="class_e_1_1_routing_assignment.html" alt="E::RoutingAssignment" shape="rect" coords="0,112,132,136"/>
-<area href="class_e_1_1_t_c_p_assignment.html" alt="E::TCPAssignment" shape="rect" coords="142,112,274,136"/>
+<area href="class_e_1_1_routing_assignment.html" alt="E::RoutingAssignment" shape="rect" coords="0,56,132,80"/>
+<area href="class_e_1_1_t_c_p_assignment.html" alt="E::TCPAssignment" shape="rect" coords="142,56,274,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:af468b63f49308a095e52ed46970f5eb7"><td class="memItemLeft" align="right" valign="top"><a id="af468b63f49308a095e52ed46970f5eb7"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>TimerModule</b> (<a class="el" href="class_e_1_1_system.html">System</a> *system)</td></tr>
-<tr class="separator:af468b63f49308a095e52ed46970f5eb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade9b70b68666316bfc6bcb27756b13a1"><td class="memItemLeft" align="right" valign="top"><a id="ade9b70b68666316bfc6bcb27756b13a1"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>TimerModule</b> (std::string name, <a class="el" href="class_e_1_1_host.html">Host</a> &amp;host)</td></tr>
+<tr class="separator:ade9b70b68666316bfc6bcb27756b13a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab58240a2d54fbf8067f60b2ec59bfccb"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_timer_module.html#ab58240a2d54fbf8067f60b2ec59bfccb">getTimerModuleName</a> () final</td></tr>
+<tr class="separator:ab58240a2d54fbf8067f60b2ec59bfccb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27778c471870d94cfe08aab4ad13184a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_timer_module.html#a27778c471870d94cfe08aab4ad13184a">timerCallback</a> (std::any payload)=0</td></tr>
 <tr class="memdesc:a27778c471870d94cfe08aab4ad13184a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is automatically when requested alarm is triggered. You must override this pure virtual function to use <a class="el" href="class_e_1_1_timer_module.html" title="TimerModule provides convenient interface of timer/alarm.">TimerModule</a>.  <a href="class_e_1_1_timer_module.html#a27778c471870d94cfe08aab4ad13184a">More...</a><br /></td></tr>
 <tr class="separator:a27778c471870d94cfe08aab4ad13184a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -106,6 +107,12 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a9c49bea5788ab3b26e71bea8c29d523f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_timer_module.html#a9c49bea5788ab3b26e71bea8c29d523f">cancelTimer</a> (UUID key) final</td></tr>
 <tr class="memdesc:a9c49bea5788ab3b26e71bea8c29d523f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancel the timer request.  <a href="class_e_1_1_timer_module.html#a9c49bea5788ab3b26e71bea8c29d523f">More...</a><br /></td></tr>
 <tr class="separator:a9c49bea5788ab3b26e71bea8c29d523f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a912b690126957a1ad90d0c373a4ad4d0"><td class="memItemLeft" align="right" valign="top"><a id="a912b690126957a1ad90d0c373a4ad4d0"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>Host</b></td></tr>
+<tr class="separator:a912b690126957a1ad90d0c373a4ad4d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="class_e_1_1_timer_module.html" title="TimerModule provides convenient interface of timer/alarm.">TimerModule</a> provides convenient interface of timer/alarm. </p>
@@ -190,8 +197,34 @@ Protected Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>You cannot override this function. There is no <a class="el" href="class_e_1_1_module.html#ac1f2bfbcd155c4641e6a78e2b4156588" title="This is a callback function called by the System. This function is automatically called when the mess...">Module::messageCancelled</a> here, so be sure that you deallocated any resources you allocated for the timer.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_e_1_1_timer_module.html#a99b5d8edd989d6d1658e30056aa0d322" title="Request an alarm that rings after specified time.">addTimer</a>, <a class="el" href="class_e_1_1_module.html#ac1f2bfbcd155c4641e6a78e2b4156588" title="This is a callback function called by the System. This function is automatically called when the mess...">Module::messageCancelled</a> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>You cannot override this function. There is no <a class="el" href="class_e_1_1_module.html#a4880b3839a12c69204e19d195ffdc9be" title="This is a callback function called by the System. This function is automatically called when the mess...">Module::messageCancelled</a> here, so be sure that you deallocated any resources you allocated for the timer.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_e_1_1_timer_module.html#a99b5d8edd989d6d1658e30056aa0d322" title="Request an alarm that rings after specified time.">addTimer</a>, <a class="el" href="class_e_1_1_module.html#a4880b3839a12c69204e19d195ffdc9be" title="This is a callback function called by the System. This function is automatically called when the mess...">Module::messageCancelled</a> </dd></dl>
+
+</div>
+</div>
+<a id="ab58240a2d54fbf8067f60b2ec59bfccb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab58240a2d54fbf8067f60b2ec59bfccb">&#9670;&nbsp;</a></span>getTimerModuleName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string E::TimerModule::getTimerModuleName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>My name used in the registered <a class="el" href="class_e_1_1_host.html" title="This class abstract a single host machine.">Host</a>. </dd></dl>
 
 </div>
 </div>
@@ -231,13 +264,13 @@ Protected Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/E/<a class="el" href="_e___timer_module_8hpp_source.html">E_TimerModule.hpp</a></li>
+<li>include/E/Networking/<a class="el" href="_e___timer_module_8hpp_source.html">E_TimerModule.hpp</a></li>
 <li>src/E/E_TimerModule.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 4 2021 10:05:17 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Aug 27 2021 10:16:33 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

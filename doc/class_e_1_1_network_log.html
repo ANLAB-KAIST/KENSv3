@@ -71,7 +71,6 @@ $(function() {
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="class_e_1_1_network_log-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">E::NetworkLog Class Reference</div>  </div>
@@ -83,15 +82,12 @@ Inheritance diagram for E::NetworkLog:</div>
  <div class="center">
   <img src="class_e_1_1_network_log.png" usemap="#E::NetworkLog_map" alt=""/>
   <map id="E::NetworkLog_map" name="E::NetworkLog_map">
-<area href="class_e_1_1_ethernet.html" alt="E::Ethernet" shape="rect" coords="161,56,312,80"/>
-<area href="class_e_1_1_host.html" title="This class abstract a single host machine." alt="E::Host" shape="rect" coords="161,112,312,136"/>
-<area href="class_e_1_1_i_pv4.html" alt="E::IPv4" shape="rect" coords="161,168,312,192"/>
-<area href="class_e_1_1_link.html" title="Link makes connections among multiple Port. It supports packet switching and output queuing...." alt="E::Link" shape="rect" coords="161,224,312,248"/>
-<area href="class_e_1_1_network_system.html" title="NetworkSystem is a kind of System which has extensions for handling Packet network." alt="E::NetworkSystem" shape="rect" coords="161,280,312,304"/>
-<area href="class_e_1_1_port.html" title="Port does a role of 2-ended wire. However there is a speed limit and delayed packets are queued (curr..." alt="E::Port" shape="rect" coords="161,336,312,360"/>
-<area href="class_e_1_1_routing_assignment.html" alt="E::RoutingAssignment" shape="rect" coords="161,392,312,416"/>
-<area href="class_e_1_1_system_call_application.html" title="This provides system call interface to an application. This provides basic system call invoking mecha..." alt="E::SystemCallApplication" shape="rect" coords="161,448,312,472"/>
-<area href="class_e_1_1_t_c_p_assignment.html" alt="E::TCPAssignment" shape="rect" coords="161,504,312,528"/>
+<area href="class_e_1_1_host.html" title="This class abstract a single host machine." alt="E::Host" shape="rect" coords="0,56,112,80"/>
+<area href="class_e_1_1_link.html" title="Link makes connections among multiple Wires. It supports packet switching and output queuing...." alt="E::Link" shape="rect" coords="122,56,234,80"/>
+<area href="class_e_1_1_network_system.html" title="NetworkSystem is a kind of System which has extensions for handling Packet network." alt="E::NetworkSystem" shape="rect" coords="244,56,356,80"/>
+<area href="class_e_1_1_wire.html" title="Wire does a role of 2-ended wire. However there is a speed limit and delayed packets are queued (curr..." alt="E::Wire" shape="rect" coords="366,56,478,80"/>
+<area href="class_e_1_1_hub.html" alt="E::Hub" shape="rect" coords="61,112,173,136"/>
+<area href="class_e_1_1_switch.html" alt="E::Switch" shape="rect" coords="183,112,295,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -115,10 +111,11 @@ Public Types</h2></td></tr>
 <br />
 &#160;&#160;<b>SYSCALL_UNBLOCKED</b>, 
 <b>SYSCALL_ERROR</b>, 
+<b>APPLICATION_RETRUN</b>, 
 <b>MODULE_ERROR</b>, 
-<b>PROTOCOL_ERROR</b>, 
 <br />
-&#160;&#160;<b>PROTOCOL_WARNING</b>, 
+&#160;&#160;<b>PROTOCOL_ERROR</b>, 
+<b>PROTOCOL_WARNING</b>, 
 <b>TCP_LOG</b>, 
 <b>LEVEL_COUNT</b>
 <br />
@@ -128,27 +125,24 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5508a633e1589d35b874aa4cc6e92dc2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_network_log.html#a5508a633e1589d35b874aa4cc6e92dc2">NetworkLog</a> (<a class="el" href="class_e_1_1_network_system.html">NetworkSystem</a> *system)</td></tr>
-<tr class="memdesc:a5508a633e1589d35b874aa4cc6e92dc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="class_e_1_1_network_log.html">NetworkLog</a> instance.  <a href="class_e_1_1_network_log.html#a5508a633e1589d35b874aa4cc6e92dc2">More...</a><br /></td></tr>
-<tr class="separator:a5508a633e1589d35b874aa4cc6e92dc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad660475b8e02716dc90c2c365851fef2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_network_log.html#ad660475b8e02716dc90c2c365851fef2">NetworkLog</a> (<a class="el" href="class_e_1_1_network_system.html">NetworkSystem</a> *system, uint64_t level)</td></tr>
-<tr class="memdesc:ad660475b8e02716dc90c2c365851fef2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="class_e_1_1_network_log.html">NetworkLog</a> instance with log level.  <a href="class_e_1_1_network_log.html#ad660475b8e02716dc90c2c365851fef2">More...</a><br /></td></tr>
-<tr class="separator:ad660475b8e02716dc90c2c365851fef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3cba3bced64815676319771fdf515c8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_network_log.html#ae3cba3bced64815676319771fdf515c8">NetworkLog</a> (<a class="el" href="class_e_1_1_system.html">System</a> &amp;system)</td></tr>
+<tr class="memdesc:ae3cba3bced64815676319771fdf515c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="class_e_1_1_network_log.html">NetworkLog</a> instance.  <a href="class_e_1_1_network_log.html#ae3cba3bced64815676319771fdf515c8">More...</a><br /></td></tr>
+<tr class="separator:ae3cba3bced64815676319771fdf515c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08794bd02b44dc00c0e91617978801cf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_network_log.html#a08794bd02b44dc00c0e91617978801cf">NetworkLog</a> (<a class="el" href="class_e_1_1_system.html">System</a> &amp;system, uint64_t level)</td></tr>
+<tr class="memdesc:a08794bd02b44dc00c0e91617978801cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="class_e_1_1_network_log.html">NetworkLog</a> instance with log level.  <a href="class_e_1_1_network_log.html#a08794bd02b44dc00c0e91617978801cf">More...</a><br /></td></tr>
+<tr class="separator:a08794bd02b44dc00c0e91617978801cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc4a37a371a50b018732f6773f163465"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_network_log.html#adc4a37a371a50b018732f6773f163465">~NetworkLog</a> ()</td></tr>
 <tr class="memdesc:adc4a37a371a50b018732f6773f163465"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructs a <a class="el" href="class_e_1_1_network_log.html">NetworkLog</a> instance.  <a href="class_e_1_1_network_log.html#adc4a37a371a50b018732f6773f163465">More...</a><br /></td></tr>
 <tr class="separator:adc4a37a371a50b018732f6773f163465"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5b93568ae9e7de9940cea51afabe9a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_network_log.html#af5b93568ae9e7de9940cea51afabe9a8">print_log</a> (uint64_t level, const char *format,...)</td></tr>
+<tr class="memdesc:af5b93568ae9e7de9940cea51afabe9a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints log with specified log level and format. <a class="el" href="class_e_1_1_network_log.html#af5b93568ae9e7de9940cea51afabe9a8" title="Prints log with specified log level and format. NetworkLog::print_log prints logs specified in log le...">NetworkLog::print_log</a> prints logs specified in log level parameter. For example, if log level is set to TCP_LOG, it only prints TCP_LOG logs. If you want to print multiple log levels in <a class="el" href="class_e_1_1_network_log.html">NetworkLog</a>, you can set log level with OR operation (i.e. SYSCALL_ERROR | MODULE_ERROR).  <a href="class_e_1_1_network_log.html#af5b93568ae9e7de9940cea51afabe9a8">More...</a><br /></td></tr>
+<tr class="separator:af5b93568ae9e7de9940cea51afabe9a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:abc7e3ec4e8d147f846fd46979cdfffe6"><td class="memItemLeft" align="right" valign="top">static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_network_log.html#abc7e3ec4e8d147f846fd46979cdfffe6">defaultLevel</a></td></tr>
 <tr class="memdesc:abc7e3ec4e8d147f846fd46979cdfffe6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default log level.  <a href="class_e_1_1_network_log.html#abc7e3ec4e8d147f846fd46979cdfffe6">More...</a><br /></td></tr>
 <tr class="separator:abc7e3ec4e8d147f846fd46979cdfffe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:af5b93568ae9e7de9940cea51afabe9a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_network_log.html#af5b93568ae9e7de9940cea51afabe9a8">print_log</a> (uint64_t level, const char *format,...)</td></tr>
-<tr class="memdesc:af5b93568ae9e7de9940cea51afabe9a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints log with specified log level and format. <a class="el" href="class_e_1_1_network_log.html#af5b93568ae9e7de9940cea51afabe9a8" title="Prints log with specified log level and format. NetworkLog::print_log prints logs specified in log le...">NetworkLog::print_log</a> prints logs specified in log level parameter. For example, if log level is set to TCP_LOG, it only prints TCP_LOG logs. If you want to print multiple log levels in <a class="el" href="class_e_1_1_network_log.html">NetworkLog</a>, you can set log level with OR operation (i.e. SYSCALL_ERROR | MODULE_ERROR).  <a href="class_e_1_1_network_log.html#af5b93568ae9e7de9940cea51afabe9a8">More...</a><br /></td></tr>
-<tr class="separator:af5b93568ae9e7de9940cea51afabe9a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="a5079c90f3a2824c00fd3b8c806eccb0f"></a>
@@ -168,8 +162,8 @@ Protected Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a5508a633e1589d35b874aa4cc6e92dc2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5508a633e1589d35b874aa4cc6e92dc2">&#9670;&nbsp;</a></span>NetworkLog() <span class="overload">[1/2]</span></h2>
+<a id="ae3cba3bced64815676319771fdf515c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3cba3bced64815676319771fdf515c8">&#9670;&nbsp;</a></span>NetworkLog() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -177,7 +171,7 @@ Protected Member Functions</h2></td></tr>
         <tr>
           <td class="memname">E::NetworkLog::NetworkLog </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_e_1_1_network_system.html">NetworkSystem</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="class_e_1_1_system.html">System</a> &amp;&#160;</td>
           <td class="paramname"><em>system</em></td><td>)</td>
           <td></td>
         </tr>
@@ -187,15 +181,15 @@ Protected Member Functions</h2></td></tr>
 <p>Constructs a <a class="el" href="class_e_1_1_network_log.html">NetworkLog</a> instance. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">system</td><td><a class="el" href="class_e_1_1_network_system.html" title="NetworkSystem is a kind of System which has extensions for handling Packet network.">NetworkSystem</a> of a <a class="el" href="class_e_1_1_network_module.html" title="NetworkModule can allocate/deallocate Packets.">NetworkModule</a> </td></tr>
+    <tr><td class="paramname">system</td><td><a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a> </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="ad660475b8e02716dc90c2c365851fef2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad660475b8e02716dc90c2c365851fef2">&#9670;&nbsp;</a></span>NetworkLog() <span class="overload">[2/2]</span></h2>
+<a id="a08794bd02b44dc00c0e91617978801cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08794bd02b44dc00c0e91617978801cf">&#9670;&nbsp;</a></span>NetworkLog() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -203,7 +197,7 @@ Protected Member Functions</h2></td></tr>
         <tr>
           <td class="memname">E::NetworkLog::NetworkLog </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_e_1_1_network_system.html">NetworkSystem</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="class_e_1_1_system.html">System</a> &amp;&#160;</td>
           <td class="paramname"><em>system</em>, </td>
         </tr>
         <tr>
@@ -223,7 +217,7 @@ Protected Member Functions</h2></td></tr>
 <p>Constructs a <a class="el" href="class_e_1_1_network_log.html">NetworkLog</a> instance with log level. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">system</td><td><a class="el" href="class_e_1_1_network_system.html" title="NetworkSystem is a kind of System which has extensions for handling Packet network.">NetworkSystem</a> of a <a class="el" href="class_e_1_1_network_module.html" title="NetworkModule can allocate/deallocate Packets.">NetworkModule</a> </td></tr>
+    <tr><td class="paramname">system</td><td><a class="el" href="class_e_1_1_system.html" title="System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...">System</a> </td></tr>
     <tr><td class="paramname">level</td><td>log level </td></tr>
   </table>
   </dd>
@@ -256,9 +250,6 @@ Protected Member Functions</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void E::NetworkLog::print_log </td>
@@ -284,11 +275,6 @@ Protected Member Functions</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Prints log with specified log level and format. <a class="el" href="class_e_1_1_network_log.html#af5b93568ae9e7de9940cea51afabe9a8" title="Prints log with specified log level and format. NetworkLog::print_log prints logs specified in log le...">NetworkLog::print_log</a> prints logs specified in log level parameter. For example, if log level is set to TCP_LOG, it only prints TCP_LOG logs. If you want to print multiple log levels in <a class="el" href="class_e_1_1_network_log.html">NetworkLog</a>, you can set log level with OR operation (i.e. SYSCALL_ERROR | MODULE_ERROR). </p>
@@ -349,7 +335,7 @@ Protected Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 4 2021 10:05:17 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Aug 27 2021 10:16:33 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

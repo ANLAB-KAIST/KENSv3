@@ -87,8 +87,8 @@ $(function() {
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="_e___host_8hpp.html">E/Networking/E_Host.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;E/Networking/E_Hub.hpp&gt;</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="_e___networking_8hpp.html">E/Networking/E_Networking.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="_e___port_8hpp.html">E/Networking/E_Port.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;E/Networking/E_Switch.hpp&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;E/Networking/E_Switch.hpp&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="_e___wire_8hpp.html">E/Networking/E_Wire.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;E/Networking/Ethernet/E_Ethernet.hpp&gt;</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;E/Networking/IPv4/E_IPv4.hpp&gt;</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;E/Networking/TCP/E_TCPApplication.hpp&gt;</span></div>
@@ -135,434 +135,363 @@ $(function() {
 <div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="class_test_env1.html">   62</a></span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> Target&gt; <span class="keyword">class </span><a class="code" href="class_test_env1.html">TestEnv1</a> : <span class="keyword">public</span> <a class="code" href="class_kens_testing.html">KensTesting</a> {</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword">protected</span>:</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <a class="code" href="class_e_1_1_network_system.html">NetworkSystem</a> netSystem;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <a class="code" href="class_e_1_1_host.html">Host</a> *host1;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <a class="code" href="class_e_1_1_host.html">Host</a> *host2;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <a class="code" href="class_e_1_1_switch.html">Switch</a> *switchingHub;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <a class="code" href="class_e_1_1_ethernet.html">Ethernet</a> *ethernet1;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <a class="code" href="class_e_1_1_ethernet.html">Ethernet</a> *ethernet2;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <a class="code" href="class_e_1_1_i_pv4.html">IPv4</a> *ipv4_1;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <a class="code" href="class_e_1_1_i_pv4.html">IPv4</a> *ipv4_2;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <a class="code" href="class_e_1_1_host_module.html">HostModule</a> *interface;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <a class="code" href="class_e_1_1_host_module.html">HostModule</a> *interface2;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetUp() {</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    setup_env();</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    host1 = <span class="keyword">new</span> <a class="code" href="class_e_1_1_host.html">Host</a>(<span class="stringliteral">&quot;TestHost1&quot;</span>, 2, &amp;netSystem);</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    host2 = <span class="keyword">new</span> <a class="code" href="class_e_1_1_host.html">Host</a>(<span class="stringliteral">&quot;TestHost2&quot;</span>, 2, &amp;netSystem);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    mac_t mac1{0xBC, 0xBC, 0xBC, 0xBC, 0xBC, 0xBC};</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    mac_t mac1_2{0xCB, 0xCB, 0xCB, 0xCB, 0xCB, 0xCB};</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    mac_t mac2{0xCD, 0xCD, 0xCD, 0xCD, 0xCD, 0xCD};</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    mac_t mac2_2{0xDC, 0xDC, 0xDC, 0xDC, 0xDC, 0xDC};</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    ipv4_t ip1{192, 168, 0, 7};</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    ipv4_t ip1_2{192, 168, 0, 8};</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    ipv4_t ip2{10, 0, 1, 4};</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    ipv4_t ip2_2{10, 0, 1, 5};</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    host1-&gt;<a class="code" href="class_e_1_1_routing_info.html#ae273cbedafb78671fa2bd822f955fd3c">setMACAddr</a>(mac1, 0);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    host1-&gt;<a class="code" href="class_e_1_1_routing_info.html#ae273cbedafb78671fa2bd822f955fd3c">setMACAddr</a>(mac1_2, 1);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    host1-&gt;<a class="code" href="class_e_1_1_routing_info.html#aca12f95b142936a87ff7618711f1d87e">setARPTable</a>(mac2, ip2);</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    host1-&gt;<a class="code" href="class_e_1_1_routing_info.html#aca12f95b142936a87ff7618711f1d87e">setARPTable</a>(mac2_2, ip2_2);</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    host1-&gt;<a class="code" href="class_e_1_1_routing_info.html#a332df1f3e31614cda9f2772cf37d4dd5">setIPAddr</a>(ip1, 0);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    host1-&gt;<a class="code" href="class_e_1_1_routing_info.html#a332df1f3e31614cda9f2772cf37d4dd5">setIPAddr</a>(ip1_2, 1);</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    host1-&gt;<a class="code" href="class_e_1_1_routing_info.html#a016bbf3458ccc145a9409b8dd401432a">setRoutingTable</a>(ip2, 16, 0);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    host1-&gt;<a class="code" href="class_e_1_1_routing_info.html#a016bbf3458ccc145a9409b8dd401432a">setRoutingTable</a>(ip2_2, 16, 1);</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#ae273cbedafb78671fa2bd822f955fd3c">setMACAddr</a>(mac2, 0);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#ae273cbedafb78671fa2bd822f955fd3c">setMACAddr</a>(mac2_2, 1);</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#aca12f95b142936a87ff7618711f1d87e">setARPTable</a>(mac1, ip1);</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#aca12f95b142936a87ff7618711f1d87e">setARPTable</a>(mac1_2, ip1_2);</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#a332df1f3e31614cda9f2772cf37d4dd5">setIPAddr</a>(ip2, 0);</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#a332df1f3e31614cda9f2772cf37d4dd5">setIPAddr</a>(ip2_2, 1);</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#a016bbf3458ccc145a9409b8dd401432a">setRoutingTable</a>(ip1, 16, 0);</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#a016bbf3458ccc145a9409b8dd401432a">setRoutingTable</a>(ip1_2, 16, 1);</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    host1-&gt;getPort(0)-&gt;<a class="code" href="class_e_1_1_port.html#a1a7e9eb4bf9a14aa8c8d892af0b7b5e9">setPropagationDelay</a>(</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(1, TimeUtil::MSEC));</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    host1-&gt;getPort(1)-&gt;<a class="code" href="class_e_1_1_port.html#a1a7e9eb4bf9a14aa8c8d892af0b7b5e9">setPropagationDelay</a>(</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(1, TimeUtil::MSEC));</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    host2-&gt;getPort(0)-&gt;<a class="code" href="class_e_1_1_port.html#a1a7e9eb4bf9a14aa8c8d892af0b7b5e9">setPropagationDelay</a>(</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(1, TimeUtil::MSEC));</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    host2-&gt;getPort(1)-&gt;<a class="code" href="class_e_1_1_port.html#a1a7e9eb4bf9a14aa8c8d892af0b7b5e9">setPropagationDelay</a>(</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(1, TimeUtil::MSEC));</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    switchingHub = <span class="keyword">new</span> <a class="code" href="class_e_1_1_switch.html">Switch</a>(<span class="stringliteral">&quot;Switch1&quot;</span>, &amp;netSystem);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    switchingHub-&gt;<a class="code" href="class_e_1_1_link.html#a86f44888338eec20a5d5dc57f3c8fb89">addPort</a>(host1-&gt;getPort(0));</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    switchingHub-&gt;<a class="code" href="class_e_1_1_link.html#a86f44888338eec20a5d5dc57f3c8fb89">addPort</a>(host1-&gt;getPort(1));</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    switchingHub-&gt;<a class="code" href="class_e_1_1_link.html#a86f44888338eec20a5d5dc57f3c8fb89">addPort</a>(host2-&gt;getPort(0));</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    switchingHub-&gt;<a class="code" href="class_e_1_1_link.html#a86f44888338eec20a5d5dc57f3c8fb89">addPort</a>(host2-&gt;getPort(1));</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    switchingHub-&gt;addMACEntry(host1-&gt;getPort(0), mac1);</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    switchingHub-&gt;addMACEntry(host1-&gt;getPort(1), mac1_2);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    switchingHub-&gt;addMACEntry(host2-&gt;getPort(0), mac2);</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    switchingHub-&gt;addMACEntry(host2-&gt;getPort(1), mac2_2);</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    const ::testing::TestInfo *<span class="keyword">const</span> test_info =</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        ::testing::UnitTest::GetInstance()-&gt;current_test_info();</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    std::string file_name(test_info-&gt;name());</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    file_name.append(<span class="stringliteral">&quot;.pcap&quot;</span>);</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    switchingHub-&gt;<a class="code" href="class_e_1_1_link.html#a3e7b5d061aad7ce9900bc62a24345721">enablePCAPLogging</a>(file_name);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  std::shared_ptr&lt;Host&gt; host1;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  std::shared_ptr&lt;Host&gt; host2;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  std::shared_ptr&lt;Switch&gt; switchingHub;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetUp() {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    setup_env();</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    host1 = netSystem.addModule&lt;<a class="code" href="class_e_1_1_host.html">Host</a>&gt;(<span class="stringliteral">&quot;TestHost1&quot;</span>, netSystem);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    host2 = netSystem.addModule&lt;<a class="code" href="class_e_1_1_host.html">Host</a>&gt;(<span class="stringliteral">&quot;TestHost2&quot;</span>, netSystem);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    switchingHub = netSystem.addModule&lt;<a class="code" href="class_e_1_1_switch.html">Switch</a>&gt;(<span class="stringliteral">&quot;Switch1&quot;</span>, netSystem);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">auto</span> host1_port_1 = netSystem</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                            .addWire(*host1, *switchingHub,</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                                     <a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(1, TimeUtil::MSEC))</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                            .second;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">auto</span> host1_port_2 = netSystem</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                            .addWire(*host1, *switchingHub,</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                                     <a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(1, TimeUtil::MSEC))</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                            .second;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">auto</span> host2_port_1 = netSystem</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                            .addWire(*host2, *switchingHub,</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                                     <a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(1, TimeUtil::MSEC))</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                            .second;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keyword">auto</span> host2_port_2 = netSystem</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                            .addWire(*host2, *switchingHub,</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                                     <a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(1, TimeUtil::MSEC))</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                            .second;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    mac_t mac1{0xBC, 0xBC, 0xBC, 0xBC, 0xBC, 0xBC};</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    mac_t mac1_2{0xCB, 0xCB, 0xCB, 0xCB, 0xCB, 0xCB};</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    mac_t mac2{0xCD, 0xCD, 0xCD, 0xCD, 0xCD, 0xCD};</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    mac_t mac2_2{0xDC, 0xDC, 0xDC, 0xDC, 0xDC, 0xDC};</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    ipv4_t ip1{192, 168, 0, 7};</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    ipv4_t ip1_2{192, 168, 0, 8};</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    ipv4_t ip2{10, 0, 1, 4};</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    ipv4_t ip2_2{10, 0, 1, 5};</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    host1-&gt;setMACAddr(mac1, host1_port_1.first);</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    host1-&gt;setMACAddr(mac1_2, host1_port_2.first);</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    host1-&gt;setARPTable(mac2, ip2);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    host1-&gt;setARPTable(mac2_2, ip2_2);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    host1-&gt;setIPAddr(ip1, host1_port_1.first);</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    host1-&gt;setIPAddr(ip1_2, host1_port_2.first);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    host1-&gt;setRoutingTable(ip2, 16, host1_port_1.first);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    host1-&gt;setRoutingTable(ip2_2, 16, host1_port_2.first);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#ae273cbedafb78671fa2bd822f955fd3c">setMACAddr</a>(mac2, host2_port_1.first);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#ae273cbedafb78671fa2bd822f955fd3c">setMACAddr</a>(mac2_2, host2_port_2.first);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#aca12f95b142936a87ff7618711f1d87e">setARPTable</a>(mac1, ip1);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#aca12f95b142936a87ff7618711f1d87e">setARPTable</a>(mac1_2, ip1_2);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#a332df1f3e31614cda9f2772cf37d4dd5">setIPAddr</a>(ip2, host2_port_1.first);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#a332df1f3e31614cda9f2772cf37d4dd5">setIPAddr</a>(ip2_2, host2_port_2.first);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#a016bbf3458ccc145a9409b8dd401432a">setRoutingTable</a>(ip1, 16, host2_port_1.first);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#a016bbf3458ccc145a9409b8dd401432a">setRoutingTable</a>(ip1_2, 16, host2_port_2.first);</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    switchingHub-&gt;addMACEntry(host1_port_1.second, mac1);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    switchingHub-&gt;addMACEntry(host1_port_2.second, mac1_2);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    switchingHub-&gt;addMACEntry(host2_port_1.second, mac2);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    switchingHub-&gt;addMACEntry(host2_port_2.second, mac2_2);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    const ::testing::TestInfo *<span class="keyword">const</span> test_info =</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        ::testing::UnitTest::GetInstance()-&gt;current_test_info();</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    std::string file_name(test_info-&gt;name());</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    file_name.append(<span class="stringliteral">&quot;.pcap&quot;</span>);</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    switchingHub-&gt;enablePCAPLogging(file_name);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    host1-&gt;addHostModule&lt;<a class="code" href="class_e_1_1_ethernet.html">Ethernet</a>&gt;(*host1);</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    host2-&gt;addHostModule&lt;<a class="code" href="class_e_1_1_ethernet.html">Ethernet</a>&gt;(*host2);</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    ethernet1 = <span class="keyword">new</span> <a class="code" href="class_e_1_1_ethernet.html">Ethernet</a>(host1);</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    ethernet2 = <span class="keyword">new</span> <a class="code" href="class_e_1_1_ethernet.html">Ethernet</a>(host2);</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    ipv4_1 = <span class="keyword">new</span> <a class="code" href="class_e_1_1_i_pv4.html">IPv4</a>(host1);</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    ipv4_2 = <span class="keyword">new</span> <a class="code" href="class_e_1_1_i_pv4.html">IPv4</a>(host2);</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keyword">interface </span>= Target::allocate(host1);</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    interface2 = TCPSolutionProvider::allocate(host2, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    interface-&gt;<a class="code" href="class_e_1_1_host_module.html#aa63c37f77eced62d914e0020a5dfb6f3">initialize</a>();</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    interface2-&gt;<a class="code" href="class_e_1_1_host_module.html#aa63c37f77eced62d914e0020a5dfb6f3">initialize</a>();</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;  }</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> TearDown() {</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keyword">delete</span> interface;</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keyword">delete</span> interface2;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    host1-&gt;addHostModule&lt;<a class="code" href="class_e_1_1_i_pv4.html">IPv4</a>&gt;(*host1);</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    host2-&gt;addHostModule&lt;<a class="code" href="class_e_1_1_i_pv4.html">IPv4</a>&gt;(*host2);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    Target::allocate(*host1);</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    TCPSolutionProvider::allocate(*host2, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    host1-&gt;initializeHostModule(<span class="stringliteral">&quot;TCP&quot;</span>);</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    host2-&gt;initializeHostModule(<span class="stringliteral">&quot;TCP&quot;</span>);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;  }</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> TearDown() {}</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;  <span class="keywordtype">void</span> runTest() {</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    netSystem.<a class="code" href="class_e_1_1_system.html#a67e932b7cf9d388f401495e138e119f6">run</a>(<a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(1000, TimeUtil::SEC));</div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="keyword">delete</span> ipv4_1;</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <span class="keyword">delete</span> ipv4_2;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="keyword">delete</span> ethernet1;</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keyword">delete</span> ethernet2;</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keyword">delete</span> switchingHub;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    host1-&gt;cleanUp();</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    host2-&gt;cleanUp();</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    host1-&gt;finalizeHostModule(<span class="stringliteral">&quot;TCP&quot;</span>);</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    host2-&gt;finalizeHostModule(<span class="stringliteral">&quot;TCP&quot;</span>);</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    netSystem.<a class="code" href="class_e_1_1_system.html#a67e932b7cf9d388f401495e138e119f6">run</a>(<a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(2000, TimeUtil::SEC));</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;  }</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;};</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keyword">delete</span> host1;</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keyword">delete</span> host2;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;  }</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;  <span class="keywordtype">void</span> runTest() {</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    netSystem.<a class="code" href="class_e_1_1_system.html#a67e932b7cf9d388f401495e138e119f6">run</a>(<a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(1000, TimeUtil::SEC));</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    host1-&gt;cleanUp();</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    host2-&gt;cleanUp();</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    interface2-&gt;<a class="code" href="class_e_1_1_host_module.html#a4c3b46470590407826670cfdedec9424">finalize</a>();</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    interface-&gt;<a class="code" href="class_e_1_1_host_module.html#a4c3b46470590407826670cfdedec9424">finalize</a>();</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    netSystem.<a class="code" href="class_e_1_1_system.html#a67e932b7cf9d388f401495e138e119f6">run</a>(<a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(2000, TimeUtil::SEC));</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;  }</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;};</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> Target, <span class="keyword">class</span> Adversary, <span class="keywordtype">bool</span> Unreliable&gt;</div>
-<div class="line"><a name="l00171"></a><span class="lineno"><a class="line" href="class_test_env2.html">  171</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_test_env2.html">TestEnv2</a> : <span class="keyword">public</span> <a class="code" href="class_kens_testing.html">KensTesting</a> {</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;  <a class="code" href="class_e_1_1_network_system.html">NetworkSystem</a> netSystem;</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;  <a class="code" href="class_e_1_1_host.html">Host</a> *host1;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;  <a class="code" href="class_e_1_1_host.html">Host</a> *host2;</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;  <a class="code" href="class_e_1_1_switch.html">Switch</a> *switchingHub;</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;  <a class="code" href="class_e_1_1_ethernet.html">Ethernet</a> *ethernet1;</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;  <a class="code" href="class_e_1_1_ethernet.html">Ethernet</a> *ethernet2;</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;  <a class="code" href="class_e_1_1_i_pv4.html">IPv4</a> *ipv4_1;</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;  <a class="code" href="class_e_1_1_i_pv4.html">IPv4</a> *ipv4_2;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;  <a class="code" href="class_e_1_1_host_module.html">HostModule</a> *interface;</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;  <a class="code" href="class_e_1_1_host_module.html">HostModule</a> *interface2;</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160; </div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetUp() {</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    setup_env();</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160; </div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    host1 = <span class="keyword">new</span> <a class="code" href="class_e_1_1_host.html">Host</a>(<span class="stringliteral">&quot;TestHost1&quot;</span>, 2, &amp;netSystem);</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    host2 = <span class="keyword">new</span> <a class="code" href="class_e_1_1_host.html">Host</a>(<span class="stringliteral">&quot;TestHost2&quot;</span>, 2, &amp;netSystem);</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    mac_t mac1{0xBC, 0xBC, 0xBC, 0xBC, 0xBC, 0xBC};</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    mac_t mac1_2{0xCB, 0xCB, 0xCB, 0xCB, 0xCB, 0xCB};</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    mac_t mac2{0xCD, 0xCD, 0xCD, 0xCD, 0xCD, 0xCD};</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    mac_t mac2_2{0xDC, 0xDC, 0xDC, 0xDC, 0xDC, 0xDC};</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    ipv4_t ip1{192, 168, 0, 7};</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    ipv4_t ip1_2{192, 168, 0, 8};</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    ipv4_t ip2{10, 0, 1, 4};</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    ipv4_t ip2_2{10, 0, 1, 5};</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    host1-&gt;<a class="code" href="class_e_1_1_routing_info.html#ae273cbedafb78671fa2bd822f955fd3c">setMACAddr</a>(mac1, 0);</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    host1-&gt;<a class="code" href="class_e_1_1_routing_info.html#ae273cbedafb78671fa2bd822f955fd3c">setMACAddr</a>(mac1_2, 1);</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    host1-&gt;<a class="code" href="class_e_1_1_routing_info.html#aca12f95b142936a87ff7618711f1d87e">setARPTable</a>(mac2, ip2);</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    host1-&gt;<a class="code" href="class_e_1_1_routing_info.html#aca12f95b142936a87ff7618711f1d87e">setARPTable</a>(mac2_2, ip2_2);</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    host1-&gt;<a class="code" href="class_e_1_1_routing_info.html#a332df1f3e31614cda9f2772cf37d4dd5">setIPAddr</a>(ip1, 0);</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    host1-&gt;<a class="code" href="class_e_1_1_routing_info.html#a332df1f3e31614cda9f2772cf37d4dd5">setIPAddr</a>(ip1_2, 1);</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    host1-&gt;<a class="code" href="class_e_1_1_routing_info.html#a016bbf3458ccc145a9409b8dd401432a">setRoutingTable</a>(ip2, 16, 0);</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    host1-&gt;<a class="code" href="class_e_1_1_routing_info.html#a016bbf3458ccc145a9409b8dd401432a">setRoutingTable</a>(ip2_2, 16, 1);</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160; </div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#ae273cbedafb78671fa2bd822f955fd3c">setMACAddr</a>(mac2, 0);</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#ae273cbedafb78671fa2bd822f955fd3c">setMACAddr</a>(mac2_2, 1);</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#aca12f95b142936a87ff7618711f1d87e">setARPTable</a>(mac1, ip1);</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#aca12f95b142936a87ff7618711f1d87e">setARPTable</a>(mac1_2, ip1_2);</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#a332df1f3e31614cda9f2772cf37d4dd5">setIPAddr</a>(ip2, 0);</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#a332df1f3e31614cda9f2772cf37d4dd5">setIPAddr</a>(ip2_2, 1);</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#a016bbf3458ccc145a9409b8dd401432a">setRoutingTable</a>(ip1, 16, 0);</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#a016bbf3458ccc145a9409b8dd401432a">setRoutingTable</a>(ip1_2, 16, 1);</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160; </div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    host1-&gt;getPort(0)-&gt;<a class="code" href="class_e_1_1_port.html#a1a7e9eb4bf9a14aa8c8d892af0b7b5e9">setPropagationDelay</a>(</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;        <a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(1, TimeUtil::MSEC));</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    host1-&gt;getPort(1)-&gt;<a class="code" href="class_e_1_1_port.html#a1a7e9eb4bf9a14aa8c8d892af0b7b5e9">setPropagationDelay</a>(</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        <a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(1, TimeUtil::MSEC));</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    host2-&gt;getPort(0)-&gt;<a class="code" href="class_e_1_1_port.html#a1a7e9eb4bf9a14aa8c8d892af0b7b5e9">setPropagationDelay</a>(</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;        <a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(1, TimeUtil::MSEC));</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    host2-&gt;getPort(1)-&gt;<a class="code" href="class_e_1_1_port.html#a1a7e9eb4bf9a14aa8c8d892af0b7b5e9">setPropagationDelay</a>(</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;        <a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(1, TimeUtil::MSEC));</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160; </div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    switchingHub = <span class="keyword">new</span> <a class="code" href="class_e_1_1_switch.html">Switch</a>(<span class="stringliteral">&quot;Switch1&quot;</span>, &amp;netSystem, Unreliable);</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    switchingHub-&gt;<a class="code" href="class_e_1_1_link.html#a86f44888338eec20a5d5dc57f3c8fb89">addPort</a>(host1-&gt;getPort(0));</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    switchingHub-&gt;<a class="code" href="class_e_1_1_link.html#a86f44888338eec20a5d5dc57f3c8fb89">addPort</a>(host1-&gt;getPort(1));</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    switchingHub-&gt;<a class="code" href="class_e_1_1_link.html#a86f44888338eec20a5d5dc57f3c8fb89">addPort</a>(host2-&gt;getPort(0));</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    switchingHub-&gt;<a class="code" href="class_e_1_1_link.html#a86f44888338eec20a5d5dc57f3c8fb89">addPort</a>(host2-&gt;getPort(1));</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    switchingHub-&gt;<a class="code" href="class_e_1_1_link.html#a3a325d998c6d8692db3cbccbe5f3ed14">setQueueSize</a>(16);</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160; </div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    switchingHub-&gt;addMACEntry(host1-&gt;getPort(0), mac1);</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    switchingHub-&gt;addMACEntry(host1-&gt;getPort(1), mac1_2);</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    switchingHub-&gt;addMACEntry(host2-&gt;getPort(0), mac2);</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    switchingHub-&gt;addMACEntry(host2-&gt;getPort(1), mac2_2);</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160; </div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    const ::testing::TestInfo *<span class="keyword">const</span> test_info =</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        ::testing::UnitTest::GetInstance()-&gt;current_test_info();</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    std::string file_name(test_info-&gt;name());</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    file_name.append(<span class="stringliteral">&quot;.pcap&quot;</span>);</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    switchingHub-&gt;<a class="code" href="class_e_1_1_link.html#a3e7b5d061aad7ce9900bc62a24345721">enablePCAPLogging</a>(file_name);</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160; </div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    ethernet1 = <span class="keyword">new</span> <a class="code" href="class_e_1_1_ethernet.html">Ethernet</a>(host1);</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    ethernet2 = <span class="keyword">new</span> <a class="code" href="class_e_1_1_ethernet.html">Ethernet</a>(host2);</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    ipv4_1 = <span class="keyword">new</span> <a class="code" href="class_e_1_1_i_pv4.html">IPv4</a>(host1);</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    ipv4_2 = <span class="keyword">new</span> <a class="code" href="class_e_1_1_i_pv4.html">IPv4</a>(host2);</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    <span class="keyword">interface </span>= Target::allocate(host1);</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    interface2 = Adversary::allocate(host2);</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    interface-&gt;<a class="code" href="class_e_1_1_host_module.html#aa63c37f77eced62d914e0020a5dfb6f3">initialize</a>();</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    interface2-&gt;<a class="code" href="class_e_1_1_host_module.html#aa63c37f77eced62d914e0020a5dfb6f3">initialize</a>();</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;  }</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> TearDown() {</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keyword">delete</span> interface;</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    <span class="keyword">delete</span> interface2;</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160; </div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <span class="keyword">delete</span> ipv4_1;</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <span class="keyword">delete</span> ipv4_2;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> Target, <span class="keyword">class</span> Adversary, <span class="keywordtype">bool</span> Unreliable&gt;</div>
+<div class="line"><a name="l00156"></a><span class="lineno"><a class="line" href="class_test_env2.html">  156</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_test_env2.html">TestEnv2</a> : <span class="keyword">public</span> <a class="code" href="class_kens_testing.html">KensTesting</a> {</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;  <a class="code" href="class_e_1_1_network_system.html">NetworkSystem</a> netSystem;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;  std::shared_ptr&lt;Host&gt; host1;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;  std::shared_ptr&lt;Host&gt; host2;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;  std::shared_ptr&lt;Switch&gt; switchingHub;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetUp() {</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    setup_env();</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    host1 = netSystem.addModule&lt;<a class="code" href="class_e_1_1_host.html">Host</a>&gt;(<span class="stringliteral">&quot;TestHost1&quot;</span>, netSystem);</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    host2 = netSystem.addModule&lt;<a class="code" href="class_e_1_1_host.html">Host</a>&gt;(<span class="stringliteral">&quot;TestHost2&quot;</span>, netSystem);</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    switchingHub =</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        netSystem.addModule&lt;<a class="code" href="class_e_1_1_switch.html">Switch</a>&gt;(<span class="stringliteral">&quot;Switch1&quot;</span>, netSystem, Unreliable);</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keyword">auto</span> host1_port_1 = netSystem</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;                            .addWire(*host1, *switchingHub,</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                                     <a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(1, TimeUtil::MSEC))</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                            .second;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keyword">auto</span> host1_port_2 = netSystem</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                            .addWire(*host1, *switchingHub,</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                                     <a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(1, TimeUtil::MSEC))</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;                            .second;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <span class="keyword">auto</span> host2_port_1 = netSystem</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;                            .addWire(*host2, *switchingHub,</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;                                     <a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(1, TimeUtil::MSEC))</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;                            .second;</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keyword">auto</span> host2_port_2 = netSystem</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                            .addWire(*host2, *switchingHub,</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;                                     <a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(1, TimeUtil::MSEC))</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;                            .second;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    mac_t mac1{0xBC, 0xBC, 0xBC, 0xBC, 0xBC, 0xBC};</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    mac_t mac1_2{0xCB, 0xCB, 0xCB, 0xCB, 0xCB, 0xCB};</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    mac_t mac2{0xCD, 0xCD, 0xCD, 0xCD, 0xCD, 0xCD};</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    mac_t mac2_2{0xDC, 0xDC, 0xDC, 0xDC, 0xDC, 0xDC};</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    ipv4_t ip1{192, 168, 0, 7};</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    ipv4_t ip1_2{192, 168, 0, 8};</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    ipv4_t ip2{10, 0, 1, 4};</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    ipv4_t ip2_2{10, 0, 1, 5};</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160; </div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    host1-&gt;setMACAddr(mac1, host1_port_1.first);</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    host1-&gt;setMACAddr(mac1_2, host1_port_2.first);</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    host1-&gt;setARPTable(mac2, ip2);</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    host1-&gt;setARPTable(mac2_2, ip2_2);</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    host1-&gt;setIPAddr(ip1, host1_port_1.first);</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    host1-&gt;setIPAddr(ip1_2, host1_port_2.first);</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    host1-&gt;setRoutingTable(ip2, 16, host1_port_1.first);</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    host1-&gt;setRoutingTable(ip2_2, 16, host1_port_2.first);</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160; </div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#ae273cbedafb78671fa2bd822f955fd3c">setMACAddr</a>(mac2, host2_port_1.first);</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#ae273cbedafb78671fa2bd822f955fd3c">setMACAddr</a>(mac2_2, host2_port_2.first);</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#aca12f95b142936a87ff7618711f1d87e">setARPTable</a>(mac1, ip1);</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#aca12f95b142936a87ff7618711f1d87e">setARPTable</a>(mac1_2, ip1_2);</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#a332df1f3e31614cda9f2772cf37d4dd5">setIPAddr</a>(ip2, host2_port_1.first);</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#a332df1f3e31614cda9f2772cf37d4dd5">setIPAddr</a>(ip2_2, host2_port_2.first);</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#a016bbf3458ccc145a9409b8dd401432a">setRoutingTable</a>(ip1, 16, host2_port_1.first);</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    host2-&gt;<a class="code" href="class_e_1_1_routing_info.html#a016bbf3458ccc145a9409b8dd401432a">setRoutingTable</a>(ip1_2, 16, host2_port_2.first);</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160; </div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    switchingHub-&gt;setQueueSize(16);</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160; </div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    switchingHub-&gt;addMACEntry(host1_port_1.second, mac1);</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    switchingHub-&gt;addMACEntry(host1_port_2.second, mac1_2);</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    switchingHub-&gt;addMACEntry(host2_port_1.second, mac2);</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    switchingHub-&gt;addMACEntry(host2_port_2.second, mac2_2);</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    const ::testing::TestInfo *<span class="keyword">const</span> test_info =</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;        ::testing::UnitTest::GetInstance()-&gt;current_test_info();</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    std::string file_name(test_info-&gt;name());</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    file_name.append(<span class="stringliteral">&quot;.pcap&quot;</span>);</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    switchingHub-&gt;enablePCAPLogging(file_name);</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160; </div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    host1-&gt;addHostModule&lt;<a class="code" href="class_e_1_1_ethernet.html">Ethernet</a>&gt;(*host1);</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    host2-&gt;addHostModule&lt;<a class="code" href="class_e_1_1_ethernet.html">Ethernet</a>&gt;(*host2);</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    host1-&gt;addHostModule&lt;<a class="code" href="class_e_1_1_i_pv4.html">IPv4</a>&gt;(*host1);</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    host2-&gt;addHostModule&lt;<a class="code" href="class_e_1_1_i_pv4.html">IPv4</a>&gt;(*host2);</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160; </div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    Target::allocate(*host1);</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    Adversary::allocate(*host2);</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    host1-&gt;initializeHostModule(<span class="stringliteral">&quot;TCP&quot;</span>);</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    host2-&gt;initializeHostModule(<span class="stringliteral">&quot;TCP&quot;</span>);</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;  }</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> TearDown() {}</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160; </div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;  <span class="keywordtype">void</span> runTest() {</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    netSystem.<a class="code" href="class_e_1_1_system.html#a67e932b7cf9d388f401495e138e119f6">run</a>(<a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(1000, TimeUtil::SEC));</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160; </div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    host1-&gt;cleanUp();</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    host2-&gt;cleanUp();</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    host1-&gt;finalizeHostModule(<span class="stringliteral">&quot;TCP&quot;</span>);</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    host2-&gt;finalizeHostModule(<span class="stringliteral">&quot;TCP&quot;</span>);</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    netSystem.<a class="code" href="class_e_1_1_system.html#a67e932b7cf9d388f401495e138e119f6">run</a>(<a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(2000, TimeUtil::SEC));</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;  }</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;};</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160; </div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> Target, <span class="keyword">class</span> Adversary, <span class="keywordtype">int</span> CLIENTS, <span class="keywordtype">int</span> TIMEOUT&gt;</div>
+<div class="line"><a name="l00253"></a><span class="lineno"><a class="line" href="class_test_env3.html">  253</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_test_env3.html">TestEnv3</a> : <span class="keyword">public</span> <a class="code" href="class_kens_testing.html">KensTesting</a> {</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;  <a class="code" href="class_e_1_1_network_system.html">NetworkSystem</a> netSystem;</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;  std::shared_ptr&lt;Host&gt; server_host;</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;  std::array&lt;std::shared_ptr&lt;Host&gt;, CLIENTS&gt; client_hosts;</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;  std::shared_ptr&lt;Switch&gt; switchingHub;</div>
 <div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160; </div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    <span class="keyword">delete</span> ethernet1;</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    <span class="keyword">delete</span> ethernet2;</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160; </div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    <span class="keyword">delete</span> switchingHub;</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;  <span class="keyword">static</span> constexpr <span class="keywordtype">int</span> num_client = CLIENTS;</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;  Size port_speed = 10000000;</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;  Time propagationDelay = <a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(10, TimeUtil::MSEC);</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;  uint64_t prev_log;</div>
 <div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160; </div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    <span class="keyword">delete</span> host1;</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    <span class="keyword">delete</span> host2;</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;  }</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetUp() {</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160; </div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    setup_env();</div>
 <div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160; </div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;  <span class="keywordtype">void</span> runTest() {</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    netSystem.<a class="code" href="class_e_1_1_system.html#a67e932b7cf9d388f401495e138e119f6">run</a>(<a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(1000, TimeUtil::SEC));</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160; </div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    host1-&gt;cleanUp();</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    host2-&gt;cleanUp();</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    interface2-&gt;<a class="code" href="class_e_1_1_host_module.html#a4c3b46470590407826670cfdedec9424">finalize</a>();</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    interface-&gt;<a class="code" href="class_e_1_1_host_module.html#a4c3b46470590407826670cfdedec9424">finalize</a>();</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    netSystem.<a class="code" href="class_e_1_1_system.html#a67e932b7cf9d388f401495e138e119f6">run</a>(<a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(2000, TimeUtil::SEC));</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;  }</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;};</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160; </div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> Target, <span class="keyword">class</span> Adversary, <span class="keywordtype">int</span> CLIENTS, <span class="keywordtype">int</span> TIMEOUT&gt;</div>
-<div class="line"><a name="l00281"></a><span class="lineno"><a class="line" href="class_test_env3.html">  281</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_test_env3.html">TestEnv3</a> : <span class="keyword">public</span> <a class="code" href="class_kens_testing.html">KensTesting</a> {</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;  <a class="code" href="class_e_1_1_network_system.html">NetworkSystem</a> netSystem;</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;  <a class="code" href="class_e_1_1_host.html">Host</a> *server_host;</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;  <a class="code" href="class_e_1_1_host.html">Host</a> **client_hosts;</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;  <a class="code" href="class_e_1_1_switch.html">Switch</a> *switchingHub;</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;  <a class="code" href="class_e_1_1_ethernet.html">Ethernet</a> *ethernet_server;</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;  <a class="code" href="class_e_1_1_ethernet.html">Ethernet</a> **ethernet_clients;</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;  <a class="code" href="class_e_1_1_i_pv4.html">IPv4</a> *ipv4_server;</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;  <a class="code" href="class_e_1_1_i_pv4.html">IPv4</a> **ipv4_clients;</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;  <a class="code" href="class_e_1_1_host_module.html">HostModule</a> **interface_clients;</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;  <a class="code" href="class_e_1_1_host_module.html">HostModule</a> *interface_server;</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160; </div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">int</span> num_client = CLIENTS;</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;  Size port_speed = 10000000;</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;  Time propagationDelay = <a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(10, TimeUtil::MSEC);</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;  uint64_t prev_log;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    prev_log = <a class="code" href="class_e_1_1_network_log.html#abc7e3ec4e8d147f846fd46979cdfffe6">NetworkLog::defaultLevel</a>;</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    <a class="code" href="class_e_1_1_network_log.html#abc7e3ec4e8d147f846fd46979cdfffe6">NetworkLog::defaultLevel</a> |= (</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        <span class="comment">//(1 &lt;&lt; NetworkLog::SYSCALL_RAISED) |</span></div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        <span class="comment">//(1 &lt;&lt; NetworkLog::SYSCALL_FINISHED) |</span></div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        <span class="comment">//(1 &lt;&lt; NetworkLog::PACKET_ALLOC) |</span></div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;        <span class="comment">//(1 &lt;&lt; NetworkLog::PACKET_CLONE) |</span></div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;        <span class="comment">//(1 &lt;&lt; NetworkLog::PACKET_FREE) |</span></div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;        <span class="comment">//(1 &lt;&lt; NetworkLog::PACKET_TO_MODULE) |</span></div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;        <span class="comment">//(1 &lt;&lt; NetworkLog::PACKET_FROM_MODULE) |</span></div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;        <span class="comment">//(1 &lt;&lt; NetworkLog::PACKET_TO_HOST) |</span></div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        <span class="comment">//(1 &lt;&lt; NetworkLog::PACKET_FROM_HOST) |</span></div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        <span class="comment">//(1 &lt;&lt; NetworkLog::PACKET_QUEUE) |</span></div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;        <span class="comment">//(1 &lt;&lt; NetworkLog::TCP_LOG) |</span></div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        0UL);</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160; </div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    server_host = netSystem.addModule&lt;<a class="code" href="class_e_1_1_host.html">Host</a>&gt;(<span class="stringliteral">&quot;CongestionServer&quot;</span>, netSystem);</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    switchingHub = netSystem.addModule&lt;<a class="code" href="class_e_1_1_switch.html">Switch</a>&gt;(<span class="stringliteral">&quot;Switch1&quot;</span>, netSystem);</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    <span class="keyword">auto</span> server_port =</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;        netSystem</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;            .addWire(*server_host, *switchingHub, propagationDelay, port_speed)</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;            .second;</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160; </div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    mac_t server_mac{0xBC, 0xBC, 0xBC, 0xBC, 0xBC, 0xBC};</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    ipv4_t server_ip{192, 168, 1, 7};</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    ipv4_t server_mask{192, 168, 1, 0};</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    ipv4_t client_mask{10, 0, 1, 0};</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160; </div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    server_host-&gt;addHostModule&lt;<a class="code" href="class_e_1_1_ethernet.html">Ethernet</a>&gt;(*server_host);</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    server_host-&gt;addHostModule&lt;<a class="code" href="class_e_1_1_i_pv4.html">IPv4</a>&gt;(*server_host);</div>
 <div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160; </div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetUp() {</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160; </div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    setup_env();</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    server_host-&gt;setMACAddr(server_mac, server_port.first);</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    server_host-&gt;setIPAddr(server_ip, server_port.first);</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    server_host-&gt;setRoutingTable(client_mask, 24, server_port.first);</div>
 <div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160; </div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    prev_log = <a class="code" href="class_e_1_1_network_log.html#abc7e3ec4e8d147f846fd46979cdfffe6">NetworkLog::defaultLevel</a>;</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    <a class="code" href="class_e_1_1_network_log.html#abc7e3ec4e8d147f846fd46979cdfffe6">NetworkLog::defaultLevel</a> |= (</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;        <span class="comment">//(1 &lt;&lt; NetworkLog::SYSCALL_RAISED) |</span></div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;        <span class="comment">//(1 &lt;&lt; NetworkLog::SYSCALL_FINISHED) |</span></div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        <span class="comment">//(1 &lt;&lt; NetworkLog::PACKET_ALLOC) |</span></div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;        <span class="comment">//(1 &lt;&lt; NetworkLog::PACKET_CLONE) |</span></div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;        <span class="comment">//(1 &lt;&lt; NetworkLog::PACKET_FREE) |</span></div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;        <span class="comment">//(1 &lt;&lt; NetworkLog::PACKET_TO_MODULE) |</span></div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;        <span class="comment">//(1 &lt;&lt; NetworkLog::PACKET_FROM_MODULE) |</span></div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;        <span class="comment">//(1 &lt;&lt; NetworkLog::PACKET_TO_HOST) |</span></div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;        <span class="comment">//(1 &lt;&lt; NetworkLog::PACKET_FROM_HOST) |</span></div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;        <span class="comment">//(1 &lt;&lt; NetworkLog::PACKET_QUEUE) |</span></div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;        <span class="comment">//(1 &lt;&lt; NetworkLog::TCP_LOG) |</span></div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;        0UL);</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160; </div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    client_hosts = <span class="keyword">new</span> <a class="code" href="class_e_1_1_host.html">Host</a> *[num_client];</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    ethernet_clients = <span class="keyword">new</span> <a class="code" href="class_e_1_1_ethernet.html">Ethernet</a> *[num_client];</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    ipv4_clients = <span class="keyword">new</span> <a class="code" href="class_e_1_1_i_pv4.html">IPv4</a> *[num_client];</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    interface_clients = <span class="keyword">new</span> <a class="code" href="class_e_1_1_host_module.html">HostModule</a> *[num_client];</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160; </div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    server_host = <span class="keyword">new</span> <a class="code" href="class_e_1_1_host.html">Host</a>(<span class="stringliteral">&quot;CongestionServer&quot;</span>, 1, &amp;netSystem);</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160; </div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    mac_t server_mac{0xBC, 0xBC, 0xBC, 0xBC, 0xBC, 0xBC};</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    ipv4_t server_ip{192, 168, 1, 7};</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    ipv4_t server_mask{192, 168, 1, 0};</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    ipv4_t client_mask{10, 0, 1, 0};</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160; </div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    ethernet_server = <span class="keyword">new</span> <a class="code" href="class_e_1_1_ethernet.html">Ethernet</a>(server_host);</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    ipv4_server = <span class="keyword">new</span> <a class="code" href="class_e_1_1_i_pv4.html">IPv4</a>(server_host);</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160; </div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    server_host-&gt;<a class="code" href="class_e_1_1_routing_info.html#ae273cbedafb78671fa2bd822f955fd3c">setMACAddr</a>(server_mac, 0);</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    server_host-&gt;<a class="code" href="class_e_1_1_routing_info.html#a332df1f3e31614cda9f2772cf37d4dd5">setIPAddr</a>(server_ip, 0);</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    server_host-&gt;<a class="code" href="class_e_1_1_routing_info.html#a016bbf3458ccc145a9409b8dd401432a">setRoutingTable</a>(client_mask, 24, 0);</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    server_host-&gt;getPort(0)-&gt;<a class="code" href="class_e_1_1_port.html#a1a7e9eb4bf9a14aa8c8d892af0b7b5e9">setPropagationDelay</a>(propagationDelay);</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    server_host-&gt;getPort(0)-&gt;<a class="code" href="class_e_1_1_port.html#a215be7a1e07238559010386566ba10a9">setPortSpeed</a>(port_speed);</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    Adversary::allocate(*server_host);</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    server_host-&gt;initializeHostModule(<span class="stringliteral">&quot;TCP&quot;</span>);</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160; </div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    switchingHub-&gt;addMACEntry(server_port.second, server_mac);</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160; </div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    <span class="keywordtype">char</span> name_buf[128];</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = 0; k &lt; num_client; k++) {</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;      snprintf(name_buf, <span class="keyword">sizeof</span>(name_buf), <span class="stringliteral">&quot;CongestionClient%d&quot;</span>, k);</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;      client_hosts[k] = netSystem.addModule&lt;<a class="code" href="class_e_1_1_host.html">Host</a>&gt;(name_buf, netSystem);</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;      <span class="keyword">auto</span> client_port = netSystem</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;                             .addWire(*client_hosts[k], *switchingHub,</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;                                      propagationDelay, port_speed)</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;                             .second;</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;      <a class="code" href="class_e_1_1_host.html">Host</a> &amp;client_host = *client_hosts[k];</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;      client_host.addHostModule&lt;<a class="code" href="class_e_1_1_ethernet.html">Ethernet</a>&gt;(client_host);</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;      client_host.addHostModule&lt;<a class="code" href="class_e_1_1_i_pv4.html">IPv4</a>&gt;(client_host);</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;      Target::allocate(client_host);</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;      client_host.initializeHostModule(<span class="stringliteral">&quot;TCP&quot;</span>);</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160; </div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;      ipv4_t client_ip{10, 0, 1, 10};</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;      client_ip[3] += k;</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;      mac_t client_mac{0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0x00};</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;      client_mac[5] += k;</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160; </div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;      client_host.<a class="code" href="class_e_1_1_routing_info.html#ae273cbedafb78671fa2bd822f955fd3c">setMACAddr</a>(client_mac, client_port.first);</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;      client_host.<a class="code" href="class_e_1_1_routing_info.html#a332df1f3e31614cda9f2772cf37d4dd5">setIPAddr</a>(client_ip, client_port.first);</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;      client_host.<a class="code" href="class_e_1_1_routing_info.html#a016bbf3458ccc145a9409b8dd401432a">setRoutingTable</a>(server_mask, 24, client_port.first);</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;      client_host.<a class="code" href="class_e_1_1_routing_info.html#aca12f95b142936a87ff7618711f1d87e">setARPTable</a>(server_mac, server_ip);</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160; </div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;      server_host-&gt;setARPTable(client_mac, client_ip);</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;      switchingHub-&gt;addMACEntry(client_port.second, client_mac);</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    }</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160; </div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    switchingHub-&gt;setLinkSpeed(port_speed);</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    switchingHub-&gt;setQueueSize(64);</div>
 <div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160; </div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;    interface_server = Adversary::allocate(server_host);</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;    interface_server-&gt;<a class="code" href="class_e_1_1_host_module.html#aa63c37f77eced62d914e0020a5dfb6f3">initialize</a>();</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160; </div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    switchingHub = <span class="keyword">new</span> <a class="code" href="class_e_1_1_switch.html">Switch</a>(<span class="stringliteral">&quot;Switch1&quot;</span>, &amp;netSystem);</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;    switchingHub-&gt;<a class="code" href="class_e_1_1_link.html#a86f44888338eec20a5d5dc57f3c8fb89">addPort</a>(server_host-&gt;getPort(0));</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    switchingHub-&gt;addMACEntry(server_host-&gt;getPort(0), server_mac);</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160; </div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    <span class="keywordtype">char</span> name_buf[128];</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = 0; k &lt; num_client; k++) {</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;      snprintf(name_buf, <span class="keyword">sizeof</span>(name_buf), <span class="stringliteral">&quot;CongestionClient%d&quot;</span>, k);</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;      client_hosts[k] = <span class="keyword">new</span> <a class="code" href="class_e_1_1_host.html">Host</a>(name_buf, 2, &amp;netSystem);</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;      ethernet_clients[k] = <span class="keyword">new</span> <a class="code" href="class_e_1_1_ethernet.html">Ethernet</a>(client_hosts[k]);</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;      ipv4_clients[k] = <span class="keyword">new</span> <a class="code" href="class_e_1_1_i_pv4.html">IPv4</a>(client_hosts[k]);</div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;      interface_clients[k] = Target::allocate(client_hosts[k]);</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;      interface_clients[k]-&gt;<a class="code" href="class_e_1_1_host_module.html#aa63c37f77eced62d914e0020a5dfb6f3">initialize</a>();</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160; </div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;      ipv4_t client_ip{10, 0, 1, 10};</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;      client_ip[3] += k;</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;      mac_t client_mac{0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0x00};</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;      client_mac[5] += k;</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160; </div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;      client_hosts[k]-&gt;<a class="code" href="class_e_1_1_routing_info.html#ae273cbedafb78671fa2bd822f955fd3c">setMACAddr</a>(client_mac, 0);</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;      client_hosts[k]-&gt;<a class="code" href="class_e_1_1_routing_info.html#a332df1f3e31614cda9f2772cf37d4dd5">setIPAddr</a>(client_ip, 0);</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;      client_hosts[k]-&gt;<a class="code" href="class_e_1_1_routing_info.html#a016bbf3458ccc145a9409b8dd401432a">setRoutingTable</a>(server_mask, 24, 0);</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;      client_hosts[k]-&gt;<a class="code" href="class_e_1_1_routing_info.html#aca12f95b142936a87ff7618711f1d87e">setARPTable</a>(server_mac, server_ip);</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;      client_hosts[k]-&gt;getPort(0)-&gt;<a class="code" href="class_e_1_1_port.html#a1a7e9eb4bf9a14aa8c8d892af0b7b5e9">setPropagationDelay</a>(propagationDelay);</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;      client_hosts[k]-&gt;getPort(0)-&gt;<a class="code" href="class_e_1_1_port.html#a215be7a1e07238559010386566ba10a9">setPortSpeed</a>(port_speed);</div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160; </div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;      server_host-&gt;<a class="code" href="class_e_1_1_routing_info.html#aca12f95b142936a87ff7618711f1d87e">setARPTable</a>(client_mac, client_ip);</div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160; </div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;      switchingHub-&gt;<a class="code" href="class_e_1_1_link.html#a86f44888338eec20a5d5dc57f3c8fb89">addPort</a>(client_hosts[k]-&gt;getPort(0));</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;      switchingHub-&gt;addMACEntry(client_hosts[k]-&gt;getPort(0), client_mac);</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;    }</div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160; </div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;    switchingHub-&gt;<a class="code" href="class_e_1_1_link.html#a992d46842e2a2ac73225df3b85c1afcd">setLinkSpeed</a>(port_speed);</div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    switchingHub-&gt;<a class="code" href="class_e_1_1_link.html#a3a325d998c6d8692db3cbccbe5f3ed14">setQueueSize</a>(64);</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160; </div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    const ::testing::TestInfo *<span class="keyword">const</span> test_info =</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;        ::testing::UnitTest::GetInstance()-&gt;current_test_info();</div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    std::string file_name(test_info-&gt;name());</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;    file_name.append(<span class="stringliteral">&quot;.pcap&quot;</span>);</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    switchingHub-&gt;<a class="code" href="class_e_1_1_link.html#a3e7b5d061aad7ce9900bc62a24345721">enablePCAPLogging</a>(file_name, 64);</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;  }</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> TearDown() {</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;    <span class="keyword">delete</span> interface_server;</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = 0; k &lt; num_client; k++)</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;      <span class="keyword">delete</span> interface_clients[k];</div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160; </div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    <span class="keyword">delete</span> ipv4_server;</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = 0; k &lt; num_client; k++)</div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;      <span class="keyword">delete</span> ipv4_clients[k];</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160; </div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    <span class="keyword">delete</span> ethernet_server;</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = 0; k &lt; num_client; k++)</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;      <span class="keyword">delete</span> ethernet_clients[k];</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;    const ::testing::TestInfo *<span class="keyword">const</span> test_info =</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;        ::testing::UnitTest::GetInstance()-&gt;current_test_info();</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;    std::string file_name(test_info-&gt;name());</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    file_name.append(<span class="stringliteral">&quot;.pcap&quot;</span>);</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;    switchingHub-&gt;enablePCAPLogging(file_name, 64);</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;  }</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> TearDown() { <a class="code" href="class_e_1_1_network_log.html#abc7e3ec4e8d147f846fd46979cdfffe6">NetworkLog::defaultLevel</a> = prev_log; }</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160; </div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;  <span class="keywordtype">void</span> runTest() {</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    netSystem.<a class="code" href="class_e_1_1_system.html#a67e932b7cf9d388f401495e138e119f6">run</a>(<a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(TIMEOUT, TimeUtil::SEC));</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160; </div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;    server_host-&gt;cleanUp();</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = 0; k &lt; num_client; k++)</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;      client_hosts[k]-&gt;cleanUp();</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160; </div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;    server_host-&gt;finalizeHostModule(<span class="stringliteral">&quot;TCP&quot;</span>);</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = 0; k &lt; num_client; k++)</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;      client_hosts[k]-&gt;finalizeHostModule(<span class="stringliteral">&quot;TCP&quot;</span>);</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;    netSystem.<a class="code" href="class_e_1_1_system.html#a67e932b7cf9d388f401495e138e119f6">run</a>(<a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(1000 + TIMEOUT, TimeUtil::SEC));</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;  }</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;};</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160; </div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;<span class="comment">//#define UNRELIABLE</span></div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;<span class="comment">//#define RUN_SOLUTION</span></div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;<span class="preprocessor">#ifdef RUN_SOLUTION</span></div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env1.html">TestEnv1&lt;TCPSolutionProvider&gt;</a> <a class="code" href="class_test_env1.html">TestEnv_Reliable</a>;</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;<span class="preprocessor">#ifdef UNRELIABLE</span></div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env2.html">TestEnv2&lt;TCPSolutionProvider, TCPSolutionProvider, true&gt;</a> <a class="code" href="class_test_env2.html">TestEnv_Any</a>;</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env2.html">TestEnv2&lt;TCPSolutionProvider, TCPSolutionProvider, false&gt;</a> <a class="code" href="class_test_env2.html">TestEnv_Any</a>;</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env2.html">TestEnv2&lt;TCPSolutionProvider, TCPSolutionProvider, true&gt;</a></div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;    <a class="code" href="class_test_env2.html">TestEnv_Unreliable</a>;</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env3.html">TestEnv3&lt;TCPSolutionProvider, TCPSolutionProvider, 1, 1000&gt;</a></div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;    <a class="code" href="class_test_env3.html">TestEnv_Congestion0</a>;</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env3.html">TestEnv3&lt;TCPSolutionProvider, TCPSolutionProvider, 2, 1000&gt;</a></div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    <a class="code" href="class_test_env3.html">TestEnv_Congestion1</a>;</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env3.html">TestEnv3&lt;TCPSolutionProvider, TCPSolutionProvider, 8, 1000&gt;</a></div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    <a class="code" href="class_test_env3.html">TestEnv_Congestion2</a>;</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env1.html">TestEnv1&lt;TCPAssignmentProvider&gt;</a> <a class="code" href="class_test_env1.html">TestEnv_Reliable</a>;</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;<span class="preprocessor">#ifdef UNRELIABLE</span></div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env2.html">TestEnv2&lt;TCPAssignmentProvider, TCPSolutionProvider, true&gt;</a> <a class="code" href="class_test_env2.html">TestEnv_Any</a>;</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env2.html">TestEnv2&lt;TCPAssignmentProvider, TCPSolutionProvider, false&gt;</a> <a class="code" href="class_test_env2.html">TestEnv_Any</a>;</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env2.html">TestEnv2&lt;TCPAssignmentProvider, TCPSolutionProvider, true&gt;</a></div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    <a class="code" href="class_test_env2.html">TestEnv_Unreliable</a>;</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env3.html">TestEnv3&lt;TCPAssignmentProvider, TCPSolutionProvider, 1, 1000&gt;</a></div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    <a class="code" href="class_test_env3.html">TestEnv_Congestion0</a>;</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env3.html">TestEnv3&lt;TCPAssignmentProvider, TCPSolutionProvider, 2, 1000&gt;</a></div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    <a class="code" href="class_test_env3.html">TestEnv_Congestion1</a>;</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env3.html">TestEnv3&lt;TCPAssignmentProvider, TCPSolutionProvider, 8, 1000&gt;</a></div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    <a class="code" href="class_test_env3.html">TestEnv_Congestion2</a>;</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160; </div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    <span class="keyword">delete</span> switchingHub;</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160; </div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    <span class="keyword">delete</span> server_host;</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = 0; k &lt; num_client; k++)</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;      <span class="keyword">delete</span> client_hosts[k];</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160; </div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;    <span class="keyword">delete</span>[] client_hosts;</div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    <span class="keyword">delete</span>[] ethernet_clients;</div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;    <span class="keyword">delete</span>[] ipv4_clients;</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    <span class="keyword">delete</span>[] interface_clients;</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160; </div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;    <a class="code" href="class_e_1_1_network_log.html#abc7e3ec4e8d147f846fd46979cdfffe6">NetworkLog::defaultLevel</a> = prev_log;</div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;  }</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160; </div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;  <span class="keywordtype">void</span> runTest() {</div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;    netSystem.<a class="code" href="class_e_1_1_system.html#a67e932b7cf9d388f401495e138e119f6">run</a>(<a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(TIMEOUT, TimeUtil::SEC));</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160; </div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    server_host-&gt;cleanUp();</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = 0; k &lt; num_client; k++)</div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;      client_hosts[k]-&gt;cleanUp();</div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160; </div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;    interface_server-&gt;<a class="code" href="class_e_1_1_host_module.html#a4c3b46470590407826670cfdedec9424">finalize</a>();</div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = 0; k &lt; num_client; k++)</div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;      interface_clients[k]-&gt;finalize();</div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    netSystem.<a class="code" href="class_e_1_1_system.html#a67e932b7cf9d388f401495e138e119f6">run</a>(<a class="code" href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">TimeUtil::makeTime</a>(1000 + TIMEOUT, TimeUtil::SEC));</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;  }</div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;};</div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160; </div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;<span class="comment">//#define UNRELIABLE</span></div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;<span class="comment">//#define RUN_SOLUTION</span></div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;<span class="preprocessor">#ifdef RUN_SOLUTION</span></div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env1.html">TestEnv1&lt;TCPSolutionProvider&gt;</a> <a class="code" href="class_test_env1.html">TestEnv_Reliable</a>;</div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;<span class="preprocessor">#ifdef UNRELIABLE</span></div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env2.html">TestEnv2&lt;TCPSolutionProvider, TCPSolutionProvider, true&gt;</a> <a class="code" href="class_test_env2.html">TestEnv_Any</a>;</div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env2.html">TestEnv2&lt;TCPSolutionProvider, TCPSolutionProvider, false&gt;</a> <a class="code" href="class_test_env2.html">TestEnv_Any</a>;</div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env2.html">TestEnv2&lt;TCPSolutionProvider, TCPSolutionProvider, true&gt;</a></div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;    <a class="code" href="class_test_env2.html">TestEnv_Unreliable</a>;</div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env3.html">TestEnv3&lt;TCPSolutionProvider, TCPSolutionProvider, 1, 1000&gt;</a></div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;    <a class="code" href="class_test_env3.html">TestEnv_Congestion0</a>;</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env3.html">TestEnv3&lt;TCPSolutionProvider, TCPSolutionProvider, 2, 1000&gt;</a></div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;    <a class="code" href="class_test_env3.html">TestEnv_Congestion1</a>;</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env3.html">TestEnv3&lt;TCPSolutionProvider, TCPSolutionProvider, 8, 1000&gt;</a></div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;    <a class="code" href="class_test_env3.html">TestEnv_Congestion2</a>;</div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env1.html">TestEnv1&lt;TCPAssignmentProvider&gt;</a> <a class="code" href="class_test_env1.html">TestEnv_Reliable</a>;</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;<span class="preprocessor">#ifdef UNRELIABLE</span></div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env2.html">TestEnv2&lt;TCPAssignmentProvider, TCPSolutionProvider, true&gt;</a> <a class="code" href="class_test_env2.html">TestEnv_Any</a>;</div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env2.html">TestEnv2&lt;TCPAssignmentProvider, TCPSolutionProvider, false&gt;</a> <a class="code" href="class_test_env2.html">TestEnv_Any</a>;</div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env2.html">TestEnv2&lt;TCPAssignmentProvider, TCPSolutionProvider, true&gt;</a></div>
-<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;    <a class="code" href="class_test_env2.html">TestEnv_Unreliable</a>;</div>
-<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env3.html">TestEnv3&lt;TCPAssignmentProvider, TCPSolutionProvider, 1, 1000&gt;</a></div>
-<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;    <a class="code" href="class_test_env3.html">TestEnv_Congestion0</a>;</div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env3.html">TestEnv3&lt;TCPAssignmentProvider, TCPSolutionProvider, 2, 1000&gt;</a></div>
-<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;    <a class="code" href="class_test_env3.html">TestEnv_Congestion1</a>;</div>
-<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;<span class="keyword">typedef</span> <a class="code" href="class_test_env3.html">TestEnv3&lt;TCPAssignmentProvider, TCPSolutionProvider, 8, 1000&gt;</a></div>
-<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;    <a class="code" href="class_test_env3.html">TestEnv_Congestion2</a>;</div>
-<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160; </div>
-<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* APP_TESTTCP_TESTENV_HPP_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* APP_TESTTCP_TESTENV_HPP_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclass_e_1_1_routing_info_html_a016bbf3458ccc145a9409b8dd401432a"><div class="ttname"><a href="class_e_1_1_routing_info.html#a016bbf3458ccc145a9409b8dd401432a">E::RoutingInfo::setRoutingTable</a></div><div class="ttdeci">virtual void setRoutingTable(const ipv4_t &amp;mask, int prefix, int port) final</div><div class="ttdef"><b>Definition:</b> E_RoutingInfo.cpp:24</div></div>
-<div class="ttc" id="aclass_e_1_1_routing_info_html_aca12f95b142936a87ff7618711f1d87e"><div class="ttname"><a href="class_e_1_1_routing_info.html#aca12f95b142936a87ff7618711f1d87e">E::RoutingInfo::setARPTable</a></div><div class="ttdeci">virtual void setARPTable(const mac_t &amp;mac, const ipv4_t &amp;ipv4) final</div><div class="ttdoc">Add (MAC,IP) entry to its ARP table.</div><div class="ttdef"><b>Definition:</b> E_RoutingInfo.cpp:21</div></div>
+<div class="ttc" id="aclass_e_1_1_routing_info_html_a016bbf3458ccc145a9409b8dd401432a"><div class="ttname"><a href="class_e_1_1_routing_info.html#a016bbf3458ccc145a9409b8dd401432a">E::RoutingInfo::setRoutingTable</a></div><div class="ttdeci">virtual void setRoutingTable(const ipv4_t &amp;mask, int prefix, int port) final</div><div class="ttdef"><b>Definition:</b> E_RoutingInfo.cpp:50</div></div>
+<div class="ttc" id="aclass_e_1_1_routing_info_html_aca12f95b142936a87ff7618711f1d87e"><div class="ttname"><a href="class_e_1_1_routing_info.html#aca12f95b142936a87ff7618711f1d87e">E::RoutingInfo::setARPTable</a></div><div class="ttdeci">virtual void setARPTable(const mac_t &amp;mac, const ipv4_t &amp;ipv4) final</div><div class="ttdoc">Add (MAC,IP) entry to its ARP table.</div><div class="ttdef"><b>Definition:</b> E_RoutingInfo.cpp:47</div></div>
 <div class="ttc" id="a_e___common_8hpp_html"><div class="ttname"><a href="_e___common_8hpp.html">E_Common.hpp</a></div><div class="ttdoc">This header contains standard C++11 headers and compatibility definitions.</div></div>
-<div class="ttc" id="aclass_test_env3_html"><div class="ttname"><a href="class_test_env3.html">TestEnv3</a></div><div class="ttdef"><b>Definition:</b> testenv.hpp:281</div></div>
-<div class="ttc" id="aclass_e_1_1_link_html_a992d46842e2a2ac73225df3b85c1afcd"><div class="ttname"><a href="class_e_1_1_link.html#a992d46842e2a2ac73225df3b85c1afcd">E::Link::setLinkSpeed</a></div><div class="ttdeci">virtual void setLinkSpeed(Size bps) final</div><div class="ttdef"><b>Definition:</b> E_Link.cpp:159</div></div>
-<div class="ttc" id="aclass_test_env2_html"><div class="ttname"><a href="class_test_env2.html">TestEnv2</a></div><div class="ttdef"><b>Definition:</b> testenv.hpp:171</div></div>
-<div class="ttc" id="a_e___networking_8hpp_html"><div class="ttname"><a href="_e___networking_8hpp.html">E_Networking.hpp</a></div><div class="ttdoc">Header for E::NetworkModule and E::NetworkSystem.</div></div>
-<div class="ttc" id="aclass_e_1_1_system_html_a67e932b7cf9d388f401495e138e119f6"><div class="ttname"><a href="class_e_1_1_system.html#a67e932b7cf9d388f401495e138e119f6">E::System::run</a></div><div class="ttdeci">void run(Time till)</div><div class="ttdoc">Execute all registered Module. Virtual clock will move to the end of the simulation.</div><div class="ttdef"><b>Definition:</b> E_System.cpp:85</div></div>
-<div class="ttc" id="aclass_e_1_1_network_system_html"><div class="ttname"><a href="class_e_1_1_network_system.html">E::NetworkSystem</a></div><div class="ttdoc">NetworkSystem is a kind of System which has extensions for handling Packet network.</div><div class="ttdef"><b>Definition:</b> E_Networking.hpp:67</div></div>
-<div class="ttc" id="a_e___port_8hpp_html"><div class="ttname"><a href="_e___port_8hpp.html">E_Port.hpp</a></div><div class="ttdoc">Header for E::Port.</div></div>
+<div class="ttc" id="aclass_test_env3_html"><div class="ttname"><a href="class_test_env3.html">TestEnv3</a></div><div class="ttdef"><b>Definition:</b> testenv.hpp:253</div></div>
+<div class="ttc" id="aclass_test_env2_html"><div class="ttname"><a href="class_test_env2.html">TestEnv2</a></div><div class="ttdef"><b>Definition:</b> testenv.hpp:156</div></div>
+<div class="ttc" id="a_e___networking_8hpp_html"><div class="ttname"><a href="_e___networking_8hpp.html">E_Networking.hpp</a></div><div class="ttdoc">Header for E::NetworkSystem.</div></div>
+<div class="ttc" id="aclass_e_1_1_system_html_a67e932b7cf9d388f401495e138e119f6"><div class="ttname"><a href="class_e_1_1_system.html#a67e932b7cf9d388f401495e138e119f6">E::System::run</a></div><div class="ttdeci">void run(Time till)</div><div class="ttdoc">Execute all registered Module. Virtual clock will move to the end of the simulation.</div><div class="ttdef"><b>Definition:</b> E_System.cpp:80</div></div>
+<div class="ttc" id="aclass_e_1_1_network_system_html"><div class="ttname"><a href="class_e_1_1_network_system.html">E::NetworkSystem</a></div><div class="ttdoc">NetworkSystem is a kind of System which has extensions for handling Packet network.</div><div class="ttdef"><b>Definition:</b> E_Networking.hpp:38</div></div>
 <div class="ttc" id="aclass_e_1_1_i_pv4_html"><div class="ttname"><a href="class_e_1_1_i_pv4.html">E::IPv4</a></div><div class="ttdef"><b>Definition:</b> E_IPv4.hpp:16</div></div>
-<div class="ttc" id="aclass_e_1_1_host_module_html_a4c3b46470590407826670cfdedec9424"><div class="ttname"><a href="class_e_1_1_host_module.html#a4c3b46470590407826670cfdedec9424">E::HostModule::finalize</a></div><div class="ttdeci">virtual void finalize(void)</div><div class="ttdoc">This function is automatically called by Host just after the simulation ends. You can override this f...</div><div class="ttdef"><b>Definition:</b> E_Host.hpp:71</div></div>
-<div class="ttc" id="aclass_e_1_1_network_log_html_abc7e3ec4e8d147f846fd46979cdfffe6"><div class="ttname"><a href="class_e_1_1_network_log.html#abc7e3ec4e8d147f846fd46979cdfffe6">E::NetworkLog::defaultLevel</a></div><div class="ttdeci">static uint64_t defaultLevel</div><div class="ttdoc">Default log level.</div><div class="ttdef"><b>Definition:</b> E_NetworkLog.hpp:101</div></div>
-<div class="ttc" id="aclass_e_1_1_link_html_a3a325d998c6d8692db3cbccbe5f3ed14"><div class="ttname"><a href="class_e_1_1_link.html#a3a325d998c6d8692db3cbccbe5f3ed14">E::Link::setQueueSize</a></div><div class="ttdeci">virtual void setQueueSize(Size max_queue_length) final</div><div class="ttdef"><b>Definition:</b> E_Link.cpp:161</div></div>
-<div class="ttc" id="aclass_e_1_1_routing_info_html_ae273cbedafb78671fa2bd822f955fd3c"><div class="ttname"><a href="class_e_1_1_routing_info.html#ae273cbedafb78671fa2bd822f955fd3c">E::RoutingInfo::setMACAddr</a></div><div class="ttdeci">virtual void setMACAddr(const mac_t &amp;mac, int port) final</div><div class="ttdef"><b>Definition:</b> E_RoutingInfo.cpp:18</div></div>
+<div class="ttc" id="aclass_e_1_1_network_log_html_abc7e3ec4e8d147f846fd46979cdfffe6"><div class="ttname"><a href="class_e_1_1_network_log.html#abc7e3ec4e8d147f846fd46979cdfffe6">E::NetworkLog::defaultLevel</a></div><div class="ttdeci">static uint64_t defaultLevel</div><div class="ttdoc">Default log level.</div><div class="ttdef"><b>Definition:</b> E_NetworkLog.hpp:100</div></div>
+<div class="ttc" id="aclass_e_1_1_routing_info_html_ae273cbedafb78671fa2bd822f955fd3c"><div class="ttname"><a href="class_e_1_1_routing_info.html#ae273cbedafb78671fa2bd822f955fd3c">E::RoutingInfo::setMACAddr</a></div><div class="ttdeci">virtual void setMACAddr(const mac_t &amp;mac, int port) final</div><div class="ttdef"><b>Definition:</b> E_RoutingInfo.cpp:44</div></div>
 <div class="ttc" id="aclass_test_env1_html"><div class="ttname"><a href="class_test_env1.html">TestEnv1</a></div><div class="ttdef"><b>Definition:</b> testenv.hpp:62</div></div>
-<div class="ttc" id="aclass_e_1_1_host_module_html"><div class="ttname"><a href="class_e_1_1_host_module.html">E::HostModule</a></div><div class="ttdoc">HostModule is an interface for classes which is registered to a certain Host. HostModules can communi...</div><div class="ttdef"><b>Definition:</b> E_Host.hpp:34</div></div>
 <div class="ttc" id="aclass_kens_testing_html"><div class="ttname"><a href="class_kens_testing.html">KensTesting</a></div><div class="ttdef"><b>Definition:</b> testenv.hpp:31</div></div>
-<div class="ttc" id="aclass_e_1_1_host_module_html_aa63c37f77eced62d914e0020a5dfb6f3"><div class="ttname"><a href="class_e_1_1_host_module.html#aa63c37f77eced62d914e0020a5dfb6f3">E::HostModule::initialize</a></div><div class="ttdeci">virtual void initialize(void)</div><div class="ttdoc">This function is automatically called by Host just before the simulation begins. You can override thi...</div><div class="ttdef"><b>Definition:</b> E_Host.hpp:65</div></div>
-<div class="ttc" id="aclass_e_1_1_routing_info_html_a332df1f3e31614cda9f2772cf37d4dd5"><div class="ttname"><a href="class_e_1_1_routing_info.html#a332df1f3e31614cda9f2772cf37d4dd5">E::RoutingInfo::setIPAddr</a></div><div class="ttdeci">virtual void setIPAddr(const ipv4_t &amp;ip, int port) final</div><div class="ttdef"><b>Definition:</b> E_RoutingInfo.cpp:15</div></div>
+<div class="ttc" id="aclass_e_1_1_routing_info_html_a332df1f3e31614cda9f2772cf37d4dd5"><div class="ttname"><a href="class_e_1_1_routing_info.html#a332df1f3e31614cda9f2772cf37d4dd5">E::RoutingInfo::setIPAddr</a></div><div class="ttdeci">virtual void setIPAddr(const ipv4_t &amp;ip, int port) final</div><div class="ttdef"><b>Definition:</b> E_RoutingInfo.cpp:41</div></div>
 <div class="ttc" id="aclass_e_1_1_time_util_html_acfb7488fa2587cd570b2b600d08a8aa0"><div class="ttname"><a href="class_e_1_1_time_util.html#acfb7488fa2587cd570b2b600d08a8aa0">E::TimeUtil::makeTime</a></div><div class="ttdeci">static Time makeTime(Size time, enum TimeUnit unit)</div><div class="ttdoc">Produces nanosecond time from a time in given time unit.</div><div class="ttdef"><b>Definition:</b> E_TimeUtil.cpp:87</div></div>
 <div class="ttc" id="aclass_e_1_1_ethernet_html"><div class="ttname"><a href="class_e_1_1_ethernet.html">E::Ethernet</a></div><div class="ttdef"><b>Definition:</b> E_Ethernet.hpp:16</div></div>
 <div class="ttc" id="a_e___module_8hpp_html"><div class="ttname"><a href="_e___module_8hpp.html">E_Module.hpp</a></div><div class="ttdoc">Header for E::Module.</div></div>
-<div class="ttc" id="aclass_e_1_1_host_html"><div class="ttname"><a href="class_e_1_1_host.html">E::Host</a></div><div class="ttdoc">This class abstract a single host machine.</div><div class="ttdef"><b>Definition:</b> E_Host.hpp:301</div></div>
-<div class="ttc" id="aclass_e_1_1_port_html_a1a7e9eb4bf9a14aa8c8d892af0b7b5e9"><div class="ttname"><a href="class_e_1_1_port.html#a1a7e9eb4bf9a14aa8c8d892af0b7b5e9">E::Port::setPropagationDelay</a></div><div class="ttdeci">virtual void setPropagationDelay(Time delay) final</div><div class="ttdef"><b>Definition:</b> E_Port.cpp:37</div></div>
+<div class="ttc" id="aclass_e_1_1_host_html"><div class="ttname"><a href="class_e_1_1_host.html">E::Host</a></div><div class="ttdoc">This class abstract a single host machine.</div><div class="ttdef"><b>Definition:</b> E_Host.hpp:319</div></div>
 <div class="ttc" id="aclass_e_1_1_switch_html"><div class="ttname"><a href="class_e_1_1_switch.html">E::Switch</a></div><div class="ttdef"><b>Definition:</b> E_Switch.hpp:15</div></div>
-<div class="ttc" id="aclass_e_1_1_port_html_a215be7a1e07238559010386566ba10a9"><div class="ttname"><a href="class_e_1_1_port.html#a215be7a1e07238559010386566ba10a9">E::Port::setPortSpeed</a></div><div class="ttdeci">virtual void setPortSpeed(Size bps) final</div><div class="ttdef"><b>Definition:</b> E_Port.cpp:34</div></div>
-<div class="ttc" id="aclass_e_1_1_link_html_a3e7b5d061aad7ce9900bc62a24345721"><div class="ttname"><a href="class_e_1_1_link.html#a3e7b5d061aad7ce9900bc62a24345721">E::Link::enablePCAPLogging</a></div><div class="ttdeci">virtual void enablePCAPLogging(const std::string &amp;filename, Size snaplen=65535) final</div><div class="ttdoc">Make a PCAP formatted log file.</div><div class="ttdef"><b>Definition:</b> E_Link.cpp:199</div></div>
+<div class="ttc" id="a_e___wire_8hpp_html"><div class="ttname"><a href="_e___wire_8hpp.html">E_Wire.hpp</a></div><div class="ttdoc">Header for E::Wire.</div></div>
 <div class="ttc" id="a_e___time_util_8hpp_html"><div class="ttname"><a href="_e___time_util_8hpp.html">E_TimeUtil.hpp</a></div><div class="ttdoc">Header for E::TimeUtil.</div></div>
-<div class="ttc" id="aclass_e_1_1_link_html_a86f44888338eec20a5d5dc57f3c8fb89"><div class="ttname"><a href="class_e_1_1_link.html#a86f44888338eec20a5d5dc57f3c8fb89">E::Link::addPort</a></div><div class="ttdeci">virtual void addPort(Port *port) final</div><div class="ttdef"><b>Definition:</b> E_Link.cpp:182</div></div>
 <div class="ttc" id="a_e___host_8hpp_html"><div class="ttname"><a href="_e___host_8hpp.html">E_Host.hpp</a></div><div class="ttdoc">Header for E::Host and other interfaces. E::HostModule, E::SystemCallInterface, E::SystemCallApplicat...</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 4 2021 10:05:17 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Aug 27 2021 10:16:33 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

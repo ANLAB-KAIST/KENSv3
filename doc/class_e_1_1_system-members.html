@@ -74,21 +74,24 @@ $(function() {
 
 <p>This is the complete list of members for <a class="el" href="class_e_1_1_system.html">E::System</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="class_e_1_1_system.html#a417627aa3784d1b8c8576a446aeb3f59">addRunnable</a>(Runnable *runnable) final</td><td class="entry"><a class="el" href="class_e_1_1_system.html">E::System</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_e_1_1_system.html#aa329eca8eefe055a17bd030bb54930dc">delRunnable</a>(Runnable *runnable) final</td><td class="entry"><a class="el" href="class_e_1_1_system.html">E::System</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_e_1_1_system.html#a9be9f7750af9ae255c157902399bff6f">getCurrentTime</a>()</td><td class="entry"><a class="el" href="class_e_1_1_system.html">E::System</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_e_1_1_system.html#a1821077e644025ee4fe59872acaef651">getSystemLock</a>()</td><td class="entry"><a class="el" href="class_e_1_1_system.html">E::System</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>addModule</b>(Args &amp;&amp;...args) (defined in <a class="el" href="class_e_1_1_system.html">E::System</a>)</td><td class="entry"><a class="el" href="class_e_1_1_system.html">E::System</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_e_1_1_system.html#a783ddf9b6ef4aa7ae8f898da77f36b28">addRunnable</a>(std::shared_ptr&lt; Runnable &gt; runnable) final</td><td class="entry"><a class="el" href="class_e_1_1_system.html">E::System</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_e_1_1_system.html#a4d71d8ad5b3dedca31e2a5378f0919ee">delRunnable</a>(std::shared_ptr&lt; Runnable &gt; runnable) final</td><td class="entry"><a class="el" href="class_e_1_1_system.html">E::System</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_e_1_1_system.html#a9be9f7750af9ae255c157902399bff6f">getCurrentTime</a>()</td><td class="entry"><a class="el" href="class_e_1_1_system.html">E::System</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>getModuleName</b>(const ModuleID moduleID) (defined in <a class="el" href="class_e_1_1_system.html">E::System</a>)</td><td class="entry"><a class="el" href="class_e_1_1_system.html">E::System</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>lookupModuleID</b>(Module &amp;module) (defined in <a class="el" href="class_e_1_1_system.html">E::System</a>)</td><td class="entry"><a class="el" href="class_e_1_1_system.html">E::System</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>Module::cancelMessage</b> (defined in <a class="el" href="class_e_1_1_system.html">E::System</a>)</td><td class="entry"><a class="el" href="class_e_1_1_system.html">E::System</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>Module::Module</b>(System *system) (defined in <a class="el" href="class_e_1_1_system.html">E::System</a>)</td><td class="entry"><a class="el" href="class_e_1_1_system.html">E::System</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>Module::Module</b>(System &amp;system) (defined in <a class="el" href="class_e_1_1_system.html">E::System</a>)</td><td class="entry"><a class="el" href="class_e_1_1_system.html">E::System</a></td><td class="entry"></td></tr>
   <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>Module::sendMessage</b> (defined in <a class="el" href="class_e_1_1_system.html">E::System</a>)</td><td class="entry"><a class="el" href="class_e_1_1_system.html">E::System</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
   <tr bgcolor="#f0f0f0"><td class="entry"><b>Module::~Module</b>() (defined in <a class="el" href="class_e_1_1_system.html">E::System</a>)</td><td class="entry"><a class="el" href="class_e_1_1_system.html">E::System</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_e_1_1_system.html#a67e932b7cf9d388f401495e138e119f6">run</a>(Time till)</td><td class="entry"><a class="el" href="class_e_1_1_system.html">E::System</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_e_1_1_system.html#af0583ef28cc6f7f558bfbbffca286015">System</a>()</td><td class="entry"><a class="el" href="class_e_1_1_system.html">E::System</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>~System</b>() (defined in <a class="el" href="class_e_1_1_system.html">E::System</a>)</td><td class="entry"><a class="el" href="class_e_1_1_system.html">E::System</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>registeredModule</b> (defined in <a class="el" href="class_e_1_1_system.html">E::System</a>)</td><td class="entry"><a class="el" href="class_e_1_1_system.html">E::System</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_e_1_1_system.html#a67e932b7cf9d388f401495e138e119f6">run</a>(Time till)</td><td class="entry"><a class="el" href="class_e_1_1_system.html">E::System</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_e_1_1_system.html#af0583ef28cc6f7f558bfbbffca286015">System</a>()</td><td class="entry"><a class="el" href="class_e_1_1_system.html">E::System</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>~System</b>() (defined in <a class="el" href="class_e_1_1_system.html">E::System</a>)</td><td class="entry"><a class="el" href="class_e_1_1_system.html">E::System</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 4 2021 10:05:17 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Aug 27 2021 10:16:33 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

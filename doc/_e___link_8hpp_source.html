@@ -79,86 +79,84 @@ $(function() {
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;E/E_RandomDistribution.hpp&gt;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="_e___network_log_8hpp.html">E/Networking/E_NetworkLog.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="_e___networking_8hpp.html">E/Networking/E_Networking.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;fstream&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>E {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span>Port;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="_e___wire_8hpp.html">E/Networking/E_Wire.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;fstream&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span>E {</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">class </span>Packet;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="class_e_1_1_link.html">   26</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_e_1_1_link.html">Link</a> : <span class="keyword">public</span> <a class="code" href="class_e_1_1_module.html">Module</a>, <span class="keyword">public</span> <a class="code" href="class_e_1_1_network_module.html">NetworkModule</a>, <span class="keyword">private</span> <a class="code" href="class_e_1_1_network_log.html">NetworkLog</a> {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keyword">virtual</span> <a class="code" href="class_e_1_1_module_1_1_message.html">Module::Message</a> *messageReceived(<a class="code" href="class_e_1_1_module.html">Module</a> *from,</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                                           <a class="code" href="class_e_1_1_module_1_1_message.html">Module::Message</a> *message) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> messageFinished(<a class="code" href="class_e_1_1_module.html">Module</a> *to, <a class="code" href="class_e_1_1_module_1_1_message.html">Module::Message</a> *message,</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                               <a class="code" href="class_e_1_1_module_1_1_message.html">Module::Message</a> *response) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> messageCancelled(<a class="code" href="class_e_1_1_module.html">Module</a> *to, <a class="code" href="class_e_1_1_module_1_1_message.html">Module::Message</a> *message) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  std::ofstream pcap_file;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keywordtype">bool</span> pcap_enabled;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  Size snaplen;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <a class="code" href="class_e_1_1_linear_distribution.html">LinearDistribution</a> rand_dist;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  std::unordered_set&lt;Port *&gt; connectedPorts;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  std::unordered_map&lt;Port *, Time&gt; nextAvailable;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  std::unordered_map&lt;Port *, std::list&lt;Packet&gt;&gt; outputQueue;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  Size bps;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  Size max_queue_length;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> packetArrived(<a class="code" href="class_e_1_1_port.html">Port</a> *port, <a class="code" href="class_e_1_1_packet.html">Packet</a> &amp;&amp;packet) = 0;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> packetSent(<a class="code" href="class_e_1_1_port.html">Port</a> *port, <a class="code" href="class_e_1_1_packet.html">Packet</a> &amp;&amp;packet) {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    (void)port;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    (void)packet;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  };</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> sendPacket(<a class="code" href="class_e_1_1_port.html">Port</a> *port, <a class="code" href="class_e_1_1_packet.html">Packet</a> &amp;&amp;packet) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <a class="code" href="class_e_1_1_link.html#abbe3067b0f3e477f1c0870860abe6883">Link</a>(std::string name, <a class="code" href="class_e_1_1_network_system.html">NetworkSystem</a> *system);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_e_1_1_link.html">Link</a>();</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_link.html#a3e7b5d061aad7ce9900bc62a24345721">enablePCAPLogging</a>(<span class="keyword">const</span> std::string &amp;filename,</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                 Size snaplen = 65535) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="keyword">enum</span> MessageType {</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    CHECK_QUEUE,</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  };</div>
-<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="class_e_1_1_link_1_1_message.html">   71</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_e_1_1_link_1_1_message.html">Message</a> : <span class="keyword">public</span> <a class="code" href="class_e_1_1_module_1_1_message.html">Module::Message</a> {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">enum</span> MessageType type;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="class_e_1_1_port.html">Port</a> *port;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="class_e_1_1_link.html">   26</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_e_1_1_link.html">Link</a> : <span class="keyword">public</span> <a class="code" href="class_e_1_1_network_module.html">NetworkModule</a>, <span class="keyword">private</span> <a class="code" href="class_e_1_1_network_log.html">NetworkLog</a> {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keyword">virtual</span> Module::Message messageReceived(<span class="keyword">const</span> ModuleID from,</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                                          <a class="code" href="class_e_1_1_module_1_1_message_base.html">Module::MessageBase</a> &amp;message) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> messageFinished(<span class="keyword">const</span> ModuleID to, Module::Message message,</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                               <a class="code" href="class_e_1_1_module_1_1_message_base.html">Module::MessageBase</a> &amp;response) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> messageCancelled(<span class="keyword">const</span> ModuleID to,</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                                Module::Message message) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  std::ofstream pcap_file;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keywordtype">bool</span> pcap_enabled;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  Size snaplen;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <a class="code" href="class_e_1_1_linear_distribution.html">LinearDistribution</a> rand_dist;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  std::unordered_map&lt;ModuleID, Time&gt; nextAvailable;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  std::unordered_map&lt;ModuleID, std::list&lt;Packet&gt;&gt; outputQueue;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  Size bps;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  Size max_queue_length;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> packetArrived(<span class="keyword">const</span> ModuleID inWireID, <a class="code" href="class_e_1_1_packet.html">Packet</a> &amp;&amp;packet) = 0;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> packetSent(<span class="keyword">const</span> ModuleID wireID, <a class="code" href="class_e_1_1_packet.html">Packet</a> &amp;&amp;packet) {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    (void)wireID;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    (void)packet;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  };</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> sendPacket(<span class="keyword">const</span> ModuleID wireID, <a class="code" href="class_e_1_1_packet.html">Packet</a> &amp;&amp;packet) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <a class="code" href="class_e_1_1_link.html">Link</a>(std::string name, <a class="code" href="class_e_1_1_network_system.html">NetworkSystem</a> &amp;system);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_e_1_1_link.html">Link</a>();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_link.html#a3e7b5d061aad7ce9900bc62a24345721">enablePCAPLogging</a>(<span class="keyword">const</span> std::string &amp;filename,</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                                 Size snaplen = 65535) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="keyword">enum</span> MessageType {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    CHECK_QUEUE,</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  };</div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="class_e_1_1_link_1_1_message.html">   69</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_e_1_1_link_1_1_message.html">Message</a> : <span class="keyword">public</span> <a class="code" href="class_e_1_1_module_1_1_message_base.html">Module::MessageBase</a> {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">enum</span> MessageType type;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    ModuleID wireID;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="class_e_1_1_link_1_1_message.html">Message</a>(<span class="keyword">enum</span> MessageType type, ModuleID wireID)</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        : type(type), wireID(wireID) {}</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  };</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_link.html#a86f44888338eec20a5d5dc57f3c8fb89">addPort</a>(<a class="code" href="class_e_1_1_port.html">Port</a> *port) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_link.html#a992d46842e2a2ac73225df3b85c1afcd">setLinkSpeed</a>(Size bps) <span class="keyword">final</span>;</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_link.html#a992d46842e2a2ac73225df3b85c1afcd">setLinkSpeed</a>(Size bps) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_link.html#a3a325d998c6d8692db3cbccbe5f3ed14">setQueueSize</a>(Size max_queue_length) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;};</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;} <span class="comment">// namespace E</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* E_LINK_HPP_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_link.html#a3a325d998c6d8692db3cbccbe5f3ed14">setQueueSize</a>(Size max_queue_length) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;};</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;} <span class="comment">// namespace E</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* E_LINK_HPP_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclass_e_1_1_packet_html"><div class="ttname"><a href="class_e_1_1_packet.html">E::Packet</a></div><div class="ttdoc">This class abstracts a packet. You cannot directly allocate/deallocate Packet. Also you cannot direct...</div><div class="ttdef"><b>Definition:</b> E_Packet.hpp:25</div></div>
+<div class="ttc" id="aclass_e_1_1_packet_html"><div class="ttname"><a href="class_e_1_1_packet.html">E::Packet</a></div><div class="ttdoc">This class abstracts a packet. You cannot directly allocate/deallocate Packet. Also you cannot direct...</div><div class="ttdef"><b>Definition:</b> E_Packet.hpp:24</div></div>
 <div class="ttc" id="a_e___network_log_8hpp_html"><div class="ttname"><a href="_e___network_log_8hpp.html">E_NetworkLog.hpp</a></div><div class="ttdoc">Header for E::NetworkLog.</div></div>
 <div class="ttc" id="aclass_e_1_1_linear_distribution_html"><div class="ttname"><a href="class_e_1_1_linear_distribution.html">E::LinearDistribution</a></div><div class="ttdef"><b>Definition:</b> E_RandomDistribution.hpp:57</div></div>
 <div class="ttc" id="a_e___common_8hpp_html"><div class="ttname"><a href="_e___common_8hpp.html">E_Common.hpp</a></div><div class="ttdoc">This header contains standard C++11 headers and compatibility definitions.</div></div>
-<div class="ttc" id="aclass_e_1_1_link_html"><div class="ttname"><a href="class_e_1_1_link.html">E::Link</a></div><div class="ttdoc">Link makes connections among multiple Port. It supports packet switching and output queuing....</div><div class="ttdef"><b>Definition:</b> E_Link.hpp:26</div></div>
-<div class="ttc" id="aclass_e_1_1_link_html_a992d46842e2a2ac73225df3b85c1afcd"><div class="ttname"><a href="class_e_1_1_link.html#a992d46842e2a2ac73225df3b85c1afcd">E::Link::setLinkSpeed</a></div><div class="ttdeci">virtual void setLinkSpeed(Size bps) final</div><div class="ttdef"><b>Definition:</b> E_Link.cpp:159</div></div>
-<div class="ttc" id="a_e___networking_8hpp_html"><div class="ttname"><a href="_e___networking_8hpp.html">E_Networking.hpp</a></div><div class="ttdoc">Header for E::NetworkModule and E::NetworkSystem.</div></div>
-<div class="ttc" id="aclass_e_1_1_module_1_1_message_html"><div class="ttname"><a href="class_e_1_1_module_1_1_message.html">E::Module::Message</a></div><div class="ttdoc">Interface of Message. Every message implementation must inherit this class.</div><div class="ttdef"><b>Definition:</b> E_Module.hpp:48</div></div>
-<div class="ttc" id="aclass_e_1_1_network_system_html"><div class="ttname"><a href="class_e_1_1_network_system.html">E::NetworkSystem</a></div><div class="ttdoc">NetworkSystem is a kind of System which has extensions for handling Packet network.</div><div class="ttdef"><b>Definition:</b> E_Networking.hpp:67</div></div>
-<div class="ttc" id="aclass_e_1_1_link_html_abbe3067b0f3e477f1c0870860abe6883"><div class="ttname"><a href="class_e_1_1_link.html#abbe3067b0f3e477f1c0870860abe6883">E::Link::Link</a></div><div class="ttdeci">Link(std::string name, NetworkSystem *system)</div><div class="ttdef"><b>Definition:</b> E_Link.cpp:165</div></div>
+<div class="ttc" id="aclass_e_1_1_link_html"><div class="ttname"><a href="class_e_1_1_link.html">E::Link</a></div><div class="ttdoc">Link makes connections among multiple Wires. It supports packet switching and output queuing....</div><div class="ttdef"><b>Definition:</b> E_Link.hpp:26</div></div>
+<div class="ttc" id="aclass_e_1_1_link_html_a992d46842e2a2ac73225df3b85c1afcd"><div class="ttname"><a href="class_e_1_1_link.html#a992d46842e2a2ac73225df3b85c1afcd">E::Link::setLinkSpeed</a></div><div class="ttdeci">virtual void setLinkSpeed(Size bps) final</div><div class="ttdef"><b>Definition:</b> E_Link.cpp:148</div></div>
+<div class="ttc" id="a_e___networking_8hpp_html"><div class="ttname"><a href="_e___networking_8hpp.html">E_Networking.hpp</a></div><div class="ttdoc">Header for E::NetworkSystem.</div></div>
+<div class="ttc" id="aclass_e_1_1_network_system_html"><div class="ttname"><a href="class_e_1_1_network_system.html">E::NetworkSystem</a></div><div class="ttdoc">NetworkSystem is a kind of System which has extensions for handling Packet network.</div><div class="ttdef"><b>Definition:</b> E_Networking.hpp:38</div></div>
 <div class="ttc" id="aclass_e_1_1_network_log_html"><div class="ttname"><a href="class_e_1_1_network_log.html">E::NetworkLog</a></div><div class="ttdef"><b>Definition:</b> E_NetworkLog.hpp:23</div></div>
-<div class="ttc" id="aclass_e_1_1_link_html_a3a325d998c6d8692db3cbccbe5f3ed14"><div class="ttname"><a href="class_e_1_1_link.html#a3a325d998c6d8692db3cbccbe5f3ed14">E::Link::setQueueSize</a></div><div class="ttdeci">virtual void setQueueSize(Size max_queue_length) final</div><div class="ttdef"><b>Definition:</b> E_Link.cpp:161</div></div>
-<div class="ttc" id="aclass_e_1_1_network_module_html"><div class="ttname"><a href="class_e_1_1_network_module.html">E::NetworkModule</a></div><div class="ttdoc">NetworkModule can allocate/deallocate Packets.</div><div class="ttdef"><b>Definition:</b> E_Networking.hpp:23</div></div>
-<div class="ttc" id="aclass_e_1_1_link_1_1_message_html"><div class="ttname"><a href="class_e_1_1_link_1_1_message.html">E::Link::Message</a></div><div class="ttdef"><b>Definition:</b> E_Link.hpp:71</div></div>
-<div class="ttc" id="aclass_e_1_1_module_html"><div class="ttname"><a href="class_e_1_1_module.html">E::Module</a></div><div class="ttdoc">Module is an interface for classes which can send/receive Message to/from the System.</div><div class="ttdef"><b>Definition:</b> E_Module.hpp:22</div></div>
-<div class="ttc" id="aclass_e_1_1_port_html"><div class="ttname"><a href="class_e_1_1_port.html">E::Port</a></div><div class="ttdoc">Port does a role of 2-ended wire. However there is a speed limit and delayed packets are queued (curr...</div><div class="ttdef"><b>Definition:</b> E_Port.hpp:29</div></div>
-<div class="ttc" id="aclass_e_1_1_link_html_a3e7b5d061aad7ce9900bc62a24345721"><div class="ttname"><a href="class_e_1_1_link.html#a3e7b5d061aad7ce9900bc62a24345721">E::Link::enablePCAPLogging</a></div><div class="ttdeci">virtual void enablePCAPLogging(const std::string &amp;filename, Size snaplen=65535) final</div><div class="ttdoc">Make a PCAP formatted log file.</div><div class="ttdef"><b>Definition:</b> E_Link.cpp:199</div></div>
-<div class="ttc" id="aclass_e_1_1_link_html_a86f44888338eec20a5d5dc57f3c8fb89"><div class="ttname"><a href="class_e_1_1_link.html#a86f44888338eec20a5d5dc57f3c8fb89">E::Link::addPort</a></div><div class="ttdeci">virtual void addPort(Port *port) final</div><div class="ttdef"><b>Definition:</b> E_Link.cpp:182</div></div>
+<div class="ttc" id="aclass_e_1_1_link_html_a3a325d998c6d8692db3cbccbe5f3ed14"><div class="ttname"><a href="class_e_1_1_link.html#a3a325d998c6d8692db3cbccbe5f3ed14">E::Link::setQueueSize</a></div><div class="ttdeci">virtual void setQueueSize(Size max_queue_length) final</div><div class="ttdef"><b>Definition:</b> E_Link.cpp:150</div></div>
+<div class="ttc" id="aclass_e_1_1_network_module_html"><div class="ttname"><a href="class_e_1_1_network_module.html">E::NetworkModule</a></div><div class="ttdoc">NetworkModule is a abstract class for wired connection.</div><div class="ttdef"><b>Definition:</b> E_Networking.hpp:23</div></div>
+<div class="ttc" id="aclass_e_1_1_link_1_1_message_html"><div class="ttname"><a href="class_e_1_1_link_1_1_message.html">E::Link::Message</a></div><div class="ttdef"><b>Definition:</b> E_Link.hpp:69</div></div>
+<div class="ttc" id="a_e___wire_8hpp_html"><div class="ttname"><a href="_e___wire_8hpp.html">E_Wire.hpp</a></div><div class="ttdoc">Header for E::Wire.</div></div>
+<div class="ttc" id="aclass_e_1_1_link_html_a3e7b5d061aad7ce9900bc62a24345721"><div class="ttname"><a href="class_e_1_1_link.html#a3e7b5d061aad7ce9900bc62a24345721">E::Link::enablePCAPLogging</a></div><div class="ttdeci">virtual void enablePCAPLogging(const std::string &amp;filename, Size snaplen=65535) final</div><div class="ttdoc">Make a PCAP formatted log file.</div><div class="ttdef"><b>Definition:</b> E_Link.cpp:179</div></div>
+<div class="ttc" id="aclass_e_1_1_module_1_1_message_base_html"><div class="ttname"><a href="class_e_1_1_module_1_1_message_base.html">E::Module::MessageBase</a></div><div class="ttdoc">Interface of Message. Every message implementation must inherit this class.</div><div class="ttdef"><b>Definition:</b> E_Module.hpp:48</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 4 2021 10:05:17 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Aug 27 2021 10:16:33 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
