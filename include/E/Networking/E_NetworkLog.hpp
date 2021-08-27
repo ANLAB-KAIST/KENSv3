@@ -19,26 +19,26 @@ namespace E {
  * @note You cannot use both Log and NetworkLog simultaneously.
  * @see E::Log
  */
-class NetworkSystem;
+class System;
 class NetworkLog {
 private:
   uint64_t level;
-  NetworkSystem *system;
+  System &system;
 
 public:
   /**
    * @brief Constructs a NetworkLog instance.
    *
-   * @param system NetworkSystem of a NetworkModule
+   * @param system System
    */
-  NetworkLog(NetworkSystem *system);
+  NetworkLog(System &system);
   /**
    * @brief Constructs a NetworkLog instance with log level.
    *
-   * @param system NetworkSystem of a NetworkModule
+   * @param system System
    * @param level log level
    */
-  NetworkLog(NetworkSystem *system, uint64_t level);
+  NetworkLog(System &system, uint64_t level);
   /**
    * @brief Destructs a NetworkLog instance.
    *
@@ -64,14 +64,13 @@ public:
     SYSCALL_BLOCKED,
     SYSCALL_UNBLOCKED,
     SYSCALL_ERROR,
+    APPLICATION_RETRUN,
     MODULE_ERROR,
     PROTOCOL_ERROR,
     PROTOCOL_WARNING,
     TCP_LOG,
     LEVEL_COUNT,
   };
-
-protected:
   /**
    * @brief Prints log with specified log level and format.
    * NetworkLog::print_log prints logs specified in log level parameter.

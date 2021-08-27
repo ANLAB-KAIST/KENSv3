@@ -13,9 +13,9 @@
 
 namespace E {
 
-class Ethernet : public HostModule, public NetworkModule, private NetworkLog {
+class Ethernet : public HostModule, private RoutingInfoInterface {
 public:
-  Ethernet(Host *host);
+  Ethernet(Host &host);
   virtual ~Ethernet();
 
 protected:

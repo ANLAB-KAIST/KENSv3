@@ -5,12 +5,13 @@
  * @brief  Header for E::TimerModule
  */
 
-#ifndef E_TIMERMODULE_HPP_
-#define E_TIMERMODULE_HPP_
-
-#include <E/E_Module.hpp>
+#ifndef E_HOST_TIMERMODULE_HPP_
+#define E_HOST_TIMERMODULE_HPP_
+#include <E/E_Common.hpp>
 
 namespace E {
+
+class Host;
 
 /**
  * @brief TimerModule provides convenient interface of timer/alarm.
@@ -19,23 +20,19 @@ namespace E {
  *
  * @see Module
  */
-class TimerModule : private Module {
+class TimerModule {
 private:
-private:
-  virtual Module::Message *messageReceived(Module *from,
-                                           Module::Message *message) final;
-  virtual void messageFinished(Module *to, Module::Message *message,
-                               Module::Message *response) final;
-  virtual void messageCancelled(Module *to, Module::Message *message) final;
-
-  class Message : public Module::Message {
-  public:
-    std::any payload;
-  };
+  Host &host;
+  std::string name;
 
 protected:
-  TimerModule(System *system);
+  TimerModule(std::string name, Host &host);
   virtual ~TimerModule();
+
+  /**
+   * @return My name used in the registered Host.
+   */
+  virtual std::string getTimerModuleName() final;
 
   /**
    * @brief This function is automatically when requested alarm is triggered.
@@ -71,8 +68,10 @@ protected:
    * @see addTimer, Module::messageCancelled
    */
   virtual void cancelTimer(UUID key) final;
+
+  friend class Host;
 };
 
 } // namespace E
 
-#endif /* E_TIMERMODULE_HPP_ */
+#endif /* E_HOST_TIMERMODULE_HPP_ */

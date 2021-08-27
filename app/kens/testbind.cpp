@@ -22,13 +22,12 @@
 
 using namespace E;
 
-class TestBind_Simple : public SystemCallApplication, private TCPApplication {
+class TestBind_Simple : public TCPApplication {
 public:
-  TestBind_Simple(Host *host)
-      : SystemCallApplication(host), TCPApplication(this) {}
+  TestBind_Simple(Host &host) : TCPApplication(host) {}
 
 protected:
-  void E_Main() {
+  int E_Main() {
     int fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     struct sockaddr_in addr;
     socklen_t len = sizeof(addr);
@@ -43,25 +42,25 @@ protected:
     EXPECT_EQ(ret, 0);
 
     close(fd);
+
+    return 0;
   }
 };
 
 TEST_F(TestEnv_Reliable, TestBind_Simple) {
-  TestBind_Simple server(host1);
 
-  server.initialize();
+  int pid = host1->addApplication<TestBind_Simple>(*host1);
+  host1->launchApplication(pid);
 
   this->runTest();
 }
 
-class TestBind_DoubleBind : public SystemCallApplication,
-                            private TCPApplication {
+class TestBind_DoubleBind : public TCPApplication {
 public:
-  TestBind_DoubleBind(Host *host)
-      : SystemCallApplication(host), TCPApplication(this) {}
+  TestBind_DoubleBind(Host &host) : TCPApplication(host) {}
 
 protected:
-  void E_Main() {
+  int E_Main() {
     int fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     struct sockaddr_in addr;
     socklen_t len = sizeof(addr);
@@ -84,25 +83,24 @@ protected:
     EXPECT_NE(ret, 0);
 
     close(fd);
+
+    return 0;
   }
 };
 
 TEST_F(TestEnv_Reliable, TestBind_DoubleBind) {
-  TestBind_DoubleBind server(host1);
-
-  server.initialize();
+  int pid = host1->addApplication<TestBind_DoubleBind>(*host1);
+  host1->launchApplication(pid);
 
   this->runTest();
 }
 
-class TestBind_GetSockName : public SystemCallApplication,
-                             private TCPApplication {
+class TestBind_GetSockName : public TCPApplication {
 public:
-  TestBind_GetSockName(Host *host)
-      : SystemCallApplication(host), TCPApplication(this) {}
+  TestBind_GetSockName(Host &host) : TCPApplication(host) {}
 
 protected:
-  void E_Main() {
+  int E_Main() {
     int fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     struct sockaddr_in addr;
     socklen_t len = sizeof(addr);
@@ -128,25 +126,25 @@ protected:
 
     free(addr2);
     close(fd);
+
+    return 0;
   }
 };
 
 TEST_F(TestEnv_Reliable, TestBind_GetSockName) {
-  TestBind_GetSockName server(host1);
 
-  server.initialize();
+  int pid = host1->addApplication<TestBind_GetSockName>(*host1);
+  host1->launchApplication(pid);
 
   this->runTest();
 }
 
-class TestBind_OverlapPort : public SystemCallApplication,
-                             private TCPApplication {
+class TestBind_OverlapPort : public TCPApplication {
 public:
-  TestBind_OverlapPort(Host *host)
-      : SystemCallApplication(host), TCPApplication(this) {}
+  TestBind_OverlapPort(Host &host) : TCPApplication(host) {}
 
 protected:
-  void E_Main() {
+  int E_Main() {
     int fd1 = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     struct sockaddr_in addr;
     socklen_t len = sizeof(addr);
@@ -171,25 +169,25 @@ protected:
 
     close(fd1);
     close(fd2);
+
+    return 0;
   }
 };
 
 TEST_F(TestEnv_Reliable, TestBind_OverlapPort) {
-  TestBind_OverlapPort server(host1);
 
-  server.initialize();
+  int pid = host1->addApplication<TestBind_OverlapPort>(*host1);
+  host1->launchApplication(pid);
 
   this->runTest();
 }
 
-class TestBind_OverlapClosed : public SystemCallApplication,
-                               private TCPApplication {
+class TestBind_OverlapClosed : public TCPApplication {
 public:
-  TestBind_OverlapClosed(Host *host)
-      : SystemCallApplication(host), TCPApplication(this) {}
+  TestBind_OverlapClosed(Host &host) : TCPApplication(host) {}
 
 protected:
-  void E_Main() {
+  int E_Main() {
     int fd1 = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     struct sockaddr_in addr;
     socklen_t len = sizeof(addr);
@@ -215,25 +213,24 @@ protected:
     EXPECT_EQ(ret, 0);
 
     close(fd2);
+
+    return 0;
   }
 };
 
 TEST_F(TestEnv_Reliable, TestBind_OverlapClosed) {
-  TestBind_OverlapClosed server(host1);
-
-  server.initialize();
+  int pid = host1->addApplication<TestBind_OverlapClosed>(*host1);
+  host1->launchApplication(pid);
 
   this->runTest();
 }
 
-class TestBind_DifferentIP_SamePort : public SystemCallApplication,
-                                      private TCPApplication {
+class TestBind_DifferentIP_SamePort : public TCPApplication {
 public:
-  TestBind_DifferentIP_SamePort(Host *host)
-      : SystemCallApplication(host), TCPApplication(this) {}
+  TestBind_DifferentIP_SamePort(Host &host) : TCPApplication(host) {}
 
 protected:
-  void E_Main() {
+  int E_Main() {
     int fd1 = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     struct sockaddr_in addr;
     socklen_t len = sizeof(addr);
@@ -258,25 +255,24 @@ protected:
 
     close(fd1);
     close(fd2);
+
+    return 0;
   }
 };
 
 TEST_F(TestEnv_Reliable, TestBind_DifferentIP_SamePort) {
-  TestBind_DifferentIP_SamePort server(host1);
-
-  server.initialize();
+  int pid = host1->addApplication<TestBind_DifferentIP_SamePort>(*host1);
+  host1->launchApplication(pid);
 
   this->runTest();
 }
 
-class TestBind_SameIP_DifferentPort : public SystemCallApplication,
-                                      private TCPApplication {
+class TestBind_SameIP_DifferentPort : public TCPApplication {
 public:
-  TestBind_SameIP_DifferentPort(Host *host)
-      : SystemCallApplication(host), TCPApplication(this) {}
+  TestBind_SameIP_DifferentPort(Host &host) : TCPApplication(host) {}
 
 protected:
-  void E_Main() {
+  int E_Main() {
     int fd1 = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     struct sockaddr_in addr;
     socklen_t len = sizeof(addr);
@@ -301,13 +297,14 @@ protected:
 
     close(fd1);
     close(fd2);
+
+    return 0;
   }
 };
 
 TEST_F(TestEnv_Reliable, TestBind_SameIP_DifferentPort) {
-  TestBind_SameIP_DifferentPort server(host1);
-
-  server.initialize();
+  int pid = host1->addApplication<TestBind_SameIP_DifferentPort>(*host1);
+  host1->launchApplication(pid);
 
   this->runTest();
 }

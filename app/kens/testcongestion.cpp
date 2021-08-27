@@ -28,12 +28,11 @@ extern "C" {
 
 using namespace E;
 
-class TestCongestion_Accept : public SystemCallApplication,
-                              private TCPApplication {
+class TestCongestion_Accept : public TCPApplication {
 public:
-  TestCongestion_Accept(Host *host,
+  TestCongestion_Accept(Host &host,
                         const std::unordered_map<std::string, std::string> &env)
-      : SystemCallApplication(host), TCPApplication(this) {
+      : TCPApplication(host) {
     this->env = env;
   }
 
@@ -41,7 +40,7 @@ protected:
   std::unordered_map<std::string, std::string> env;
 
 protected:
-  void E_Main() {
+  int E_Main() {
     int connection_timeout = atoi(env["CONNECTION_TIMEOUT"].c_str());
     int server_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     struct sockaddr_in addr;
@@ -163,15 +162,15 @@ protected:
 
     close(client_fd);
     close(server_socket);
+    return 0;
   }
 };
 
-class TestCongestion_Connect : public SystemCallApplication,
-                               private TCPApplication {
+class TestCongestion_Connect : public TCPApplication {
 public:
   TestCongestion_Connect(
-      Host *host, const std::unordered_map<std::string, std::string> &env)
-      : SystemCallApplication(host), TCPApplication(this) {
+      Host &host, const std::unordered_map<std::string, std::string> &env)
+      : TCPApplication(host) {
     this->env = env;
   }
 
@@ -179,7 +178,7 @@ protected:
   std::unordered_map<std::string, std::string> env;
 
 protected:
-  void E_Main() {
+  int E_Main() {
     long connect_time = atol(env["CONNECT_TIME"].c_str());
     usleep(connect_time);
 
@@ -279,6 +278,7 @@ protected:
     EXPECT_EQ(expect_size, total_size);
 
     close(client_socket);
+    return 0;
   }
 };
 
@@ -297,8 +297,8 @@ TEST_F(TestEnv_Congestion0, TestCongestion0) {
            server_ip[1], server_ip[2], server_ip[3]);
   std::string connect_addr(str_buffer);
 
-  TestCongestion_Connect **clients = new TestCongestion_Connect *[num_client];
-  TestCongestion_Accept **servers = new TestCongestion_Accept *[num_client];
+  std::array<int, num_client> client_pids;
+  std::array<int, num_client> server_pids;
 
   for (int k = 0; k < num_client; k++) {
     snprintf(str_buffer, sizeof(str_buffer), "%d", k + 10000);
@@ -325,28 +325,22 @@ TEST_F(TestEnv_Congestion0, TestCongestion0) {
     connect_env["LOOP_COUNT"] = "100000";
     connect_env["SENDER"] = "1";
     connect_env["EXPECT_SIZE"] = "102400000";
-    clients[k] = new TestCongestion_Connect(client_hosts[k], connect_env);
+    client_pids[k] = client_hosts[k]->addApplication<TestCongestion_Connect>(
+        *client_hosts[k], connect_env);
 
     accept_env["SENDER"] = "0";
     accept_env["BUFFER_SIZE"] = "1024";
     accept_env["LOOP_COUNT"] = "0";
     accept_env["EXPECT_SIZE"] = "102400000";
     accept_env["CONNECTION_TIMEOUT"] = "92";
-    servers[k] = new TestCongestion_Accept(server_host, accept_env);
+    server_pids[k] = server_host->addApplication<TestCongestion_Accept>(
+        *server_host, accept_env);
 
-    clients[k]->initialize();
-    servers[k]->initialize();
+    client_hosts[k]->launchApplication(client_pids[k]);
+    server_host->launchApplication(server_pids[k]);
   }
 
   this->runTest();
-
-  for (int k = 0; k < num_client; k++) {
-    delete servers[k];
-    delete clients[k];
-  }
-
-  delete[] servers;
-  delete[] clients;
 }
 
 TEST_F(TestEnv_Congestion1, TestCongestion1) {
@@ -364,8 +358,8 @@ TEST_F(TestEnv_Congestion1, TestCongestion1) {
            server_ip[1], server_ip[2], server_ip[3]);
   std::string connect_addr(str_buffer);
 
-  TestCongestion_Connect **clients = new TestCongestion_Connect *[num_client];
-  TestCongestion_Accept **servers = new TestCongestion_Accept *[num_client];
+  std::array<int, num_client> client_pids;
+  std::array<int, num_client> server_pids;
 
   for (int k = 0; k < num_client; k++) {
     snprintf(str_buffer, sizeof(str_buffer), "%d", k + 10000);
@@ -392,28 +386,22 @@ TEST_F(TestEnv_Congestion1, TestCongestion1) {
     connect_env["LOOP_COUNT"] = "10000";
     connect_env["SENDER"] = "1";
     connect_env["EXPECT_SIZE"] = "10240000";
-    clients[k] = new TestCongestion_Connect(client_hosts[k], connect_env);
+    client_pids[k] = client_hosts[k]->addApplication<TestCongestion_Connect>(
+        *client_hosts[k], connect_env);
 
     accept_env["SENDER"] = "0";
     accept_env["BUFFER_SIZE"] = "1024";
     accept_env["LOOP_COUNT"] = "0";
     accept_env["EXPECT_SIZE"] = "10240000";
     accept_env["CONNECTION_TIMEOUT"] = "60";
-    servers[k] = new TestCongestion_Accept(server_host, accept_env);
+    server_pids[k] = server_host->addApplication<TestCongestion_Accept>(
+        *server_host, accept_env);
 
-    clients[k]->initialize();
-    servers[k]->initialize();
+    client_hosts[k]->launchApplication(client_pids[k]);
+    server_host->launchApplication(server_pids[k]);
   }
 
   this->runTest();
-
-  for (int k = 0; k < num_client; k++) {
-    delete servers[k];
-    delete clients[k];
-  }
-
-  delete[] servers;
-  delete[] clients;
 }
 
 TEST_F(TestEnv_Congestion2, TestCongestion2) {
@@ -431,8 +419,8 @@ TEST_F(TestEnv_Congestion2, TestCongestion2) {
            server_ip[1], server_ip[2], server_ip[3]);
   std::string connect_addr(str_buffer);
 
-  TestCongestion_Connect **clients = new TestCongestion_Connect *[num_client];
-  TestCongestion_Accept **servers = new TestCongestion_Accept *[num_client];
+  std::array<int, num_client> client_pids;
+  std::array<int, num_client> server_pids;
 
   for (int k = 0; k < num_client; k++) {
     snprintf(str_buffer, sizeof(str_buffer), "%d", k + 10000);
@@ -459,26 +447,20 @@ TEST_F(TestEnv_Congestion2, TestCongestion2) {
     connect_env["LOOP_COUNT"] = "10000";
     connect_env["SENDER"] = "1";
     connect_env["EXPECT_SIZE"] = "10240000";
-    clients[k] = new TestCongestion_Connect(client_hosts[k], connect_env);
+    client_pids[k] = client_hosts[k]->addApplication<TestCongestion_Connect>(
+        *client_hosts[k], connect_env);
 
     accept_env["SENDER"] = "0";
     accept_env["BUFFER_SIZE"] = "1024";
     accept_env["LOOP_COUNT"] = "0";
     accept_env["EXPECT_SIZE"] = "10240000";
     accept_env["CONNECTION_TIMEOUT"] = "150";
-    servers[k] = new TestCongestion_Accept(server_host, accept_env);
+    server_pids[k] = server_host->addApplication<TestCongestion_Accept>(
+        *server_host, accept_env);
 
-    clients[k]->initialize();
-    servers[k]->initialize();
+    client_hosts[k]->launchApplication(client_pids[k]);
+    server_host->launchApplication(server_pids[k]);
   }
 
   this->runTest();
-
-  for (int k = 0; k < num_client; k++) {
-    delete servers[k];
-    delete clients[k];
-  }
-
-  delete[] servers;
-  delete[] clients;
 }

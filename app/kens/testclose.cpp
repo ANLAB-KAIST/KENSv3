@@ -23,11 +23,11 @@
 
 using namespace E;
 
-class TestClose_Accept : public SystemCallApplication, private TCPApplication {
+class TestClose_Accept : public TCPApplication {
 public:
-  TestClose_Accept(Host *host,
+  TestClose_Accept(Host &host,
                    const std::unordered_map<std::string, std::string> &env)
-      : SystemCallApplication(host), TCPApplication(this) {
+      : TCPApplication(host) {
     this->env = env;
   }
 
@@ -35,7 +35,7 @@ protected:
   std::unordered_map<std::string, std::string> env;
 
 protected:
-  void E_Main() {
+  int E_Main() {
     int server_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     struct sockaddr_in addr;
     socklen_t len = sizeof(addr);
@@ -90,14 +90,15 @@ protected:
     close(client_fd);
 
     close(server_socket);
+    return 0;
   }
 };
 
-class TestClose_Connect : public SystemCallApplication, private TCPApplication {
+class TestClose_Connect : public TCPApplication {
 public:
-  TestClose_Connect(Host *host,
+  TestClose_Connect(Host &host,
                     const std::unordered_map<std::string, std::string> &env)
-      : SystemCallApplication(host), TCPApplication(this) {
+      : TCPApplication(host) {
     this->env = env;
   }
 
@@ -105,7 +106,7 @@ protected:
   std::unordered_map<std::string, std::string> env;
 
 protected:
-  void E_Main() {
+  int E_Main() {
     long connect_time = atol(env["CONNECT_TIME"].c_str());
     usleep(connect_time);
 
@@ -141,6 +142,7 @@ protected:
     usleep(sleep_time);
 
     close(client_socket);
+    return 0;
   }
 };
 
@@ -175,11 +177,12 @@ TEST_F(TestEnv_Any, TestClose_Connect_CloseFirst) {
       TimeUtil::makeTime(1010000, TimeUtil::USEC), TimeUtil::USEC);
 
   connect_env["CONNECT_ADDR"] = host2_ip;
-  TestClose_Connect client(host1, connect_env);
-  TestClose_Accept server(host2, accept_env);
 
-  server.initialize();
-  client.initialize();
+  int client_pid =
+      host1->addApplication<TestClose_Connect>(*host1, connect_env);
+  int server_pid = host2->addApplication<TestClose_Accept>(*host2, accept_env);
+  host1->launchApplication(client_pid);
+  host2->launchApplication(server_pid);
 
   this->runTest();
 }
@@ -215,11 +218,12 @@ TEST_F(TestEnv_Any, TestClose_Connect_CloseLater) {
       TimeUtil::makeTime(1020000, TimeUtil::USEC), TimeUtil::USEC);
 
   connect_env["CONNECT_ADDR"] = host2_ip;
-  TestClose_Connect client(host1, connect_env);
-  TestClose_Accept server(host2, accept_env);
 
-  server.initialize();
-  client.initialize();
+  int client_pid =
+      host1->addApplication<TestClose_Connect>(*host1, connect_env);
+  int server_pid = host2->addApplication<TestClose_Accept>(*host2, accept_env);
+  host1->launchApplication(client_pid);
+  host2->launchApplication(server_pid);
 
   this->runTest();
 }
@@ -255,11 +259,12 @@ TEST_F(TestEnv_Any, TestClose_Connect_CloseSimultaneous) {
       TimeUtil::makeTime(1010000, TimeUtil::USEC), TimeUtil::USEC);
 
   connect_env["CONNECT_ADDR"] = host2_ip;
-  TestClose_Connect client(host1, connect_env);
-  TestClose_Accept server(host2, accept_env);
 
-  server.initialize();
-  client.initialize();
+  int client_pid =
+      host1->addApplication<TestClose_Connect>(*host1, connect_env);
+  int server_pid = host2->addApplication<TestClose_Accept>(*host2, accept_env);
+  host1->launchApplication(client_pid);
+  host2->launchApplication(server_pid);
 
   this->runTest();
 }
@@ -297,11 +302,12 @@ TEST_F(TestEnv_Any, TestClose_Accept_CloseLater) {
       TimeUtil::makeTime(1010000, TimeUtil::USEC), TimeUtil::USEC);
 
   connect_env["CONNECT_ADDR"] = host1_ip;
-  TestClose_Connect client(host2, connect_env);
-  TestClose_Accept server(host1, accept_env);
 
-  server.initialize();
-  client.initialize();
+  int client_pid =
+      host2->addApplication<TestClose_Connect>(*host2, connect_env);
+  int server_pid = host1->addApplication<TestClose_Accept>(*host1, accept_env);
+  host2->launchApplication(client_pid);
+  host1->launchApplication(server_pid);
 
   this->runTest();
 }
@@ -337,11 +343,12 @@ TEST_F(TestEnv_Any, TestClose_Accept_CloseFirst) {
       TimeUtil::makeTime(1020000, TimeUtil::USEC), TimeUtil::USEC);
 
   connect_env["CONNECT_ADDR"] = host1_ip;
-  TestClose_Connect client(host2, connect_env);
-  TestClose_Accept server(host1, accept_env);
 
-  server.initialize();
-  client.initialize();
+  int client_pid =
+      host2->addApplication<TestClose_Connect>(*host2, connect_env);
+  int server_pid = host1->addApplication<TestClose_Accept>(*host1, accept_env);
+  host2->launchApplication(client_pid);
+  host1->launchApplication(server_pid);
 
   this->runTest();
 }
@@ -377,11 +384,12 @@ TEST_F(TestEnv_Any, TestClose_Accept_CloseSimultaneous) {
       TimeUtil::makeTime(1010000, TimeUtil::USEC), TimeUtil::USEC);
 
   connect_env["CONNECT_ADDR"] = host1_ip;
-  TestClose_Connect client(host2, connect_env);
-  TestClose_Accept server(host1, accept_env);
 
-  server.initialize();
-  client.initialize();
+  int client_pid =
+      host2->addApplication<TestClose_Connect>(*host2, connect_env);
+  int server_pid = host1->addApplication<TestClose_Accept>(*host1, accept_env);
+  host2->launchApplication(client_pid);
+  host1->launchApplication(server_pid);
 
   this->runTest();
 }

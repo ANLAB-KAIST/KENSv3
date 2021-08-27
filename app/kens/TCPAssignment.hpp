@@ -10,26 +10,22 @@
 
 #include <E/Networking/E_Host.hpp>
 #include <E/Networking/E_Networking.hpp>
+#include <E/Networking/E_TimerModule.hpp>
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <netinet/ip.h>
 #include <netinet/tcp.h>
 
-#include <E/E_TimerModule.hpp>
-
 namespace E {
 
 class TCPAssignment : public HostModule,
-                      public NetworkModule,
                       public SystemCallInterface,
-                      private NetworkLog,
-                      private TimerModule {
-private:
+                      public TimerModule {
 private:
   virtual void timerCallback(std::any payload) final;
 
 public:
-  TCPAssignment(Host *host);
+  TCPAssignment(Host &host);
   virtual void initialize();
   virtual void finalize();
   virtual ~TCPAssignment();
@@ -46,7 +42,7 @@ private:
   ~TCPAssignmentProvider() {}
 
 public:
-  static HostModule *allocate(Host *host) { return new TCPAssignment(host); }
+  static void allocate(Host &host) { host.addHostModule<TCPAssignment>(host); }
 };
 
 } // namespace E

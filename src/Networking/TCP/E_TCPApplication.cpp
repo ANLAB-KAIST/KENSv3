@@ -8,9 +8,7 @@
 #include <E/Networking/TCP/E_TCPApplication.hpp>
 
 namespace E {
-TCPApplication::TCPApplication(SystemCallApplication *syscall) {
-  this->syscall = syscall;
-}
+TCPApplication::TCPApplication(Host &host) : SystemCallApplication(host) {}
 TCPApplication::~TCPApplication() {}
 
 int TCPApplication::socket(int domain, int type__unused, int protocol) {
@@ -19,14 +17,14 @@ int TCPApplication::socket(int domain, int type__unused, int protocol) {
   param.param2_int = type__unused;
   param.param3_int = protocol;
   param.syscallNumber = SystemCallInterface::SystemCall::SOCKET;
-  int ret = syscall->E_Syscall(param);
+  int ret = E_Syscall(param);
   return ret;
 }
 int TCPApplication::close(int fd) {
   SystemCallInterface::SystemCallParameter param;
   param.param1_int = fd;
   param.syscallNumber = SystemCallInterface::SystemCall::CLOSE;
-  int ret = syscall->E_Syscall(param);
+  int ret = E_Syscall(param);
   return ret;
 }
 int TCPApplication::bind(int sockfd, const struct sockaddr *addr,
@@ -36,7 +34,7 @@ int TCPApplication::bind(int sockfd, const struct sockaddr *addr,
   param.param2_ptr = (void *)addr;
   param.param3_int = addrlen;
   param.syscallNumber = SystemCallInterface::SystemCall::BIND;
-  int ret = syscall->E_Syscall(param);
+  int ret = E_Syscall(param);
   return ret;
 }
 int TCPApplication::getsockname(int sockfd, struct sockaddr *addr,
@@ -46,7 +44,7 @@ int TCPApplication::getsockname(int sockfd, struct sockaddr *addr,
   param.param2_ptr = (void *)addr;
   param.param3_ptr = (void *)addrlen;
   param.syscallNumber = SystemCallInterface::SystemCall::GETSOCKNAME;
-  int ret = syscall->E_Syscall(param);
+  int ret = E_Syscall(param);
   return ret;
 }
 int TCPApplication::getpeername(int sockfd, struct sockaddr *addr,
@@ -56,7 +54,7 @@ int TCPApplication::getpeername(int sockfd, struct sockaddr *addr,
   param.param2_ptr = (void *)addr;
   param.param3_ptr = (void *)addrlen;
   param.syscallNumber = SystemCallInterface::SystemCall::GETPEERNAME;
-  int ret = syscall->E_Syscall(param);
+  int ret = E_Syscall(param);
   return ret;
 }
 int TCPApplication::read(int fd, void *buf, size_t count) {
@@ -65,7 +63,7 @@ int TCPApplication::read(int fd, void *buf, size_t count) {
   param.param2_ptr = (void *)buf;
   param.param3_int = (int)count;
   param.syscallNumber = SystemCallInterface::SystemCall::READ;
-  int ret = syscall->E_Syscall(param);
+  int ret = E_Syscall(param);
   return ret;
 }
 int TCPApplication::write(int fd, const void *buf, size_t count) {
@@ -74,7 +72,7 @@ int TCPApplication::write(int fd, const void *buf, size_t count) {
   param.param2_ptr = (void *)buf;
   param.param3_int = (int)count;
   param.syscallNumber = SystemCallInterface::SystemCall::WRITE;
-  int ret = syscall->E_Syscall(param);
+  int ret = E_Syscall(param);
   return ret;
 }
 int TCPApplication::connect(int sockfd, const struct sockaddr *addr,
@@ -84,7 +82,7 @@ int TCPApplication::connect(int sockfd, const struct sockaddr *addr,
   param.param2_ptr = (void *)addr;
   param.param3_int = addrlen;
   param.syscallNumber = SystemCallInterface::SystemCall::CONNECT;
-  int ret = syscall->E_Syscall(param);
+  int ret = E_Syscall(param);
   return ret;
 }
 int TCPApplication::listen(int sockfd, int backlog) {
@@ -92,7 +90,7 @@ int TCPApplication::listen(int sockfd, int backlog) {
   param.param1_int = sockfd;
   param.param2_int = backlog;
   param.syscallNumber = SystemCallInterface::SystemCall::LISTEN;
-  int ret = syscall->E_Syscall(param);
+  int ret = E_Syscall(param);
   return ret;
 }
 int TCPApplication::accept(int sockfd, struct sockaddr *addr,
@@ -102,14 +100,14 @@ int TCPApplication::accept(int sockfd, struct sockaddr *addr,
   param.param2_ptr = (void *)addr;
   param.param3_ptr = (void *)addrlen;
   param.syscallNumber = SystemCallInterface::SystemCall::ACCEPT;
-  int ret = syscall->E_Syscall(param);
+  int ret = E_Syscall(param);
   return ret;
 }
 int TCPApplication::nsleep(long nanosleep) {
   SystemCallInterface::SystemCallParameter param;
   param.param1_long = nanosleep;
   param.syscallNumber = SystemCallInterface::SystemCall::NSLEEP;
-  int ret = syscall->E_Syscall(param);
+  int ret = E_Syscall(param);
   return ret;
 }
 
@@ -128,7 +126,7 @@ int TCPApplication::gettimeofday(struct timeval *tv, struct timezone *tz) {
   param.syscallNumber = SystemCallInterface::SystemCall::GETTIMEOFDAY;
   param.param1_ptr = (void *)tv;
   param.param2_ptr = (void *)tz;
-  int ret = syscall->E_Syscall(param);
+  int ret = E_Syscall(param);
   return ret;
 }
 

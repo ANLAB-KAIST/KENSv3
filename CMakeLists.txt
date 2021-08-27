@@ -7,6 +7,28 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_C_STANDARD 11)
 
+option(SANITIZER "enable clang sanitzer (default: OFF)")
+
+if("${SANITIZER}" STREQUAL "address")
+  message(STATUS "Sanitizer Selected: address")
+  set(SANITIZER_FLAGS "-g -fsanitize=address -fno-omit-frame-pointer")
+elseif("${SANITIZER}" STREQUAL "thread")
+  message(STATUS "Sanitizer Selected: thread")
+  set(SANITIZER_FLAGS "-g -fsanitize=thread")
+elseif("${SANITIZER}" STREQUAL "memory")
+  message(STATUS "Sanitizer Selected: memory")
+  set(SANITIZER_FLAGS "-g -fsanitize=memory -fno-omit-frame-pointer")
+elseif("${SANITIZER}" STREQUAL "undefined")
+  message(STATUS "Sanitizer Selected: undefined")
+  set(SANITIZER_FLAGS "-g -fsanitize=undefined")
+endif()
+
+if(SANITIZER_FLAGS)
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${SANITIZER_FLAGS}")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SANITIZER_FLAGS}")
+  set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} ${SANITIZER_FLAGS}")
+endif(SANITIZER_FLAGS)
+
 # Compiler Test
 
 include(CheckCXXSourceCompiles)
@@ -53,6 +75,24 @@ check_cxx_source_compiles(
     "
   HAVE_PRAGMA_PACK)
 
+
+check_cxx_source_compiles(
+  "
+  #include <cassert>
+  #include <cstring>
+  #include <cxxabi.h>
+  struct aAa {};
+  
+  int main(void) {
+    struct aAa a1;
+    int status = -4;
+    char *ret = abi::__cxa_demangle(typeid(a1).name(), NULL, NULL, &status);
+    assert(std::strcmp(ret, \"aAa\") == 0);
+    return 0;
+  }
+  "
+  HAVE_DEMANGLE)
+
 if(HAVE_ATTR_PACK)
   add_compile_definitions(HAVE_ATTR_PACK)
 elseif(HAVE_PRAGMA_PACK)
@@ -61,8 +101,14 @@ else()
   message(FATAL_ERROR "Compiler must support packing")
 endif()
 
+if(HAVE_DEMANGLE)
+add_compile_definitions(HAVE_DEMANGLE)
+endif()
+
+
 # Build E
 file(GLOB_RECURSE e_SOURCES "src/*.cpp")
+
 file(GLOB_RECURSE e_HEADERS "include/*.hpp")
 
 add_library(e STATIC ${e_SOURCES} ${e_HEADERS})
@@ -128,6 +174,8 @@ endfunction()
 
 file(GLOB_RECURSE e_solution_CMAKELISTS
      "${PROJECT_SOURCE_DIR}/solution/*/CMakeLists.txt")
+
+
 foreach(cmakelists ${e_solution_CMAKELISTS})
   get_filename_component(e_solution_DIR ${cmakelists} DIRECTORY)
   add_subdirectory(${e_solution_DIR})
@@ -172,6 +220,9 @@ endfunction()
 # Build Apps
 
 file(GLOB e_apps_CMAKELISTS "${PROJECT_SOURCE_DIR}/app/*/CMakeLists.txt")
+list(FILTER e_apps_CMAKELISTS EXCLUDE REGEX ".*/scheduling/.*")
+
+
 foreach(cmakelists ${e_apps_CMAKELISTS})
   get_filename_component(e_apps_DIR ${cmakelists} DIRECTORY)
   add_subdirectory(${e_apps_DIR})

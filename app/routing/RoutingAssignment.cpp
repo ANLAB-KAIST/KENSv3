@@ -3,7 +3,6 @@
  *
  */
 
-#include "RoutingAssignment.hpp"
 #include <E/E_Common.hpp>
 #include <E/Networking/E_Host.hpp>
 #include <E/Networking/E_NetworkUtil.hpp>
@@ -11,12 +10,12 @@
 #include <E/Networking/E_Packet.hpp>
 #include <cerrno>
 
+#include "RoutingAssignment.hpp"
+
 namespace E {
 
-RoutingAssignment::RoutingAssignment(Host *host)
-    : HostModule("UDP", host),
-      NetworkModule(this->getHostModuleName(), host->getNetworkSystem()),
-      NetworkLog(host->getNetworkSystem()), TimerModule(host->getSystem()) {}
+RoutingAssignment::RoutingAssignment(Host &host)
+    : HostModule("UDP", host), TimerModule("UDP", host) {}
 
 RoutingAssignment::~RoutingAssignment() {}
 

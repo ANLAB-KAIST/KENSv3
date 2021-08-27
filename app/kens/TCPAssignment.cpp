@@ -15,11 +15,9 @@
 
 namespace E {
 
-TCPAssignment::TCPAssignment(Host *host)
-    : HostModule("TCP", host),
-      NetworkModule(this->getHostModuleName(), host->getNetworkSystem()),
-      SystemCallInterface(AF_INET, IPPROTO_TCP, host),
-      NetworkLog(host->getNetworkSystem()), TimerModule(host->getSystem()) {}
+TCPAssignment::TCPAssignment(Host &host)
+    : HostModule("TCP", host), SystemCallInterface(AF_INET, IPPROTO_TCP, host),
+      TimerModule("TCP", host) {}
 
 TCPAssignment::~TCPAssignment() {}
 

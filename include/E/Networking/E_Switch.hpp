@@ -14,7 +14,7 @@ namespace E {
 
 class Switch : public Link {
 private:
-  std::unordered_map<Port *, std::unordered_set<uint64_t>> mac_table;
+  std::unordered_map<ModuleID, std::unordered_set<uint64_t>> mac_table;
   E::UniformDistribution dist;
   bool unreliable;
   Real drop_base;
@@ -23,11 +23,11 @@ private:
   Real drop_base_final;
 
 protected:
-  virtual void packetArrived(Port *inPort, Packet &&packet);
+  virtual void packetArrived(const ModuleID inWireID, Packet &&packet);
 
 public:
-  Switch(std::string name, NetworkSystem *system, bool unreliable = false);
-  void addMACEntry(Port *toPort, const mac_t &mac);
+  Switch(std::string name, NetworkSystem &system, bool unreliable = false);
+  void addMACEntry(int port, const mac_t &mac);
 };
 
 } // namespace E

@@ -7,15 +7,15 @@
 
 #include <E/Networking/E_Hub.hpp>
 #include <E/Networking/E_Packet.hpp>
-#include <E/Networking/E_Port.hpp>
+#include <E/Networking/E_Wire.hpp>
 
 namespace E {
 
-Hub::Hub(std::string name, NetworkSystem *system) : Link(name, system) {}
+Hub::Hub(std::string name, NetworkSystem &system) : Link(name, system) {}
 
-void Hub::packetArrived(Port *inPort, Packet &&packet) {
-  for (Port *port : this->connectedPorts) {
-    if (inPort != port) {
+void Hub::packetArrived(const ModuleID inWireID, Packet &&packet) {
+  for (const ModuleID port : this->ports) {
+    if (inWireID != port) {
       Packet newPacket = packet.clone();
       this->sendPacket(port, std::move(newPacket));
     }

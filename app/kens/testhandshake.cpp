@@ -23,12 +23,11 @@
 
 using namespace E;
 
-class TestHandshake_Accept : public SystemCallApplication,
-                             private TCPApplication {
+class TestHandshake_Accept : public TCPApplication {
 public:
-  TestHandshake_Accept(Host *host,
+  TestHandshake_Accept(Host &host,
                        const std::unordered_map<std::string, std::string> &env)
-      : SystemCallApplication(host), TCPApplication(this) {
+      : TCPApplication(host) {
     this->env = env;
   }
 
@@ -36,7 +35,7 @@ protected:
   std::unordered_map<std::string, std::string> env;
 
 protected:
-  void E_Main() {
+  int E_Main() {
     int server_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     struct sockaddr_in addr;
     socklen_t len = sizeof(addr);
@@ -104,15 +103,15 @@ protected:
     }
 
     close(server_socket);
+    return 0;
   }
 };
 
-class TestHandshake_Connect : public SystemCallApplication,
-                              private TCPApplication {
+class TestHandshake_Connect : public TCPApplication {
 public:
-  TestHandshake_Connect(Host *host,
+  TestHandshake_Connect(Host &host,
                         const std::unordered_map<std::string, std::string> &env)
-      : SystemCallApplication(host), TCPApplication(this) {
+      : TCPApplication(host) {
     this->env = env;
   }
 
@@ -120,7 +119,7 @@ protected:
   std::unordered_map<std::string, std::string> env;
 
 protected:
-  void E_Main() {
+  int E_Main() {
     std::vector<int> client_sockets;
     std::vector<int> client_ports;
     int connect_count = atoi(env["CONNECT_COUNT"].c_str());
@@ -178,6 +177,7 @@ protected:
     for (auto client_fd : client_sockets) {
       close(client_fd);
     }
+    return 0;
   }
 };
 
@@ -212,37 +212,44 @@ TEST_F(TestEnv_Reliable, TestAccept_Backlog1) {
   connect_env["EXPECT_CONNECT"] = "1";
   connect_env["CONNECT_PERIOD"] = "0";
 
-  TestHandshake_Accept server(host1, accept_env);
+  int server_pid =
+      host1->addApplication<TestHandshake_Accept>(*host1, accept_env);
 
   connect_env["CONNECT_TIME"] = TimeUtil::printTime(
       TimeUtil::makeTime(1, TimeUtil::USEC), TimeUtil::USEC);
-  TestHandshake_Connect client1(host2, connect_env);
+  int client1_pid =
+      host2->addApplication<TestHandshake_Connect>(*host2, connect_env);
   connect_env["CONNECT_TIME"] = TimeUtil::printTime(
       TimeUtil::makeTime(2, TimeUtil::USEC), TimeUtil::USEC);
-  TestHandshake_Connect client2(host2, connect_env);
+  int client2_pid =
+      host2->addApplication<TestHandshake_Connect>(*host2, connect_env);
   connect_env["CONNECT_TIME"] = TimeUtil::printTime(
       TimeUtil::makeTime(3, TimeUtil::USEC), TimeUtil::USEC);
-  TestHandshake_Connect client3(host2, connect_env);
+  int client3_pid =
+      host2->addApplication<TestHandshake_Connect>(*host2, connect_env);
 
   connect_env["EXPECT_CONNECT"] = "0";
 
   connect_env["CONNECT_TIME"] = TimeUtil::printTime(
       TimeUtil::makeTime(4, TimeUtil::USEC), TimeUtil::USEC);
-  TestHandshake_Connect client4(host2, connect_env);
+  int client4_pid =
+      host2->addApplication<TestHandshake_Connect>(*host2, connect_env);
   connect_env["CONNECT_TIME"] = TimeUtil::printTime(
       TimeUtil::makeTime(5, TimeUtil::USEC), TimeUtil::USEC);
-  TestHandshake_Connect client5(host2, connect_env);
+  int client5_pid =
+      host2->addApplication<TestHandshake_Connect>(*host2, connect_env);
   connect_env["CONNECT_TIME"] = TimeUtil::printTime(
       TimeUtil::makeTime(6, TimeUtil::USEC), TimeUtil::USEC);
-  TestHandshake_Connect client6(host2, connect_env);
+  int client6_pid =
+      host2->addApplication<TestHandshake_Connect>(*host2, connect_env);
 
-  server.initialize();
-  client1.initialize();
-  client2.initialize();
-  client3.initialize();
-  client4.initialize();
-  client5.initialize();
-  client6.initialize();
+  host1->launchApplication(server_pid);
+  host2->launchApplication(client1_pid);
+  host2->launchApplication(client2_pid);
+  host2->launchApplication(client3_pid);
+  host2->launchApplication(client4_pid);
+  host2->launchApplication(client5_pid);
+  host2->launchApplication(client6_pid);
 
   this->runTest();
 }
@@ -278,33 +285,40 @@ TEST_F(TestEnv_Reliable, TestAccept_Backlog2) {
   connect_env["EXPECT_CONNECT"] = "1";
   connect_env["CONNECT_PERIOD"] = "0";
 
-  TestHandshake_Accept server(host1, accept_env);
+  int server_pid =
+      host1->addApplication<TestHandshake_Accept>(*host1, accept_env);
   connect_env["CONNECT_TIME"] = TimeUtil::printTime(
       TimeUtil::makeTime(10, TimeUtil::MSEC), TimeUtil::USEC);
-  TestHandshake_Connect client1(host2, connect_env);
+  int client1_pid =
+      host2->addApplication<TestHandshake_Connect>(*host2, connect_env);
   connect_env["CONNECT_TIME"] = TimeUtil::printTime(
       TimeUtil::makeTime(20, TimeUtil::MSEC), TimeUtil::USEC);
-  TestHandshake_Connect client2(host2, connect_env);
+  int client2_pid =
+      host2->addApplication<TestHandshake_Connect>(*host2, connect_env);
   connect_env["CONNECT_TIME"] = TimeUtil::printTime(
       TimeUtil::makeTime(30, TimeUtil::MSEC), TimeUtil::USEC);
-  TestHandshake_Connect client3(host2, connect_env);
+  int client3_pid =
+      host2->addApplication<TestHandshake_Connect>(*host2, connect_env);
   connect_env["CONNECT_TIME"] = TimeUtil::printTime(
       TimeUtil::makeTime(40, TimeUtil::MSEC), TimeUtil::USEC);
-  TestHandshake_Connect client4(host2, connect_env);
+  int client4_pid =
+      host2->addApplication<TestHandshake_Connect>(*host2, connect_env);
   connect_env["CONNECT_TIME"] = TimeUtil::printTime(
       TimeUtil::makeTime(50, TimeUtil::MSEC), TimeUtil::USEC);
-  TestHandshake_Connect client5(host2, connect_env);
+  int client5_pid =
+      host2->addApplication<TestHandshake_Connect>(*host2, connect_env);
   connect_env["CONNECT_TIME"] = TimeUtil::printTime(
       TimeUtil::makeTime(60, TimeUtil::MSEC), TimeUtil::USEC);
-  TestHandshake_Connect client6(host2, connect_env);
+  int client6_pid =
+      host2->addApplication<TestHandshake_Connect>(*host2, connect_env);
 
-  server.initialize();
-  client1.initialize();
-  client2.initialize();
-  client3.initialize();
-  client4.initialize();
-  client5.initialize();
-  client6.initialize();
+  host1->launchApplication(server_pid);
+  host2->launchApplication(client1_pid);
+  host2->launchApplication(client2_pid);
+  host2->launchApplication(client3_pid);
+  host2->launchApplication(client4_pid);
+  host2->launchApplication(client5_pid);
+  host2->launchApplication(client6_pid);
 
   this->runTest();
 }
@@ -340,13 +354,15 @@ TEST_F(TestEnv_Any, TestAccept_BeforeAccept) {
   connect_env["EXPECT_CONNECT"] = "1";
   connect_env["CONNECT_PERIOD"] = "0";
 
-  TestHandshake_Accept server(host1, accept_env);
+  int server_pid =
+      host1->addApplication<TestHandshake_Accept>(*host1, accept_env);
   connect_env["CONNECT_TIME"] = TimeUtil::printTime(
       TimeUtil::makeTime(100, TimeUtil::MSEC), TimeUtil::USEC);
-  TestHandshake_Connect client1(host2, connect_env);
+  int client1_pid =
+      host2->addApplication<TestHandshake_Connect>(*host2, connect_env);
 
-  server.initialize();
-  client1.initialize();
+  host1->launchApplication(server_pid);
+  host2->launchApplication(client1_pid);
 
   this->runTest();
 }
@@ -382,13 +398,15 @@ TEST_F(TestEnv_Any, TestAccept_AfterAccept) {
   connect_env["EXPECT_CONNECT"] = "1";
   connect_env["CONNECT_PERIOD"] = "0";
 
-  TestHandshake_Accept server(host1, accept_env);
+  int server_pid =
+      host1->addApplication<TestHandshake_Accept>(*host1, accept_env);
   connect_env["CONNECT_TIME"] =
       TimeUtil::printTime(TimeUtil::makeTime(2, TimeUtil::SEC), TimeUtil::USEC);
-  TestHandshake_Connect client1(host2, connect_env);
+  int client1_pid =
+      host2->addApplication<TestHandshake_Connect>(*host2, connect_env);
 
-  server.initialize();
-  client1.initialize();
+  host1->launchApplication(server_pid);
+  host2->launchApplication(client1_pid);
 
   this->runTest();
 }
@@ -422,12 +440,14 @@ TEST_F(TestEnv_Any, TestAccept_MultipleInterface1) {
   accept_env["ACCEPT_COUNT"] = "3";
   accept_env["EXPECT_ACCEPT"] = "3";
   accept_env["LISTEN_ADDR"] = host1_ip;
-  TestHandshake_Accept server1(host1, accept_env);
+  int server1_pid =
+      host1->addApplication<TestHandshake_Accept>(*host1, accept_env);
 
   accept_env["ACCEPT_COUNT"] = "5";
   accept_env["EXPECT_ACCEPT"] = "5";
   accept_env["LISTEN_ADDR"] = host1_ip2;
-  TestHandshake_Accept server2(host1, accept_env);
+  int server2_pid =
+      host1->addApplication<TestHandshake_Accept>(*host1, accept_env);
 
   connect_env["CONNECT_PORT"] = "9999";
   connect_env["CONNECT_PERIOD"] = "1";
@@ -437,17 +457,19 @@ TEST_F(TestEnv_Any, TestAccept_MultipleInterface1) {
   connect_env["CONNECT_ADDR"] = host1_ip;
   connect_env["CONNECT_COUNT"] = "3";
   connect_env["EXPECT_CONNECT"] = "3";
-  TestHandshake_Connect client1(host2, connect_env);
+  int client1_pid =
+      host2->addApplication<TestHandshake_Connect>(*host2, connect_env);
 
   connect_env["CONNECT_ADDR"] = host1_ip2;
   connect_env["CONNECT_COUNT"] = "5";
   connect_env["EXPECT_CONNECT"] = "5";
-  TestHandshake_Connect client2(host2, connect_env);
+  int client2_pid =
+      host2->addApplication<TestHandshake_Connect>(*host2, connect_env);
 
-  server1.initialize();
-  client1.initialize();
-  server2.initialize();
-  client2.initialize();
+  host1->launchApplication(server1_pid);
+  host2->launchApplication(client1_pid);
+  host1->launchApplication(server2_pid);
+  host2->launchApplication(client2_pid);
 
   this->runTest();
 }
@@ -481,12 +503,14 @@ TEST_F(TestEnv_Any, TestAccept_MultipleInterface2) {
   accept_env["ACCEPT_COUNT"] = "4";
   accept_env["EXPECT_ACCEPT"] = "4";
   accept_env["LISTEN_ADDR"] = host1_ip;
-  TestHandshake_Accept server1(host1, accept_env);
+  int server1_pid =
+      host1->addApplication<TestHandshake_Accept>(*host1, accept_env);
 
   accept_env["ACCEPT_COUNT"] = "2";
   accept_env["EXPECT_ACCEPT"] = "2";
   accept_env["LISTEN_ADDR"] = host1_ip2;
-  TestHandshake_Accept server2(host1, accept_env);
+  int server2_pid =
+      host1->addApplication<TestHandshake_Accept>(*host1, accept_env);
 
   connect_env["CONNECT_PORT"] = "9999";
   connect_env["CONNECT_PERIOD"] = "1";
@@ -496,17 +520,19 @@ TEST_F(TestEnv_Any, TestAccept_MultipleInterface2) {
   connect_env["CONNECT_ADDR"] = host1_ip;
   connect_env["CONNECT_COUNT"] = "4";
   connect_env["EXPECT_CONNECT"] = "4";
-  TestHandshake_Connect client1(host2, connect_env);
+  int client1_pid =
+      host2->addApplication<TestHandshake_Connect>(*host2, connect_env);
 
   connect_env["CONNECT_ADDR"] = host1_ip2;
   connect_env["CONNECT_COUNT"] = "2";
   connect_env["EXPECT_CONNECT"] = "2";
-  TestHandshake_Connect client2(host2, connect_env);
+  int client2_pid =
+      host2->addApplication<TestHandshake_Connect>(*host2, connect_env);
 
-  server1.initialize();
-  client1.initialize();
-  server2.initialize();
-  client2.initialize();
+  host1->launchApplication(server1_pid);
+  host2->launchApplication(client1_pid);
+  host1->launchApplication(server2_pid);
+  host2->launchApplication(client2_pid);
 
   this->runTest();
 }
@@ -542,13 +568,15 @@ TEST_F(TestEnv_Any, TestConnect_BeforeAccept) {
   connect_env["EXPECT_CONNECT"] = "1";
   connect_env["CONNECT_PERIOD"] = "0";
 
-  TestHandshake_Accept server(host2, accept_env);
+  int server_pid =
+      host2->addApplication<TestHandshake_Accept>(*host2, accept_env);
   connect_env["CONNECT_TIME"] = TimeUtil::printTime(
       TimeUtil::makeTime(100, TimeUtil::MSEC), TimeUtil::USEC);
-  TestHandshake_Connect client1(host1, connect_env);
+  int client_pid =
+      host1->addApplication<TestHandshake_Connect>(*host1, connect_env);
 
-  server.initialize();
-  client1.initialize();
+  host2->launchApplication(server_pid);
+  host1->launchApplication(client_pid);
 
   this->runTest();
 }
@@ -584,23 +612,24 @@ TEST_F(TestEnv_Any, TestConnect_AfterAccept) {
   connect_env["EXPECT_CONNECT"] = "1";
   connect_env["CONNECT_PERIOD"] = "0";
 
-  TestHandshake_Accept server(host2, accept_env);
+  int server_pid =
+      host2->addApplication<TestHandshake_Accept>(*host2, accept_env);
   connect_env["CONNECT_TIME"] =
       TimeUtil::printTime(TimeUtil::makeTime(2, TimeUtil::SEC), TimeUtil::USEC);
-  TestHandshake_Connect client1(host1, connect_env);
+  int client1_pid =
+      host1->addApplication<TestHandshake_Connect>(*host1, connect_env);
 
-  server.initialize();
-  client1.initialize();
+  host2->launchApplication(server_pid);
+  host1->launchApplication(client1_pid);
 
   this->runTest();
 }
 
-class TestHandshake_SimultaneousConnect : public SystemCallApplication,
-                                          private TCPApplication {
+class TestHandshake_SimultaneousConnect : public TCPApplication {
 public:
   TestHandshake_SimultaneousConnect(
-      Host *host, const std::unordered_map<std::string, std::string> &env)
-      : SystemCallApplication(host), TCPApplication(this) {
+      Host &host, const std::unordered_map<std::string, std::string> &env)
+      : TCPApplication(host) {
     this->env = env;
   }
 
@@ -608,7 +637,7 @@ protected:
   std::unordered_map<std::string, std::string> env;
 
 protected:
-  void E_Main() {
+  int E_Main() {
     long connect_time = atol(env["CONNECT_TIME"].c_str());
     usleep(connect_time);
 
@@ -652,6 +681,7 @@ protected:
     EXPECT_EQ(bind_addr.sin_port, temp_addr.sin_port);
 
     close(client_socket);
+    return 0;
   }
 };
 
@@ -676,7 +706,8 @@ TEST_F(TestEnv_Any, TestConnect_SimultaneousConnect) {
 
   connect_env["CONNECT_TIME"] =
       TimeUtil::printTime(TimeUtil::makeTime(1, TimeUtil::SEC), TimeUtil::USEC);
-  TestHandshake_SimultaneousConnect client1(host1, connect_env);
+  int client1_pid = host1->addApplication<TestHandshake_SimultaneousConnect>(
+      *host1, connect_env);
 
   connect_env["CONNECT_ADDR"] = host1_ip;
   connect_env["CONNECT_PORT"] = "22222";
@@ -684,10 +715,11 @@ TEST_F(TestEnv_Any, TestConnect_SimultaneousConnect) {
   connect_env["BIND_PORT"] = "12345";
   connect_env["CONNECT_TIME"] =
       TimeUtil::printTime(TimeUtil::makeTime(1, TimeUtil::SEC), TimeUtil::USEC);
-  TestHandshake_SimultaneousConnect client2(host2, connect_env);
+  int client2_pid = host2->addApplication<TestHandshake_SimultaneousConnect>(
+      *host2, connect_env);
 
-  client1.initialize();
-  client2.initialize();
+  host1->launchApplication(client1_pid);
+  host2->launchApplication(client2_pid);
 
   this->runTest();
 }

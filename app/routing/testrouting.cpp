@@ -6,8 +6,8 @@
 #include <E/Networking/E_Hub.hpp>
 #include <E/Networking/E_NetworkUtil.hpp>
 #include <E/Networking/E_Networking.hpp>
-#include <E/Networking/E_Port.hpp>
 #include <E/Networking/E_Switch.hpp>
+#include <E/Networking/E_Wire.hpp>
 #include <E/Networking/Ethernet/E_Ethernet.hpp>
 #include <E/Networking/IPv4/E_IPv4.hpp>
 
@@ -39,20 +39,13 @@ protected:
     printf("[RANDOM_SEED : %d]\n", seed);
   }
 
-  struct Router {
-    Host *host;
-    Ethernet *ethernet;
-    IPv4 *ipv4;
-    RoutingAssignment *interface;
-  };
-
   NetworkSystem netSystem;
-  std::array<Router, N> routers;
+  std::array<std::shared_ptr<Host>, N> routers;
 
   size_t next_mac_id;
   size_t next_network_id;
 
-  std::vector<Switch *> switches;
+  std::vector<std::shared_ptr<Switch>> switches;
 
   RouteTesting() {
     next_mac_id = 1;
@@ -89,40 +82,29 @@ protected:
     assert(!intialized);
     intialized = true;
 
-    std::array<size_t, N> num_ports = {
-        0,
-    };
-
-    std::array<size_t, N> next_ports = {
-        0,
-    };
-
-    // Counting Ports
-    for (auto &edge : graph) {
-      size_t router_i = std::get<0>(edge);
-      size_t router_j = std::get<1>(edge);
-      size_t cost = std::get<2>(edge);
-      assert(cost > 0 && cost <= CostLCM);
-      num_ports[router_i]++;
-      num_ports[router_j]++;
-    }
-
     // Install Routers
     for (size_t i = 0; i < N; ++i) {
-      routers[i].host =
-          new Host("Router" + std::to_string(i), num_ports[i], &netSystem);
+      routers[i] =
+          netSystem.addModule<Host>("Router" + std::to_string(i), netSystem);
     }
 
     // Connect Routers
     for (auto &edge : graph) {
+
+      size_t network_id = next_network_id++;
+      ipv4_t network = network_addr(network_id);
+
+      auto sw = netSystem.addModule<Switch>(
+          "Switch" + std::to_string(network_id), netSystem);
+
       size_t i = std::get<0>(edge);
       size_t j = std::get<1>(edge);
       size_t cost = std::get<2>(edge);
 
       size_t bps = CostLCM / cost;
 
-      size_t network_id = next_network_id++;
-      ipv4_t network = network_addr(network_id);
+      auto ports_i = netSystem.addWire(*routers[i], *sw, 1000000, bps).second;
+      auto ports_j = netSystem.addWire(*routers[j], *sw, 1000000, bps).second;
 
       size_t i_mac_id = next_mac_id++;
       size_t j_mac_id = next_mac_id++;
@@ -135,30 +117,21 @@ protected:
       ipv4_t j_ipv4 = network;
       j_ipv4[3] = 2;
 
-      int i_port = next_ports[i]++;
-      int j_port = next_ports[j]++;
+      int i_port = ports_i.first;
+      int j_port = ports_j.first;
 
-      routers[i].host->setMACAddr(i_mac, i_port);
-      routers[i].host->setARPTable(j_mac, j_ipv4);
-      routers[i].host->setIPAddr(i_ipv4, i_port);
-      routers[i].host->setRoutingTable(network, 24, i_port);
+      routers[i]->setMACAddr(i_mac, i_port);
+      routers[i]->setARPTable(j_mac, j_ipv4);
+      routers[i]->setIPAddr(i_ipv4, i_port);
+      routers[i]->setRoutingTable(network, 24, i_port);
 
-      routers[j].host->setMACAddr(j_mac, j_port);
-      routers[j].host->setARPTable(i_mac, i_ipv4);
-      routers[j].host->setIPAddr(j_ipv4, j_port);
-      routers[j].host->setRoutingTable(network, 24, j_port);
+      routers[j]->setMACAddr(j_mac, j_port);
+      routers[j]->setARPTable(i_mac, i_ipv4);
+      routers[j]->setIPAddr(j_ipv4, j_port);
+      routers[j]->setRoutingTable(network, 24, j_port);
 
-      routers[i].host->getPort(i_port)->setPortSpeed(bps);
-      routers[j].host->getPort(j_port)->setPortSpeed(bps);
-
-      Switch *sw =
-          new Switch("Switch" + std::to_string(network_id), &netSystem);
-
-      sw->addPort(routers[i].host->getPort(i_port));
-      sw->addPort(routers[j].host->getPort(j_port));
-
-      sw->addMACEntry(routers[i].host->getPort(i_port), i_mac);
-      sw->addMACEntry(routers[j].host->getPort(j_port), j_mac);
+      sw->addMACEntry(ports_i.second, i_mac);
+      sw->addMACEntry(ports_j.second, j_mac);
 
       const ::testing::TestInfo *const test_info =
           ::testing::UnitTest::GetInstance()->current_test_info();
@@ -174,10 +147,11 @@ protected:
 
     // Intialize Routers
     for (size_t i = 0; i < N; ++i) {
-      routers[i].ethernet = new Ethernet(routers[i].host);
-      routers[i].ipv4 = new IPv4(routers[i].host);
-      routers[i].interface = new RoutingAssignment(routers[i].host);
-      routers[i].interface->initialize();
+      Host &router = *routers[i];
+      router.addHostModule<Ethernet>(router);
+      router.addHostModule<IPv4>(router);
+      router.addHostModule<RoutingAssignment>(router);
+      router.initializeHostModule("UDP");
     }
   }
 
@@ -187,41 +161,31 @@ protected:
       size_t router_i = std::get<0>(vec);
       size_t router_j = std::get<1>(vec);
       size_t cost = std::get<2>(vec);
-      for (size_t port_num = 0;
-           port_num < routers[router_i].host->getPortCount(); ++port_num) {
-        const ipv4_t ip = routers[router_i].host->getIPAddr(port_num).value();
-        EXPECT_EQ(routers[router_j].interface->ripQuery(ip), cost);
+      for (size_t port_num = 0; port_num < routers[router_i]->getPortCount();
+           ++port_num) {
+        ipv4_t ip = routers[router_i]->getIPAddr(port_num).value();
+        size_t cost_ret = std::any_cast<size_t>(
+            routers[router_j]->diagnoseHostModule("UDP", ip));
+        EXPECT_EQ(cost_ret, cost);
       }
-      for (size_t port_num = 0;
-           port_num < routers[router_j].host->getPortCount(); ++port_num) {
-        const ipv4_t ip = routers[router_j].host->getIPAddr(port_num).value();
-        EXPECT_EQ(routers[router_i].interface->ripQuery(ip), cost);
+      for (size_t port_num = 0; port_num < routers[router_j]->getPortCount();
+           ++port_num) {
+        ipv4_t ip = routers[router_j]->getIPAddr(port_num).value();
+        size_t cost_ret = std::any_cast<size_t>(
+            routers[router_j]->diagnoseHostModule("UDP", ip));
+        EXPECT_EQ(cost_ret, cost);
       }
     }
   }
 
   void cleanUpGraph() {
     for (size_t i = 0; i < N; ++i) {
-      routers[i].host->cleanUp();
-      routers[i].interface->finalize();
+      routers[i]->cleanUp();
+      routers[i]->finalizeHostModule("UDP");
     }
   }
 
-  virtual void TearDown() {
-    for (size_t i = 0; i < N; ++i) {
-      delete routers[i].interface;
-      delete routers[i].ipv4;
-      delete routers[i].ethernet;
-    }
-
-    for (auto sw : switches) {
-      delete sw;
-    }
-
-    for (size_t i = 0; i < N; ++i) {
-      delete routers[i].host;
-    }
-  }
+  virtual void TearDown() {}
 };
 
 class RoutingEnvRipTwoNodes : public RouteTesting<2> {

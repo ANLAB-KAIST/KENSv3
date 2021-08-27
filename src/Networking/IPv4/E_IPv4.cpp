@@ -15,12 +15,7 @@
 
 namespace E {
 
-IPv4::IPv4(Host *host)
-    : HostModule("IPv4", host),
-      NetworkModule(this->getHostModuleName(), host->getNetworkSystem()),
-      NetworkLog(host->getNetworkSystem()) {
-  this->identification = 0;
-}
+IPv4::IPv4(Host &host) : HostModule("IPv4", host) { this->identification = 0; }
 IPv4::~IPv4() {}
 
 void IPv4::packetArrived(std::string fromModule, Packet &&packet) {
@@ -39,11 +34,12 @@ void IPv4::packetArrived(std::string fromModule, Packet &&packet) {
     uint16_t checksum = NetworkUtil::one_sum(ip_header_buffer, 20);
     if (checksum != 0xFFFF) {
       if (checksum != 0) {
-        print_log(PROTOCOL_ERROR, "Wrong checksum. Non-zero %u", checksum);
+        print_log(NetworkLog::PROTOCOL_ERROR, "Wrong checksum. Non-zero %u",
+                  checksum);
         return;
       }
-      print_log(PROTOCOL_WARNING, "Checksum should be negative zero %u",
-                checksum);
+      print_log(NetworkLog::PROTOCOL_WARNING,
+                "Checksum should be negative zero %u", checksum);
     }
 
     uint8_t protocol;

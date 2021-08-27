@@ -68,7 +68,7 @@ public:
                   "arrayToUINT64 requires std::array smaller than uint64_t");
 
     uint64_t sum = 0;
-    for (int k = 0; k < N; k++) {
+    for (size_t k = 0; k < N; k++) {
       sum += (((uint64_t)array[k]) << (8 * k));
     }
     return sum;

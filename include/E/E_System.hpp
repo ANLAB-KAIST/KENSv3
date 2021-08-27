@@ -28,21 +28,27 @@ class Runnable;
  */
 class System : private Log {
 private:
-  std::unordered_set<Runnable *> runnableSet;
-  std::mutex mutex;
-  class TimerContainer {
+  std::unordered_set<std::shared_ptr<Runnable>> runnableReady;
+  static const ModuleID newModuleID();
+  class TimerContainerInner {
   public:
-    Module *from;
-    Module *to;
+    const ModuleID from;
+    const ModuleID to;
     bool canceled;
     Time wakeup;
-    Module::Message *message;
+    Module::Message message;
     UUID uuid;
+    TimerContainerInner(const ModuleID from, const ModuleID to, bool canceled,
+                        Time wakeup, Module::Message message, UUID uuid)
+        : from(from), to(to), canceled(canceled), wakeup(wakeup),
+          message(std::move(message)), uuid(uuid) {}
   };
+
+  using TimerContainer = std::shared_ptr<TimerContainerInner>;
 
   class TimerContainerLess {
   public:
-    bool operator()(const TimerContainer *a, const TimerContainer *b) {
+    bool operator()(const TimerContainer a, const TimerContainer b) {
       if (a->wakeup != b->wakeup)
         return a->wakeup > b->wakeup;
       else
@@ -51,20 +57,23 @@ private:
   };
   UUID currentID;
   Time currentTime;
-  std::priority_queue<TimerContainer *, std::vector<TimerContainer *>,
+
+protected:
+  ModuleID lookupModuleID(Module &module);
+  std::unordered_map<ModuleID, std::shared_ptr<Module>> registeredModule;
+
+private:
+  std::priority_queue<TimerContainer, std::vector<TimerContainer>,
                       TimerContainerLess>
       timerQueue;
-  std::unordered_map<UUID, TimerContainer *> activeTimer;
+  std::unordered_map<UUID, TimerContainer> activeTimer;
   std::unordered_set<UUID> activeUUID;
-  std::unordered_set<Module *> registeredModule;
 
   UUID allocateUUID();
   bool deallocateUUID(UUID uuid);
-  void registerModule(Module *module);
-  void unregisterModule(Module *module);
-  bool isRegistered(Module *module);
-  UUID sendMessage(Module *from, Module *to, Module::Message *message,
-                   Time timeAfter);
+  bool isRegistered(const ModuleID moduleID);
+  UUID sendMessage(const ModuleID from, const ModuleID to,
+                   Module::Message message, Time timeAfter);
   bool cancelMessage(UUID messageID);
 
 public:
@@ -84,11 +93,6 @@ public:
   void run(Time till);
 
   /**
-   * @return Global lock object used in this System
-   */
-  std::mutex &getSystemLock();
-
-  /**
    * @return Returns current virtual clock of the System.
    */
   Time getCurrentTime();
@@ -102,7 +106,7 @@ public:
    *
    * @note You cannot override this function.
    */
-  virtual void addRunnable(Runnable *runnable) final;
+  virtual void addRunnable(std::shared_ptr<Runnable> runnable) final;
 
   /**
    * @brief Unregister a Runnable interface to this System.
@@ -114,12 +118,23 @@ public:
    *
    * @note You cannot override this function.
    */
-  virtual void delRunnable(Runnable *runnable) final;
+  virtual void delRunnable(std::shared_ptr<Runnable> runnable) final;
 
-  friend Module::Module(System *system);
+  template <typename T, typename... Args>
+  std::shared_ptr<T> addModule(Args &&...args) {
+    static_assert(std::is_base_of<Module, T>::value);
+    auto module = std::make_shared<T>(std::forward<Args>(args)...);
+    module->id = newModuleID();
+    bool ret = registeredModule.insert({module->id, module}).second;
+    assert(ret);
+    return module;
+  }
+  std::string getModuleName(const ModuleID moduleID);
+
+  friend Module::Module(System &system);
   friend Module::~Module();
 
-  friend UUID Module::sendMessage(Module *to, Module::Message *message,
+  friend UUID Module::sendMessage(const ModuleID to, Module::Message message,
                                   Time timeAfter);
   friend bool Module::cancelMessage(UUID timer);
 };
@@ -137,43 +152,64 @@ class Runnable {
 protected:
   /**
    * @brief Constructs a Runnable interface.
-   *
-   * @param system System to be registered.
-   * Runnable is automatically registered when it is created.
-   * @param initial_value Initial running state (true by default).
    */
-  Runnable(System *system, bool initial_value = true);
+  Runnable();
   virtual ~Runnable();
 
   /**
-   * @param value Set the running state
-   * @note The System would not terminate unless all Runnable becomes "stopped".
-   * You cannot override this function.
+   * @brief Enter wait state (RUNNING -> WAITING)
    */
-  virtual void setRunning(bool value) final;
+  virtual void wait() final;
+  /**
+   * @brief Prepare logic
+   */
+  virtual void pre_main(){};
+
+  /**
+   * @brief Program logic
+   */
+  virtual void main() = 0;
+
+  /**
+   * @brief Thread code
+   */
+  virtual void run() final;
 
 public:
+  enum class State {
+    CREATED,
+    STARTING,
+    READY,
+    RUNNING,
+    WAITING,
+    TERMINATED,
+  };
   /**
-   * @return Current running state.
-   * @note You cannot override this function.
+   * @brief Wake and keep running (CREATED -> READY)
    */
-  virtual bool isRunning() final;
+  virtual void start() final;
+  /**
+   * @brief Wake and keep running (READY -> RUNNING)
+   *
+   * @return next state
+   *
+   * @note Scheduler will be blocked
+   */
+  virtual State wake() final;
 
   /**
-   * @brief Wait until current running state becomes the given value.
-   * @param value Value you are waiting for.
-   * @param lock Global lock of the system.
-   *
-   * @note You cannot override this function.
-   * @see System::getSystemLock
+   * @brief Mark ready (WAITING -> READY)
    */
-  virtual void waitForRunning(bool value,
-                              std::unique_lock<std::mutex> &lock) final;
+  virtual void ready() final;
+  friend class System;
 
 private:
-  System *system;
-  bool running;
+  State state;
+  std::mutex stateMtx;
+  std::unique_lock<std::mutex> threadLock; //  for thread
+  std::unique_lock<std::mutex> schedLock;  //  for scheduler
   std::condition_variable cond;
+  std::thread thread;
 };
 
 } // namespace E

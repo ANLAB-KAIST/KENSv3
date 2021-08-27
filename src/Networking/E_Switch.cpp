@@ -7,12 +7,12 @@
 
 #include <E/Networking/E_NetworkUtil.hpp>
 #include <E/Networking/E_Packet.hpp>
-#include <E/Networking/E_Port.hpp>
 #include <E/Networking/E_Switch.hpp>
+#include <E/Networking/E_Wire.hpp>
 
 namespace E {
 
-Switch::Switch(std::string name, NetworkSystem *system, bool unreliable)
+Switch::Switch(std::string name, NetworkSystem &system, bool unreliable)
     : Link(name, system) {
   this->unreliable = unreliable;
   this->drop_base = 1.0;
@@ -21,26 +21,27 @@ Switch::Switch(std::string name, NetworkSystem *system, bool unreliable)
   this->drop_base_final = 0.01;
 }
 
-void Switch::addMACEntry(Port *toPort, const mac_t &mac) {
+void Switch::addMACEntry(int port, const mac_t &mac) {
   uint64_t mac_int = NetworkUtil::arrayToUINT64(mac);
-  if (this->mac_table.find(toPort) == this->mac_table.end())
-    this->mac_table[toPort] = std::unordered_set<uint64_t>();
-  this->mac_table[toPort].insert(mac_int);
+  auto wireID = ports[port];
+  if (this->mac_table.find(wireID) == this->mac_table.end())
+    this->mac_table[wireID] = std::unordered_set<uint64_t>();
+  this->mac_table[wireID].insert(mac_int);
 }
 
-void Switch::packetArrived(Port *inPort, Packet &&packet) {
+void Switch::packetArrived(const ModuleID inWireID, Packet &&packet) {
   mac_t mac;
   mac_t broadcast = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
   bool found = false;
   packet.readData(0, mac.data(), 6);
   uint64_t broad_int = NetworkUtil::arrayToUINT64(broadcast);
   uint64_t mac_int = NetworkUtil::arrayToUINT64(mac);
-  for (Port *port : this->connectedPorts) {
-    if (inPort != port) {
+  for (const ModuleID wireID : this->ports) {
+    if (inWireID != wireID) {
       if ((mac_int == broad_int) ||
-          ((this->mac_table.find(port) != this->mac_table.end()) &&
-           (this->mac_table[port].find(mac_int) !=
-            this->mac_table[port].end()))) {
+          ((this->mac_table.find(wireID) != this->mac_table.end()) &&
+           (this->mac_table[wireID].find(mac_int) !=
+            this->mac_table[wireID].end()))) {
         found = true;
         bool drop = false;
         if (this->unreliable) {
@@ -77,15 +78,15 @@ void Switch::packetArrived(Port *inPort, Packet &&packet) {
             newPacket.writeData(14 + 20 + 16, &checksum, sizeof(checksum));
           }
         }
-        this->sendPacket(port, std::move(newPacket));
+        this->sendPacket(wireID, std::move(newPacket));
       }
     }
   }
   if (!found) {
-    for (Port *port : this->connectedPorts) {
-      if (inPort != port) {
+    for (const ModuleID wireID : this->ports) {
+      if (inWireID != wireID) {
         Packet newPacket = packet.clone();
-        this->sendPacket(port, std::move(newPacket));
+        this->sendPacket(wireID, std::move(newPacket));
       }
     }
   }

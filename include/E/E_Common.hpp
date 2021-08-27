@@ -23,6 +23,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <ctime>
+#include <functional>
 #include <iostream>
 #include <list>
 #include <map>
@@ -36,9 +37,11 @@
 #include <set>
 #include <stack>
 #include <thread>
+#include <typeinfo>
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
+#include <variant>
 
 namespace E {
 typedef uint64_t Time;
@@ -50,6 +53,10 @@ typedef double Real;
 
 using ipv4_t = std::array<uint8_t, 4>;
 using mac_t = std::array<uint8_t, 6>;
+
+// overloaded helper for std::visit
+template <class... Ts> struct overloaded : Ts... { using Ts::operator()...; };
+template <class... Ts> overloaded(Ts...) -> overloaded<Ts...>;
 } // namespace E
 
 namespace std {

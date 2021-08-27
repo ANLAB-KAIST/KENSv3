@@ -12,24 +12,26 @@
 #include <E/E_RandomDistribution.hpp>
 #include <E/Networking/E_NetworkLog.hpp>
 #include <E/Networking/E_Networking.hpp>
+#include <E/Networking/E_Wire.hpp>
 #include <fstream>
 
 namespace E {
-class Port;
 class Packet;
 
 /**
- * @brief Link makes connections among multiple Port.
+ * @brief Link makes connections among multiple Wires.
  * It supports packet switching and output queuing.
  * Random drop occurs when the queue is full.
  */
-class Link : public Module, public NetworkModule, private NetworkLog {
+class Link : public NetworkModule, private NetworkLog {
+
 private:
-  virtual Module::Message *messageReceived(Module *from,
-                                           Module::Message *message) final;
-  virtual void messageFinished(Module *to, Module::Message *message,
-                               Module::Message *response) final;
-  virtual void messageCancelled(Module *to, Module::Message *message) final;
+  virtual Module::Message messageReceived(const ModuleID from,
+                                          Module::MessageBase &message) final;
+  virtual void messageFinished(const ModuleID to, Module::Message message,
+                               Module::MessageBase &response) final;
+  virtual void messageCancelled(const ModuleID to,
+                                Module::Message message) final;
 
   std::ofstream pcap_file;
   bool pcap_enabled;
@@ -37,23 +39,19 @@ private:
   LinearDistribution rand_dist;
 
 protected:
-  std::unordered_set<Port *> connectedPorts;
-  std::unordered_map<Port *, Time> nextAvailable;
-  std::unordered_map<Port *, std::list<Packet>> outputQueue;
+  std::unordered_map<ModuleID, Time> nextAvailable;
+  std::unordered_map<ModuleID, std::list<Packet>> outputQueue;
   Size bps;
   Size max_queue_length;
-  virtual void packetArrived(Port *port, Packet &&packet) = 0;
-  virtual void packetSent(Port *port, Packet &&packet) {
-    (void)port;
+  virtual void packetArrived(const ModuleID inWireID, Packet &&packet) = 0;
+  virtual void packetSent(const ModuleID wireID, Packet &&packet) {
+    (void)wireID;
     (void)packet;
   };
-  virtual void sendPacket(Port *port, Packet &&packet) final;
+  virtual void sendPacket(const ModuleID wireID, Packet &&packet) final;
 
 public:
-  /**
-   * @see NetworkModule
-   */
-  Link(std::string name, NetworkSystem *system);
+  Link(std::string name, NetworkSystem &system);
   virtual ~Link();
 
   /**
@@ -68,16 +66,13 @@ public:
   enum MessageType {
     CHECK_QUEUE,
   };
-  class Message : public Module::Message {
+  class Message : public Module::MessageBase {
   public:
     enum MessageType type;
-    Port *port;
+    ModuleID wireID;
+    Message(enum MessageType type, ModuleID wireID)
+        : type(type), wireID(wireID) {}
   };
-
-  /**
-   * @param port Link a port to this link.
-   */
-  virtual void addPort(Port *port) final;
 
   /**
    * @param bps Set link speed to bps.

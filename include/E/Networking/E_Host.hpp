@@ -15,12 +15,13 @@
 #include <E/Networking/E_Networking.hpp>
 #include <E/Networking/E_Packet.hpp>
 #include <E/Networking/E_RoutingInfo.hpp>
+#include <E/Networking/E_TimerModule.hpp>
+#include <E/Networking/E_Wire.hpp>
 extern "C" {
 #include <sys/time.h>
 }
 
 namespace E {
-class Port;
 class Host;
 class TCPApplication;
 
@@ -33,7 +34,7 @@ class TCPApplication;
  */
 class HostModule {
 private:
-  Host *host;
+  Host &host;
   std::string name;
 
 public:
@@ -44,19 +45,13 @@ public:
    * module.
    * @param host Host to be registered.
    */
-  HostModule(std::string name, Host *host);
+  HostModule(std::string name, Host &host);
   virtual ~HostModule();
 
   /**
    * @return My name used in the registered Host.
    */
   virtual std::string getHostModuleName() final;
-
-  /**
-   * @return Host which this module belongs to.
-   * @note You cannot override this function.
-   */
-  virtual Host *getHost() final;
 
   /**
    * @brief This function is automatically called by Host just before the
@@ -69,6 +64,11 @@ public:
    * simulation ends. You can override this function if needed.
    */
   virtual void finalize(void){};
+
+  /**
+   * @brief Host module control function
+   */
+  virtual std::any diagnose(std::any param) { return 0; };
 
 protected:
   /**
@@ -94,6 +94,40 @@ protected:
   virtual void sendPacket(std::string toModule, Packet &&packet) final;
   void sendPacket(std::string toModule, const Packet &packet);
 
+  /**
+   * @return Returns current virtual clock of the System.
+   */
+  Time getCurrentTime();
+
+  /**
+   * @brief Get cost for local port (link)
+   *
+   * @param port_num querying port's number
+   * @return local link cost
+   */
+  Size getWireSpeed(int port_num);
+
+  /**
+   * @brief Prints log with specified log level and format.
+   * NetworkLog::print_log prints logs specified in log level parameter.
+   * For example, if log level is set to TCP_LOG, it only prints TCP_LOG logs.
+   * If you want to print multiple log levels in NetworkLog,
+   * you can set log level with OR operation (i.e.  SYSCALL_ERROR |
+   * MODULE_ERROR).
+   *
+   * @note Log::print_log
+   *
+   * @param level log level
+   * @param format Format string
+   * @param ... Print arguments for format string
+   *
+   */
+  void print_log(uint64_t level, const char *format, ...)
+#ifdef HAVE_ATTR_FORMAT
+      __attribute__((format(printf, 3, 4)))
+#endif
+      ;
+
   friend class Host;
 };
 
@@ -106,9 +140,10 @@ protected:
  */
 class SystemCallInterface {
 public:
-  static const int AF_INET = 2;
-  static const int IPPROTO_TCP = 6;
-  static const int IPPROTO_UDP = 17;
+  static constexpr int AF_INET = 2;
+  static constexpr int IPPROTO_TCP = 6;
+  static constexpr int IPPROTO_UDP = 17;
+
   enum SystemCall {
     SOCKET,
     CLOSE,
@@ -155,7 +190,7 @@ protected:
    * @param protocol Protocl to use (e.g. IPPROTO_TCP).
    * @param host Host to be registered.
    */
-  SystemCallInterface(int domain, int protocol, Host *host);
+  SystemCallInterface(int domain, int protocol, Host &host);
   virtual ~SystemCallInterface();
 
   /**
@@ -217,7 +252,7 @@ protected:
   friend class Host;
 
 private:
-  Host *host;
+  Host &host;
   int domain;
   int protocol;
 };
@@ -228,24 +263,12 @@ private:
  *
  * @see TCPApplication
  */
-class SystemCallApplication : public Module,
-                              private NetworkLog,
-                              public Runnable {
+class SystemCallApplication : public Runnable {
 public:
-  SystemCallApplication(Host *host);
+  SystemCallApplication(Host &host);
   virtual ~SystemCallApplication();
 
-  enum MessageType {
-    SYSCALL_FINISHED,
-  };
-  class Message : public Module::Message {
-  public:
-    enum MessageType type;
-    int returnValue;
-    UUID syscallID;
-    std::condition_variable *condVar;
-  };
-
+protected:
   /**
    * @brief Standard C++11 thread is automatically launched,
    * so we cannot control the starting time.
@@ -253,8 +276,6 @@ public:
    * successfully launched.
    */
   virtual void initialize() final;
-
-protected:
   /**
    * @brief This is equivalent to INT 0x80 instruction of Linux.
    * This function may be blocked if the system call is blocking call.
@@ -264,32 +285,29 @@ protected:
   virtual int
   E_Syscall(const SystemCallInterface::SystemCallParameter &param) final;
 
+  virtual void returnSyscall(int retVal) final;
+
   /**
    * @brief This does a role of int main(int argc, char** argv, char** env).
    * The main functions of multiple applications run in parallel.
    * @param param Parameters for system call.
    * @note You cannot override this function.
    */
-  virtual void E_Main() = 0;
+  virtual int E_Main() = 0;
+
+  /**
+   * @return Returns current virtual clock of the System.
+   */
+  Time getCurrentTime();
 
 private:
-  virtual void registerApplication() final;
-  virtual void unregisterApplication() final;
-  static void __callMain(SystemCallApplication *app);
+  virtual void main() override final;
+  virtual void finalizeApplication(int returnValue) final;
 
-  virtual Module::Message *messageReceived(Module *from,
-                                           Module::Message *message) final;
-  virtual void messageFinished(Module *to, Module::Message *message,
-                               Module::Message *response) final;
-  virtual void messageCancelled(Module *to, Module::Message *message) final;
-
-  std::unique_lock<std::mutex> *my_lock_ptr;
-  Host *host;
+private:
+  Host &host;
   int pid;
-  std::mutex initial_barrier_mutex;
-  std::condition_variable initial_barrier_cond;
-
-  std::thread *thread;
+  int syscallRet = 0;
 
   friend class Host;
   friend class TCPApplication;
@@ -298,158 +316,171 @@ private:
 /**
  * @brief This class abstract a single host machine.
  */
-class Host : public Module,
-             public NetworkModule,
-             private NetworkLog,
-             public RoutingInfo {
+class Host : public NetworkModule, public NetworkLog, public RoutingInfo {
 public:
-  typedef int Domain;
-  typedef int Protocol;
-  typedef std::pair<Domain, Protocol> Namespace;
-  typedef SystemCallInterface *Interface;
-  typedef SystemCallApplication *Application;
+  using Domain = int;
+  using Protocol = int;
+  using Namespace = std::pair<Domain, Protocol>;
 
 private:
-  static const int MAX_FD = 65536;
-  static const int MAX_PID = 65536;
-  std::vector<Port *> allPort;
-  Interface defaultInterface;
+  static constexpr int MAX_FD = 65536;
+  static constexpr int MAX_PID = 65536;
 
-  class DefaultSystemCall : public SystemCallInterface, public Module {
+  class DefaultSystemCall : public SystemCallInterface, public TimerModule {
   public:
-    DefaultSystemCall(Host *host);
+    DefaultSystemCall(Host &host);
     virtual ~DefaultSystemCall();
 
-    enum MessageType {
-      NANOSLEEP,
-    };
-    class Message : public Module::Message {
-    public:
-      enum MessageType type;
-      UUID wakeupSyscallID;
-    };
-
   protected:
-    virtual Module::Message *messageReceived(Module *from,
-                                             Module::Message *message) final;
-    virtual void messageFinished(Module *to, Module::Message *message,
-                                 Module::Message *response) final;
     virtual void systemCallback(UUID syscallUUID, int pid,
                                 const SystemCallParameter &param) final;
+    virtual void timerCallback(std::any payload) final;
   };
-
-  std::unordered_map<Namespace, Interface> namespaceToInterface;
-  std::unordered_map<UUID, Application> syscallIDToApplication;
-  std::unordered_map<UUID, std::pair<int *, std::condition_variable *>>
-      syscallIDToWakeup;
 
   class ProcessInfo {
   public:
-    Application application;
+    std::shared_ptr<SystemCallApplication> application;
     std::unordered_set<int> fdSet;
     std::unordered_map<int, Namespace> fdToDomain;
     int fdStart;
   };
-  std::unordered_map<int, ProcessInfo> pidToProcessInfo;
 
   int pidStart;
   UUID syscallIDStart;
   bool running;
+  NetworkSystem &networkSystem;
 
-  std::unordered_map<std::string, HostModule *> hostModuleMap;
+  std::unordered_map<Namespace, std::shared_ptr<SystemCallInterface>>
+      interfaceMap;
+  std::unordered_map<std::string, std::shared_ptr<HostModule>> hostModuleMap;
+  std::unordered_map<std::string, std::shared_ptr<TimerModule>> timerModuleMap;
+  std::unordered_map<int, ProcessInfo> processInfoMap;
+  std::unordered_map<UUID, int> syscallMap; // to PID
 
-  virtual Module::Message *messageReceived(Module *from,
-                                           Module::Message *message) final;
-  virtual void messageFinished(Module *to, Module::Message *message,
-                               Module::Message *response) final;
-  virtual void messageCancelled(Module *to, Module::Message *message) final;
+  virtual Module::Message messageReceived(const ModuleID from,
+                                          Module::MessageBase &message) final;
+  virtual void messageFinished(const ModuleID to, Module::Message message,
+                               Module::MessageBase &response) final;
+  virtual void messageCancelled(const ModuleID to,
+                                Module::Message message) final;
 
 public:
-  Host(std::string name, size_t portNumber, NetworkSystem *system);
+  Host(std::string name, NetworkSystem &system);
   virtual ~Host();
   virtual int cleanUp(void) final;
   virtual bool isRunning(void) final;
+  template <typename T, typename... Args> void addHostModule(Args &&...args) {
+    static_assert(std::is_base_of<HostModule, T>::value ||
+                  std::is_base_of<TimerModule, T>::value ||
+                  std::is_base_of<SystemCallInterface, T>::value);
 
-  enum MessageType {
-    SYSCALL_CALLED,
-    PACKET_TRANSFER,
-  };
+    auto hostModule = std::make_shared<T>(std::forward<Args>(args)...);
+    if constexpr (std::is_base_of<HostModule, T>::value) {
+      auto hostModuleName = hostModule->getHostModuleName();
+      bool ret = hostModuleMap.insert({hostModuleName, hostModule}).second;
+      assert(ret);
+    }
 
-  class Message : public Module::Message {
+    if constexpr (std::is_base_of<TimerModule, T>::value) {
+      auto timerModuleName = hostModule->getTimerModuleName();
+      bool ret = timerModuleMap.insert({timerModuleName, hostModule}).second;
+      assert(ret);
+    }
+
+    if constexpr (std::is_base_of<SystemCallInterface, T>::value) {
+      bool ret =
+          interfaceMap
+              .insert({Namespace(hostModule->domain, hostModule->protocol),
+                       hostModule})
+              .second;
+      assert(ret);
+    }
+  }
+  template <typename T, typename... Args> int addApplication(Args &&...args) {
+    static_assert(std::is_base_of<SystemCallApplication, T>::value);
+    auto application = std::make_shared<T>(std::forward<Args>(args)...);
+    return registerProcess(std::move(application));
+  }
+
+  void initializeHostModule(const char *name) {
+    hostModuleMap[name]->initialize();
+  }
+  void finalizeHostModule(const char *name) { hostModuleMap[name]->finalize(); }
+  void launchApplication(int pid);
+  std::any diagnoseHostModule(const char *name, std::any param);
+  Size getWireSpeed(int port_num);
+
+  class Syscall : public Module::MessageBase {
   public:
-    struct Syscall {
-      SystemCallInterface::SystemCallParameter param;
-      std::condition_variable *condVar;
-      int *returnValue;
-    };
-    struct PacketPass {
-      HostModule *from;
-      HostModule *to;
-      Packet packet;
-    };
-
-    enum MessageType type;
-    union {
-      Packet packet;
-      Syscall syscall;
-      PacketPass packetPass;
-    };
-    ~Message() override {}
-
-    static Message *make_packet(Packet &&packet) {
-      return new Message{std::move(packet)};
-    }
-    static Message *make_syscall(SystemCallInterface::SystemCallParameter param,
-                                 std::condition_variable *condVar,
-                                 int *returnValue) {
-      return new Message{param, condVar, returnValue};
-    }
-    static Message *make_packet_pass(HostModule *from, HostModule *to,
-                                     Packet &&packet) {
-      return new Message{from, to, std::move(packet)};
-    }
-
-  private:
-    Message(Packet &&packet) : type(PACKET_TRANSFER), packet(packet) {}
-    Message(SystemCallInterface::SystemCallParameter param,
-            std::condition_variable *condVar, int *returnValue)
-        : type(SYSCALL_CALLED), syscall({param, condVar, returnValue}) {}
-    Message(HostModule *from, HostModule *to, Packet &&packet)
-        : type(PACKET_TRANSFER), packetPass({from, to, packet}) {}
+    int pid;
+    SystemCallInterface::SystemCallParameter param;
+    Syscall(int pid, SystemCallInterface::SystemCallParameter param)
+        : pid(pid), param(param) {}
+    ~Syscall() override {}
   };
-  virtual Port *getPort(size_t portIndex) final;
-  virtual size_t getPortCount() final;
+
+  // Application Return
+  class Return : public Module::MessageBase {
+  public:
+    int pid;
+    int returnValue;
+    Return(int pid, int returnValue) : pid(pid), returnValue(returnValue) {}
+    ~Return() override {}
+  };
+  class PacketPass : public Module::MessageBase {
+  public:
+    std::optional<std::string> from;
+    std::optional<std::string> to;
+    Packet packet;
+    PacketPass(std::optional<std::string> from, std::optional<std::string> to,
+               Packet &&packet)
+        : from(from), to(to), packet(packet) {}
+    PacketPass(Packet &&packet) : from({}), to({}), packet(packet) {}
+    ~PacketPass() override {}
+  };
+  class Timer : public Module::MessageBase {
+  public:
+    std::string from;
+    std::any payload;
+    Timer(std::string from, std::any payload) : from(from), payload(payload) {}
+    ~Timer() override {}
+  };
+
   virtual void sendPacket(size_t portIndex, Packet &&packet) final;
 
 private:
-  virtual void registerHostModule(std::string name,
-                                  HostModule *hostModule) final;
-  virtual void unregisterHostModule(std::string name) final;
-  virtual HostModule *findHostModule(std::string name) final;
-  virtual void sendPacketToModule(HostModule *fromModule, std::string toModule,
-                                  Packet &&packet) final;
+  virtual void sendPacketToModule(std::optional<std::string> fromModule,
+                                  std::string toModule, Packet &&packet) final;
 
-  virtual void registerInterface(Interface iface, Domain domain,
-                                 Protocol protocol) final;
-  virtual void returnSystemCall(Interface iface, UUID syscallUUID,
-                                int val) final;
-  virtual int createFileDescriptor(Interface iface, int processID) final;
-  virtual void removeFileDescriptor(Interface iface, int processID,
-                                    int fd) final;
-  virtual int registerProcess(Application app) final;
-  virtual void unregisterProcess(int pid) final;
+  virtual UUID addTimer(std::string fromModule, std::any payload,
+                        Time timeAfter) final;
+  virtual void cancelTimer(UUID key) final;
+  virtual UUID
+  issueSystemCall(int pid,
+                  const SystemCallInterface::SystemCallParameter &param) final;
 
-  friend HostModule::HostModule(std::string name, Host *host);
+  virtual void returnSystemCall(UUID syscallUUID, int val) final;
+  virtual int createFileDescriptor(int domain, int protocol,
+                                   int processID) final;
+  virtual void removeFileDescriptor(int processID, int fd) final;
+  virtual int registerProcess(std::shared_ptr<SystemCallApplication> app) final;
+  virtual void exitProcess(int pid, int returnValue) final;
+
+  friend HostModule::HostModule(std::string name, Host &host);
   friend HostModule::~HostModule();
   friend void HostModule::sendPacket(std::string toModule, Packet &&packet);
 
   friend SystemCallInterface::SystemCallInterface(int domain, int protocol,
-                                                  Host *host);
+                                                  Host &host);
   friend void SystemCallInterface::returnSystemCall(UUID syscallUUID, int val);
   friend int SystemCallInterface::createFileDescriptor(int processID);
   friend void SystemCallInterface::removeFileDescriptor(int processID, int fd);
-  friend void SystemCallApplication::registerApplication();
-  friend void SystemCallApplication::unregisterApplication();
+
+  friend int SystemCallApplication::E_Syscall(
+      const SystemCallInterface::SystemCallParameter &param);
+  friend void SystemCallApplication::finalizeApplication(int returnValue);
+  friend UUID TimerModule::addTimer(std::any payload, Time timeAfter);
+  friend void TimerModule::cancelTimer(UUID key);
 };
 
 } // namespace E

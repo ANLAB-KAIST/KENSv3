@@ -5,9 +5,35 @@
  *      Author: Keunhong Lee
  */
 
+#include <E/Networking/E_Host.hpp>
 #include <E/Networking/E_RoutingInfo.hpp>
 
 namespace E {
+
+RoutingInfoInterface::RoutingInfoInterface(Host &host) : host(host) {}
+void RoutingInfoInterface::setARPTable(const mac_t &mac, const ipv4_t &ipv4) {
+  host.setARPTable(mac, ipv4);
+}
+
+void RoutingInfoInterface::setRoutingTable(const ipv4_t &mask, int prefix,
+                                           int port) {
+  host.setRoutingTable(mask, prefix, port);
+}
+
+std::optional<ipv4_t> RoutingInfoInterface::getIPAddr(int port) {
+  return host.getIPAddr(port);
+}
+std::optional<mac_t> RoutingInfoInterface::getMACAddr(int port) {
+  return host.getMACAddr(port);
+}
+
+std::optional<mac_t> RoutingInfoInterface::getARPTable(const ipv4_t &ipv4) {
+  return host.getARPTable(ipv4);
+}
+
+int RoutingInfoInterface::getRoutingTable(const ipv4_t &ip_addr) {
+  return host.getRoutingTable(ip_addr);
+}
 
 RoutingInfo::RoutingInfo() {}
 RoutingInfo::~RoutingInfo() {}

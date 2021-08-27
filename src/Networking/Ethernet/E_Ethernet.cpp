@@ -12,10 +12,8 @@
 
 namespace E {
 
-Ethernet::Ethernet(Host *host)
-    : HostModule("Ethernet", host),
-      NetworkModule(this->getHostModuleName(), host->getNetworkSystem()),
-      NetworkLog(host->getNetworkSystem()) {}
+Ethernet::Ethernet(Host &host)
+    : HostModule("Ethernet", host), RoutingInfoInterface(host) {}
 Ethernet::~Ethernet() {}
 void Ethernet::packetArrived(std::string fromModule, Packet &&packet) {
   if (fromModule.compare("Host") == 0) {
@@ -28,7 +26,7 @@ void Ethernet::packetArrived(std::string fromModule, Packet &&packet) {
     } else if (first_byte == 0x86 && second_byte == 0xDD) {
       this->sendPacket("IPv6", std::move(packet));
     } else {
-      this->print_log(MODULE_ERROR, "Unsupported ethertype.");
+      this->print_log(NetworkLog::MODULE_ERROR, "Unsupported ethertype.");
       assert(0);
     }
   } else if (fromModule.compare("IPv4") == 0) {
@@ -45,14 +43,14 @@ void Ethernet::packetArrived(std::string fromModule, Packet &&packet) {
       // TODO: general IP broadcast
       ipv4_t src_ip;
       packet.readData(26, src_ip.data(), 4);
-      int port = this->getHost()->getRoutingTable(src_ip);
-      auto src = this->getHost()->getMACAddr(port);
+      int port = this->getRoutingTable(src_ip);
+      auto src = this->getMACAddr(port);
       packet.writeData(0, mac_broadcast.data(), 6);
       packet.writeData(6, src.value().data(), 6);
     } else {
-      int port = this->getHost()->getRoutingTable(dst_ip);
-      auto src = this->getHost()->getMACAddr(port);
-      auto dst = this->getHost()->getARPTable(dst_ip);
+      int port = this->getRoutingTable(dst_ip);
+      auto src = this->getMACAddr(port);
+      auto dst = this->getARPTable(dst_ip);
       packet.writeData(0, dst.value().data(), 6);
       packet.writeData(6, src.value().data(), 6);
     }

@@ -28,17 +28,14 @@ UUID Packet::allocatePacketUUID() {
 void Packet::freePacketUUID(UUID uuid) { packetUUIDSet.erase(uuid); }
 
 Packet::Packet(UUID uuid, size_t maxSize)
-    : buffer(new char[maxSize]), bufferSize(maxSize), dataSize(maxSize),
-      packetID(uuid) {
+    : buffer(maxSize), bufferSize(maxSize), dataSize(maxSize), packetID(uuid) {
 
-  memset(this->buffer.get(), 0, this->bufferSize);
+  std::fill(this->buffer.begin(), this->buffer.end(), 0);
 }
 
 Packet::Packet(const Packet &other)
-    : buffer(new char[other.bufferSize]), bufferSize(other.bufferSize),
-      dataSize(other.dataSize), packetID(other.packetID) {
-  memcpy(this->buffer.get(), other.buffer.get(), this->bufferSize);
-}
+    : buffer(other.buffer), bufferSize(other.bufferSize),
+      dataSize(other.dataSize), packetID(other.packetID) {}
 
 Packet::Packet(Packet &&other) noexcept
     : buffer(std::move(other.buffer)), bufferSize(other.bufferSize),
@@ -54,8 +51,7 @@ Packet Packet::clone() const {
 
   Packet pkt(this->bufferSize);
   pkt.setSize(this->dataSize);
-  memcpy(pkt.buffer.get(), this->buffer.get(), this->bufferSize);
-
+  pkt.buffer = this->buffer;
   return pkt;
 }
 
@@ -67,7 +63,7 @@ size_t Packet::writeData(size_t offset, const void *data, size_t length) {
     return 0;
 
   assert(data);
-  memcpy(this->buffer.get() + actual_offset, data, length);
+  memcpy(this->buffer.data() + actual_offset, data, length);
   return actual_write;
 }
 size_t Packet::readData(size_t offset, void *data, size_t length) const {
@@ -78,7 +74,7 @@ size_t Packet::readData(size_t offset, void *data, size_t length) const {
     return 0;
 
   assert(data);
-  memcpy(data, buffer.get() + actual_offset, length);
+  memcpy(data, buffer.data() + actual_offset, length);
   return actual_read;
 }
 size_t Packet::setSize(size_t size) {

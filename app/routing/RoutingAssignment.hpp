@@ -6,10 +6,10 @@
 #ifndef E_ROUTINGASSIGNMENT_HPP_
 #define E_ROUTINGASSIGNMENT_HPP_
 
-#include <E/E_TimerModule.hpp>
 #include <E/Networking/E_Host.hpp>
 #include <E/Networking/E_Networking.hpp>
-#include <E/Networking/E_Port.hpp>
+#include <E/Networking/E_TimerModule.hpp>
+#include <E/Networking/E_Wire.hpp>
 
 namespace E {
 
@@ -60,15 +60,12 @@ __attribute__((packed));
 ;
 #endif
 
-class RoutingAssignment : public HostModule,
-                          public NetworkModule,
-                          private NetworkLog,
-                          private TimerModule {
+class RoutingAssignment : public HostModule, public TimerModule {
 private:
   virtual void timerCallback(std::any payload) final;
 
 public:
-  RoutingAssignment(Host *host);
+  RoutingAssignment(Host &host);
 
   /**
    * @brief Query cost for a host
@@ -84,8 +81,8 @@ public:
    * @param port_num querying port's number
    * @return local link cost
    */
-  Size portCost(int port_num) {
-    Size bps = this->getHost()->getPort(port_num)->getPortSpeed();
+  Size linkCost(int port_num) {
+    Size bps = this->getWireSpeed(port_num);
     return CostLCM / bps;
   }
 
@@ -94,18 +91,11 @@ public:
   virtual ~RoutingAssignment();
 
 protected:
-  virtual void packetArrived(std::string fromModule, Packet &&packet) final;
-};
-
-class RoutingAssignmentProvider {
-private:
-  RoutingAssignmentProvider() {}
-  ~RoutingAssignmentProvider() {}
-
-public:
-  static HostModule *allocate(Host *host) {
-    return new RoutingAssignment(host);
+  virtual std::any diagnose(std::any param) final {
+    auto ip = std::any_cast<ipv4_t>(param);
+    return ripQuery(ip);
   }
+  virtual void packetArrived(std::string fromModule, Packet &&packet) final;
 };
 
 } // namespace E

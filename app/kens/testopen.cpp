@@ -22,12 +22,12 @@
 
 using namespace E;
 
-class TestOpen : public SystemCallApplication, private TCPApplication {
+class TestOpen : public TCPApplication {
 public:
-  TestOpen(Host *host) : SystemCallApplication(host), TCPApplication(this) {}
+  TestOpen(Host &host) : TCPApplication(host) {}
 
 protected:
-  void E_Main() {
+  int E_Main() {
     const static int test_size = 1024;
     const static int test_repeat = 128;
     size_t failed = 0;
@@ -56,13 +56,14 @@ protected:
     EXPECT_EQ(success, ((size_t)test_size) * ((size_t)test_repeat));
     EXPECT_EQ(failed, 0);
     EXPECT_EQ(duplicated, 0);
+    return 0;
   }
 };
 
 TEST_F(TestEnv_Reliable, TestOpen) {
-  TestOpen server(host1);
 
-  server.initialize();
+  int pid = host1->addApplication<TestOpen>(*host1);
+  host1->launchApplication(pid);
 
   this->runTest();
 }

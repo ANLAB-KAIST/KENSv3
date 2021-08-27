@@ -13,12 +13,12 @@
 
 namespace E {
 
-class IPv4 : public HostModule, public NetworkModule, private NetworkLog {
+class IPv4 : public HostModule {
 private:
   uint16_t identification;
 
 public:
-  IPv4(Host *host);
+  IPv4(Host &host);
   virtual ~IPv4();
 
 protected:

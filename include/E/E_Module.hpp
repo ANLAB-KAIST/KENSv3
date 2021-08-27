@@ -12,6 +12,7 @@
 
 namespace E {
 class System;
+using ModuleID = uintptr_t;
 
 /**
  * @brief Module is an interface for classes
@@ -21,7 +22,8 @@ class System;
  */
 class Module {
 private:
-  System *system;
+  System &system;
+  ModuleID id;
 
 public:
   /**
@@ -29,14 +31,12 @@ public:
    * Module is registered to a System when it is created.
    * @param system System to be registered.
    */
-  Module(System *system);
+  Module(System &system);
   virtual ~Module();
 
-  /**
-   * @return System this module is registered.
-   * @note You cannot override this function.
-   */
-  virtual System *getSystem() final;
+  std::string getModuleName();
+  std::string getModuleName(const ModuleID moduleID);
+  Time getCurrentTime();
 
   /**
    * @brief Interface of Message. Every message implementation
@@ -45,11 +45,19 @@ public:
    * @see Module::messageReceived, Module::messageFinished, and
    * Module::messageCancelled for further information.
    */
-  class Message {
+  class MessageBase {
   public:
-    Message() {}
-    virtual ~Message() {}
+    MessageBase() {}
+    virtual ~MessageBase() {}
   };
+
+  class EmptyMessage : public MessageBase {
+  public:
+    static EmptyMessage &shared();
+    bool operator==(const EmptyMessage &b) const { return true; }
+  };
+
+  using Message = std::unique_ptr<MessageBase>;
 
 protected:
   /**
@@ -70,8 +78,8 @@ protected:
    * @note Using default implementation is forbidden.
    * If you use the default implementation, no module can send messages to you.
    */
-  virtual Module::Message *messageReceived(Module *from,
-                                           Module::Message *message) {
+  virtual Module::Message messageReceived(const ModuleID from,
+                                          Module::MessageBase &message) {
     (void)from;
     (void)message;
     assert(0);
@@ -100,8 +108,8 @@ protected:
    * If you use send any message, you must override this function with your own
    * implementation.
    */
-  virtual void messageFinished(Module *to, Module::Message *message,
-                               Module::Message *response) {
+  virtual void messageFinished(const ModuleID to, Message message,
+                               Module::MessageBase &response) {
     (void)to;
     (void)message;
     (void)response;
@@ -128,7 +136,7 @@ protected:
    *
    * @see messageFinished
    */
-  virtual void messageCancelled(Module *to, Module::Message *message) {
+  virtual void messageCancelled(const ModuleID to, Message message) {
     (void)to;
     (void)message;
     assert(0);
@@ -152,8 +160,27 @@ protected:
    * @see messageFinished and messageReceived for allocate/deallocate
    * convention.
    */
-  virtual UUID sendMessage(Module *to, Module::Message *message,
+  virtual UUID sendMessage(const ModuleID to, Module::Message message,
                            Time timeAfter) final;
+
+  /**
+   * @brief Send a Message to self
+   * Every message has its own delay before it is actually sent.
+   * The System guarantees the total ordering of all delayed messages in the
+   * System.
+   *
+   * @param message Message to be sent. YOU MUST ALLOCATE THE MESSAGE TO BE
+   * SENT.
+   * @param timeAfter Delay of this message. The receiver will receive the
+   * Message at [current time] + [delay].
+   * @return UUID of generated message. This UUID is used for cancellation of
+   * the message.
+   *
+   * @note You cannot override this function.
+   * @see messageFinished and messageReceived for allocate/deallocate
+   * convention.
+   */
+  virtual UUID sendMessageSelf(Module::Message message, Time timeAfter) final;
 
   /**
    * @brief Cancel the raised Message.

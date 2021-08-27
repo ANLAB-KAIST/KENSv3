@@ -20,12 +20,11 @@ class NetworkSystem;
  * Also you cannot directly access the internal buffer.
  * Use access functions.
  *
- * @see NetworkModule
  */
-class Packet : public Module::Message {
+class Packet : public Module::MessageBase {
 private:
   Packet(UUID uuid, size_t maxSize);
-  std::unique_ptr<char[]> buffer;
+  std::vector<char> buffer;
   const size_t bufferSize;
   size_t dataSize;
 
@@ -54,7 +53,7 @@ public:
    */
   Packet(size_t maxSize);
 
-  ~Packet();
+  ~Packet() override;
 
   /**
    * Clone packet (Cloned packet has a different UUID)

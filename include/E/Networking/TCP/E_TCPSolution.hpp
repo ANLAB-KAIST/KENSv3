@@ -8,9 +8,9 @@
 #ifndef E_TCPSOLUTION_HPP_
 #define E_TCPSOLUTION_HPP_
 
-#include <E/E_TimerModule.hpp>
 #include <E/Networking/E_Host.hpp>
 #include <E/Networking/E_Networking.hpp>
+#include <E/Networking/E_TimerModule.hpp>
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <netinet/ip.h>
@@ -24,9 +24,9 @@ private:
   ~TCPSolutionProvider() {}
 
 public:
-  static HostModule *allocate(Host *host, bool retransmission = true,
-                              bool boundary_test = true,
-                              bool congestion_control = true);
+  static void allocate(Host &host, bool retransmission = true,
+                       bool boundary_test = true,
+                       bool congestion_control = true);
 };
 
 } // namespace E

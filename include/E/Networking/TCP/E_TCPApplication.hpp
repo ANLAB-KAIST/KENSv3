@@ -13,12 +13,10 @@
 
 namespace E {
 
-class TCPApplication {
-private:
-  SystemCallApplication *syscall;
+class TCPApplication : public SystemCallApplication {
 
 public:
-  TCPApplication(SystemCallApplication *syscall);
+  TCPApplication(Host &host);
   virtual ~TCPApplication();
 
 protected:

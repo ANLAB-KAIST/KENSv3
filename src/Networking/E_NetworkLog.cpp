@@ -24,21 +24,19 @@ uint64_t NetworkLog::defaultLevel = (
     //(1 << TCP_LOG) |
     0UL);
 
-NetworkLog::NetworkLog(NetworkSystem *system) {
+NetworkLog::NetworkLog(System &system) : system(system) {
   this->level = defaultLevel;
-  this->system = system;
 }
 
-NetworkLog::NetworkLog(NetworkSystem *system, uint64_t level) {
+NetworkLog::NetworkLog(System &system, uint64_t level) : system(system) {
   this->level = level;
-  this->system = system;
 }
 NetworkLog::~NetworkLog() {}
 
 void NetworkLog::print_log(uint64_t level, const char *format, ...) {
   if (!(((1UL << level) & this->level)))
     return;
-  printf("Time[%" PRIu64 "]\t", system->getCurrentTime());
+  printf("Time[%" PRIu64 "]\t", system.getCurrentTime());
   va_list args;
   va_start(args, format);
   vprintf(format, args);

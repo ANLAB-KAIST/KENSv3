@@ -14,10 +14,10 @@ namespace E {
 
 class Hub : public Link {
 protected:
-  virtual void packetArrived(Port *inPort, Packet &&packet);
+  virtual void packetArrived(const ModuleID inWireID, Packet &&packet);
 
 public:
-  Hub(std::string name, NetworkSystem *system);
+  Hub(std::string name, NetworkSystem &system);
 };
 
 } // namespace E

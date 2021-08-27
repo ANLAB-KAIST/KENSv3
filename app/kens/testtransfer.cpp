@@ -27,12 +27,11 @@ extern "C" {
 
 using namespace E;
 
-class TestTransfer_Accept : public SystemCallApplication,
-                            private TCPApplication {
+class TestTransfer_Accept : public TCPApplication {
 public:
-  TestTransfer_Accept(Host *host,
+  TestTransfer_Accept(Host &host,
                       const std::unordered_map<std::string, std::string> &env)
-      : SystemCallApplication(host), TCPApplication(this) {
+      : TCPApplication(host) {
     this->env = env;
   }
 
@@ -40,7 +39,7 @@ protected:
   std::unordered_map<std::string, std::string> env;
 
 protected:
-  void E_Main() {
+  int E_Main() {
     int server_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     struct sockaddr_in addr;
     socklen_t len = sizeof(addr);
@@ -158,15 +157,15 @@ protected:
 
     close(client_fd);
     close(server_socket);
+    return 0;
   }
 };
 
-class TestTransfer_Connect : public SystemCallApplication,
-                             private TCPApplication {
+class TestTransfer_Connect : public TCPApplication {
 public:
-  TestTransfer_Connect(Host *host,
+  TestTransfer_Connect(Host &host,
                        const std::unordered_map<std::string, std::string> &env)
-      : SystemCallApplication(host), TCPApplication(this) {
+      : TCPApplication(host) {
     this->env = env;
   }
 
@@ -174,7 +173,7 @@ protected:
   std::unordered_map<std::string, std::string> env;
 
 protected:
-  void E_Main() {
+  int E_Main() {
     long connect_time = atol(env["CONNECT_TIME"].c_str());
     usleep(connect_time);
 
@@ -274,6 +273,7 @@ protected:
     EXPECT_EQ(expect_size, total_size);
 
     close(client_socket);
+    return 0;
   }
 };
 
@@ -316,16 +316,18 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Send_Symmetric) {
   connect_env["LOOP_COUNT"] = "128";
   connect_env["SENDER"] = "1";
   connect_env["EXPECT_SIZE"] = "131072";
-  TestTransfer_Connect client(host1, connect_env);
+  int client_pid =
+      host1->addApplication<TestTransfer_Connect>(*host1, connect_env);
 
   accept_env["SENDER"] = "0";
   accept_env["BUFFER_SIZE"] = "1024";
   accept_env["LOOP_COUNT"] = "128";
   accept_env["EXPECT_SIZE"] = "131072";
-  TestTransfer_Accept server(host2, accept_env);
+  int server_pid =
+      host2->addApplication<TestTransfer_Accept>(*host2, accept_env);
 
-  server.initialize();
-  client.initialize();
+  host2->launchApplication(server_pid);
+  host1->launchApplication(client_pid);
 
   this->runTest();
 }
@@ -369,16 +371,18 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Send_EOF) {
   connect_env["LOOP_COUNT"] = "128";
   connect_env["SENDER"] = "1";
   connect_env["EXPECT_SIZE"] = "131072";
-  TestTransfer_Connect client(host1, connect_env);
+  int client_pid =
+      host1->addApplication<TestTransfer_Connect>(*host1, connect_env);
 
   accept_env["SENDER"] = "0";
   accept_env["BUFFER_SIZE"] = "1024";
   accept_env["LOOP_COUNT"] = "0";
   accept_env["EXPECT_SIZE"] = "131072";
-  TestTransfer_Accept server(host2, accept_env);
+  int server_pid =
+      host2->addApplication<TestTransfer_Accept>(*host2, accept_env);
 
-  server.initialize();
-  client.initialize();
+  host2->launchApplication(server_pid);
+  host1->launchApplication(client_pid);
 
   this->runTest();
 }
@@ -424,16 +428,18 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Recv_Symmetric) {
   connect_env["LOOP_COUNT"] = "128";
   connect_env["SENDER"] = "0";
   connect_env["EXPECT_SIZE"] = "131072";
-  TestTransfer_Connect client(host1, connect_env);
+  int client_pid =
+      host1->addApplication<TestTransfer_Connect>(*host1, connect_env);
 
   accept_env["SENDER"] = "1";
   accept_env["BUFFER_SIZE"] = "1024";
   accept_env["LOOP_COUNT"] = "128";
   accept_env["EXPECT_SIZE"] = "131072";
-  TestTransfer_Accept server(host2, accept_env);
+  int server_pid =
+      host2->addApplication<TestTransfer_Accept>(*host2, accept_env);
 
-  server.initialize();
-  client.initialize();
+  host2->launchApplication(server_pid);
+  host1->launchApplication(client_pid);
 
   this->runTest();
 }
@@ -477,16 +483,18 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Recv_EOF) {
   connect_env["LOOP_COUNT"] = "0";
   connect_env["SENDER"] = "0";
   connect_env["EXPECT_SIZE"] = "131072";
-  TestTransfer_Connect client(host1, connect_env);
+  int client_pid =
+      host1->addApplication<TestTransfer_Connect>(*host1, connect_env);
 
   accept_env["SENDER"] = "1";
   accept_env["BUFFER_SIZE"] = "1024";
   accept_env["LOOP_COUNT"] = "128";
   accept_env["EXPECT_SIZE"] = "131072";
-  TestTransfer_Accept server(host2, accept_env);
+  int server_pid =
+      host2->addApplication<TestTransfer_Accept>(*host2, accept_env);
 
-  server.initialize();
-  client.initialize();
+  host2->launchApplication(server_pid);
+  host1->launchApplication(client_pid);
 
   this->runTest();
 }
@@ -530,16 +538,18 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Recv_SmallBuffer1) {
   connect_env["LOOP_COUNT"] = "0";
   connect_env["SENDER"] = "0";
   connect_env["EXPECT_SIZE"] = "131072";
-  TestTransfer_Connect client(host1, connect_env);
+  int client_pid =
+      host1->addApplication<TestTransfer_Connect>(*host1, connect_env);
 
   accept_env["SENDER"] = "1";
   accept_env["BUFFER_SIZE"] = "1024";
   accept_env["LOOP_COUNT"] = "128";
   accept_env["EXPECT_SIZE"] = "131072";
-  TestTransfer_Accept server(host2, accept_env);
+  int server_pid =
+      host2->addApplication<TestTransfer_Accept>(*host2, accept_env);
 
-  server.initialize();
-  client.initialize();
+  host2->launchApplication(server_pid);
+  host1->launchApplication(client_pid);
 
   this->runTest();
 }
@@ -583,16 +593,18 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Recv_SmallBuffer2) {
   connect_env["LOOP_COUNT"] = "0";
   connect_env["SENDER"] = "0";
   connect_env["EXPECT_SIZE"] = "64819";
-  TestTransfer_Connect client(host1, connect_env);
+  int client_pid =
+      host1->addApplication<TestTransfer_Connect>(*host1, connect_env);
 
   accept_env["SENDER"] = "1";
   accept_env["BUFFER_SIZE"] = "53";
   accept_env["LOOP_COUNT"] = "1223";
   accept_env["EXPECT_SIZE"] = "64819";
-  TestTransfer_Accept server(host2, accept_env);
+  int server_pid =
+      host2->addApplication<TestTransfer_Accept>(*host2, accept_env);
 
-  server.initialize();
-  client.initialize();
+  host2->launchApplication(server_pid);
+  host1->launchApplication(client_pid);
 
   this->runTest();
 }
@@ -637,17 +649,19 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Send_Symmetric) {
   accept_env["LOOP_COUNT"] = "128";
   accept_env["SENDER"] = "1";
   accept_env["EXPECT_SIZE"] = "131072";
-  TestTransfer_Accept server(host1, accept_env);
+  int server_pid =
+      host1->addApplication<TestTransfer_Accept>(*host1, accept_env);
 
   connect_env["CONNECT_ADDR"] = host1_ip;
   connect_env["SENDER"] = "0";
   connect_env["BUFFER_SIZE"] = "1024";
   connect_env["LOOP_COUNT"] = "128";
   connect_env["EXPECT_SIZE"] = "131072";
-  TestTransfer_Connect client(host2, connect_env);
+  int client_pid =
+      host2->addApplication<TestTransfer_Connect>(*host2, connect_env);
 
-  server.initialize();
-  client.initialize();
+  host1->launchApplication(server_pid);
+  host2->launchApplication(client_pid);
 
   this->runTest();
 }
@@ -690,17 +704,19 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Send_EOF) {
   accept_env["LOOP_COUNT"] = "128";
   accept_env["SENDER"] = "1";
   accept_env["EXPECT_SIZE"] = "131072";
-  TestTransfer_Accept server(host1, accept_env);
+  int server_pid =
+      host1->addApplication<TestTransfer_Accept>(*host1, accept_env);
 
   connect_env["CONNECT_ADDR"] = host1_ip;
   connect_env["SENDER"] = "0";
   connect_env["BUFFER_SIZE"] = "1024";
   connect_env["LOOP_COUNT"] = "0";
   connect_env["EXPECT_SIZE"] = "131072";
-  TestTransfer_Connect client(host2, connect_env);
+  int client_pid =
+      host2->addApplication<TestTransfer_Connect>(*host2, connect_env);
 
-  client.initialize();
-  server.initialize();
+  host1->launchApplication(server_pid);
+  host2->launchApplication(client_pid);
 
   this->runTest();
 }
@@ -745,17 +761,19 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Recv_Symmetric) {
   accept_env["LOOP_COUNT"] = "128";
   accept_env["SENDER"] = "0";
   accept_env["EXPECT_SIZE"] = "131072";
-  TestTransfer_Accept server(host1, accept_env);
+  int server_pid =
+      host1->addApplication<TestTransfer_Accept>(*host1, accept_env);
 
   connect_env["CONNECT_ADDR"] = host1_ip;
   connect_env["SENDER"] = "1";
   connect_env["BUFFER_SIZE"] = "1024";
   connect_env["LOOP_COUNT"] = "128";
   connect_env["EXPECT_SIZE"] = "131072";
-  TestTransfer_Connect client(host2, connect_env);
+  int client_pid =
+      host2->addApplication<TestTransfer_Connect>(*host2, connect_env);
 
-  server.initialize();
-  client.initialize();
+  host1->launchApplication(server_pid);
+  host2->launchApplication(client_pid);
 
   this->runTest();
 }
@@ -798,17 +816,19 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Recv_EOF) {
   accept_env["LOOP_COUNT"] = "0";
   accept_env["SENDER"] = "0";
   accept_env["EXPECT_SIZE"] = "131072";
-  TestTransfer_Accept server(host1, accept_env);
+  int server_pid =
+      host1->addApplication<TestTransfer_Accept>(*host1, accept_env);
 
   connect_env["CONNECT_ADDR"] = host1_ip;
   connect_env["SENDER"] = "1";
   connect_env["BUFFER_SIZE"] = "1024";
   connect_env["LOOP_COUNT"] = "128";
   connect_env["EXPECT_SIZE"] = "131072";
-  TestTransfer_Connect client(host2, connect_env);
+  int client_pid =
+      host2->addApplication<TestTransfer_Connect>(*host2, connect_env);
 
-  server.initialize();
-  client.initialize();
+  host1->launchApplication(server_pid);
+  host2->launchApplication(client_pid);
 
   this->runTest();
 }
@@ -851,17 +871,19 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Recv_SmallBuffer1) {
   accept_env["LOOP_COUNT"] = "0";
   accept_env["SENDER"] = "0";
   accept_env["EXPECT_SIZE"] = "131072";
-  TestTransfer_Accept server(host1, accept_env);
+  int server_pid =
+      host1->addApplication<TestTransfer_Accept>(*host1, accept_env);
 
   connect_env["CONNECT_ADDR"] = host1_ip;
   connect_env["SENDER"] = "1";
   connect_env["BUFFER_SIZE"] = "1024";
   connect_env["LOOP_COUNT"] = "128";
   connect_env["EXPECT_SIZE"] = "131072";
-  TestTransfer_Connect client(host2, connect_env);
+  int client_pid =
+      host2->addApplication<TestTransfer_Connect>(*host2, connect_env);
 
-  server.initialize();
-  client.initialize();
+  host1->launchApplication(server_pid);
+  host2->launchApplication(client_pid);
 
   this->runTest();
 }
@@ -904,17 +926,19 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Recv_SmallBuffer2) {
   accept_env["LOOP_COUNT"] = "0";
   accept_env["SENDER"] = "0";
   accept_env["EXPECT_SIZE"] = "64819";
-  TestTransfer_Accept server(host1, accept_env);
+  int server_pid =
+      host1->addApplication<TestTransfer_Accept>(*host1, accept_env);
 
   connect_env["CONNECT_ADDR"] = host1_ip;
   connect_env["SENDER"] = "1";
   connect_env["BUFFER_SIZE"] = "53";
   connect_env["LOOP_COUNT"] = "1223";
   connect_env["EXPECT_SIZE"] = "64819";
-  TestTransfer_Connect client(host2, connect_env);
+  int client_pid =
+      host2->addApplication<TestTransfer_Connect>(*host2, connect_env);
 
-  server.initialize();
-  client.initialize();
+  host1->launchApplication(server_pid);
+  host2->launchApplication(client_pid);
 
   this->runTest();
 }

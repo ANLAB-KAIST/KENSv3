@@ -19,24 +19,25 @@ System::System() {
 System::~System() {
   activeTimer.clear();
   while (!timerQueue.empty()) {
-    TimerContainer *current = timerQueue.top();
     timerQueue.pop();
-    delete current;
+  }
+
+  for (auto it = registeredModule.begin(); it != registeredModule.end(); ++it) {
+
+    if (it->second.use_count() != 1) {
+      printf("Module must not live longer than System\n");
+      abort();
+    }
   }
 }
-
-UUID System::sendMessage(Module *from, Module *to, Module::Message *message,
-                         Time timeAfter) {
+UUID System::sendMessage(const ModuleID from, const ModuleID to,
+                         Module::Message message, Time timeAfter) {
   UUID uuid = allocateUUID();
-  TimerContainer *container = new TimerContainer;
-  container->from = from;
-  container->to = to;
-  container->canceled = false;
-  container->wakeup = this->getCurrentTime() + timeAfter;
-  container->message = message;
-  container->uuid = uuid;
+  TimerContainer container = std::make_shared<TimerContainerInner>(
+      from, to, false, this->getCurrentTime() + timeAfter, std::move(message),
+      uuid);
 
-  activeTimer.insert(std::pair<UUID, TimerContainer *>(uuid, container));
+  activeTimer.insert(std::pair<UUID, TimerContainer>(uuid, container));
   timerQueue.push(container);
 
   return uuid;
@@ -61,20 +62,14 @@ bool System::deallocateUUID(UUID candidate) {
   return true;
 }
 
-void System::registerModule(Module *module) {
-  this->registeredModule.insert(module);
-}
-void System::unregisterModule(Module *module) {
-  this->registeredModule.erase(module);
-}
-bool System::isRegistered(Module *module) {
+bool System::isRegistered(const ModuleID module) {
   return this->registeredModule.find(module) != this->registeredModule.end();
 }
 
 Time System::getCurrentTime() { return this->currentTime; }
 
 bool System::cancelMessage(UUID messageID) {
-  std::unordered_map<UUID, TimerContainer *>::iterator iter =
+  std::unordered_map<UUID, TimerContainer>::iterator iter =
       this->activeTimer.find(messageID);
   if (iter == this->activeTimer.end())
     return false;
@@ -83,22 +78,18 @@ bool System::cancelMessage(UUID messageID) {
 }
 
 void System::run(Time till) {
-  std::vector<TimerContainer *> sameTime;
-  std::unique_lock<std::mutex> lock(this->getSystemLock(), std::defer_lock);
+  std::vector<TimerContainer> sameTime;
 
-  lock.lock();
   while (true) {
-    while (true) {
-      bool found = false;
-      for (Runnable *r : runnableSet) {
-        if (r->isRunning()) {
-          r->waitForRunning(false, lock);
-          found = true;
-          break;
+    while (!runnableReady.empty()) {
+      for (auto r = runnableReady.begin(); r != runnableReady.end();) {
+        auto next = (*r)->wake();
+        if (next != Runnable::State::READY) {
+          r = runnableReady.erase(r);
+        } else {
+          ++r;
         }
       }
-      if (!found)
-        break;
     }
     if (timerQueue.empty()) {
       /*
@@ -122,7 +113,7 @@ void System::run(Time till) {
     if (till != 0 && timerQueue.top()->wakeup > till)
       break;
 
-    TimerContainer *current = timerQueue.top();
+    TimerContainer current = timerQueue.top();
     assert(current);
     timerQueue.pop();
 #if 0
@@ -153,60 +144,108 @@ void System::run(Time till) {
     this->currentTime = current->wakeup;
     // for(TimerContainer* container : sameTime)
     {
-      TimerContainer *container = current;
+      TimerContainer container = std::move(current);
       if (!container->canceled) {
-        Module::Message *ret =
-            container->to->messageReceived(container->from, container->message);
-        container->from->messageFinished(container->to, container->message,
-                                         ret);
+        Module::Message ret = registeredModule[container->to]->messageReceived(
+            container->from, *container->message);
+        registeredModule[container->from]->messageFinished(
+            container->to, std::move(container->message),
+            ret != nullptr ? *ret : Module::EmptyMessage::shared());
         if (ret != nullptr)
-          container->to->messageFinished(container->to, ret, nullptr);
+          registeredModule[container->to]->messageFinished(
+              container->to, std::move(ret), Module::EmptyMessage::shared());
       } else {
-        container->from->messageCancelled(container->to, container->message);
+        registeredModule[container->from]->messageCancelled(
+            container->to, std::move(container->message));
       }
 
       this->activeTimer.erase(container->uuid);
       this->activeUUID.erase(container->uuid);
-      delete container;
+      assert(container.use_count() == 1);
     }
   }
-  lock.unlock();
 }
 
-std::mutex &System::getSystemLock() { return this->mutex; }
-
-Runnable::Runnable(System *system, bool initial_value)
-    : running(initial_value) {
-  this->system = system;
+Runnable::Runnable()
+    : state(State::CREATED), threadLock(stateMtx, std::defer_lock),
+      schedLock(stateMtx), thread(&Runnable::run, this) {}
+Runnable::~Runnable() {
+  assert(std::this_thread::get_id() != thread.get_id());
+  assert(schedLock.owns_lock());
+  thread.join();
 }
-Runnable::~Runnable() {}
 
-void Runnable::setRunning(bool value) {
-  // system->getSystemLock().lock()
-  // assert(system->getSystemLock().owns_lock());
-  this->running = value;
+void Runnable::run() {
+  assert(std::this_thread::get_id() == thread.get_id());
+  threadLock.lock();
+  cond.wait(threadLock, [&] { return state == State::STARTING; });
+  pre_main();
+  state = State::READY;
   cond.notify_all();
+  cond.wait(threadLock, [&] { return state == State::RUNNING; });
+  main();
+  state = State::TERMINATED;
+  cond.notify_all();
+  threadLock.unlock();
 }
 
-bool Runnable::isRunning() {
-  // assert(system->getSystemLock().owns_lock());
-  bool ret = this->running;
-  return ret;
+void Runnable::wait() {
+  assert(std::this_thread::get_id() == thread.get_id());
+  assert(threadLock.owns_lock());
+  assert(state == State::RUNNING);
+  state = State::WAITING;
+  cond.notify_all();
+  cond.wait(threadLock, [&] { return state == State::RUNNING; });
 }
 
-void Runnable::waitForRunning(bool value, std::unique_lock<std::mutex> &lock) {
-  // assert(system->getSystemLock().owns_lock());
-  while (this->running != value)
-    cond.wait(lock);
+void Runnable::start() {
+  assert(std::this_thread::get_id() != thread.get_id());
+  assert(schedLock.owns_lock());
+  assert(state == State::CREATED);
+  state = State::STARTING;
+  cond.notify_all();
+  cond.wait(schedLock, [&] { return state == State::READY; });
+  assert(schedLock.owns_lock());
+}
+Runnable::State Runnable::wake() {
+  assert(std::this_thread::get_id() != thread.get_id());
+  assert(schedLock.owns_lock());
+  assert(state == State::READY);
+  state = State::RUNNING;
+  cond.notify_all();
+  cond.wait(schedLock, [&] { return state != State::RUNNING; });
+  return state;
+}
+void Runnable::ready() {
+  assert(schedLock.owns_lock());
+  assert(std::this_thread::get_id() != thread.get_id());
+  assert(state == State::WAITING);
+  state = State::READY;
 }
 
-void System::addRunnable(Runnable *runnable) {
-  // assert(this->getSystemLock().owns_lock());
-  this->runnableSet.insert(runnable);
+void System::addRunnable(std::shared_ptr<Runnable> runnable) {
+  assert(runnable->state == Runnable::State::READY);
+  assert(runnable->schedLock.owns_lock());
+  this->runnableReady.insert(runnable);
 }
-void System::delRunnable(Runnable *runnable) {
-  // assert(this->getSystemLock().owns_lock());
-  this->runnableSet.erase(runnable);
+void System::delRunnable(std::shared_ptr<Runnable> runnable) {
+  this->runnableReady.erase(runnable);
 }
+
+std::string System::getModuleName(const ModuleID moduleID) {
+
+  auto it = registeredModule.find(moduleID);
+  if (it != registeredModule.end()) {
+    return it->second->getModuleName();
+  } else {
+    return "Nill";
+  }
+}
+const ModuleID System::newModuleID() {
+  static ModuleID next = 1;
+  return next++;
+}
+
+ModuleID System::lookupModuleID(Module &module) { return module.id; }
 
 } // namespace E
