@@ -81,6 +81,7 @@ check_cxx_source_compiles(
   #include <cassert>
   #include <cstring>
   #include <cxxabi.h>
+  #include <typeinfo>
   struct aAa {};
   
   int main(void) {
