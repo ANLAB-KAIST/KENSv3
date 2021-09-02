@@ -16,7 +16,8 @@
 namespace E {
 
 TCPAssignment::TCPAssignment(Host &host)
-    : HostModule("TCP", host), SystemCallInterface(AF_INET, IPPROTO_TCP, host),
+    : HostModule("TCP", host), RoutingInfoInterface(host),
+      SystemCallInterface(AF_INET, IPPROTO_TCP, host),
       TimerModule("TCP", host) {}
 
 TCPAssignment::~TCPAssignment() {}

@@ -19,6 +19,7 @@
 namespace E {
 
 class TCPAssignment : public HostModule,
+                      private RoutingInfoInterface,
                       public SystemCallInterface,
                       public TimerModule {
 private:

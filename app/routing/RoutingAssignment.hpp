@@ -60,7 +60,9 @@ __attribute__((packed));
 ;
 #endif
 
-class RoutingAssignment : public HostModule, public TimerModule {
+class RoutingAssignment : public HostModule,
+                          private RoutingInfoInterface,
+                          public TimerModule {
 private:
   virtual void timerCallback(std::any payload) final;
 

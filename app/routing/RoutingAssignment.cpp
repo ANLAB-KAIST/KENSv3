@@ -15,7 +15,8 @@
 namespace E {
 
 RoutingAssignment::RoutingAssignment(Host &host)
-    : HostModule("UDP", host), TimerModule("UDP", host) {}
+    : HostModule("UDP", host), RoutingInfoInterface(host),
+      TimerModule("UDP", host) {}
 
 RoutingAssignment::~RoutingAssignment() {}
 
