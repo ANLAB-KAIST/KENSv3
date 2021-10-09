@@ -76,7 +76,7 @@ protected:
 
     addr.sin_port = htons(10000);
 
-    // bind to port 10000 with INADDR_ADY (should fail, fd is already bound to
+    // bind to port 10000 with INADDR_ANY (should fail, fd is already bound to
     // 9999)
     ret = bind(fd, (struct sockaddr *)&addr, len);
 
