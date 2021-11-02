@@ -11,6 +11,6 @@ COPY . /init
 COPY entrypoint.sh /entrypoint.sh
 WORKDIR /workspace
 
-VOLUME [ "/workspace" "/submission"]
+VOLUME ["/workspace", "/submission"]
 
-ENTRYPOINT [ "/entrypoint.sh" ]
+ENTRYPOINT ["/entrypoint.sh"]
