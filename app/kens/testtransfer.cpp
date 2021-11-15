@@ -27,6 +27,27 @@ extern "C" {
 
 using namespace E;
 
+/**
+ * @brief Server application for the transfer test
+ *
+ * This application is configured by the following environment variables.
+ *
+ * * `CONNECT_ADDR`, `CONNECT_PORT`: Parameters to configure a listening socket.
+ * * `CONNECT_TIME`: Arbitrary sleeping time before starting the handshake. If
+ *   the handshake is completed but the established connection is not consumed
+ *   by the server's `listen` system call, the backlog count will be decreased
+ *   by one.
+ * * `START_TIME`: Arbitrary sleeping time before starting the data transfer.
+ * * `RANDOM_SEED`: This random seed is used to generate a pseudo-random byte
+ *   stream. If a pair of server and client shares the same seed, the seed is
+ *   used to generate and verify the data integrity.
+ * * `SENDER`: Determines who will send the data. Data transfer can be done in
+ *   either client-to-server and server-to-client directions.
+ * * `BUFFER_SIZE`: Size of the buffer to be used in every `write` or `read`
+ *   system call.
+ * * `LOOP_COUNT`: How many times the `write` system call will be invoked.
+ * * `EXPECT_SIZE`: Expected length of the received data.
+ */
 class TestTransfer_Accept : public TCPApplication {
 public:
   TestTransfer_Accept(Host &host,
@@ -161,6 +182,26 @@ protected:
   }
 };
 
+/**
+ * @brief Client application for the transfer test
+ *
+ * This application is configured by the following environment variables.
+ *
+ * * `LISTEN_ADDR`, `LISTEN_PORT`, `BACKLOG`: Parameters to configure a
+ *   listening socket.
+ * * `ACCEPT_TIME`: Arbitrary sleeping time before accepting sockets. If
+ *   connections arrive during the sleep, they will consume the backlog count.
+ * * `START_TIME`: Arbitrary sleeping time before starting the data transfer.
+ * * `RANDOM_SEED`: This random seed is used to generate a pseudo-random byte
+ *   stream. If a pair of server and client shares the same seed, the seed is
+ *   used to generate and verify the data integrity.
+ * * `SENDER`: Determines who will send the data. Data transfer can be done in
+ *   either client-to-server and server-to-client directions.
+ * * `BUFFER_SIZE`: Size of the buffer to be used in every `write` or `read`
+ *   system call.
+ * * `LOOP_COUNT`: How many times the `write` system call will be invoked.
+ * * `EXPECT_SIZE`: Expected length of the received data.
+ */
 class TestTransfer_Connect : public TCPApplication {
 public:
   TestTransfer_Connect(Host &host,
@@ -277,6 +318,14 @@ protected:
   }
 };
 
+/**
+ * Direction: Client -> Server
+ *
+ * In this case, the client will invoke `write` system call exactly N times, and
+ * the server will invoke `read` system call exactly N times.  Thus, this test
+ * will gracefully accept cases when the `close` system call is not implemented
+ * correctly.
+ */
 TEST_F(TestEnv_Any, TestTransfer_Connect_Send_Symmetric) {
   std::unordered_map<std::string, std::string> accept_env;
   std::unordered_map<std::string, std::string> connect_env;
@@ -332,6 +381,14 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Send_Symmetric) {
   this->runTest();
 }
 
+/**
+ * Direction: Client -> Server
+ *
+ * In this case, the server does not know how many times the `write` system call
+ * will be invoked by the client.  The server will indefinitly wait for the
+ * `read` system call unless the `EOF` is received.  You should implement proper
+ * `close` semantics to pass this test.
+ */
 TEST_F(TestEnv_Any, TestTransfer_Connect_Send_EOF) {
   std::unordered_map<std::string, std::string> accept_env;
   std::unordered_map<std::string, std::string> connect_env;
@@ -387,8 +444,12 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Send_EOF) {
   this->runTest();
 }
 
-//---------
-
+/**
+ * Data direction: Server -> Client.
+ *
+ * Same as `TestTransfer_Connect_Send_Symmetric` but the data direction is
+ * changed.
+ */
 TEST_F(TestEnv_Any, TestTransfer_Connect_Recv_Symmetric) {
   std::unordered_map<std::string, std::string> accept_env;
   std::unordered_map<std::string, std::string> connect_env;
@@ -444,6 +505,11 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Recv_Symmetric) {
   this->runTest();
 }
 
+/**
+ * Data direction: Server -> Client.
+ *
+ * Same as `TestTransfer_Connect_Send_EOF` but the data direction is changed.
+ */
 TEST_F(TestEnv_Any, TestTransfer_Connect_Recv_EOF) {
   std::unordered_map<std::string, std::string> accept_env;
   std::unordered_map<std::string, std::string> connect_env;
@@ -499,6 +565,13 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Recv_EOF) {
   this->runTest();
 }
 
+/**
+ * Data direction: Server -> Client.
+ *
+ * In this case, the server uses a very small buffer (128B) while the client
+ * sends large packets (>=512B).  Assuming that a packet has 512B data, it will
+ * be used to fill the read buffer of 4 consequent `read` system calls.
+ */
 TEST_F(TestEnv_Any, TestTransfer_Connect_Recv_SmallBuffer1) {
   std::unordered_map<std::string, std::string> accept_env;
   std::unordered_map<std::string, std::string> connect_env;
@@ -554,6 +627,14 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Recv_SmallBuffer1) {
   this->runTest();
 }
 
+/**
+ * Data direction: Server -> Client.
+ *
+ * In this case, the server uses an extreamly small buffer (67B). This is only 3
+ * bytes larger than the minimum size of the ethernet frame.  Unlike the
+ * previous example, the small buffer size no longer divides the size of the
+ * large client buffer without remainders.
+ */
 TEST_F(TestEnv_Any, TestTransfer_Connect_Recv_SmallBuffer2) {
   std::unordered_map<std::string, std::string> accept_env;
   std::unordered_map<std::string, std::string> connect_env;
@@ -609,8 +690,9 @@ TEST_F(TestEnv_Any, TestTransfer_Connect_Recv_SmallBuffer2) {
   this->runTest();
 }
 
-//======================================
-
+/**
+ * Exactly as same as the `TestTransfer_Connect_Recv_Symmetric`
+ */
 TEST_F(TestEnv_Any, TestTransfer_Accept_Send_Symmetric) {
   std::unordered_map<std::string, std::string> accept_env;
   std::unordered_map<std::string, std::string> connect_env;
@@ -666,6 +748,10 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Send_Symmetric) {
   this->runTest();
 }
 
+/**
+ * In `TestTransfer_Connect_Recv_EOF` test, the client sends the EOF signal.  In
+ * this test, the server sends the EOF signal.
+ */
 TEST_F(TestEnv_Any, TestTransfer_Accept_Send_EOF) {
   std::unordered_map<std::string, std::string> accept_env;
   std::unordered_map<std::string, std::string> connect_env;
@@ -721,8 +807,9 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Send_EOF) {
   this->runTest();
 }
 
-//---------
-
+/**
+ * Same as the `TestTransfer_Connect_Send_Symmetric` test.
+ */
 TEST_F(TestEnv_Any, TestTransfer_Accept_Recv_Symmetric) {
   std::unordered_map<std::string, std::string> accept_env;
   std::unordered_map<std::string, std::string> connect_env;
@@ -778,6 +865,10 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Recv_Symmetric) {
   this->runTest();
 }
 
+/**
+ * In `TestTransfer_Connect_Send_EOF` test, the client sends the EOF signal.  In
+ * this test, the server sends the EOF signal.
+ */
 TEST_F(TestEnv_Any, TestTransfer_Accept_Recv_EOF) {
   std::unordered_map<std::string, std::string> accept_env;
   std::unordered_map<std::string, std::string> connect_env;
@@ -833,6 +924,10 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Recv_EOF) {
   this->runTest();
 }
 
+/**
+ * Same as the `TestTransfer_Connect_Recv_SmallBuffer1` test except for the data
+ * transfer direction.
+ */
 TEST_F(TestEnv_Any, TestTransfer_Accept_Recv_SmallBuffer1) {
   std::unordered_map<std::string, std::string> accept_env;
   std::unordered_map<std::string, std::string> connect_env;
@@ -888,6 +983,10 @@ TEST_F(TestEnv_Any, TestTransfer_Accept_Recv_SmallBuffer1) {
   this->runTest();
 }
 
+/**
+ * Same as the `TestTransfer_Accept_Recv_SmallBuffer2` test except for the data
+ * transfer direction.
+ */
 TEST_F(TestEnv_Any, TestTransfer_Accept_Recv_SmallBuffer2) {
   std::unordered_map<std::string, std::string> accept_env;
   std::unordered_map<std::string, std::string> connect_env;
