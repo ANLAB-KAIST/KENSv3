@@ -172,7 +172,7 @@ protected:
            ++port_num) {
         ipv4_t ip = routers[router_j]->getIPAddr(port_num).value();
         size_t cost_ret = std::any_cast<size_t>(
-            routers[router_j]->diagnoseHostModule("UDP", ip));
+            routers[router_i]->diagnoseHostModule("UDP", ip));
         EXPECT_EQ(cost_ret, cost);
       }
     }
