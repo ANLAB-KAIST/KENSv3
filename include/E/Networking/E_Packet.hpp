@@ -25,10 +25,10 @@ class Packet : public Module::MessageBase {
 private:
   Packet(UUID uuid, size_t maxSize);
   std::vector<char> buffer;
-  const size_t bufferSize;
+  size_t bufferSize;
   size_t dataSize;
 
-  const UUID packetID;
+  UUID packetID;
 
   static std::unordered_set<UUID> packetUUIDSet;
   static UUID packetUUIDStart;
@@ -47,6 +47,18 @@ public:
    * @param other Packet to move.
    */
   Packet(Packet &&other) noexcept;
+
+  /**
+   * Copy assignment operator. (Copied packet has same UUID)
+   * @param other Packet to copy.
+   */
+  Packet &operator=(const Packet &other);
+
+  /**
+   * Move assignment operator. (Moved packet become emtpy)
+   * @param other Packet to move.
+   */
+  Packet &operator=(Packet &&other) noexcept;
 
   /**
    * @param maxSize Maximum packet size.

@@ -43,6 +43,22 @@ Packet::Packet(Packet &&other) noexcept
   other.dataSize = 0;
 }
 
+Packet &Packet::operator=(const Packet &other) {
+  buffer = other.buffer;
+  bufferSize = other.bufferSize;
+  dataSize = other.dataSize;
+  packetID = other.packetID;
+  return *this;
+}
+
+Packet &Packet::operator=(Packet &&other) noexcept {
+  buffer = std::move(other.buffer);
+  bufferSize = std::move(other.bufferSize);
+  dataSize = std::move(other.dataSize);
+  packetID = std::move(other.packetID);
+  return *this;
+}
+
 Packet::Packet(size_t maxSize) : Packet(allocatePacketUUID(), maxSize) {}
 
 Packet::~Packet() { freePacketUUID(this->packetID); }
