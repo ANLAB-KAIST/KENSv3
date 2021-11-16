@@ -96,6 +96,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a89b5bb43bd3afaf369f06664e1822331"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aebe667858a5d08dba354df6b94ee8833"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_packet.html#aebe667858a5d08dba354df6b94ee8833">Packet</a> (<a class="el" href="class_e_1_1_packet.html">Packet</a> &amp;&amp;other) noexcept</td></tr>
 <tr class="separator:aebe667858a5d08dba354df6b94ee8833"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5429d1d0289e350beacbb2ce2717de5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_e_1_1_packet.html">Packet</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_packet.html#aa5429d1d0289e350beacbb2ce2717de5">operator=</a> (const <a class="el" href="class_e_1_1_packet.html">Packet</a> &amp;other)</td></tr>
+<tr class="separator:aa5429d1d0289e350beacbb2ce2717de5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0b0218d5fc7416a4d0ad82b4bf613e8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_e_1_1_packet.html">Packet</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_packet.html#ad0b0218d5fc7416a4d0ad82b4bf613e8">operator=</a> (<a class="el" href="class_e_1_1_packet.html">Packet</a> &amp;&amp;other) noexcept</td></tr>
+<tr class="separator:ad0b0218d5fc7416a4d0ad82b4bf613e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2884c5577bc22e082754232207582d02"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_packet.html#a2884c5577bc22e082754232207582d02">Packet</a> (size_t maxSize)</td></tr>
 <tr class="separator:a2884c5577bc22e082754232207582d02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b1e50112d48a62c79f35ad2581f162d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_e_1_1_packet.html">Packet</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_packet.html#a2b1e50112d48a62c79f35ad2581f162d">clone</a> () const</td></tr>
@@ -239,6 +243,62 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>NetworkSystem</b></t
 
 </div>
 </div>
+<a id="aa5429d1d0289e350beacbb2ce2717de5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5429d1d0289e350beacbb2ce2717de5">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_e_1_1_packet.html">Packet</a> &amp; E::Packet::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_e_1_1_packet.html">Packet</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Copy assignment operator. (Copied packet has same UUID) </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td><a class="el" href="class_e_1_1_packet.html" title="This class abstracts a packet. You cannot directly allocate/deallocate Packet. Also you cannot direct...">Packet</a> to copy. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad0b0218d5fc7416a4d0ad82b4bf613e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0b0218d5fc7416a4d0ad82b4bf613e8">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_e_1_1_packet.html">Packet</a> &amp; E::Packet::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_e_1_1_packet.html">Packet</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Move assignment operator. (Moved packet become emtpy) </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td><a class="el" href="class_e_1_1_packet.html" title="This class abstracts a packet. You cannot directly allocate/deallocate Packet. Also you cannot direct...">Packet</a> to move. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a43c1aced953066d640004d990f8a7d74"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a43c1aced953066d640004d990f8a7d74">&#9670;&nbsp;</a></span>readData()</h2>
 
@@ -359,7 +419,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>NetworkSystem</b></t
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 16 2021 01:32:51 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Nov 16 2021 02:06:44 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
