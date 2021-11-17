@@ -250,7 +250,7 @@ Size HostModule::getWireSpeed(int port_num) {
 void HostModule::print_log(uint64_t level, const char *format, ...) {
   va_list arglist;
   va_start(arglist, format);
-  host.print_log(level, format, arglist);
+  host.vprint_log(level, format, arglist);
   va_end(arglist);
 }
 

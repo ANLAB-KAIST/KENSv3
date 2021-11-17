@@ -34,13 +34,17 @@ NetworkLog::NetworkLog(System &system, uint64_t level) : system(system) {
 NetworkLog::~NetworkLog() {}
 
 void NetworkLog::print_log(uint64_t level, const char *format, ...) {
+  va_list args;
+  va_start(args, format);
+  vprint_log(level, format, args);
+  va_end(args);
+}
+
+void NetworkLog::vprint_log(uint64_t level, const char *format, va_list args) {
   if (!(((1UL << level) & this->level)))
     return;
   printf("Time[%" PRIu64 "]\t", system.getCurrentTime());
-  va_list args;
-  va_start(args, format);
   vprintf(format, args);
-  va_end(args);
   printf("\n");
   fflush(stdout);
 }

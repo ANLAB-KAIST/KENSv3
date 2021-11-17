@@ -92,6 +92,23 @@ public:
 #endif
       ;
 
+  /**
+   * @brief Prints log with specified log level and format.
+   * NetworkLog::print_log prints logs specified in log level parameter.
+   * For example, if log level is set to TCP_LOG, it only prints TCP_LOG logs.
+   * If you want to print multiple log levels in NetworkLog,
+   * you can set log level with OR operation (i.e.  SYSCALL_ERROR |
+   * MODULE_ERROR).
+   *
+   * @note Log::print_log
+   *
+   * @param level log level
+   * @param format Format string
+   * @param args Print arguments for format string
+   *
+   */
+  void vprint_log(uint64_t level, const char *format, va_list args);
+
 public:
   /**
    * @brief Default log level.
