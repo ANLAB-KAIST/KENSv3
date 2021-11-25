@@ -108,6 +108,13 @@ protected:
   Size getWireSpeed(int port_num);
 
   /**
+   * @brief Get the number of ports
+   *
+   * @return the number of ports
+   */
+  size_t getPortCount();
+
+  /**
    * @brief Prints log with specified log level and format.
    * NetworkLog::print_log prints logs specified in log level parameter.
    * For example, if log level is set to TCP_LOG, it only prints TCP_LOG logs.
@@ -340,9 +347,7 @@ private:
   class ProcessInfo {
   public:
     std::shared_ptr<SystemCallApplication> application;
-    std::unordered_set<int> fdSet;
-    std::unordered_map<int, Namespace> fdToDomain;
-    int fdStart;
+    std::map<int, Namespace> fdToDomain;
   };
 
   int pidStart;

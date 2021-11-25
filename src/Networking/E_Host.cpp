@@ -247,6 +247,8 @@ Size HostModule::getWireSpeed(int port_num) {
   return host.getWireSpeed(port_num);
 }
 
+size_t HostModule::getPortCount() { return host.getPortCount(); }
+
 void HostModule::print_log(uint64_t level, const char *format, ...) {
   va_list arglist;
   va_start(arglist, format);
@@ -337,24 +339,26 @@ void Host::returnSystemCall(UUID syscallUUID, int val) {
 int Host::createFileDescriptor(int domain, int protocol, int processID) {
   assert(processInfoMap.find(processID) != processInfoMap.end());
   ProcessInfo &procInfo = processInfoMap.find(processID)->second;
-  int start = procInfo.fdStart;
-  int current = start;
+  int current = 3;
   // assert(procInfo.fdSet.find(processID) != procInfo.fdSet.end());
-  do {
-    if (procInfo.fdSet.find(current) == procInfo.fdSet.end()) {
-      procInfo.fdSet.insert(current);
-      procInfo.fdStart = (current + 1) % MAX_FD;
-      procInfo.fdToDomain.insert(
-          std::pair<int, Namespace>(current, Namespace(domain, protocol)));
-      // found proper fd number
-      return current;
-    }
 
-    current = (current + 1) % MAX_FD;
-  } while (start != current);
+  auto it = procInfo.fdToDomain.begin();
 
-  print_log(NetworkLog::SYSCALL_ERROR, "Out of FD for process %d.", processID);
-  return -1;
+  while (it != procInfo.fdToDomain.end() && it->first == current) {
+    ++current;
+    ++it;
+  }
+
+  if (current >= MAX_FD) {
+
+    print_log(NetworkLog::SYSCALL_ERROR, "Out of FD for process %d.",
+              processID);
+    return -1;
+  }
+  procInfo.fdToDomain.insert(
+      std::pair<int, Namespace>(current, Namespace(domain, protocol)));
+
+  return current;
 }
 
 void Host::removeFileDescriptor(int processID, int fd) {
@@ -362,7 +366,6 @@ void Host::removeFileDescriptor(int processID, int fd) {
   if (processInfoMap.find(processID) != processInfoMap.end()) {
     ProcessInfo &procInfo = processInfoMap.find(processID)->second;
 
-    procInfo.fdSet.erase(fd);
     procInfo.fdToDomain.erase(fd);
   }
 }
@@ -373,7 +376,6 @@ int Host::registerProcess(std::shared_ptr<SystemCallApplication> app) {
   do {
     if (processInfoMap.find(current) == processInfoMap.end()) {
       ProcessInfo procInfo;
-      procInfo.fdStart = 0;
       app->pid = current;
       procInfo.application = std::move(app);
       processInfoMap.insert(
