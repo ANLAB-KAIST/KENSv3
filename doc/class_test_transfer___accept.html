@@ -72,6 +72,9 @@ $(function() {
 <div class="title">TestTransfer_Accept Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Server application for the transfer test.  
+ <a href="class_test_transfer___accept.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for TestTransfer_Accept:</div>
 <div class="dyncontent">
@@ -213,7 +216,20 @@ Additional Inherited Members</h2></td></tr>
  }</td></tr>
 <tr class="separator:a2713f53367b6796b1ad30dba45656f48 inherit pub_types_class_e_1_1_runnable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Server application for the transfer test. </p>
+<p>This application is configured by the following environment variables.</p>
+<ul>
+<li><code>CONNECT_ADDR</code>, <code>CONNECT_PORT</code>: Parameters to configure a listening socket.</li>
+<li><code>CONNECT_TIME</code>: Arbitrary sleeping time before starting the handshake. If the handshake is completed but the established connection is not consumed by the server's <code>listen</code> system call, the backlog count will be decreased by one.</li>
+<li><code>START_TIME</code>: Arbitrary sleeping time before starting the data transfer.</li>
+<li><code>RANDOM_SEED</code>: This random seed is used to generate a pseudo-random byte stream. If a pair of server and client shares the same seed, the seed is used to generate and verify the data integrity.</li>
+<li><code>SENDER</code>: Determines who will send the data. Data transfer can be done in either client-to-server and server-to-client directions.</li>
+<li><code>BUFFER_SIZE</code>: Size of the buffer to be used in every <code>write</code> or <code>read</code> system call.</li>
+<li><code>LOOP_COUNT</code>: How many times the <code>write</code> system call will be invoked.</li>
+<li><code>EXPECT_SIZE</code>: Expected length of the received data. </li>
+</ul>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a5e22478afa25e64af104872ec7d7b2d9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5e22478afa25e64af104872ec7d7b2d9">&#9670;&nbsp;</a></span>E_Main()</h2>
 
@@ -256,7 +272,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Nov 25 2021 11:11:51 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Nov 25 2021 11:14:33 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
