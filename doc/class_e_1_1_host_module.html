@@ -130,6 +130,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sendPacket</b> (std::
 <tr class="memitem:aa0885de765165b45e07f8cdbeee616ca"><td class="memItemLeft" align="right" valign="top">Size&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_host_module.html#aa0885de765165b45e07f8cdbeee616ca">getWireSpeed</a> (int port_num)</td></tr>
 <tr class="memdesc:aa0885de765165b45e07f8cdbeee616ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get cost for local port (link)  <a href="class_e_1_1_host_module.html#aa0885de765165b45e07f8cdbeee616ca">More...</a><br /></td></tr>
 <tr class="separator:aa0885de765165b45e07f8cdbeee616ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae77a9342a12dce8ec4ced0479ece49c6"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_host_module.html#ae77a9342a12dce8ec4ced0479ece49c6">getPortCount</a> ()</td></tr>
+<tr class="memdesc:ae77a9342a12dce8ec4ced0479ece49c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of ports.  <a href="class_e_1_1_host_module.html#ae77a9342a12dce8ec4ced0479ece49c6">More...</a><br /></td></tr>
+<tr class="separator:ae77a9342a12dce8ec4ced0479ece49c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ef15b393c12a8ea5689e6b77357f471"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_host_module.html#a2ef15b393c12a8ea5689e6b77357f471">print_log</a> (uint64_t level, const char *format,...)</td></tr>
 <tr class="memdesc:a2ef15b393c12a8ea5689e6b77357f471"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints log with specified log level and format. <a class="el" href="class_e_1_1_network_log.html#af5b93568ae9e7de9940cea51afabe9a8" title="Prints log with specified log level and format. NetworkLog::print_log prints logs specified in log le...">NetworkLog::print_log</a> prints logs specified in log level parameter. For example, if log level is set to TCP_LOG, it only prints TCP_LOG logs. If you want to print multiple log levels in <a class="el" href="class_e_1_1_network_log.html">NetworkLog</a>, you can set log level with OR operation (i.e. SYSCALL_ERROR | MODULE_ERROR).  <a href="class_e_1_1_host_module.html#a2ef15b393c12a8ea5689e6b77357f471">More...</a><br /></td></tr>
 <tr class="separator:a2ef15b393c12a8ea5689e6b77357f471"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -231,6 +234,34 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Host</b></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>My name used in the registered <a class="el" href="class_e_1_1_host.html" title="This class abstract a single host machine.">Host</a>. </dd></dl>
+
+</div>
+</div>
+<a id="ae77a9342a12dce8ec4ced0479ece49c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae77a9342a12dce8ec4ced0479ece49c6">&#9670;&nbsp;</a></span>getPortCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t E::HostModule::getPortCount </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the number of ports. </p>
+<dl class="section return"><dt>Returns</dt><dd>the number of ports </dd></dl>
 
 </div>
 </div>
@@ -421,7 +452,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Host</b></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 17 2021 01:31:24 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Nov 25 2021 11:11:51 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
