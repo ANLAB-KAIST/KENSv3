@@ -23,10 +23,11 @@ function grade() {
     cmake --build .
 
     RANDOM_SEED=${RANDOM_SEED:-0}
+    TIMEOUT=${TIMEOUT:-300}
     for seed in ${RANDOM_SEED//,/ }; do
         for part in "${@:2}"; do
             for test in $("./app/$1/$1-$part" --gtest_list_tests | grep '^  *'); do
-                GTEST_OUTPUT="xml:/xml/${1}_${part}_${seed}_${test}.xml" RANDOM_SEED=$seed "./app/$1/$1-$part" --gtest_filter="*$test"
+                timeout ${TIMEOUT} GTEST_OUTPUT="xml:/xml/${1}_${part}_${seed}_${test}.xml" RANDOM_SEED=$seed "./app/$1/$1-$part" --gtest_filter="*$test"
             done
         done
     done
