@@ -26,7 +26,7 @@ function grade() {
     for seed in ${RANDOM_SEED//,/ }; do
         for part in "${@:2}"; do
             for test in $("./app/$1/$1-$part" --gtest_list_tests | grep '^  *'); do
-                GTEST_OUTPUT="xml:/xml/$1-$part-$seed-$test.xml" RANDOM_SEED=$seed "./app/$1/$1-$part" --gtest_filter="*$test"
+                GTEST_OUTPUT="xml:/xml/${1}_${part}_${seed}_${test}.xml" RANDOM_SEED=$seed "./app/$1/$1-$part" --gtest_filter="*$test"
             done
         done
     done
