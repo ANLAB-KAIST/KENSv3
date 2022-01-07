@@ -33,9 +33,6 @@ jobs:
         run: cmake -E make_directory ${{github.workspace}}/build
 
       - name: Configure CMake
-        # Use a bash shell so we can use the same syntax for environment variable
-        # access regardless of the host operating system
-        shell: bash
         working-directory: ${{github.workspace}}/build
         # Note the current convention is to use the -S and -B options here to specify source
         # and build directories, but this is only available with CMake 3.13 and higher.
@@ -44,17 +41,14 @@ jobs:
 
       - name: Build
         working-directory: ${{github.workspace}}/build
-        shell: bash
         # Execute the build.  You can specify a specific target with "--target <NAME>"
         run: cmake --build . --config $BUILD_TYPE
 
       - name: Test
         working-directory: ${{github.workspace}}/build
-        shell: bash
         # Execute the build.  You can specify a specific target with "--target <NAME>"
         run: ./app/kens/kens-all-run-solution 
         
       - name: Test (Unreliable)
         working-directory: ${{github.workspace}}/build
-        shell: bash
         run: ./app/kens/kens-all-unreliable-run-solution 
