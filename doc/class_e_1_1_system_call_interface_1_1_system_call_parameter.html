@@ -80,45 +80,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a71dc787019c582c974f97833ec17cb56"><td class="memItemLeft" align="right" valign="top"><a id="a71dc787019c582c974f97833ec17cb56"></a>
 enum SystemCall&#160;</td><td class="memItemRight" valign="bottom"><b>syscallNumber</b></td></tr>
 <tr class="separator:a71dc787019c582c974f97833ec17cb56"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae39e5a4d017da63059fb65ea0b919d7d"><td class="memItemLeft" ><a id="ae39e5a4d017da63059fb65ea0b919d7d"></a>
-union {</td></tr>
-<tr class="memitem:ae3356a8eb9be68db68b3757a54b36e62"><td class="memItemLeft" >
-&#160;&#160;&#160;int&#160;&#160;&#160;<b>param1_int</b></td></tr>
-<tr class="separator:ae3356a8eb9be68db68b3757a54b36e62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b8d0c61014dfbccd5fdba6e00609050"><td class="memItemLeft" >
-&#160;&#160;&#160;void *&#160;&#160;&#160;<b>param1_ptr</b></td></tr>
-<tr class="separator:a9b8d0c61014dfbccd5fdba6e00609050"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ca51fa29d7fb008e0b261f3cbcfa436"><td class="memItemLeft" >
-&#160;&#160;&#160;long&#160;&#160;&#160;<b>param1_long</b></td></tr>
-<tr class="separator:a1ca51fa29d7fb008e0b261f3cbcfa436"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae39e5a4d017da63059fb65ea0b919d7d"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:ae39e5a4d017da63059fb65ea0b919d7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a338658ec6a7cc8a80f194bcd9501952a"><td class="memItemLeft" ><a id="a338658ec6a7cc8a80f194bcd9501952a"></a>
-union {</td></tr>
-<tr class="memitem:aaec3bdaa734d5b0f6a4de299cd302fc3"><td class="memItemLeft" >
-&#160;&#160;&#160;int&#160;&#160;&#160;<b>param2_int</b></td></tr>
-<tr class="separator:aaec3bdaa734d5b0f6a4de299cd302fc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f2a9eb4d840a13a244389434c88c0fe"><td class="memItemLeft" >
-&#160;&#160;&#160;void *&#160;&#160;&#160;<b>param2_ptr</b></td></tr>
-<tr class="separator:a8f2a9eb4d840a13a244389434c88c0fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada209250dcd869a54377335c78de37ac"><td class="memItemLeft" >
-&#160;&#160;&#160;long&#160;&#160;&#160;<b>param2_long</b></td></tr>
-<tr class="separator:ada209250dcd869a54377335c78de37ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a338658ec6a7cc8a80f194bcd9501952a"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:a338658ec6a7cc8a80f194bcd9501952a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aabeb84877eff049fca8ef89a6d7bb85d"><td class="memItemLeft" ><a id="aabeb84877eff049fca8ef89a6d7bb85d"></a>
-union {</td></tr>
-<tr class="memitem:a661f4dbd0563f3e586b7642d7b061dd2"><td class="memItemLeft" >
-&#160;&#160;&#160;int&#160;&#160;&#160;<b>param3_int</b></td></tr>
-<tr class="separator:a661f4dbd0563f3e586b7642d7b061dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab22ea427cbf148c1386c539cbf210619"><td class="memItemLeft" >
-&#160;&#160;&#160;void *&#160;&#160;&#160;<b>param3_ptr</b></td></tr>
-<tr class="separator:ab22ea427cbf148c1386c539cbf210619"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace0a4b7406f4cd6a76475e65ebba3eb5"><td class="memItemLeft" >
-&#160;&#160;&#160;long&#160;&#160;&#160;<b>param3_long</b></td></tr>
-<tr class="separator:ace0a4b7406f4cd6a76475e65ebba3eb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aabeb84877eff049fca8ef89a6d7bb85d"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:aabeb84877eff049fca8ef89a6d7bb85d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36ca7cf8fe9e95b1d727aff1b86ada24"><td class="memItemLeft" align="right" valign="top"><a id="a36ca7cf8fe9e95b1d727aff1b86ada24"></a>
+std::array&lt; std::variant&lt; void *, int8_t, int16_t, int32_t, int64_t, uint8_t, uint16_t, uint32_t, uint64_t &gt;, max_param &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>params</b></td></tr>
+<tr class="separator:a36ca7cf8fe9e95b1d727aff1b86ada24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/E/Networking/<a class="el" href="_e___host_8hpp_source.html">E_Host.hpp</a></li>
@@ -126,7 +90,7 @@ union {</td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 30 2021 11:19:59 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 7 2022 08:33:16 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
