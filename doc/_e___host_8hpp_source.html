@@ -135,271 +135,262 @@ $(function() {
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  <span class="keyword">static</span> constexpr <span class="keywordtype">int</span> IPPROTO_TCP = 6;</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;  <span class="keyword">static</span> constexpr <span class="keywordtype">int</span> IPPROTO_UDP = 17;</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;  <span class="keyword">enum</span> SystemCall {</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    SOCKET,</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    CLOSE,</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    READ,</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    WRITE,</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    CONNECT,</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    LISTEN,</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    ACCEPT,</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    BIND,</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    GETSOCKNAME,</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    GETPEERNAME,</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    NSLEEP,</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    GETTIMEOFDAY,</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;  };</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
-<div class="line"><a name="l00170"></a><span class="lineno"><a class="line" href="class_e_1_1_system_call_interface_1_1_system_call_parameter.html">  170</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_e_1_1_system_call_interface_1_1_system_call_parameter.html">SystemCallParameter</a> {</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keyword">enum</span> SystemCall syscallNumber;</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keyword">union </span>{</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;      <span class="keywordtype">int</span> param1_int;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;      <span class="keywordtype">void</span> *param1_ptr;</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;      <span class="keywordtype">long</span> param1_long;</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    };</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keyword">union </span>{</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;      <span class="keywordtype">int</span> param2_int;</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;      <span class="keywordtype">void</span> *param2_ptr;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;      <span class="keywordtype">long</span> param2_long;</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    };</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keyword">union </span>{</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;      <span class="keywordtype">int</span> param3_int;</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;      <span class="keywordtype">void</span> *param3_ptr;</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;      <span class="keywordtype">long</span> param3_long;</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    };</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;  };</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;  <a class="code" href="class_e_1_1_system_call_interface.html#a29a5c101eefdb009ec65f71e45378e8a">SystemCallInterface</a>(<span class="keywordtype">int</span> domain, <span class="keywordtype">int</span> protocol, <a class="code" href="class_e_1_1_host.html">Host</a> &amp;host);</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_e_1_1_system_call_interface.html">SystemCallInterface</a>();</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_system_call_interface.html#ae74d79c6efaba36bfda08a4d8f3155f3">systemCallback</a>(UUID syscallUUID, <span class="keywordtype">int</span> pid,</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;                              <span class="keyword">const</span> <a class="code" href="class_e_1_1_system_call_interface_1_1_system_call_parameter.html">SystemCallParameter</a> &amp;param) = 0;</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_system_call_interface.html#a7c2aa95354a0a04c961ac97f67e5dc4f">returnSystemCall</a>(UUID syscallUUID, <span class="keywordtype">int</span> val) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160; </div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_e_1_1_system_call_interface.html#a92472f5193f5c75beeb1a6b61dbf942a">createFileDescriptor</a>(<span class="keywordtype">int</span> processID) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160; </div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_system_call_interface.html#aa84c05c2d4b7531d6b7a5b5cc9f6e1c9">removeFileDescriptor</a>(<span class="keywordtype">int</span> processID, <span class="keywordtype">int</span> fd) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160; </div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;  <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_e_1_1_host.html">Host</a>;</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160; </div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;  <a class="code" href="class_e_1_1_host.html">Host</a> &amp;host;</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;  <span class="keywordtype">int</span> domain;</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;  <span class="keywordtype">int</span> protocol;</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;};</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160; </div>
-<div class="line"><a name="l00273"></a><span class="lineno"><a class="line" href="class_e_1_1_system_call_application.html">  273</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_e_1_1_system_call_application.html">SystemCallApplication</a> : <span class="keyword">public</span> <a class="code" href="class_e_1_1_runnable.html">Runnable</a> {</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;  <a class="code" href="class_e_1_1_system_call_application.html">SystemCallApplication</a>(<a class="code" href="class_e_1_1_host.html">Host</a> &amp;host);</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_e_1_1_system_call_application.html">SystemCallApplication</a>();</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160; </div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_system_call_application.html#a524aa26f40aace608b491476b1779a31">initialize</a>() <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span></div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;  <a class="code" href="class_e_1_1_system_call_application.html#a6a70f2360b93de1ac688210ad88086f5">E_Syscall</a>(<span class="keyword">const</span> <a class="code" href="class_e_1_1_system_call_interface_1_1_system_call_parameter.html">SystemCallInterface::SystemCallParameter</a> &amp;param) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160; </div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> returnSyscall(<span class="keywordtype">int</span> retVal) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160; </div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_e_1_1_system_call_application.html#afa4cc1537e292c7f82a11ad8de648e06">E_Main</a>() = 0;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;  <span class="keyword">static</span> constexpr <span class="keywordtype">int</span> max_param = 3;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;  <span class="keyword">enum</span> SystemCall {</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    SOCKET,</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    CLOSE,</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    READ,</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    WRITE,</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    CONNECT,</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    LISTEN,</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    ACCEPT,</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    BIND,</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    GETSOCKNAME,</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    GETPEERNAME,</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    NSLEEP,</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    GETTIMEOFDAY,</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;  };</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
+<div class="line"><a name="l00172"></a><span class="lineno"><a class="line" href="class_e_1_1_system_call_interface_1_1_system_call_parameter.html">  172</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_e_1_1_system_call_interface_1_1_system_call_parameter.html">SystemCallParameter</a> {</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="keyword">enum</span> SystemCall syscallNumber;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    std::array&lt;std::variant&lt;<span class="keywordtype">void</span> *, int8_t, int16_t, int32_t, int64_t, uint8_t,</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                            uint16_t, uint32_t, uint64_t&gt;,</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;               max_param&gt;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        params;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;  };</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;  <a class="code" href="class_e_1_1_system_call_interface.html#a29a5c101eefdb009ec65f71e45378e8a">SystemCallInterface</a>(<span class="keywordtype">int</span> domain, <span class="keywordtype">int</span> protocol, <a class="code" href="class_e_1_1_host.html">Host</a> &amp;host);</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_e_1_1_system_call_interface.html">SystemCallInterface</a>();</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_system_call_interface.html#ae74d79c6efaba36bfda08a4d8f3155f3">systemCallback</a>(UUID syscallUUID, <span class="keywordtype">int</span> pid,</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;                              <span class="keyword">const</span> <a class="code" href="class_e_1_1_system_call_interface_1_1_system_call_parameter.html">SystemCallParameter</a> &amp;param) = 0;</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_system_call_interface.html#a7c2aa95354a0a04c961ac97f67e5dc4f">returnSystemCall</a>(UUID syscallUUID, <span class="keywordtype">int</span> val) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160; </div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_e_1_1_system_call_interface.html#a92472f5193f5c75beeb1a6b61dbf942a">createFileDescriptor</a>(<span class="keywordtype">int</span> processID) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160; </div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_system_call_interface.html#aa84c05c2d4b7531d6b7a5b5cc9f6e1c9">removeFileDescriptor</a>(<span class="keywordtype">int</span> processID, <span class="keywordtype">int</span> fd) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160; </div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;  <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_e_1_1_host.html">Host</a>;</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160; </div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;  <a class="code" href="class_e_1_1_host.html">Host</a> &amp;host;</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;  <span class="keywordtype">int</span> domain;</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;  <span class="keywordtype">int</span> protocol;</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;};</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160; </div>
+<div class="line"><a name="l00264"></a><span class="lineno"><a class="line" href="class_e_1_1_system_call_application.html">  264</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_e_1_1_system_call_application.html">SystemCallApplication</a> : <span class="keyword">public</span> <a class="code" href="class_e_1_1_runnable.html">Runnable</a> {</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;  <a class="code" href="class_e_1_1_system_call_application.html">SystemCallApplication</a>(<a class="code" href="class_e_1_1_host.html">Host</a> &amp;host);</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_e_1_1_system_call_application.html">SystemCallApplication</a>();</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160; </div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_system_call_application.html#a524aa26f40aace608b491476b1779a31">initialize</a>() <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span></div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;  <a class="code" href="class_e_1_1_system_call_application.html#a6a70f2360b93de1ac688210ad88086f5">E_Syscall</a>(<span class="keyword">const</span> <a class="code" href="class_e_1_1_system_call_interface_1_1_system_call_parameter.html">SystemCallInterface::SystemCallParameter</a> &amp;param) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160; </div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> returnSyscall(<span class="keywordtype">int</span> retVal) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160; </div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_e_1_1_system_call_application.html#afa4cc1537e292c7f82a11ad8de648e06">E_Main</a>() = 0;</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160; </div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;  Time <a class="code" href="class_e_1_1_system_call_application.html#ab842debcbd56d55e69d9cdf8a1d67fd4">getCurrentTime</a>();</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160; </div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> main() <span class="keyword">override</span> <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> finalizeApplication(<span class="keywordtype">int</span> returnValue) <span class="keyword">final</span>;</div>
 <div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160; </div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;  Time <a class="code" href="class_e_1_1_system_call_application.html#ab842debcbd56d55e69d9cdf8a1d67fd4">getCurrentTime</a>();</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;  <a class="code" href="class_e_1_1_host.html">Host</a> &amp;host;</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;  <span class="keywordtype">int</span> pid;</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;  <span class="keywordtype">int</span> syscallRet = 0;</div>
 <div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160; </div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> main() <span class="keyword">override</span> <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> finalizeApplication(<span class="keywordtype">int</span> returnValue) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;  <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_e_1_1_host.html">Host</a>;</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;  <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_e_1_1_t_c_p_application.html">TCPApplication</a>;</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;};</div>
 <div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160; </div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;  <a class="code" href="class_e_1_1_host.html">Host</a> &amp;host;</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;  <span class="keywordtype">int</span> pid;</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;  <span class="keywordtype">int</span> syscallRet = 0;</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160; </div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;  <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_e_1_1_host.html">Host</a>;</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;  <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_e_1_1_t_c_p_application.html">TCPApplication</a>;</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;};</div>
+<div class="line"><a name="l00317"></a><span class="lineno"><a class="line" href="class_e_1_1_host.html">  317</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_e_1_1_host.html">Host</a> : <span class="keyword">public</span> <a class="code" href="class_e_1_1_network_module.html">NetworkModule</a>, <span class="keyword">public</span> <a class="code" href="class_e_1_1_network_log.html">NetworkLog</a>, <span class="keyword">public</span> <a class="code" href="class_e_1_1_routing_info.html">RoutingInfo</a> {</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;  <span class="keyword">using</span> Domain = int;</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;  <span class="keyword">using</span> Protocol = int;</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;  <span class="keyword">using</span> Namespace = std::pair&lt;Domain, Protocol&gt;;</div>
 <div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160; </div>
-<div class="line"><a name="l00326"></a><span class="lineno"><a class="line" href="class_e_1_1_host.html">  326</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_e_1_1_host.html">Host</a> : <span class="keyword">public</span> <a class="code" href="class_e_1_1_network_module.html">NetworkModule</a>, <span class="keyword">public</span> <a class="code" href="class_e_1_1_network_log.html">NetworkLog</a>, <span class="keyword">public</span> <a class="code" href="class_e_1_1_routing_info.html">RoutingInfo</a> {</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;  <span class="keyword">using</span> Domain = int;</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;  <span class="keyword">using</span> Protocol = int;</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;  <span class="keyword">using</span> Namespace = std::pair&lt;Domain, Protocol&gt;;</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;  <span class="keyword">static</span> constexpr <span class="keywordtype">int</span> MAX_FD = 65536;</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;  <span class="keyword">static</span> constexpr <span class="keywordtype">int</span> MAX_PID = 65536;</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160; </div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;  <span class="keyword">class </span>DefaultSystemCall : <span class="keyword">public</span> <a class="code" href="class_e_1_1_system_call_interface.html">SystemCallInterface</a>, <span class="keyword">public</span> <a class="code" href="class_e_1_1_timer_module.html">TimerModule</a> {</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    DefaultSystemCall(<a class="code" href="class_e_1_1_host.html">Host</a> &amp;host);</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    <span class="keyword">virtual</span> ~DefaultSystemCall();</div>
 <div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160; </div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;  <span class="keyword">static</span> constexpr <span class="keywordtype">int</span> MAX_FD = 65536;</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;  <span class="keyword">static</span> constexpr <span class="keywordtype">int</span> MAX_PID = 65536;</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160; </div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;  <span class="keyword">class </span>DefaultSystemCall : <span class="keyword">public</span> <a class="code" href="class_e_1_1_system_call_interface.html">SystemCallInterface</a>, <span class="keyword">public</span> <a class="code" href="class_e_1_1_timer_module.html">TimerModule</a> {</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;    DefaultSystemCall(<a class="code" href="class_e_1_1_host.html">Host</a> &amp;host);</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;    <span class="keyword">virtual</span> ~DefaultSystemCall();</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160; </div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> systemCallback(UUID syscallUUID, <span class="keywordtype">int</span> pid,</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;                                <span class="keyword">const</span> SystemCallParameter &amp;param) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> timerCallback(std::any payload) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;  };</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160; </div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;  <span class="keyword">class </span>ProcessInfo {</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    std::shared_ptr&lt;SystemCallApplication&gt; application;</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;    std::map&lt;int, Namespace&gt; fdToDomain;</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;  };</div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160; </div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;  <span class="keywordtype">int</span> pidStart;</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;  UUID syscallIDStart;</div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;  <span class="keywordtype">bool</span> running;</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;  <a class="code" href="class_e_1_1_network_system.html">NetworkSystem</a> &amp;networkSystem;</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160; </div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;  std::unordered_map&lt;Namespace, std::shared_ptr&lt;SystemCallInterface&gt;&gt;</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;      interfaceMap;</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;  std::unordered_map&lt;std::string, std::shared_ptr&lt;HostModule&gt;&gt; hostModuleMap;</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;  std::unordered_map&lt;std::string, std::shared_ptr&lt;TimerModule&gt;&gt; timerModuleMap;</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;  std::unordered_map&lt;int, ProcessInfo&gt; processInfoMap;</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;  std::unordered_map&lt;UUID, int&gt; syscallMap; <span class="comment">// to PID</span></div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160; </div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;  <span class="keyword">virtual</span> Module::Message messageReceived(<span class="keyword">const</span> ModuleID from,</div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;                                          <a class="code" href="class_e_1_1_module_1_1_message_base.html">Module::MessageBase</a> &amp;message) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> messageFinished(<span class="keyword">const</span> ModuleID to, Module::Message message,</div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;                               <a class="code" href="class_e_1_1_module_1_1_message_base.html">Module::MessageBase</a> &amp;response) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> messageCancelled(<span class="keyword">const</span> ModuleID to,</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;                                Module::Message message) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160; </div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;  <a class="code" href="class_e_1_1_host.html">Host</a>(std::string name, <a class="code" href="class_e_1_1_network_system.html">NetworkSystem</a> &amp;system);</div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_e_1_1_host.html">Host</a>();</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> cleanUp(<span class="keywordtype">void</span>) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">bool</span> isRunning(<span class="keywordtype">void</span>) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... Args&gt; <span class="keywordtype">void</span> addHostModule(Args &amp;&amp;...args) {</div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    static_assert(std::is_base_of&lt;HostModule, T&gt;::value ||</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;                  std::is_base_of&lt;TimerModule, T&gt;::value ||</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;                  std::is_base_of&lt;SystemCallInterface, T&gt;::value);</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160; </div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    <span class="keyword">auto</span> hostModule = std::make_shared&lt;T&gt;(std::forward&lt;Args&gt;(args)...);</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;    <span class="keywordflow">if</span> constexpr (std::is_base_of&lt;HostModule, T&gt;::value) {</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;      <span class="keyword">auto</span> hostModuleName = hostModule-&gt;getHostModuleName();</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;      <span class="keywordtype">bool</span> ret = hostModuleMap.insert({hostModuleName, hostModule}).second;</div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;      (void)ret;</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;      assert(ret);</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    }</div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160; </div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    <span class="keywordflow">if</span> constexpr (std::is_base_of&lt;TimerModule, T&gt;::value) {</div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;      <span class="keyword">auto</span> timerModuleName = hostModule-&gt;getTimerModuleName();</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;      <span class="keywordtype">bool</span> ret = timerModuleMap.insert({timerModuleName, hostModule}).second;</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;      (void)ret;</div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;      assert(ret);</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    }</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160; </div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    <span class="keywordflow">if</span> constexpr (std::is_base_of&lt;SystemCallInterface, T&gt;::value) {</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;      <span class="keywordtype">bool</span> ret =</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;          interfaceMap</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;              .insert({Namespace(hostModule-&gt;domain, hostModule-&gt;protocol),</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;                       hostModule})</div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;              .second;</div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;      (void)ret;</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;      assert(ret);</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    }</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> systemCallback(UUID syscallUUID, <span class="keywordtype">int</span> pid,</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;                                <span class="keyword">const</span> SystemCallParameter &amp;param) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> timerCallback(std::any payload) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;  };</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160; </div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;  <span class="keyword">class </span>ProcessInfo {</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;    std::shared_ptr&lt;SystemCallApplication&gt; application;</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;    std::map&lt;int, Namespace&gt; fdToDomain;</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;  };</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160; </div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;  <span class="keywordtype">int</span> pidStart;</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;  UUID syscallIDStart;</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;  <span class="keywordtype">bool</span> running;</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;  <a class="code" href="class_e_1_1_network_system.html">NetworkSystem</a> &amp;networkSystem;</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160; </div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;  std::unordered_map&lt;Namespace, std::shared_ptr&lt;SystemCallInterface&gt;&gt;</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;      interfaceMap;</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;  std::unordered_map&lt;std::string, std::shared_ptr&lt;HostModule&gt;&gt; hostModuleMap;</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;  std::unordered_map&lt;std::string, std::shared_ptr&lt;TimerModule&gt;&gt; timerModuleMap;</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;  std::unordered_map&lt;int, ProcessInfo&gt; processInfoMap;</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;  std::unordered_map&lt;UUID, int&gt; syscallMap; <span class="comment">// to PID</span></div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160; </div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;  <span class="keyword">virtual</span> Module::Message messageReceived(<span class="keyword">const</span> ModuleID from,</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;                                          <a class="code" href="class_e_1_1_module_1_1_message_base.html">Module::MessageBase</a> &amp;message) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> messageFinished(<span class="keyword">const</span> ModuleID to, Module::Message message,</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;                               <a class="code" href="class_e_1_1_module_1_1_message_base.html">Module::MessageBase</a> &amp;response) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> messageCancelled(<span class="keyword">const</span> ModuleID to,</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;                                Module::Message message) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160; </div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;  <a class="code" href="class_e_1_1_host.html">Host</a>(std::string name, <a class="code" href="class_e_1_1_network_system.html">NetworkSystem</a> &amp;system);</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_e_1_1_host.html">Host</a>();</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> cleanUp(<span class="keywordtype">void</span>) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">bool</span> isRunning(<span class="keywordtype">void</span>) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... Args&gt; <span class="keywordtype">void</span> addHostModule(Args &amp;&amp;...args) {</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;    static_assert(std::is_base_of&lt;HostModule, T&gt;::value ||</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;                  std::is_base_of&lt;TimerModule, T&gt;::value ||</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;                  std::is_base_of&lt;SystemCallInterface, T&gt;::value);</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160; </div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;    <span class="keyword">auto</span> hostModule = std::make_shared&lt;T&gt;(std::forward&lt;Args&gt;(args)...);</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    <span class="keywordflow">if</span> constexpr (std::is_base_of&lt;HostModule, T&gt;::value) {</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;      <span class="keyword">auto</span> hostModuleName = hostModule-&gt;getHostModuleName();</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;      <span class="keywordtype">bool</span> ret = hostModuleMap.insert({hostModuleName, hostModule}).second;</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;      (void)ret;</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;      assert(ret);</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;    }</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160; </div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    <span class="keywordflow">if</span> constexpr (std::is_base_of&lt;TimerModule, T&gt;::value) {</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;      <span class="keyword">auto</span> timerModuleName = hostModule-&gt;getTimerModuleName();</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;      <span class="keywordtype">bool</span> ret = timerModuleMap.insert({timerModuleName, hostModule}).second;</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;      (void)ret;</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;      assert(ret);</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    }</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160; </div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    <span class="keywordflow">if</span> constexpr (std::is_base_of&lt;SystemCallInterface, T&gt;::value) {</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;      <span class="keywordtype">bool</span> ret =</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;          interfaceMap</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;              .insert({Namespace(hostModule-&gt;domain, hostModule-&gt;protocol),</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;                       hostModule})</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;              .second;</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;      (void)ret;</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;      assert(ret);</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    }</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;  }</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... Args&gt; <span class="keywordtype">int</span> addApplication(Args &amp;&amp;...args) {</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    static_assert(std::is_base_of&lt;SystemCallApplication, T&gt;::value);</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    <span class="keyword">auto</span> application = std::make_shared&lt;T&gt;(std::forward&lt;Args&gt;(args)...);</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;    <span class="keywordflow">return</span> registerProcess(std::move(application));</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;  }</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160; </div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;  <span class="keywordtype">void</span> initializeHostModule(<span class="keyword">const</span> <span class="keywordtype">char</span> *name) {</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    hostModuleMap[name]-&gt;initialize();</div>
 <div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;  }</div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... Args&gt; <span class="keywordtype">int</span> addApplication(Args &amp;&amp;...args) {</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;    static_assert(std::is_base_of&lt;SystemCallApplication, T&gt;::value);</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;    <span class="keyword">auto</span> application = std::make_shared&lt;T&gt;(std::forward&lt;Args&gt;(args)...);</div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;    <span class="keywordflow">return</span> registerProcess(std::move(application));</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;  }</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160; </div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;  <span class="keywordtype">void</span> initializeHostModule(<span class="keyword">const</span> <span class="keywordtype">char</span> *name) {</div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;    hostModuleMap[name]-&gt;initialize();</div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;  }</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;  <span class="keywordtype">void</span> finalizeHostModule(<span class="keyword">const</span> <span class="keywordtype">char</span> *name) { hostModuleMap[name]-&gt;finalize(); }</div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;  <span class="keywordtype">void</span> launchApplication(<span class="keywordtype">int</span> pid);</div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;  std::any diagnoseHostModule(<span class="keyword">const</span> <span class="keywordtype">char</span> *name, std::any param);</div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;  Size getWireSpeed(<span class="keywordtype">int</span> port_num);</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;  <span class="keywordtype">void</span> finalizeHostModule(<span class="keyword">const</span> <span class="keywordtype">char</span> *name) { hostModuleMap[name]-&gt;finalize(); }</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;  <span class="keywordtype">void</span> launchApplication(<span class="keywordtype">int</span> pid);</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;  std::any diagnoseHostModule(<span class="keyword">const</span> <span class="keywordtype">char</span> *name, std::any param);</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;  Size getWireSpeed(<span class="keywordtype">int</span> port_num);</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160; </div>
+<div class="line"><a name="l00412"></a><span class="lineno"><a class="line" href="class_e_1_1_host_1_1_syscall.html">  412</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_e_1_1_host_1_1_syscall.html">Syscall</a> : <span class="keyword">public</span> <a class="code" href="class_e_1_1_module_1_1_message_base.html">Module::MessageBase</a> {</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;    <span class="keywordtype">int</span> pid;</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    <a class="code" href="class_e_1_1_system_call_interface_1_1_system_call_parameter.html">SystemCallInterface::SystemCallParameter</a> param;</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;    <a class="code" href="class_e_1_1_host_1_1_syscall.html">Syscall</a>(<span class="keywordtype">int</span> pid, <a class="code" href="class_e_1_1_system_call_interface_1_1_system_call_parameter.html">SystemCallInterface::SystemCallParameter</a> param)</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;        : pid(pid), param(param) {}</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;    ~<a class="code" href="class_e_1_1_host_1_1_syscall.html">Syscall</a>()<span class="keyword"> override </span>{}</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;  };</div>
 <div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160; </div>
-<div class="line"><a name="l00421"></a><span class="lineno"><a class="line" href="class_e_1_1_host_1_1_syscall.html">  421</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_e_1_1_host_1_1_syscall.html">Syscall</a> : <span class="keyword">public</span> <a class="code" href="class_e_1_1_module_1_1_message_base.html">Module::MessageBase</a> {</div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;    <span class="keywordtype">int</span> pid;</div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;    <a class="code" href="class_e_1_1_system_call_interface_1_1_system_call_parameter.html">SystemCallInterface::SystemCallParameter</a> param;</div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;    <a class="code" href="class_e_1_1_host_1_1_syscall.html">Syscall</a>(<span class="keywordtype">int</span> pid, <a class="code" href="class_e_1_1_system_call_interface_1_1_system_call_parameter.html">SystemCallInterface::SystemCallParameter</a> param)</div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;        : pid(pid), param(param) {}</div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;    ~<a class="code" href="class_e_1_1_host_1_1_syscall.html">Syscall</a>()<span class="keyword"> override </span>{}</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;  <span class="comment">// Application Return</span></div>
+<div class="line"><a name="l00422"></a><span class="lineno"><a class="line" href="class_e_1_1_host_1_1_return.html">  422</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_e_1_1_host_1_1_return.html">Return</a> : <span class="keyword">public</span> <a class="code" href="class_e_1_1_module_1_1_message_base.html">Module::MessageBase</a> {</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;    <span class="keywordtype">int</span> pid;</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;    <span class="keywordtype">int</span> returnValue;</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;    <a class="code" href="class_e_1_1_host_1_1_return.html">Return</a>(<span class="keywordtype">int</span> pid, <span class="keywordtype">int</span> returnValue) : pid(pid), returnValue(returnValue) {}</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;    ~<a class="code" href="class_e_1_1_host_1_1_return.html">Return</a>()<span class="keyword"> override </span>{}</div>
 <div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;  };</div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160; </div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;  <span class="comment">// Application Return</span></div>
-<div class="line"><a name="l00431"></a><span class="lineno"><a class="line" href="class_e_1_1_host_1_1_return.html">  431</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_e_1_1_host_1_1_return.html">Return</a> : <span class="keyword">public</span> <a class="code" href="class_e_1_1_module_1_1_message_base.html">Module::MessageBase</a> {</div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;    <span class="keywordtype">int</span> pid;</div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;    <span class="keywordtype">int</span> returnValue;</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;    <a class="code" href="class_e_1_1_host_1_1_return.html">Return</a>(<span class="keywordtype">int</span> pid, <span class="keywordtype">int</span> returnValue) : pid(pid), returnValue(returnValue) {}</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;    ~<a class="code" href="class_e_1_1_host_1_1_return.html">Return</a>()<span class="keyword"> override </span>{}</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;  };</div>
-<div class="line"><a name="l00438"></a><span class="lineno"><a class="line" href="class_e_1_1_host_1_1_packet_pass.html">  438</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_e_1_1_host_1_1_packet_pass.html">PacketPass</a> : <span class="keyword">public</span> <a class="code" href="class_e_1_1_module_1_1_message_base.html">Module::MessageBase</a> {</div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    std::optional&lt;std::string&gt; from;</div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;    std::optional&lt;std::string&gt; to;</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;    <a class="code" href="class_e_1_1_packet.html">Packet</a> packet;</div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;    <a class="code" href="class_e_1_1_host_1_1_packet_pass.html">PacketPass</a>(std::optional&lt;std::string&gt; from, std::optional&lt;std::string&gt; to,</div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;               <a class="code" href="class_e_1_1_packet.html">Packet</a> &amp;&amp;packet)</div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;        : from(from), to(to), packet(packet) {}</div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;    <a class="code" href="class_e_1_1_host_1_1_packet_pass.html">PacketPass</a>(<a class="code" href="class_e_1_1_packet.html">Packet</a> &amp;&amp;packet) : from({}), to({}), packet(packet) {}</div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;    ~<a class="code" href="class_e_1_1_host_1_1_packet_pass.html">PacketPass</a>()<span class="keyword"> override </span>{}</div>
-<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;  };</div>
-<div class="line"><a name="l00449"></a><span class="lineno"><a class="line" href="class_e_1_1_host_1_1_timer.html">  449</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_e_1_1_host_1_1_timer.html">Timer</a> : <span class="keyword">public</span> <a class="code" href="class_e_1_1_module_1_1_message_base.html">Module::MessageBase</a> {</div>
-<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;    std::string from;</div>
-<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;    std::any payload;</div>
-<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    <a class="code" href="class_e_1_1_host_1_1_timer.html">Timer</a>(std::string from, std::any payload) : from(from), payload(payload) {}</div>
-<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;    ~<a class="code" href="class_e_1_1_host_1_1_timer.html">Timer</a>()<span class="keyword"> override </span>{}</div>
-<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;  };</div>
-<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160; </div>
-<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> sendPacket(<span class="keywordtype">size_t</span> portIndex, <a class="code" href="class_e_1_1_packet.html">Packet</a> &amp;&amp;packet) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160; </div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> sendPacketToModule(std::optional&lt;std::string&gt; fromModule,</div>
-<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;                                  std::string toModule, <a class="code" href="class_e_1_1_packet.html">Packet</a> &amp;&amp;packet) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160; </div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;  <span class="keyword">virtual</span> UUID addTimer(std::string fromModule, std::any payload,</div>
-<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;                        Time timeAfter) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> cancelTimer(UUID key) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;  <span class="keyword">virtual</span> UUID</div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;  issueSystemCall(<span class="keywordtype">int</span> pid,</div>
-<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;                  <span class="keyword">const</span> <a class="code" href="class_e_1_1_system_call_interface_1_1_system_call_parameter.html">SystemCallInterface::SystemCallParameter</a> &amp;param) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160; </div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> returnSystemCall(UUID syscallUUID, <span class="keywordtype">int</span> val) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> createFileDescriptor(<span class="keywordtype">int</span> domain, <span class="keywordtype">int</span> protocol,</div>
-<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;                                   <span class="keywordtype">int</span> processID) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> removeFileDescriptor(<span class="keywordtype">int</span> processID, <span class="keywordtype">int</span> fd) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> registerProcess(std::shared_ptr&lt;SystemCallApplication&gt; app) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> exitProcess(<span class="keywordtype">int</span> pid, <span class="keywordtype">int</span> returnValue) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160; </div>
-<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;  <span class="keyword">friend</span> <a class="code" href="class_e_1_1_host_module.html#a0f61e8eb0337a1fc0daec4d4a882122c">HostModule::HostModule</a>(std::string name, <a class="code" href="class_e_1_1_host.html">Host</a> &amp;host);</div>
-<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;  <span class="keyword">friend</span> HostModule::~HostModule();</div>
-<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;  <span class="keyword">friend</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_host_module.html#a7d5f6f6f0f9b6594bb309d95a0f64018">HostModule::sendPacket</a>(std::string toModule, <a class="code" href="class_e_1_1_packet.html">Packet</a> &amp;&amp;packet);</div>
-<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160; </div>
-<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;  <span class="keyword">friend</span> <a class="code" href="class_e_1_1_system_call_interface.html#a29a5c101eefdb009ec65f71e45378e8a">SystemCallInterface::SystemCallInterface</a>(<span class="keywordtype">int</span> domain, <span class="keywordtype">int</span> protocol,</div>
-<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;                                                  <a class="code" href="class_e_1_1_host.html">Host</a> &amp;host);</div>
-<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;  <span class="keyword">friend</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_system_call_interface.html#a7c2aa95354a0a04c961ac97f67e5dc4f">SystemCallInterface::returnSystemCall</a>(UUID syscallUUID, <span class="keywordtype">int</span> val);</div>
-<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;  <span class="keyword">friend</span> <span class="keywordtype">int</span> <a class="code" href="class_e_1_1_system_call_interface.html#a92472f5193f5c75beeb1a6b61dbf942a">SystemCallInterface::createFileDescriptor</a>(<span class="keywordtype">int</span> processID);</div>
-<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;  <span class="keyword">friend</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_system_call_interface.html#aa84c05c2d4b7531d6b7a5b5cc9f6e1c9">SystemCallInterface::removeFileDescriptor</a>(<span class="keywordtype">int</span> processID, <span class="keywordtype">int</span> fd);</div>
+<div class="line"><a name="l00429"></a><span class="lineno"><a class="line" href="class_e_1_1_host_1_1_packet_pass.html">  429</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_e_1_1_host_1_1_packet_pass.html">PacketPass</a> : <span class="keyword">public</span> <a class="code" href="class_e_1_1_module_1_1_message_base.html">Module::MessageBase</a> {</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;    std::optional&lt;std::string&gt; from;</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;    std::optional&lt;std::string&gt; to;</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;    <a class="code" href="class_e_1_1_packet.html">Packet</a> packet;</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;    <a class="code" href="class_e_1_1_host_1_1_packet_pass.html">PacketPass</a>(std::optional&lt;std::string&gt; from, std::optional&lt;std::string&gt; to,</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;               <a class="code" href="class_e_1_1_packet.html">Packet</a> &amp;&amp;packet)</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;        : from(from), to(to), packet(packet) {}</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;    <a class="code" href="class_e_1_1_host_1_1_packet_pass.html">PacketPass</a>(<a class="code" href="class_e_1_1_packet.html">Packet</a> &amp;&amp;packet) : from({}), to({}), packet(packet) {}</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;    ~<a class="code" href="class_e_1_1_host_1_1_packet_pass.html">PacketPass</a>()<span class="keyword"> override </span>{}</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;  };</div>
+<div class="line"><a name="l00440"></a><span class="lineno"><a class="line" href="class_e_1_1_host_1_1_timer.html">  440</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_e_1_1_host_1_1_timer.html">Timer</a> : <span class="keyword">public</span> <a class="code" href="class_e_1_1_module_1_1_message_base.html">Module::MessageBase</a> {</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;    std::string from;</div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;    std::any payload;</div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;    <a class="code" href="class_e_1_1_host_1_1_timer.html">Timer</a>(std::string from, std::any payload) : from(from), payload(payload) {}</div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;    ~<a class="code" href="class_e_1_1_host_1_1_timer.html">Timer</a>()<span class="keyword"> override </span>{}</div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;  };</div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160; </div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> sendPacket(<span class="keywordtype">size_t</span> portIndex, <a class="code" href="class_e_1_1_packet.html">Packet</a> &amp;&amp;packet) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160; </div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> sendPacketToModule(std::optional&lt;std::string&gt; fromModule,</div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;                                  std::string toModule, <a class="code" href="class_e_1_1_packet.html">Packet</a> &amp;&amp;packet) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160; </div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;  <span class="keyword">virtual</span> UUID addTimer(std::string fromModule, std::any payload,</div>
+<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;                        Time timeAfter) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> cancelTimer(UUID key) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;  <span class="keyword">virtual</span> UUID</div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;  issueSystemCall(<span class="keywordtype">int</span> pid,</div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;                  <span class="keyword">const</span> <a class="code" href="class_e_1_1_system_call_interface_1_1_system_call_parameter.html">SystemCallInterface::SystemCallParameter</a> &amp;param) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160; </div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> returnSystemCall(UUID syscallUUID, <span class="keywordtype">int</span> val) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> createFileDescriptor(<span class="keywordtype">int</span> domain, <span class="keywordtype">int</span> protocol,</div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;                                   <span class="keywordtype">int</span> processID) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> removeFileDescriptor(<span class="keywordtype">int</span> processID, <span class="keywordtype">int</span> fd) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> registerProcess(std::shared_ptr&lt;SystemCallApplication&gt; app) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> exitProcess(<span class="keywordtype">int</span> pid, <span class="keywordtype">int</span> returnValue) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160; </div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;  <span class="keyword">friend</span> <a class="code" href="class_e_1_1_host_module.html#a0f61e8eb0337a1fc0daec4d4a882122c">HostModule::HostModule</a>(std::string name, <a class="code" href="class_e_1_1_host.html">Host</a> &amp;host);</div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;  <span class="keyword">friend</span> HostModule::~HostModule();</div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;  <span class="keyword">friend</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_host_module.html#a7d5f6f6f0f9b6594bb309d95a0f64018">HostModule::sendPacket</a>(std::string toModule, <a class="code" href="class_e_1_1_packet.html">Packet</a> &amp;&amp;packet);</div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160; </div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;  <span class="keyword">friend</span> <a class="code" href="class_e_1_1_system_call_interface.html#a29a5c101eefdb009ec65f71e45378e8a">SystemCallInterface::SystemCallInterface</a>(<span class="keywordtype">int</span> domain, <span class="keywordtype">int</span> protocol,</div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;                                                  <a class="code" href="class_e_1_1_host.html">Host</a> &amp;host);</div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;  <span class="keyword">friend</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_system_call_interface.html#a7c2aa95354a0a04c961ac97f67e5dc4f">SystemCallInterface::returnSystemCall</a>(UUID syscallUUID, <span class="keywordtype">int</span> val);</div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;  <span class="keyword">friend</span> <span class="keywordtype">int</span> <a class="code" href="class_e_1_1_system_call_interface.html#a92472f5193f5c75beeb1a6b61dbf942a">SystemCallInterface::createFileDescriptor</a>(<span class="keywordtype">int</span> processID);</div>
+<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;  <span class="keyword">friend</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_system_call_interface.html#aa84c05c2d4b7531d6b7a5b5cc9f6e1c9">SystemCallInterface::removeFileDescriptor</a>(<span class="keywordtype">int</span> processID, <span class="keywordtype">int</span> fd);</div>
+<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160; </div>
+<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;  <span class="keyword">friend</span> <span class="keywordtype">int</span> <a class="code" href="class_e_1_1_system_call_application.html#a6a70f2360b93de1ac688210ad88086f5">SystemCallApplication::E_Syscall</a>(</div>
+<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;      <span class="keyword">const</span> <a class="code" href="class_e_1_1_system_call_interface_1_1_system_call_parameter.html">SystemCallInterface::SystemCallParameter</a> &amp;param);</div>
+<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;  <span class="keyword">friend</span> <span class="keywordtype">void</span> SystemCallApplication::finalizeApplication(<span class="keywordtype">int</span> returnValue);</div>
+<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;  <span class="keyword">friend</span> UUID <a class="code" href="class_e_1_1_timer_module.html#a99b5d8edd989d6d1658e30056aa0d322">TimerModule::addTimer</a>(std::any payload, Time timeAfter);</div>
+<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;  <span class="keyword">friend</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_timer_module.html#a9c49bea5788ab3b26e71bea8c29d523f">TimerModule::cancelTimer</a>(UUID key);</div>
+<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;};</div>
+<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160; </div>
+<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;} <span class="comment">// namespace E</span></div>
 <div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160; </div>
-<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;  <span class="keyword">friend</span> <span class="keywordtype">int</span> <a class="code" href="class_e_1_1_system_call_application.html#a6a70f2360b93de1ac688210ad88086f5">SystemCallApplication::E_Syscall</a>(</div>
-<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;      <span class="keyword">const</span> <a class="code" href="class_e_1_1_system_call_interface_1_1_system_call_parameter.html">SystemCallInterface::SystemCallParameter</a> &amp;param);</div>
-<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;  <span class="keyword">friend</span> <span class="keywordtype">void</span> SystemCallApplication::finalizeApplication(<span class="keywordtype">int</span> returnValue);</div>
-<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;  <span class="keyword">friend</span> UUID <a class="code" href="class_e_1_1_timer_module.html#a99b5d8edd989d6d1658e30056aa0d322">TimerModule::addTimer</a>(std::any payload, Time timeAfter);</div>
-<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;  <span class="keyword">friend</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_timer_module.html#a9c49bea5788ab3b26e71bea8c29d523f">TimerModule::cancelTimer</a>(UUID key);</div>
-<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;};</div>
-<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160; </div>
-<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;} <span class="comment">// namespace E</span></div>
-<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160; </div>
-<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* E_HOST_HPP_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* E_HOST_HPP_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclass_e_1_1_packet_html"><div class="ttname"><a href="class_e_1_1_packet.html">E::Packet</a></div><div class="ttdoc">This class abstracts a packet. You cannot directly allocate/deallocate Packet. Also you cannot direct...</div><div class="ttdef"><b>Definition:</b> E_Packet.hpp:24</div></div>
 <div class="ttc" id="a_e___network_log_8hpp_html"><div class="ttname"><a href="_e___network_log_8hpp.html">E_NetworkLog.hpp</a></div><div class="ttdoc">Header for E::NetworkLog.</div></div>
-<div class="ttc" id="aclass_e_1_1_host_1_1_syscall_html"><div class="ttname"><a href="class_e_1_1_host_1_1_syscall.html">E::Host::Syscall</a></div><div class="ttdef"><b>Definition:</b> E_Host.hpp:421</div></div>
-<div class="ttc" id="aclass_e_1_1_host_module_html_ae77a9342a12dce8ec4ced0479ece49c6"><div class="ttname"><a href="class_e_1_1_host_module.html#ae77a9342a12dce8ec4ced0479ece49c6">E::HostModule::getPortCount</a></div><div class="ttdeci">size_t getPortCount()</div><div class="ttdoc">Get the number of ports.</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:250</div></div>
-<div class="ttc" id="aclass_e_1_1_system_call_interface_html_a92472f5193f5c75beeb1a6b61dbf942a"><div class="ttname"><a href="class_e_1_1_system_call_interface.html#a92472f5193f5c75beeb1a6b61dbf942a">E::SystemCallInterface::createFileDescriptor</a></div><div class="ttdeci">virtual int createFileDescriptor(int processID) final</div><div class="ttdoc">Create a file descriptor for a certain process. The created file descriptor is automatically bound to...</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:266</div></div>
-<div class="ttc" id="aclass_e_1_1_host_module_html_a2284785ba52ece3c30af3da75f08e28e"><div class="ttname"><a href="class_e_1_1_host_module.html#a2284785ba52ece3c30af3da75f08e28e">E::HostModule::getCurrentTime</a></div><div class="ttdeci">Time getCurrentTime()</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:244</div></div>
-<div class="ttc" id="aclass_e_1_1_system_call_application_html_ab842debcbd56d55e69d9cdf8a1d67fd4"><div class="ttname"><a href="class_e_1_1_system_call_application.html#ab842debcbd56d55e69d9cdf8a1d67fd4">E::SystemCallApplication::getCurrentTime</a></div><div class="ttdeci">Time getCurrentTime()</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:445</div></div>
+<div class="ttc" id="aclass_e_1_1_host_1_1_syscall_html"><div class="ttname"><a href="class_e_1_1_host_1_1_syscall.html">E::Host::Syscall</a></div><div class="ttdef"><b>Definition:</b> E_Host.hpp:412</div></div>
+<div class="ttc" id="aclass_e_1_1_host_module_html_ae77a9342a12dce8ec4ced0479ece49c6"><div class="ttname"><a href="class_e_1_1_host_module.html#ae77a9342a12dce8ec4ced0479ece49c6">E::HostModule::getPortCount</a></div><div class="ttdeci">size_t getPortCount()</div><div class="ttdoc">Get the number of ports.</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:251</div></div>
+<div class="ttc" id="aclass_e_1_1_system_call_interface_html_a92472f5193f5c75beeb1a6b61dbf942a"><div class="ttname"><a href="class_e_1_1_system_call_interface.html#a92472f5193f5c75beeb1a6b61dbf942a">E::SystemCallInterface::createFileDescriptor</a></div><div class="ttdeci">virtual int createFileDescriptor(int processID) final</div><div class="ttdoc">Create a file descriptor for a certain process. The created file descriptor is automatically bound to...</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:267</div></div>
+<div class="ttc" id="aclass_e_1_1_host_module_html_a2284785ba52ece3c30af3da75f08e28e"><div class="ttname"><a href="class_e_1_1_host_module.html#a2284785ba52ece3c30af3da75f08e28e">E::HostModule::getCurrentTime</a></div><div class="ttdeci">Time getCurrentTime()</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:245</div></div>
+<div class="ttc" id="aclass_e_1_1_system_call_application_html_ab842debcbd56d55e69d9cdf8a1d67fd4"><div class="ttname"><a href="class_e_1_1_system_call_application.html#ab842debcbd56d55e69d9cdf8a1d67fd4">E::SystemCallApplication::getCurrentTime</a></div><div class="ttdeci">Time getCurrentTime()</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:446</div></div>
 <div class="ttc" id="a_e___common_8hpp_html"><div class="ttname"><a href="_e___common_8hpp.html">E_Common.hpp</a></div><div class="ttdoc">This header contains standard C++11 headers and compatibility definitions.</div></div>
 <div class="ttc" id="aclass_e_1_1_routing_info_html"><div class="ttname"><a href="class_e_1_1_routing_info.html">E::RoutingInfo</a></div><div class="ttdoc">This class provides routing information to its child class.</div><div class="ttdef"><b>Definition:</b> E_RoutingInfo.hpp:90</div></div>
 <div class="ttc" id="a_e___packet_8hpp_html"><div class="ttname"><a href="_e___packet_8hpp.html">E_Packet.hpp</a></div><div class="ttdoc">Header for E::Packet.</div></div>
@@ -407,43 +398,43 @@ $(function() {
 <div class="ttc" id="aclass_e_1_1_host_module_html_a76f2c28ca154bf4f1ee68b92427a982c"><div class="ttname"><a href="class_e_1_1_host_module.html#a76f2c28ca154bf4f1ee68b92427a982c">E::HostModule::packetArrived</a></div><div class="ttdeci">virtual void packetArrived(std::string fromModule, Packet &amp;&amp;packet)=0</div><div class="ttdoc">This function is automatically called by Host when this module receives a Packet. You must override t...</div></div>
 <div class="ttc" id="aclass_e_1_1_network_system_html"><div class="ttname"><a href="class_e_1_1_network_system.html">E::NetworkSystem</a></div><div class="ttdoc">NetworkSystem is a kind of System which has extensions for handling Packet network.</div><div class="ttdef"><b>Definition:</b> E_Networking.hpp:38</div></div>
 <div class="ttc" id="aclass_e_1_1_host_module_html_a4c3b46470590407826670cfdedec9424"><div class="ttname"><a href="class_e_1_1_host_module.html#a4c3b46470590407826670cfdedec9424">E::HostModule::finalize</a></div><div class="ttdeci">virtual void finalize(void)</div><div class="ttdoc">This function is automatically called by Host just after the simulation ends. You can override this f...</div><div class="ttdef"><b>Definition:</b> E_Host.hpp:66</div></div>
-<div class="ttc" id="aclass_e_1_1_host_module_html_aa0885de765165b45e07f8cdbeee616ca"><div class="ttname"><a href="class_e_1_1_host_module.html#aa0885de765165b45e07f8cdbeee616ca">E::HostModule::getWireSpeed</a></div><div class="ttdeci">Size getWireSpeed(int port_num)</div><div class="ttdoc">Get cost for local port (link)</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:246</div></div>
-<div class="ttc" id="aclass_e_1_1_host_module_html_ab781ad016d4464d15920deaa3f16c522"><div class="ttname"><a href="class_e_1_1_host_module.html#ab781ad016d4464d15920deaa3f16c522">E::HostModule::getHostModuleName</a></div><div class="ttdeci">virtual std::string getHostModuleName() final</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:236</div></div>
+<div class="ttc" id="aclass_e_1_1_host_module_html_aa0885de765165b45e07f8cdbeee616ca"><div class="ttname"><a href="class_e_1_1_host_module.html#aa0885de765165b45e07f8cdbeee616ca">E::HostModule::getWireSpeed</a></div><div class="ttdeci">Size getWireSpeed(int port_num)</div><div class="ttdoc">Get cost for local port (link)</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:247</div></div>
+<div class="ttc" id="aclass_e_1_1_host_module_html_ab781ad016d4464d15920deaa3f16c522"><div class="ttname"><a href="class_e_1_1_host_module.html#ab781ad016d4464d15920deaa3f16c522">E::HostModule::getHostModuleName</a></div><div class="ttdeci">virtual std::string getHostModuleName() final</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:237</div></div>
 <div class="ttc" id="aclass_e_1_1_timer_module_html"><div class="ttname"><a href="class_e_1_1_timer_module.html">E::TimerModule</a></div><div class="ttdoc">TimerModule provides convenient interface of timer/alarm.</div><div class="ttdef"><b>Definition:</b> E_TimerModule.hpp:23</div></div>
 <div class="ttc" id="aclass_e_1_1_network_log_html"><div class="ttname"><a href="class_e_1_1_network_log.html">E::NetworkLog</a></div><div class="ttdef"><b>Definition:</b> E_NetworkLog.hpp:23</div></div>
 <div class="ttc" id="aclass_e_1_1_host_module_html_a0ec50ff92037a66806579fa9a4a2ecd0"><div class="ttname"><a href="class_e_1_1_host_module.html#a0ec50ff92037a66806579fa9a4a2ecd0">E::HostModule::diagnose</a></div><div class="ttdeci">virtual std::any diagnose(std::any param)</div><div class="ttdoc">Host module control function.</div><div class="ttdef"><b>Definition:</b> E_Host.hpp:71</div></div>
-<div class="ttc" id="aclass_e_1_1_system_call_application_html_a6a70f2360b93de1ac688210ad88086f5"><div class="ttname"><a href="class_e_1_1_system_call_application.html#a6a70f2360b93de1ac688210ad88086f5">E::SystemCallApplication::E_Syscall</a></div><div class="ttdeci">virtual int E_Syscall(const SystemCallInterface::SystemCallParameter &amp;param) final</div><div class="ttdoc">This is equivalent to INT 0x80 instruction of Linux. This function may be blocked if the system call ...</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:430</div></div>
+<div class="ttc" id="aclass_e_1_1_system_call_application_html_a6a70f2360b93de1ac688210ad88086f5"><div class="ttname"><a href="class_e_1_1_system_call_application.html#a6a70f2360b93de1ac688210ad88086f5">E::SystemCallApplication::E_Syscall</a></div><div class="ttdeci">virtual int E_Syscall(const SystemCallInterface::SystemCallParameter &amp;param) final</div><div class="ttdoc">This is equivalent to INT 0x80 instruction of Linux. This function may be blocked if the system call ...</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:431</div></div>
 <div class="ttc" id="aclass_e_1_1_runnable_html"><div class="ttname"><a href="class_e_1_1_runnable.html">E::Runnable</a></div><div class="ttdoc">Runnable is executed via System. The total ordering of execution is guaranteed by the System.</div><div class="ttdef"><b>Definition:</b> E_System.hpp:152</div></div>
 <div class="ttc" id="aclass_e_1_1_timer_module_html_a99b5d8edd989d6d1658e30056aa0d322"><div class="ttname"><a href="class_e_1_1_timer_module.html#a99b5d8edd989d6d1658e30056aa0d322">E::TimerModule::addTimer</a></div><div class="ttdeci">virtual UUID addTimer(std::any payload, Time timeAfter) final</div><div class="ttdoc">Request an alarm that rings after specified time.</div><div class="ttdef"><b>Definition:</b> E_TimerModule.cpp:19</div></div>
 <div class="ttc" id="aclass_e_1_1_network_module_html"><div class="ttname"><a href="class_e_1_1_network_module.html">E::NetworkModule</a></div><div class="ttdoc">NetworkModule is a abstract class for wired connection.</div><div class="ttdef"><b>Definition:</b> E_Networking.hpp:23</div></div>
-<div class="ttc" id="aclass_e_1_1_host_1_1_return_html"><div class="ttname"><a href="class_e_1_1_host_1_1_return.html">E::Host::Return</a></div><div class="ttdef"><b>Definition:</b> E_Host.hpp:431</div></div>
-<div class="ttc" id="aclass_e_1_1_host_1_1_timer_html"><div class="ttname"><a href="class_e_1_1_host_1_1_timer.html">E::Host::Timer</a></div><div class="ttdef"><b>Definition:</b> E_Host.hpp:449</div></div>
+<div class="ttc" id="aclass_e_1_1_host_1_1_return_html"><div class="ttname"><a href="class_e_1_1_host_1_1_return.html">E::Host::Return</a></div><div class="ttdef"><b>Definition:</b> E_Host.hpp:422</div></div>
+<div class="ttc" id="aclass_e_1_1_host_1_1_timer_html"><div class="ttname"><a href="class_e_1_1_host_1_1_timer.html">E::Host::Timer</a></div><div class="ttdef"><b>Definition:</b> E_Host.hpp:440</div></div>
 <div class="ttc" id="aclass_e_1_1_host_module_html"><div class="ttname"><a href="class_e_1_1_host_module.html">E::HostModule</a></div><div class="ttdoc">HostModule is an interface for classes which is registered to a certain Host. HostModules can communi...</div><div class="ttdef"><b>Definition:</b> E_Host.hpp:35</div></div>
-<div class="ttc" id="aclass_e_1_1_system_call_application_html"><div class="ttname"><a href="class_e_1_1_system_call_application.html">E::SystemCallApplication</a></div><div class="ttdoc">This provides system call interface to an application. This provides basic system call invoking mecha...</div><div class="ttdef"><b>Definition:</b> E_Host.hpp:273</div></div>
+<div class="ttc" id="aclass_e_1_1_system_call_application_html"><div class="ttname"><a href="class_e_1_1_system_call_application.html">E::SystemCallApplication</a></div><div class="ttdoc">This provides system call interface to an application. This provides basic system call invoking mecha...</div><div class="ttdef"><b>Definition:</b> E_Host.hpp:264</div></div>
 <div class="ttc" id="a_e___routing_info_8hpp_html"><div class="ttname"><a href="_e___routing_info_8hpp.html">E_RoutingInfo.hpp</a></div><div class="ttdoc">Header for E::RoutingInfo.</div></div>
 <div class="ttc" id="aclass_e_1_1_system_call_interface_html_ae74d79c6efaba36bfda08a4d8f3155f3"><div class="ttname"><a href="class_e_1_1_system_call_interface.html#ae74d79c6efaba36bfda08a4d8f3155f3">E::SystemCallInterface::systemCallback</a></div><div class="ttdeci">virtual void systemCallback(UUID syscallUUID, int pid, const SystemCallParameter &amp;param)=0</div><div class="ttdoc">When a system call is invoked by an application, this callback function is automatically called....</div></div>
 <div class="ttc" id="aclass_e_1_1_host_module_html_aa63c37f77eced62d914e0020a5dfb6f3"><div class="ttname"><a href="class_e_1_1_host_module.html#aa63c37f77eced62d914e0020a5dfb6f3">E::HostModule::initialize</a></div><div class="ttdeci">virtual void initialize(void)</div><div class="ttdoc">This function is automatically called by Host just before the simulation begins. You can override thi...</div><div class="ttdef"><b>Definition:</b> E_Host.hpp:60</div></div>
-<div class="ttc" id="aclass_e_1_1_host_module_html_a2ef15b393c12a8ea5689e6b77357f471"><div class="ttname"><a href="class_e_1_1_host_module.html#a2ef15b393c12a8ea5689e6b77357f471">E::HostModule::print_log</a></div><div class="ttdeci">void print_log(uint64_t level, const char *format,...)</div><div class="ttdoc">Prints log with specified log level and format. NetworkLog::print_log prints logs specified in log le...</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:252</div></div>
+<div class="ttc" id="aclass_e_1_1_host_module_html_a2ef15b393c12a8ea5689e6b77357f471"><div class="ttname"><a href="class_e_1_1_host_module.html#a2ef15b393c12a8ea5689e6b77357f471">E::HostModule::print_log</a></div><div class="ttdeci">void print_log(uint64_t level, const char *format,...)</div><div class="ttdoc">Prints log with specified log level and format. NetworkLog::print_log prints logs specified in log le...</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:253</div></div>
 <div class="ttc" id="aclass_e_1_1_timer_module_html_a9c49bea5788ab3b26e71bea8c29d523f"><div class="ttname"><a href="class_e_1_1_timer_module.html#a9c49bea5788ab3b26e71bea8c29d523f">E::TimerModule::cancelTimer</a></div><div class="ttdeci">virtual void cancelTimer(UUID key) final</div><div class="ttdoc">Cancel the timer request.</div><div class="ttdef"><b>Definition:</b> E_TimerModule.cpp:23</div></div>
-<div class="ttc" id="aclass_e_1_1_system_call_interface_html_a7c2aa95354a0a04c961ac97f67e5dc4f"><div class="ttname"><a href="class_e_1_1_system_call_interface.html#a7c2aa95354a0a04c961ac97f67e5dc4f">E::SystemCallInterface::returnSystemCall</a></div><div class="ttdeci">virtual void returnSystemCall(UUID syscallUUID, int val) final</div><div class="ttdoc">Unblocks a blocked system call with return value.</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:263</div></div>
+<div class="ttc" id="aclass_e_1_1_system_call_interface_html_a7c2aa95354a0a04c961ac97f67e5dc4f"><div class="ttname"><a href="class_e_1_1_system_call_interface.html#a7c2aa95354a0a04c961ac97f67e5dc4f">E::SystemCallInterface::returnSystemCall</a></div><div class="ttdeci">virtual void returnSystemCall(UUID syscallUUID, int val) final</div><div class="ttdoc">Unblocks a blocked system call with return value.</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:264</div></div>
 <div class="ttc" id="a_e___timer_module_8hpp_html"><div class="ttname"><a href="_e___timer_module_8hpp.html">E_TimerModule.hpp</a></div><div class="ttdoc">Header for E::TimerModule.</div></div>
 <div class="ttc" id="aclass_e_1_1_system_call_interface_html"><div class="ttname"><a href="class_e_1_1_system_call_interface.html">E::SystemCallInterface</a></div><div class="ttdoc">If you want to handle system call events of the Host, you should inherit this class....</div><div class="ttdef"><b>Definition:</b> E_Host.hpp:148</div></div>
-<div class="ttc" id="aclass_e_1_1_host_module_html_a0f61e8eb0337a1fc0daec4d4a882122c"><div class="ttname"><a href="class_e_1_1_host_module.html#a0f61e8eb0337a1fc0daec4d4a882122c">E::HostModule::HostModule</a></div><div class="ttdeci">HostModule(std::string name, Host &amp;host)</div><div class="ttdoc">Create a HostModule. It is automatically registered to the Host. Module is registered to a System whe...</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:233</div></div>
+<div class="ttc" id="aclass_e_1_1_host_module_html_a0f61e8eb0337a1fc0daec4d4a882122c"><div class="ttname"><a href="class_e_1_1_host_module.html#a0f61e8eb0337a1fc0daec4d4a882122c">E::HostModule::HostModule</a></div><div class="ttdeci">HostModule(std::string name, Host &amp;host)</div><div class="ttdoc">Create a HostModule. It is automatically registered to the Host. Module is registered to a System whe...</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:234</div></div>
 <div class="ttc" id="a_e___module_8hpp_html"><div class="ttname"><a href="_e___module_8hpp.html">E_Module.hpp</a></div><div class="ttdoc">Header for E::Module.</div></div>
-<div class="ttc" id="aclass_e_1_1_host_module_html_a7d5f6f6f0f9b6594bb309d95a0f64018"><div class="ttname"><a href="class_e_1_1_host_module.html#a7d5f6f6f0f9b6594bb309d95a0f64018">E::HostModule::sendPacket</a></div><div class="ttdeci">virtual void sendPacket(std::string toModule, Packet &amp;&amp;packet) final</div><div class="ttdoc">This function transfers Packets among HostModules in the Host. Unlike Module::Message,...</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:238</div></div>
-<div class="ttc" id="aclass_e_1_1_system_call_interface_html_aa84c05c2d4b7531d6b7a5b5cc9f6e1c9"><div class="ttname"><a href="class_e_1_1_system_call_interface.html#aa84c05c2d4b7531d6b7a5b5cc9f6e1c9">E::SystemCallInterface::removeFileDescriptor</a></div><div class="ttdeci">virtual void removeFileDescriptor(int processID, int fd) final</div><div class="ttdoc">Close a file descriptor. Closed file descriptor becomes invalid and loses connection between this Sys...</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:270</div></div>
-<div class="ttc" id="aclass_e_1_1_host_html"><div class="ttname"><a href="class_e_1_1_host.html">E::Host</a></div><div class="ttdoc">This class abstract a single host machine.</div><div class="ttdef"><b>Definition:</b> E_Host.hpp:326</div></div>
+<div class="ttc" id="aclass_e_1_1_host_module_html_a7d5f6f6f0f9b6594bb309d95a0f64018"><div class="ttname"><a href="class_e_1_1_host_module.html#a7d5f6f6f0f9b6594bb309d95a0f64018">E::HostModule::sendPacket</a></div><div class="ttdeci">virtual void sendPacket(std::string toModule, Packet &amp;&amp;packet) final</div><div class="ttdoc">This function transfers Packets among HostModules in the Host. Unlike Module::Message,...</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:239</div></div>
+<div class="ttc" id="aclass_e_1_1_system_call_interface_html_aa84c05c2d4b7531d6b7a5b5cc9f6e1c9"><div class="ttname"><a href="class_e_1_1_system_call_interface.html#aa84c05c2d4b7531d6b7a5b5cc9f6e1c9">E::SystemCallInterface::removeFileDescriptor</a></div><div class="ttdeci">virtual void removeFileDescriptor(int processID, int fd) final</div><div class="ttdoc">Close a file descriptor. Closed file descriptor becomes invalid and loses connection between this Sys...</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:271</div></div>
+<div class="ttc" id="aclass_e_1_1_host_html"><div class="ttname"><a href="class_e_1_1_host.html">E::Host</a></div><div class="ttdoc">This class abstract a single host machine.</div><div class="ttdef"><b>Definition:</b> E_Host.hpp:317</div></div>
 <div class="ttc" id="aclass_e_1_1_system_call_application_html_afa4cc1537e292c7f82a11ad8de648e06"><div class="ttname"><a href="class_e_1_1_system_call_application.html#afa4cc1537e292c7f82a11ad8de648e06">E::SystemCallApplication::E_Main</a></div><div class="ttdeci">virtual int E_Main()=0</div><div class="ttdoc">This does a role of int main(int argc, char** argv, char** env). The main functions of multiple appli...</div></div>
-<div class="ttc" id="aclass_e_1_1_host_1_1_packet_pass_html"><div class="ttname"><a href="class_e_1_1_host_1_1_packet_pass.html">E::Host::PacketPass</a></div><div class="ttdef"><b>Definition:</b> E_Host.hpp:438</div></div>
+<div class="ttc" id="aclass_e_1_1_host_1_1_packet_pass_html"><div class="ttname"><a href="class_e_1_1_host_1_1_packet_pass.html">E::Host::PacketPass</a></div><div class="ttdef"><b>Definition:</b> E_Host.hpp:429</div></div>
 <div class="ttc" id="aclass_e_1_1_t_c_p_application_html"><div class="ttname"><a href="class_e_1_1_t_c_p_application.html">E::TCPApplication</a></div><div class="ttdef"><b>Definition:</b> E_TCPApplication.hpp:16</div></div>
 <div class="ttc" id="a_e___wire_8hpp_html"><div class="ttname"><a href="_e___wire_8hpp.html">E_Wire.hpp</a></div><div class="ttdoc">Header for E::Wire.</div></div>
-<div class="ttc" id="aclass_e_1_1_system_call_application_html_a524aa26f40aace608b491476b1779a31"><div class="ttname"><a href="class_e_1_1_system_call_application.html#a524aa26f40aace608b491476b1779a31">E::SystemCallApplication::initialize</a></div><div class="ttdeci">virtual void initialize() final</div><div class="ttdoc">Standard C++11 thread is automatically launched, so we cannot control the starting time....</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:428</div></div>
+<div class="ttc" id="aclass_e_1_1_system_call_application_html_a524aa26f40aace608b491476b1779a31"><div class="ttname"><a href="class_e_1_1_system_call_application.html#a524aa26f40aace608b491476b1779a31">E::SystemCallApplication::initialize</a></div><div class="ttdeci">virtual void initialize() final</div><div class="ttdoc">Standard C++11 thread is automatically launched, so we cannot control the starting time....</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:429</div></div>
 <div class="ttc" id="aclass_e_1_1_module_1_1_message_base_html"><div class="ttname"><a href="class_e_1_1_module_1_1_message_base.html">E::Module::MessageBase</a></div><div class="ttdoc">Interface of Message. Every message implementation must inherit this class.</div><div class="ttdef"><b>Definition:</b> E_Module.hpp:48</div></div>
-<div class="ttc" id="aclass_e_1_1_system_call_interface_html_a29a5c101eefdb009ec65f71e45378e8a"><div class="ttname"><a href="class_e_1_1_system_call_interface.html#a29a5c101eefdb009ec65f71e45378e8a">E::SystemCallInterface::SystemCallInterface</a></div><div class="ttdeci">SystemCallInterface(int domain, int protocol, Host &amp;host)</div><div class="ttdoc">Multiple SystemCallInterface may be installed to a Host. They are distinguished by their Domain and P...</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:259</div></div>
-<div class="ttc" id="aclass_e_1_1_system_call_interface_1_1_system_call_parameter_html"><div class="ttname"><a href="class_e_1_1_system_call_interface_1_1_system_call_parameter.html">E::SystemCallInterface::SystemCallParameter</a></div><div class="ttdef"><b>Definition:</b> E_Host.hpp:170</div></div>
+<div class="ttc" id="aclass_e_1_1_system_call_interface_html_a29a5c101eefdb009ec65f71e45378e8a"><div class="ttname"><a href="class_e_1_1_system_call_interface.html#a29a5c101eefdb009ec65f71e45378e8a">E::SystemCallInterface::SystemCallInterface</a></div><div class="ttdeci">SystemCallInterface(int domain, int protocol, Host &amp;host)</div><div class="ttdoc">Multiple SystemCallInterface may be installed to a Host. They are distinguished by their Domain and P...</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:260</div></div>
+<div class="ttc" id="aclass_e_1_1_system_call_interface_1_1_system_call_parameter_html"><div class="ttname"><a href="class_e_1_1_system_call_interface_1_1_system_call_parameter.html">E::SystemCallInterface::SystemCallParameter</a></div><div class="ttdef"><b>Definition:</b> E_Host.hpp:172</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 30 2021 11:19:59 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 7 2022 08:08:29 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

@@ -108,10 +108,10 @@ $(function() {
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> listen(<span class="keywordtype">int</span> sockfd, <span class="keywordtype">int</span> backlog) <span class="keyword">final</span>;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> accept(<span class="keywordtype">int</span> sockfd, <span class="keyword">struct</span> sockaddr *addr,</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                     socklen_t *addrlen) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> nsleep(<span class="keywordtype">long</span> nanoseconds) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> usleep(<span class="keywordtype">long</span> microsleep) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> msleep(<span class="keywordtype">long</span> millisleep) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> sleep(<span class="keywordtype">long</span> sleep) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> nsleep(uint64_t nanoseconds) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> usleep(uint64_t microsleep) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> msleep(uint64_t millisleep) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> sleep(uint64_t sleep) <span class="keyword">final</span>;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> gettimeofday(<span class="keyword">struct</span> timeval *tv, <span class="keyword">struct</span> timezone *tz) <span class="keyword">final</span>;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;};</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
@@ -119,13 +119,13 @@ $(function() {
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* INCLUDE_E_NETWORKING_TCP_E_TCPAPPLICATION_HPP_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclass_e_1_1_system_call_application_html"><div class="ttname"><a href="class_e_1_1_system_call_application.html">E::SystemCallApplication</a></div><div class="ttdoc">This provides system call interface to an application. This provides basic system call invoking mecha...</div><div class="ttdef"><b>Definition:</b> E_Host.hpp:273</div></div>
-<div class="ttc" id="aclass_e_1_1_host_html"><div class="ttname"><a href="class_e_1_1_host.html">E::Host</a></div><div class="ttdoc">This class abstract a single host machine.</div><div class="ttdef"><b>Definition:</b> E_Host.hpp:326</div></div>
+<div class="ttc" id="aclass_e_1_1_system_call_application_html"><div class="ttname"><a href="class_e_1_1_system_call_application.html">E::SystemCallApplication</a></div><div class="ttdoc">This provides system call interface to an application. This provides basic system call invoking mecha...</div><div class="ttdef"><b>Definition:</b> E_Host.hpp:264</div></div>
+<div class="ttc" id="aclass_e_1_1_host_html"><div class="ttname"><a href="class_e_1_1_host.html">E::Host</a></div><div class="ttdoc">This class abstract a single host machine.</div><div class="ttdef"><b>Definition:</b> E_Host.hpp:317</div></div>
 <div class="ttc" id="aclass_e_1_1_t_c_p_application_html"><div class="ttname"><a href="class_e_1_1_t_c_p_application.html">E::TCPApplication</a></div><div class="ttdef"><b>Definition:</b> E_TCPApplication.hpp:16</div></div>
 <div class="ttc" id="a_e___host_8hpp_html"><div class="ttname"><a href="_e___host_8hpp.html">E_Host.hpp</a></div><div class="ttdoc">Header for E::Host and other interfaces. E::HostModule, E::SystemCallInterface, E::SystemCallApplicat...</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 30 2021 11:19:59 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 7 2022 08:08:29 for KENSv3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
