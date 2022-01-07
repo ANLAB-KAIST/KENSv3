@@ -4,6 +4,7 @@
 *.xml
 clang-format.diff
 build/
+app2/
 
 # End of KENS
 

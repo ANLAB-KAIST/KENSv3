@@ -35,48 +35,55 @@ void TCPAssignment::systemCallback(UUID syscallUUID, int pid,
 
   switch (param.syscallNumber) {
   case SOCKET:
-    // this->syscall_socket(syscallUUID, pid, param.param1_int,
-    // param.param2_int, param.param3_int);
+    // this->syscall_socket(syscallUUID, pid, std::get<int>(param.params[0]),
+    //                      std::get<int>(param.params[1]));
     break;
   case CLOSE:
-    // this->syscall_close(syscallUUID, pid, param.param1_int);
+    // this->syscall_close(syscallUUID, pid, std::get<int>(param.params[0]));
     break;
   case READ:
-    // this->syscall_read(syscallUUID, pid, param.param1_int, param.param2_ptr,
-    // param.param3_int);
+    // this->syscall_read(syscallUUID, pid, std::get<int>(param.params[0]),
+    //                    std::get<void *>(param.params[1]),
+    //                    std::get<int>(param.params[2]));
     break;
   case WRITE:
-    // this->syscall_write(syscallUUID, pid, param.param1_int, param.param2_ptr,
-    // param.param3_int);
+    // this->syscall_write(syscallUUID, pid, std::get<int>(param.params[0]),
+    //                     std::get<void *>(param.params[1]),
+    //                     std::get<int>(param.params[2]));
     break;
   case CONNECT:
-    // this->syscall_connect(syscallUUID, pid, param.param1_int,
-    //		static_cast<struct sockaddr*>(param.param2_ptr),
-    //(socklen_t)param.param3_int);
+    // this->syscall_connect(
+    //     syscallUUID, pid, std::get<int>(param.params[0]),
+    //     static_cast<struct sockaddr *>(std::get<void *>(param.params[1])),
+    //     (socklen_t)std::get<int>(param.params[2]));
     break;
   case LISTEN:
-    // this->syscall_listen(syscallUUID, pid, param.param1_int,
-    // param.param2_int);
+    // this->syscall_listen(syscallUUID, pid, std::get<int>(param.params[0]),
+    //                      std::get<int>(param.params[1]));
     break;
   case ACCEPT:
-    // this->syscall_accept(syscallUUID, pid, param.param1_int,
-    //		static_cast<struct sockaddr*>(param.param2_ptr),
-    //		static_cast<socklen_t*>(param.param3_ptr));
+    // this->syscall_accept(
+    //     syscallUUID, pid, std::get<int>(param.params[0]),
+    //     static_cast<struct sockaddr *>(std::get<void *>(param.params[1])),
+    //     static_cast<socklen_t *>(std::get<void *>(param.params[2])));
     break;
   case BIND:
-    // this->syscall_bind(syscallUUID, pid, param.param1_int,
-    //		static_cast<struct sockaddr *>(param.param2_ptr),
-    //		(socklen_t) param.param3_int);
+    // this->syscall_bind(
+    //     syscallUUID, pid, std::get<int>(param.params[0]),
+    //     static_cast<struct sockaddr *>(std::get<void *>(param.params[1])),
+    //     (socklen_t)std::get<int>(param.params[2]));
     break;
   case GETSOCKNAME:
-    // this->syscall_getsockname(syscallUUID, pid, param.param1_int,
-    //		static_cast<struct sockaddr *>(param.param2_ptr),
-    //		static_cast<socklen_t*>(param.param3_ptr));
+    // this->syscall_getsockname(
+    //     syscallUUID, pid, std::get<int>(param.params[0]),
+    //     static_cast<struct sockaddr *>(std::get<void *>(param.params[1])),
+    //     static_cast<socklen_t *>(std::get<void *>(param.params[2])));
     break;
   case GETPEERNAME:
-    // this->syscall_getpeername(syscallUUID, pid, param.param1_int,
-    //		static_cast<struct sockaddr *>(param.param2_ptr),
-    //		static_cast<socklen_t*>(param.param3_ptr));
+    // this->syscall_getpeername(
+    //     syscallUUID, pid, std::get<int>(param.params[0]),
+    //     static_cast<struct sockaddr *>(std::get<void *>(param.params[1])),
+    //     static_cast<socklen_t *>(std::get<void *>(param.params[2])));
     break;
   default:
     assert(0);

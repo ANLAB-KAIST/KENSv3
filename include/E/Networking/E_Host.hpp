@@ -151,6 +151,8 @@ public:
   static constexpr int IPPROTO_TCP = 6;
   static constexpr int IPPROTO_UDP = 17;
 
+  static constexpr int max_param = 3;
+
   enum SystemCall {
     SOCKET,
     CLOSE,
@@ -170,21 +172,10 @@ public:
   class SystemCallParameter {
   public:
     enum SystemCall syscallNumber;
-    union {
-      int param1_int;
-      void *param1_ptr;
-      long param1_long;
-    };
-    union {
-      int param2_int;
-      void *param2_ptr;
-      long param2_long;
-    };
-    union {
-      int param3_int;
-      void *param3_ptr;
-      long param3_long;
-    };
+    std::array<std::variant<void *, int8_t, int16_t, int32_t, int64_t, uint8_t,
+                            uint16_t, uint32_t, uint64_t>,
+               max_param>
+        params;
   };
 
 protected:

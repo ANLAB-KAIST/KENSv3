@@ -83,8 +83,8 @@ Module::Message Host::messageReceived(const ModuleID from,
     Protocol protocol = 0;
     switch (syscall.param.syscallNumber) {
     case SystemCallInterface::SystemCall::SOCKET: {
-      domain = (Domain)syscall.param.param1_int;
-      protocol = (Domain)syscall.param.param3_int;
+      domain = (Domain)std::get<int>(syscall.param.params[0]);
+      protocol = (Domain)std::get<int>(syscall.param.params[2]);
       break;
     }
     case SystemCallInterface::SystemCall::NSLEEP:
@@ -102,7 +102,7 @@ Module::Message Host::messageReceived(const ModuleID from,
     case SystemCallInterface::SystemCall::GETSOCKNAME:
     case SystemCallInterface::SystemCall::GETPEERNAME: {
 
-      int fd = syscall.param.param1_int;
+      int fd = std::get<int>(syscall.param.params[0]);
       auto nsIter = appIter->second.fdToDomain.find(fd);
       assert(nsIter != appIter->second.fdToDomain.end());
 
@@ -205,14 +205,15 @@ void Host::DefaultSystemCall::systemCallback(UUID syscallUUID, int pid,
   (void)pid;
   switch (param.syscallNumber) {
   case SystemCallInterface::SystemCall::NSLEEP: {
-    addTimer(syscallUUID, param.param1_long);
+    addTimer(syscallUUID, std::get<uint64_t>(param.params[0]));
     break;
   }
   case SystemCallInterface::SystemCall::GETTIMEOFDAY: {
     Time curTime =
         static_cast<SystemCallInterface *>(this)->host.getCurrentTime();
-    struct timeval *tv = (struct timeval *)param.param1_ptr;
-    struct timezone *tz = (struct timezone *)param.param2_ptr;
+
+    struct timeval *tv = (struct timeval *)std::get<void *>(param.params[0]);
+    struct timezone *tz = (struct timezone *)std::get<void *>(param.params[1]);
 
     Time usec = TimeUtil::getTime(curTime, TimeUtil::USEC);
     if (tz != nullptr) {

@@ -35,10 +35,10 @@ protected:
   virtual int listen(int sockfd, int backlog) final;
   virtual int accept(int sockfd, struct sockaddr *addr,
                      socklen_t *addrlen) final;
-  virtual int nsleep(long nanoseconds) final;
-  virtual int usleep(long microsleep) final;
-  virtual int msleep(long millisleep) final;
-  virtual int sleep(long sleep) final;
+  virtual int nsleep(uint64_t nanoseconds) final;
+  virtual int usleep(uint64_t microsleep) final;
+  virtual int msleep(uint64_t millisleep) final;
+  virtual int sleep(uint64_t sleep) final;
   virtual int gettimeofday(struct timeval *tv, struct timezone *tz) final;
 };
 

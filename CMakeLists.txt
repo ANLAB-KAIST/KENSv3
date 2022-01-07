@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.11)
 
-project(e VERSION 3.1)
+project(e VERSION 3.3.0)
+
+if(WIN32)
+  message(FATAL_ERROR "WIN32 target is obsolete. Please use Windows Subsystems for Linux")
+endif(WIN32)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -8,6 +12,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_C_STANDARD 11)
 
 option(SANITIZER "enable clang sanitzer (default: OFF)")
+option(SOLUTION_PATH "custom solution path (default: OFF)")
 
 if("${SANITIZER}" STREQUAL "address")
   message(STATUS "Sanitizer Selected: address")
@@ -112,22 +117,17 @@ file(GLOB_RECURSE e_SOURCES "src/*.cpp")
 
 file(GLOB_RECURSE e_HEADERS "include/*.hpp")
 
-add_library(e STATIC ${e_SOURCES} ${e_HEADERS})
+add_library(e SHARED ${e_SOURCES} ${e_HEADERS})
 target_include_directories(e PUBLIC ${PROJECT_SOURCE_DIR}/include)
+find_package(Threads REQUIRED)
+target_link_libraries(e PUBLIC Threads::Threads)
 
-if(NOT WIN32)
-  target_compile_options(e PRIVATE -g -O0 -Wall)
+if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+set_target_properties(e PROPERTIES OSX_ARCHITECTURES
+                                                 "arm64;x86_64")
+
 endif()
-
-if(WIN32)
-  add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
-  add_subdirectory(musl)
-  target_link_libraries(e PUBLIC musl_compat)
-
-  set(gtest_force_shared_crt
-      ON
-      CACHE BOOL "" FORCE)
-endif(WIN32)
+target_compile_options(e PRIVATE -g -O0 -Wall)
 
 # Get Library: GTest
 
@@ -171,8 +171,7 @@ function(get_solution_name TARGET)
   endif()
 endfunction()
 
-# Build Solutions
-
+# Build Solutions (If exists)
 file(GLOB_RECURSE e_solution_CMAKELISTS
      "${PROJECT_SOURCE_DIR}/solution/*/CMakeLists.txt")
 
@@ -186,41 +185,46 @@ endforeach()
 
 include(FetchContent)
 function(get_solution)
-  set(SOLUTION_REPO "https://anlab-kaist.github.io/KENSv3/solution")
+  set(SOLUTION_REPO "https://anlab-kaist.github.io/KENSv3/solution/${CMAKE_PROJECT_VERSION}")
   foreach(arg IN LISTS ARGN)
+
+    # Find Solution
     if(NOT TARGET ${arg}_solution)
+    find_library(${arg}_solution_path ${arg}_solution PATH ${SOLUTION_PATH} EXACT)
 
-      get_solution_name(${arg}_solution)
 
-      include(FetchContent)
+    if (NOT ${arg}_solution_path)
+    # Download Solution
+    message(STATUS "Donwloading ${arg}_solution")
+    get_solution_name(${arg}_solution)
 
-      FetchContent_Declare(
-        ${arg}_solution URL "${SOLUTION_REPO}/${${arg}_solution_SOLUTION_NAME}")
-      FetchContent_GetProperties(${arg}_solution)
-      if(NOT (${arg}_solution_POPULATED))
-        FetchContent_Populate(${arg}_solution)
-      endif()
+    include(FetchContent)
 
-      if(WIN32)
-        file(GLOB ${arg}_solution_static "${${arg}_solution_SOURCE_DIR}/*.lib")
-      else()
-        file(GLOB ${arg}_solution_static "${${arg}_solution_SOURCE_DIR}/*.a")
-      endif()
-
-      add_library(${arg}_solution STATIC IMPORTED GLOBAL)
-      set_property(TARGET ${arg}_solution PROPERTY IMPORTED_LOCATION
-                                                   ${${arg}_solution_static})
-
-      target_link_libraries(${arg}_solution INTERFACE e)
-
+    FetchContent_Declare(
+      ${arg}_solution URL "${SOLUTION_REPO}/${${arg}_solution_SOLUTION_NAME}")
+    FetchContent_GetProperties(${arg}_solution)
+    if(NOT (${arg}_solution_POPULATED))
+      FetchContent_Populate(${arg}_solution)
     endif()
 
+    find_library(${arg}_solution_path ${arg}_solution PATH ${${arg}_solution_SOURCE_DIR} EXACT)
+    endif()
+    add_library(${arg}_solution SHARED IMPORTED GLOBAL)
+    set_property(TARGET ${arg}_solution PROPERTY IMPORTED_LOCATION ${${arg}_solution_path})
+
+    target_link_libraries(${arg}_solution INTERFACE e)
+    endif()
   endforeach()
 endfunction()
 
 # Build Apps
 
+include(cmake/app-ref.cmake OPTIONAL)
+if (e_apps_CMAKELISTS)
+else()
 file(GLOB e_apps_CMAKELISTS "${PROJECT_SOURCE_DIR}/app/*/CMakeLists.txt")
+endif()
+
 list(FILTER e_apps_CMAKELISTS EXCLUDE REGEX ".*/scheduling/.*")
 
 
