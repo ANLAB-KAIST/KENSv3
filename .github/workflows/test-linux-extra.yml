@@ -10,51 +10,54 @@ env:
   BUILD_TYPE: Release
 
 jobs:
-  build:
+  tests:
     strategy:
       matrix:
-        image: ["ubuntu:18.04", "ubuntu:20.04"]
-        
-    runs-on:  ubuntu-20.04
+        config:
+          [
+            { image: "debian:10", pm: "apt" },
+            { image: "debian:11", pm: "apt" },
+            { image: "ubuntu:20.04", pm: "apt" },
+            { image: "ubuntu:21.04", pm: "apt" },
+            { image: "ubuntu:21.10", pm: "apt" },
+            { image: "centos:8", pm: "yum" },
+            { image: "fedora:35", pm: "yum" },
+            { image: "fedora:34", pm: "yum" },
+            { image: "fedora:33", pm: "yum" },
+            { image: "almalinux:8", pm: "yum" },
+            { image: "rockylinux:8", pm: "yum" },
+          ]
+
+    runs-on: ubuntu-20.04
 
     steps:
       - uses: actions/checkout@v2
 
-      - uses: docker://${{ matrix.image }}
+      - name: Setup Docker Container
+        run: docker run --rm -d -it --name kens-test -v ${{github.workspace}}:/test ${{ matrix.config.image }}
 
-      - name: Install g++ gcc
-        # Some projects don't allow in-source building, so create a separate build directory
-        # We'll use this as our working directory for all subsequent commands
-        run: sudo apt update && sudo apt install -y g++ gcc
+      - name: Install g++ gcc (APT)
+        if: matrix.config.pm == 'apt'
+        run: docker exec kens-test bash -c "apt update && apt install -y cmake g++ gcc ca-certificates"
+
+      - name: Install g++ gcc (YUM)
+        if: matrix.config.pm == 'yum'
+        run: docker exec kens-test bash -c "yum -y install cmake gcc-c++ gcc ca-certificates"
 
       - name: Create Build Environment
         # Some projects don't allow in-source building, so create a separate build directory
         # We'll use this as our working directory for all subsequent commands
-        run: cmake -E make_directory ${{github.workspace}}/build
+        run: docker exec kens-test bash -c "cmake -E make_directory /test/build"
 
       - name: Configure CMake
-        # Use a bash shell so we can use the same syntax for environment variable
-        # access regardless of the host operating system
-        shell: bash
-        working-directory: ${{github.workspace}}/build
-        # Note the current convention is to use the -S and -B options here to specify source
-        # and build directories, but this is only available with CMake 3.13 and higher.
-        # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
-        run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+
+        run: docker exec kens-test bash -c "cd /test/build && cmake /test -DCMAKE_BUILD_TYPE=$BUILD_TYPE"
 
       - name: Build
-        working-directory: ${{github.workspace}}/build
-        shell: bash
-        # Execute the build.  You can specify a specific target with "--target <NAME>"
-        run: cmake --build . --config $BUILD_TYPE
+        run: docker exec kens-test bash -c "cd /test/build && cmake --build . --config $BUILD_TYPE"
 
       - name: Test
-        working-directory: ${{github.workspace}}/build
-        shell: bash
-        # Execute the build.  You can specify a specific target with "--target <NAME>"
-        run: ./app/kens/kens-all-run-solution 
-        
+        run: docker exec kens-test bash -c "/test/build/app/kens/kens-all-run-solution"
+
       - name: Test (Unreliable)
-        working-directory: ${{github.workspace}}/build
-        shell: bash
-        run: ./app/kens/kens-all-unreliable-run-solution 
+        run: docker exec kens-test bash -c "/test/build/app/kens/kens-all-unreliable-run-solution"
