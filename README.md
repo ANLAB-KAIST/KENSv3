@@ -1,5 +1,7 @@
 # KENSv3 (KAIST Educational Network System)
 
+[![Test Linux Environment](https://github.com/ANLAB-KAIST/KENSv3/actions/workflows/test-linux.yml/badge.svg)](https://github.com/ANLAB-KAIST/KENSv3/actions/workflows/test-linux.yml) [![Test Linux Extra Environments](https://github.com/ANLAB-KAIST/KENSv3/actions/workflows/test-linux-extra.yml/badge.svg)](https://github.com/ANLAB-KAIST/KENSv3/actions/workflows/test-linux-extra.yml)  [![Test WSL Environment](https://github.com/ANLAB-KAIST/KENSv3/actions/workflows/test-wsl.yml/badge.svg)](https://github.com/ANLAB-KAIST/KENSv3/actions/workflows/test-wsl.yml) [![Test macOS Environment](https://github.com/ANLAB-KAIST/KENSv3/actions/workflows/test-macos.yml/badge.svg)](https://github.com/ANLAB-KAIST/KENSv3/actions/workflows/test-macos.yml)
+
 KENS series have been used for programming assignment in CS341: Introduction to Computer Network in KAIST.
 First version of KENS (v1) had been developed by Network Computing Lab, 2005.
 This version had been used until 2013.
