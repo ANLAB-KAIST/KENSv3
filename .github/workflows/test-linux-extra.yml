@@ -20,7 +20,7 @@ jobs:
             { image: "ubuntu:20.04", pm: "apt" },
             { image: "ubuntu:21.04", pm: "apt" },
             { image: "ubuntu:21.10", pm: "apt" },
-            { image: "centos:8", pm: "yum" },
+            # { image: "centos:8", pm: "yum" },
             { image: "fedora:35", pm: "yum" },
             { image: "fedora:34", pm: "yum" },
             { image: "fedora:33", pm: "yum" },
