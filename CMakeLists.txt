@@ -1,9 +1,11 @@
 cmake_minimum_required(VERSION 3.11)
 
-project(e VERSION 3.3.0)
+project(e VERSION 3.3.1)
 
 if(WIN32)
-  message(FATAL_ERROR "WIN32 target is obsolete. Please use Windows Subsystems for Linux")
+  message(
+    FATAL_ERROR
+      "WIN32 target is obsolete. Please use Windows Subsystems for Linux")
 endif(WIN32)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -80,7 +82,6 @@ check_cxx_source_compiles(
     "
   HAVE_PRAGMA_PACK)
 
-
 check_cxx_source_compiles(
   "
   #include <cassert>
@@ -88,7 +89,7 @@ check_cxx_source_compiles(
   #include <cxxabi.h>
   #include <typeinfo>
   struct aAa {};
-  
+
   int main(void) {
     struct aAa a1;
     int status = -4;
@@ -108,9 +109,8 @@ else()
 endif()
 
 if(HAVE_DEMANGLE)
-add_compile_definitions(HAVE_DEMANGLE)
+  add_compile_definitions(HAVE_DEMANGLE)
 endif()
-
 
 # Build E
 file(GLOB_RECURSE e_SOURCES "src/*.cpp")
@@ -123,8 +123,7 @@ find_package(Threads REQUIRED)
 target_link_libraries(e PUBLIC Threads::Threads)
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-set_target_properties(e PROPERTIES OSX_ARCHITECTURES
-                                                 "arm64;x86_64")
+  set_target_properties(e PROPERTIES OSX_ARCHITECTURES "arm64;x86_64")
 
 endif()
 target_compile_options(e PRIVATE -g -O0 -Wall)
@@ -135,12 +134,13 @@ include(FetchContent)
 
 FetchContent_Declare(
   googletest
-  URL https://github.com/google/googletest/archive/release-1.10.0.zip)
+  URL https://github.com/google/googletest/archive/b007c54f2944e193ac44fba1bc997cb65826a0b9.zip
+)
 
 FetchContent_GetProperties(googletest)
 if(NOT googletest_POPULATED)
   FetchContent_Populate(googletest)
-  add_subdirectory(${googletest_SOURCE_DIR}/googletest ${googletest_BINARY_DIR})
+  add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
 endif()
 
 # Find Solution
@@ -175,7 +175,6 @@ endfunction()
 file(GLOB_RECURSE e_solution_CMAKELISTS
      "${PROJECT_SOURCE_DIR}/solution/*/CMakeLists.txt")
 
-
 foreach(cmakelists ${e_solution_CMAKELISTS})
   get_filename_component(e_solution_DIR ${cmakelists} DIRECTORY)
   add_subdirectory(${e_solution_DIR})
@@ -185,34 +184,38 @@ endforeach()
 
 include(FetchContent)
 function(get_solution)
-  set(SOLUTION_REPO "https://anlab-kaist.github.io/KENSv3/solution/${CMAKE_PROJECT_VERSION}")
+  set(SOLUTION_REPO
+      "https://anlab-kaist.github.io/KENSv3/solution/${CMAKE_PROJECT_VERSION}")
   foreach(arg IN LISTS ARGN)
 
     # Find Solution
     if(NOT TARGET ${arg}_solution)
-    find_library(${arg}_solution_path ${arg}_solution PATH ${SOLUTION_PATH} EXACT)
+      find_library(${arg}_solution_path ${arg}_solution PATH ${SOLUTION_PATH}
+                   EXACT)
 
+      if(NOT ${arg}_solution_path)
+        # Download Solution
+        message(STATUS "Donwloading ${arg}_solution")
+        get_solution_name(${arg}_solution)
 
-    if (NOT ${arg}_solution_path)
-    # Download Solution
-    message(STATUS "Donwloading ${arg}_solution")
-    get_solution_name(${arg}_solution)
+        include(FetchContent)
 
-    include(FetchContent)
+        FetchContent_Declare(
+          ${arg}_solution
+          URL "${SOLUTION_REPO}/${${arg}_solution_SOLUTION_NAME}")
+        FetchContent_GetProperties(${arg}_solution)
+        if(NOT (${arg}_solution_POPULATED))
+          FetchContent_Populate(${arg}_solution)
+        endif()
 
-    FetchContent_Declare(
-      ${arg}_solution URL "${SOLUTION_REPO}/${${arg}_solution_SOLUTION_NAME}")
-    FetchContent_GetProperties(${arg}_solution)
-    if(NOT (${arg}_solution_POPULATED))
-      FetchContent_Populate(${arg}_solution)
-    endif()
+        find_library(${arg}_solution_path ${arg}_solution PATH
+                     ${${arg}_solution_SOURCE_DIR} EXACT)
+      endif()
+      add_library(${arg}_solution SHARED IMPORTED GLOBAL)
+      set_property(TARGET ${arg}_solution PROPERTY IMPORTED_LOCATION
+                                                   ${${arg}_solution_path})
 
-    find_library(${arg}_solution_path ${arg}_solution PATH ${${arg}_solution_SOURCE_DIR} EXACT)
-    endif()
-    add_library(${arg}_solution SHARED IMPORTED GLOBAL)
-    set_property(TARGET ${arg}_solution PROPERTY IMPORTED_LOCATION ${${arg}_solution_path})
-
-    target_link_libraries(${arg}_solution INTERFACE e)
+      target_link_libraries(${arg}_solution INTERFACE e)
     endif()
   endforeach()
 endfunction()
@@ -220,13 +223,13 @@ endfunction()
 # Build Apps
 
 include(cmake/app-ref.cmake OPTIONAL)
-if (e_apps_CMAKELISTS)
+if(e_apps_CMAKELISTS)
+
 else()
-file(GLOB e_apps_CMAKELISTS "${PROJECT_SOURCE_DIR}/app/*/CMakeLists.txt")
+  file(GLOB e_apps_CMAKELISTS "${PROJECT_SOURCE_DIR}/app/*/CMakeLists.txt")
 endif()
 
 list(FILTER e_apps_CMAKELISTS EXCLUDE REGEX ".*/scheduling/.*")
-
 
 foreach(cmakelists ${e_apps_CMAKELISTS})
   get_filename_component(e_apps_DIR ${cmakelists} DIRECTORY)

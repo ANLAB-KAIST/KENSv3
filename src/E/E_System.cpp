@@ -170,14 +170,14 @@ Runnable::Runnable()
     : state(State::CREATED), threadLock(stateMtx, std::defer_lock),
       schedLock(stateMtx), thread(&Runnable::run, this) {}
 Runnable::~Runnable() {
-  assert(std::this_thread::get_id() != thread.get_id());
   assert(schedLock.owns_lock());
+  assert(std::this_thread::get_id() != thread.get_id());
   thread.join();
 }
 
 void Runnable::run() {
-  assert(std::this_thread::get_id() == thread.get_id());
   threadLock.lock();
+  assert(std::this_thread::get_id() == thread.get_id());
   cond.wait(threadLock, [&] { return state == State::STARTING; });
   pre_main();
   state = State::READY;
@@ -190,8 +190,8 @@ void Runnable::run() {
 }
 
 void Runnable::wait() {
-  assert(std::this_thread::get_id() == thread.get_id());
   assert(threadLock.owns_lock());
+  assert(std::this_thread::get_id() == thread.get_id());
   assert(state == State::RUNNING);
   state = State::WAITING;
   cond.notify_all();
@@ -199,8 +199,8 @@ void Runnable::wait() {
 }
 
 void Runnable::start() {
-  assert(std::this_thread::get_id() != thread.get_id());
   assert(schedLock.owns_lock());
+  assert(std::this_thread::get_id() != thread.get_id());
   assert(state == State::CREATED);
   state = State::STARTING;
   cond.notify_all();
@@ -208,8 +208,8 @@ void Runnable::start() {
   assert(schedLock.owns_lock());
 }
 Runnable::State Runnable::wake() {
-  assert(std::this_thread::get_id() != thread.get_id());
   assert(schedLock.owns_lock());
+  assert(std::this_thread::get_id() != thread.get_id());
   assert(state == State::READY);
   state = State::RUNNING;
   cond.notify_all();
