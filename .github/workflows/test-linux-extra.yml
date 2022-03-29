@@ -57,7 +57,7 @@ jobs:
         run: docker exec kens-test bash -c "cd /test/build && cmake --build . --config $BUILD_TYPE"
 
       - name: Test
-        run: docker exec kens-test bash -c "/test/build/app/kens/kens-all-run-solution"
+        run: docker exec kens-test bash -c "/test/build/app/kens/test-kens-all-run-solution"
 
       - name: Test (Unreliable)
-        run: docker exec kens-test bash -c "/test/build/app/kens/kens-all-unreliable-run-solution"
+        run: docker exec kens-test bash -c "/test/build/app/kens/test-kens-all-unreliable-run-solution"

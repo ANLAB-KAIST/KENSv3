@@ -39,9 +39,9 @@ jobs:
       - name: Test
         working-directory: ${{github.workspace}}/build
         shell: bash
-        run: ./app/kens/kens-all-run-solution 
+        run: ./app/kens/test-kens-all-run-solution 
 
       - name: Test (Unreliable)
         working-directory: ${{github.workspace}}/build
         shell: bash
-        run: ./app/kens/kens-all-unreliable-run-solution 
+        run: ./app/kens/test-kens-all-unreliable-run-solution 
