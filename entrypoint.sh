@@ -7,7 +7,7 @@ fi
 
 function grade() {
     if [ "$#" -lt 2 ]; then
-        echo "Usage: grade [app_name] [parts ...]"
+        echo "Usage: grade [app_name] [binaries ...]"
         exit 1
     fi
     echo "Grading $1: ${*:2}"
@@ -25,9 +25,9 @@ function grade() {
     RANDOM_SEED=${RANDOM_SEED:-0}
     TIMEOUT=${TIMEOUT:-300}
     for seed in ${RANDOM_SEED//,/ }; do
-        for part in "${@:2}"; do
-            for test in $("./app/$1/$1-$part" --gtest_list_tests | grep '^  *'); do
-                timeout ${TIMEOUT} GTEST_OUTPUT="xml:/xml/${1}_${part}_${seed}_${test}.xml" RANDOM_SEED=$seed "./app/$1/$1-$part" --gtest_filter="*$test"
+        for binary in "${@:2}"; do
+            for test in $("./app/$1/$binary" --gtest_list_tests | grep '^  *'); do
+                timeout ${TIMEOUT} GTEST_OUTPUT="xml:/xml/${1}_${binary}_${seed}_${test}.xml" RANDOM_SEED=$seed "./app/$1/$binary" --gtest_filter="*$test"
             done
         done
     done
