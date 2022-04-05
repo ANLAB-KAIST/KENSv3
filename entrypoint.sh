@@ -27,7 +27,7 @@ function grade() {
     for seed in ${RANDOM_SEED//,/ }; do
         for binary in "${@:2}"; do
             for test in $("./app/$1/$binary" --gtest_list_tests | grep '^  *'); do
-                timeout ${TIMEOUT} GTEST_OUTPUT="xml:/xml/${1}_${binary}_${seed}_${test}.xml" RANDOM_SEED=$seed "./app/$1/$binary" --gtest_filter="*$test"
+                GTEST_OUTPUT="xml:/xml/${1}_${binary}_${seed}_${test}.xml" RANDOM_SEED=$seed timeout ${TIMEOUT} "./app/$1/$binary" --gtest_filter="*$test" --gtest_catch_exceptions=0
             done
         done
     done
