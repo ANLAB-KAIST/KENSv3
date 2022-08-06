@@ -15,17 +15,13 @@ jobs:
       matrix:
         config:
           [
-            { image: "debian:10", pm: "apt" },
-            { image: "debian:11", pm: "apt" },
-            { image: "ubuntu:20.04", pm: "apt" },
-            { image: "ubuntu:21.04", pm: "apt" },
-            { image: "ubuntu:21.10", pm: "apt" },
-            # { image: "centos:8", pm: "yum" },
-            { image: "fedora:35", pm: "yum" },
-            { image: "fedora:34", pm: "yum" },
-            { image: "fedora:33", pm: "yum" },
-            { image: "almalinux:8", pm: "yum" },
+            { image: "debian:stable", pm: "apt" },
+            { image: "debian:oldstable", pm: "apt" },
+            { image: "ubuntu:latest", pm: "apt" },
+            { image: "fedora:latest", pm: "yum" },
+            { image: "almalinux:latest", pm: "yum" },
             { image: "rockylinux:8", pm: "yum" },
+            { image: "rockylinux:9", pm: "yum" },
           ]
 
     runs-on: ubuntu-20.04
