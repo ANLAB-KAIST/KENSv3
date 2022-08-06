@@ -1,185 +1,234 @@
-SOCKET(2)                                Linux Programmer's Manual                                SOCKET(2)
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:70:2: UNSUPP: ignoring macro in table: BR AF_UNIX
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:74:2: UNSUPP: ignoring macro in table: BR unix (7)
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:77:2: UNSUPP: ignoring macro in table: B AF_LOCAL
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:80:2: UNSUPP: ignoring macro in table: B AF_UNIX
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:84:2: UNSUPP: ignoring macro in table: B AF_INET
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:86:2: UNSUPP: ignoring macro in table: BR ip (7)
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:89:2: UNSUPP: ignoring macro in table: B AF_AX25
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:94:2: UNSUPP: ignoring macro in table: BR ax25 (4)
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:97:2: UNSUPP: ignoring macro in table: B AF_IPX
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:100:2: UNSUPP: ignoring macro in table: B AF_APPLETALK
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:102:2: UNSUPP: ignoring macro in table: BR ddp (7)
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:105:2: UNSUPP: ignoring macro in table: B AF_X25
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:107:2: UNSUPP: ignoring macro in table: BR x25 (7)
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:110:2: UNSUPP: ignoring macro in table: B AF_INET6
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:112:2: UNSUPP: ignoring macro in table: BR ipv6 (7)
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:115:2: UNSUPP: ignoring macro in table: B AF_DECnet
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:120:2: UNSUPP: ignoring macro in table: B AF_KEY
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:125:2: UNSUPP: ignoring macro in table: B AF_NETLINK
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:129:2: UNSUPP: ignoring macro in table: BR netlink (7)
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:132:2: UNSUPP: ignoring macro in table: B AF_PACKET
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:136:2: UNSUPP: ignoring macro in table: BR packet (7)
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:139:2: UNSUPP: ignoring macro in table: B AF_RDS
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:146:2: UNSUPP: ignoring macro in table: BR rds (7)
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:147:4: UNSUPP: ignoring macro in table: br
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:148:2: UNSUPP: ignoring macro in table: BR rds\-rdma (7)
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:151:2: UNSUPP: ignoring macro in table: B AF_PPPOX
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:157:2: UNSUPP: ignoring macro in table: B AF_LLC
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:163:2: UNSUPP: ignoring macro in table: B AF_IB
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:169:2: UNSUPP: ignoring macro in table: B AF_MPLS
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:175:2: UNSUPP: ignoring macro in table: B AF_CAN
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:181:2: UNSUPP: ignoring macro in table: B AF_TIPC
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:187:2: UNSUPP: ignoring macro in table: B AF_BLUETOOTH
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:193:2: UNSUPP: ignoring macro in table: B AF_ALG
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:199:2: UNSUPP: ignoring macro in table: B AF_VSOCK
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:205:2: UNSUPP: ignoring macro in table: BR vsock (7)
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:208:2: UNSUPP: ignoring macro in table: B AF_KCM
+mandoc: /Users/pusnow/Develop/E/build/man/socket.2:214:2: UNSUPP: ignoring macro in table: B AF_XDP
+SOCKET(2)                            Linux Programmer's Manual                            SOCKET(2)
 
-NAME
+
+
+NNAAMMEE
        socket - create an endpoint for communication
 
-SYNOPSIS
-       #include <sys/socket.h>
+SSYYNNOOPPSSIISS
+       ##iinncclluuddee <<ssyyss//ssoocckkeett..hh>>
 
-       int socket(int domain, int type, int protocol);
+       iinntt ssoocckkeett((iinntt _d_o_m_a_i_n,, iinntt _t_y_p_e,, iinntt _p_r_o_t_o_c_o_l));;
 
-DESCRIPTION
-       socket()  creates  an  endpoint  for communication and returns a file descriptor that refers to that
-       endpoint.  The file descriptor returned by a successful call will be the  lowest-numbered  file  de‐
-       scriptor not currently open for the process.
+DDEESSCCRRIIPPTTIIOONN
+       ssoocckkeett()  creates an endpoint for communication and returns a file descriptor that refers to
+       that endpoint.  The file descriptor returned by a successful call will  be  the  lowest-num-
+       bered file descriptor not currently open for the process.
 
-       The domain argument specifies a communication domain; this selects the protocol family which will be
-       used for communication.  These families are defined in <sys/socket.h>.  The formats currently under‐
-       stood by the Linux kernel include:
+       The _d_o_m_a_i_n argument specifies a communication domain; this selects the protocol family which
+       will be used for communication.  These families are defined in _<_s_y_s_/_s_o_c_k_e_t_._h_>.  The  formats
+       currently understood by the Linux kernel include:
 
        Name         Purpose                                    Man page
-       AF_UNIX      Local communication                        unix(7)
-       AF_LOCAL     Synonym for AF_UNIX
-       AF_INET      IPv4 Internet protocols                    ip(7)
-       AF_AX25      Amateur radio AX.25 protocol               ax25(4)
-       AF_IPX       IPX - Novell protocols
-       AF_APPLETALK AppleTalk                                  ddp(7)
-       AF_X25       ITU-T X.25 / ISO-8208 protocol             x25(7)
-       AF_INET6     IPv6 Internet protocols                    ipv6(7)
-       AF_DECnet    DECet protocol sockets
-       AF_KEY       Key  management protocol, originally de‐
-                    veloped for usage with IPsec
-       AF_NETLINK   Kernel user interface device               netlink(7)
-       AF_PACKET    Low-level packet interface                 packet(7)
-       AF_RDS       Reliable Datagram Sockets (RDS) protocol   rds(7)
-                                                               rds-rdma(7)
-       AF_PPPOX     Generic PPP transport layer, for setting
+       AAFF__UUNNIIXX      Local communication                        uunniixx(7)
+       AAFF__LLOOCCAALL     Synonym for AAFF__UUNNIIXX
+       AAFF__IINNEETT      IPv4 Internet protocols                    iipp(7)
+       AAFF__AAXX2255      Amateur radio AX.25 protocol               aaxx2255(4)
+       AAFF__IIPPXX       IPX - Novell protocols
+       AAFF__AAPPPPLLEETTAALLKK AppleTalk                                  ddddpp(7)
+       AAFF__XX2255       ITU-T X.25 / ISO-8208 protocol             xx2255(7)
+       AAFF__IINNEETT66     IPv6 Internet protocols                    iippvv66(7)
+       AAFF__DDEECCnneett    DECet protocol sockets
+       AAFF__KKEEYY       Key   management   protocol,  originally
+                    developed for usage with IPsec
+       AAFF__NNEETTLLIINNKK   Kernel user interface device               nneettlliinnkk(7)
+       AAFF__PPAACCKKEETT    Low-level packet interface                 ppaacckkeett(7)
+       AAFF__RRDDSS       Reliable Datagram Sockets (RDS) protocol   rrddss(7)
+                                                               rrddss--rrddmmaa(7)
+       AAFF__PPPPPPOOXX     Generic PPP transport layer, for setting
                     up L2 tunnels (L2TP and PPPoE)
-       AF_LLC       Logical  link  control  (IEEE 802.2 LLC)
+       AAFF__LLLLCC       Logical link control  (IEEE  802.2  LLC)
                     protocol
-       AF_IB        InfiniBand native addressing
-       AF_MPLS      Multiprotocol Label Switching
-       AF_CAN       Controller Area Network  automotive  bus
+       AAFF__IIBB        InfiniBand native addressing
+       AAFF__MMPPLLSS      Multiprotocol Label Switching
+       AAFF__CCAANN       Controller  Area  Network automotive bus
                     protocol
-       AF_TIPC      TIPC, "cluster domain sockets" protocol
-       AF_BLUETOOTH Bluetooth low-level socket protocol
-       AF_ALG       Interface to kernel crypto API
-       AF_VSOCK     VSOCK   (originally  "VMWare  VSockets")   vsock(7)
-                    protocol for hypervisor-guest communica‐
+       AAFF__TTIIPPCC      TIPC, "cluster domain sockets" protocol
+       AAFF__BBLLUUEETTOOOOTTHH Bluetooth low-level socket protocol
+       AAFF__AALLGG       Interface to kernel crypto API
+       AAFF__VVSSOOCCKK     VSOCK  (originally  "VMWare   VSockets")   vvssoocckk(7)
+                    protocol for hypervisor-guest communica-
                     tion
-       AF_KCM       KCM  (kernel connection multiplexer) in‐
-                    terface
-       AF_XDP       XDP (express data path) interface
+       AAFF__KKCCMM       KCM  (kernel   connection   multiplexer)
+                    interface
+       AAFF__XXDDPP       XDP (express data path) interface
 
-       Further details of the above address families, as well as information on several other address fami‐
-       lies, can be found in address_families(7).
+       Further  details  of  the  above  address  families, as well as information on several other
+       address families, can be found in aaddddrreessss__ffaammiilliieess(7).
 
-       The  socket  has the indicated type, which specifies the communication semantics.  Currently defined
-       types are:
+       The socket has the indicated _t_y_p_e, which specifies the communication  semantics.   Currently
+       defined types are:
 
-       SOCK_STREAM     Provides sequenced, reliable, two-way, connection-based byte  streams.   An  out-of-
-                       band data transmission mechanism may be supported.
+       SSOOCCKK__SSTTRREEAAMM     Provides  sequenced,  reliable,  two-way, connection-based byte streams.  An
+                       out-of-band data transmission mechanism may be supported.
 
-       SOCK_DGRAM      Supports datagrams (connectionless, unreliable messages of a fixed maximum length).
+       SSOOCCKK__DDGGRRAAMM      Supports datagrams (connectionless, unreliable messages of a  fixed  maximum
+                       length).
 
-       SOCK_SEQPACKET  Provides  a sequenced, reliable, two-way connection-based data transmission path for
-                       datagrams of fixed maximum length; a consumer is required to read an  entire  packet
-                       with each input system call.
+       SSOOCCKK__SSEEQQPPAACCKKEETT  Provides  a  sequenced, reliable, two-way connection-based data transmission
+                       path for datagrams of fixed maximum length; a consumer is required  to  read
+                       an entire packet with each input system call.
 
-       SOCK_RAW        Provides raw network protocol access.
+       SSOOCCKK__RRAAWW        Provides raw network protocol access.
 
-       SOCK_RDM        Provides a reliable datagram layer that does not guarantee ordering.
+       SSOOCCKK__RRDDMM        Provides a reliable datagram layer that does not guarantee ordering.
 
-       SOCK_PACKET     Obsolete and should not be used in new programs; see packet(7).
+       SSOOCCKK__PPAACCKKEETT     Obsolete and should not be used in new programs; see ppaacckkeett(7).
 
        Some socket types may not be implemented by all protocol families.
 
-       Since  Linux  2.6.27,  the type argument serves a second purpose: in addition to specifying a socket
-       type, it may include the bitwise OR of any of the  following  values,  to  modify  the  behavior  of
-       socket():
+       Since  Linux  2.6.27, the _t_y_p_e argument serves a second purpose: in addition to specifying a
+       socket type, it may include the bitwise OR of any of the following  values,  to  modify  the
+       behavior of ssoocckkeett():
 
-       SOCK_NONBLOCK   Set  the  O_NONBLOCK file status flag on the open file description (see open(2)) re‐
-                       ferred to by the new file descriptor.  Using this flag saves extra calls to fcntl(2)
-                       to achieve the same result.
+       SSOOCCKK__NNOONNBBLLOOCCKK   Set  the  OO__NNOONNBBLLOOCCKK  file  status  flag  on  the open file description (see
+                       ooppeenn(2)) referred to by the new file  descriptor.   Using  this  flag  saves
+                       extra calls to ffccnnttll(2) to achieve the same result.
 
-       SOCK_CLOEXEC    Set  the  close-on-exec  (FD_CLOEXEC)  flag on the new file descriptor.  See the de‐
-                       scription of the O_CLOEXEC flag in open(2) for reasons why this may be useful.
+       SSOOCCKK__CCLLOOEEXXEECC    Set the close-on-exec (FFDD__CCLLOOEEXXEECC) flag on the new file descriptor.  See the
+                       description of the OO__CCLLOOEEXXEECC flag in ooppeenn(2) for reasons  why  this  may  be
+                       useful.
 
-       The protocol specifies a particular protocol to be used with the socket.   Normally  only  a  single
-       protocol  exists  to  support a particular socket type within a given protocol family, in which case
-       protocol can be specified as 0.  However, it is possible that many protocols  may  exist,  in  which
-       case a particular protocol must be specified in this manner.  The protocol number to use is specific
-       to the “communication domain” in which communication is to take place; see protocols(5).   See  get‐
-       protoent(3) on how to map protocol name strings to protocol numbers.
+       The  _p_r_o_t_o_c_o_l  specifies  a particular protocol to be used with the socket.  Normally only a
+       single protocol exists to support a particular socket type within a given  protocol  family,
+       in  which  case _p_r_o_t_o_c_o_l can be specified as 0.  However, it is possible that many protocols
+       may exist, in which case a particular protocol must be specified in this manner.  The proto-
+       col  number  to  use  is specific to the "communication domain" in which communication is to
+       take place; see pprroottooccoollss(5).  See ggeettpprroottooeenntt(3) on how to map  protocol  name  strings  to
+       protocol numbers.
 
-       Sockets  of  type SOCK_STREAM are full-duplex byte streams.  They do not preserve record boundaries.
-       A stream socket must be in a connected state before any data may be sent or received on it.  A  con‐
-       nection  to  another  socket  is created with a connect(2) call.  Once connected, data may be trans‐
-       ferred using read(2) and write(2) calls or some variant of the send(2) and recv(2)  calls.   When  a
-       session has been completed a close(2) may be performed.  Out-of-band data may also be transmitted as
-       described in send(2) and received as described in recv(2).
+       Sockets  of  type  SSOOCCKK__SSTTRREEAAMM  are  full-duplex  byte streams.  They do not preserve record
+       boundaries.  A stream socket must be in a _c_o_n_n_e_c_t_e_d state before any data  may  be  sent  or
+       received  on  it.   A  connection to another socket is created with a ccoonnnneecctt(2) call.  Once
+       connected, data may be transferred using rreeaadd(2) and wwrriittee(2) calls or some variant  of  the
+       sseenndd(2)  and  rreeccvv(2) calls.  When a session has been completed a cclloossee(2) may be performed.
+       Out-of-band data may also be transmitted as described in sseenndd(2) and received  as  described
+       in rreeccvv(2).
 
-       The communications protocols which implement a SOCK_STREAM ensure that data is not  lost  or  dupli‐
-       cated.   If  a  piece  of  data  for which the peer protocol has buffer space cannot be successfully
-       transmitted within a reasonable length of time, then the connection is considered to be dead.   When
-       SO_KEEPALIVE is enabled on the socket the protocol checks in a protocol-specific manner if the other
-       end is still alive.  A SIGPIPE signal is raised if a process sends or receives on a  broken  stream;
-       this causes naive processes, which do not handle the signal, to exit.  SOCK_SEQPACKET sockets employ
-       the same system calls as SOCK_STREAM sockets.  The only difference is that read(2) calls will return
-       only  the amount of data requested, and any data remaining in the arriving packet will be discarded.
-       Also all message boundaries in incoming datagrams are preserved.
+       The  communications  protocols which implement a SSOOCCKK__SSTTRREEAAMM ensure that data is not lost or
+       duplicated.  If a piece of data for which the peer protocol has buffer space cannot be  suc-
+       cessfully  transmitted within a reasonable length of time, then the connection is considered
+       to be dead.  When SSOO__KKEEEEPPAALLIIVVEE is enabled on the socket the protocol checks in  a  protocol-
+       specific  manner  if  the other end is still alive.  A SSIIGGPPIIPPEE signal is raised if a process
+       sends or receives on a broken stream; this causes naive processes, which do not  handle  the
+       signal,  to  exit.  SSOOCCKK__SSEEQQPPAACCKKEETT sockets employ the same system calls as SSOOCCKK__SSTTRREEAAMM sock-
+       ets.  The only difference is that  rreeaadd(2)  calls  will  return  only  the  amount  of  data
+       requested,  and  any data remaining in the arriving packet will be discarded.  Also all mes-
+       sage boundaries in incoming datagrams are preserved.
 
-       SOCK_DGRAM and SOCK_RAW sockets allow sending of datagrams  to  correspondents  named  in  sendto(2)
-       calls.   Datagrams  are  generally  received with recvfrom(2), which returns the next datagram along
-       with the address of its sender.
+       SSOOCCKK__DDGGRRAAMM and SSOOCCKK__RRAAWW sockets allow  sending  of  datagrams  to  correspondents  named  in
+       sseennddttoo(2)  calls.  Datagrams are generally received with rreeccvvffrroomm(2), which returns the next
+       datagram along with the address of its sender.
 
-       SOCK_PACKET is an obsolete socket type to receive raw packets directly from the device driver.   Use
-       packet(7) instead.
+       SSOOCCKK__PPAACCKKEETT is an obsolete socket type to receive  raw  packets  directly  from  the  device
+       driver.  Use ppaacckkeett(7) instead.
 
-       An fcntl(2) F_SETOWN operation can be used to specify a process or process group to receive a SIGURG
-       signal when the out-of-band data arrives or SIGPIPE signal when a SOCK_STREAM connection breaks  un‐
-       expectedly.   This  operation may also be used to set the process or process group that receives the
-       I/O and asynchronous notification of I/O events via SIGIO.   Using  F_SETOWN  is  equivalent  to  an
-       ioctl(2) call with the FIOSETOWN or SIOCSPGRP argument.
+       An  ffccnnttll(2) FF__SSEETTOOWWNN operation can be used to specify a process or process group to receive
+       a SSIIGGUURRGG signal when the out-of-band data arrives or SSIIGGPPIIPPEE signal when a SSOOCCKK__SSTTRREEAAMM  con-
+       nection  breaks unexpectedly.  This operation may also be used to set the process or process
+       group that receives the I/O and asynchronous notification of I/O events  via  SSIIGGIIOO.   Using
+       FF__SSEETTOOWWNN is equivalent to an iiooccttll(2) call with the FFIIOOSSEETTOOWWNN or SSIIOOCCSSPPGGRRPP argument.
 
-       When  the network signals an error condition to the protocol module (e.g., using an ICMP message for
-       IP) the pending error flag is set for the socket.  The next operation on this socket will return the
-       error  code  of  the  pending error.  For some protocols it is possible to enable a per-socket error
-       queue to retrieve detailed information about the error; see IP_RECVERR in ip(7).
+       When the network signals an error condition to the protocol module (e.g., using an ICMP mes-
+       sage for IP) the pending error flag is set for the  socket.   The  next  operation  on  this
+       socket  will  return the error code of the pending error.  For some protocols it is possible
+       to enable a per-socket error queue to retrieve detailed information  about  the  error;  see
+       IIPP__RREECCVVEERRRR in iipp(7).
 
-       The operation of sockets is controlled by socket  level  options.   These  options  are  defined  in
-       <sys/socket.h>.  The functions setsockopt(2) and getsockopt(2) are used to set and get options.
+       The  operation  of sockets is controlled by socket level _o_p_t_i_o_n_s.  These options are defined
+       in _<_s_y_s_/_s_o_c_k_e_t_._h_>.  The functions sseettssoocckkoopptt(2) and ggeettssoocckkoopptt(2) are used to  set  and  get
+       options.
 
-RETURN VALUE
-       On  success,  a file descriptor for the new socket is returned.  On error, -1 is returned, and errno
-       is set to indicate the error.
+RREETTUURRNN VVAALLUUEE
+       On success, a file descriptor for the new socket is returned.  On error, -1 is returned, and
+       _e_r_r_n_o is set to indicate the error.
 
-ERRORS
-       EACCES Permission to create a socket of the specified type and/or protocol is denied.
+EERRRROORRSS
+       EEAACCCCEESS Permission to create a socket of the specified type and/or protocol is denied.
 
-       EAFNOSUPPORT
+       EEAAFFNNOOSSUUPPPPOORRTT
               The implementation does not support the specified address family.
 
-       EINVAL Unknown protocol, or protocol family not available.
+       EEIINNVVAALL Unknown protocol, or protocol family not available.
 
-       EINVAL Invalid flags in type.
+       EEIINNVVAALL Invalid flags in _t_y_p_e.
 
-       EMFILE The per-process limit on the number of open file descriptors has been reached.
+       EEMMFFIILLEE The per-process limit on the number of open file descriptors has been reached.
 
-       ENFILE The system-wide limit on the total number of open files has been reached.
+       EENNFFIILLEE The system-wide limit on the total number of open files has been reached.
 
-       ENOBUFS or ENOMEM
-              Insufficient memory is available.  The socket cannot be created  until  sufficient  resources
-              are freed.
+       EENNOOBBUUFFSS or EENNOOMMEEMM
+              Insufficient memory is available.  The socket  cannot  be  created  until  sufficient
+              resources are freed.
 
-       EPROTONOSUPPORT
+       EEPPRROOTTOONNOOSSUUPPPPOORRTT
               The protocol type or the specified protocol is not supported within this domain.
 
        Other errors may be generated by the underlying protocol modules.
 
-CONFORMING TO
+CCOONNFFOORRMMIINNGG TTOO
        POSIX.1-2001, POSIX.1-2008, 4.4BSD.
 
-       The SOCK_NONBLOCK and SOCK_CLOEXEC flags are Linux-specific.
+       The SSOOCCKK__NNOONNBBLLOOCCKK and SSOOCCKK__CCLLOOEEXXEECC flags are Linux-specific.
 
-       socket()  appeared in 4.2BSD.  It is generally portable to/from non-BSD systems supporting clones of
-       the BSD socket layer (including System V variants).
+       ssoocckkeett()  appeared  in  4.2BSD.  It is generally portable to/from non-BSD systems supporting
+       clones of the BSD socket layer (including System V variants).
 
-NOTES
-       The manifest constants used under 4.x BSD for protocol families are PF_UNIX,  PF_INET,  and  so  on,
-       while  AF_UNIX, AF_INET, and so on are used for address families.  However, already the BSD man page
-       promises: "The protocol family generally is the same as the address family",  and  subsequent  stan‐
-       dards use AF_* everywhere.
+NNOOTTEESS
+       The manifest constants used under 4.x BSD for protocol families are PPFF__UUNNIIXX, PPFF__IINNEETT, and so
+       on,  while  AAFF__UUNNIIXX, AAFF__IINNEETT, and so on are used for address families.  However, already the
+       BSD man page promises: "The protocol family generally is the same as  the  address  family",
+       and subsequent standards use AF_* everywhere.
 
-EXAMPLES
-       An example of the use of socket() is shown in getaddrinfo(3).
+EEXXAAMMPPLLEESS
+       An example of the use of ssoocckkeett() is shown in ggeettaaddddrriinnffoo(3).
 
-SEE ALSO
-       accept(2),  bind(2),  close(2), connect(2), fcntl(2), getpeername(2), getsockname(2), getsockopt(2),
-       ioctl(2), listen(2), read(2), recv(2), select(2),  send(2),  shutdown(2),  socketpair(2),  write(2),
-       getprotoent(3), address_families(7), ip(7), socket(7), tcp(7), udp(7), unix(7)
+SSEEEE AALLSSOO
+       aacccceepptt(2), bbiinndd(2), cclloossee(2), ccoonnnneecctt(2), ffccnnttll(2), ggeettppeeeerrnnaammee(2), ggeettssoocckknnaammee(2), ggeettssoocckk--
+       oopptt(2), iiooccttll(2), lliisstteenn(2), rreeaadd(2),  rreeccvv(2),  sseelleecctt(2),  sseenndd(2),  sshhuuttddoowwnn(2),  ssoocckkeett--
+       ppaaiirr(2),  wwrriittee(2),  ggeettpprroottooeenntt(3),  aaddddrreessss__ffaammiilliieess(7), iipp(7), ssoocckkeett(7), ttccpp(7), uuddpp(7),
+       uunniixx(7)
 
-       “An Introductory 4.3BSD Interprocess Communication Tutorial” and “BSD Interprocess Communication Tu‐
-       torial”, reprinted in UNIX Programmer's Supplementary Documents Volume 1.
+       "An Introductory 4.3BSD Interprocess Communication Tutorial" and "BSD Interprocess  Communi-
+       cation Tutorial", reprinted in _U_N_I_X _P_r_o_g_r_a_m_m_e_r_'_s _S_u_p_p_l_e_m_e_n_t_a_r_y _D_o_c_u_m_e_n_t_s _V_o_l_u_m_e _1_.
 
-Linux                                            2021-03-22                                       SOCKET(2)
+
+
+Linux                                        2021-03-22                                   SOCKET(2)
