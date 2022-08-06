@@ -1,130 +1,121 @@
-CONNECT(2)                           Linux Programmer's Manual                           CONNECT(2)
+CONNECT(2)                               Linux Programmer's Manual                               CONNECT(2)
 
-
-
-NNAAMMEE
+NAME
        connect - initiate a connection on a socket
 
-SSYYNNOOPPSSIISS
-       ##iinncclluuddee <<ssyyss//ssoocckkeett..hh>>
+SYNOPSIS
+       #include <sys/socket.h>
 
-       iinntt ccoonnnneecctt((iinntt _s_o_c_k_f_d,, ccoonnsstt ssttrruucctt ssoocckkaaddddrr **_a_d_d_r,,
-                   ssoocckklleenn__tt _a_d_d_r_l_e_n));;
+       int connect(int sockfd, const struct sockaddr *addr,
+                   socklen_t addrlen);
 
-DDEESSCCRRIIPPTTIIOONN
-       The ccoonnnneecctt() system call connects the socket referred to by the file descriptor _s_o_c_k_f_d to
-       the address specified by _a_d_d_r.  The _a_d_d_r_l_e_n argument specifies the size of _a_d_d_r.  The format
-       of the address in _a_d_d_r is determined by the address space of the socket _s_o_c_k_f_d; see
-       ssoocckkeett(2) for further details.
+DESCRIPTION
+       The  connect()  system call connects the socket referred to by the file descriptor sockfd to the ad‐
+       dress specified by addr.  The addrlen argument specifies the size of addr.  The format  of  the  ad‐
+       dress in addr is determined by the address space of the socket sockfd; see socket(2) for further de‐
+       tails.
 
-       If the socket _s_o_c_k_f_d is of type SSOOCCKK__DDGGRRAAMM, then _a_d_d_r is the address to which datagrams are
-       sent by default, and the only address from which datagrams are received.  If the socket is
-       of type SSOOCCKK__SSTTRREEAAMM or SSOOCCKK__SSEEQQPPAACCKKEETT, this call attempts to make a connection to the socket
-       that is bound to the address specified by _a_d_d_r.
+       If the socket sockfd is of type SOCK_DGRAM, then addr is the address to which datagrams are sent  by
+       default,  and  the  only  address  from  which  datagrams  are  received.   If the socket is of type
+       SOCK_STREAM or SOCK_SEQPACKET, this call attempts to make a connection to the socket that  is  bound
+       to the address specified by addr.
 
-       Some protocol sockets (e.g., UNIX domain stream sockets) may successfully ccoonnnneecctt() only
-       once.
+       Some protocol sockets (e.g., UNIX domain stream sockets) may successfully connect() only once.
 
-       Some protocol sockets (e.g., datagram sockets in the UNIX and Internet domains) may use
-       ccoonnnneecctt() multiple times to change their association.
+       Some  protocol  sockets  (e.g., datagram sockets in the UNIX and Internet domains) may use connect()
+       multiple times to change their association.
 
-       Some protocol sockets (e.g., TCP sockets as well as datagram sockets in the UNIX and
-       Internet domains) may dissolve the association by connecting to an address with the
-       _s_a___f_a_m_i_l_y member of _s_o_c_k_a_d_d_r set to AAFF__UUNNSSPPEECC; thereafter, the socket can be connected to
-       another address.  (AAFF__UUNNSSPPEECC is supported on Linux since kernel 2.2.)
+       Some protocol sockets (e.g., TCP sockets as well as datagram sockets in the UNIX  and  Internet  do‐
+       mains)  may  dissolve the association by connecting to an address with the sa_family member of sock‐
+       addr set to AF_UNSPEC; thereafter, the socket can be connected to another  address.   (AF_UNSPEC  is
+       supported on Linux since kernel 2.2.)
 
-RREETTUURRNN VVAALLUUEE
-       If the connection or binding succeeds, zero is returned.  On error, -1 is returned, and
-       _e_r_r_n_o is set to indicate the error.
+RETURN VALUE
+       If the connection or binding succeeds, zero is returned.  On error, -1 is returned, and errno is set
+       to indicate the error.
 
-EERRRROORRSS
-       The following are general socket errors only.  There may be other domain-specific error
-       codes.
+ERRORS
+       The following are general socket errors only.  There may be other domain-specific error codes.
 
-       EEAACCCCEESS For UNIX domain sockets, which are identified by pathname: Write permission is denied
-              on the socket file, or search permission is denied for one of the directories in the
-              path prefix.  (See also ppaatthh__rreessoolluuttiioonn(7).)
+       EACCES For UNIX domain sockets, which are identified by pathname: Write permission is denied on  the
+              socket  file,  or  search permission is denied for one of the directories in the path prefix.
+              (See also path_resolution(7).)
 
-       EEAACCCCEESS, EEPPEERRMM
-              The user tried to connect to a broadcast address without having the socket broadcast
-              flag enabled or the connection request failed because of a local firewall rule.
+       EACCES, EPERM
+              The user tried to connect to a broadcast address without having the socket broadcast flag en‐
+              abled or the connection request failed because of a local firewall rule.
 
-              EEAACCCCEESS can also be returned if an SELinux policy denied a connection (for example, if
-              there is a policy saying that an HTTP proxy can only connect to ports associated with
-              HTTP servers, and the proxy tries to connect to a different port).  dd
+              EACCES  can  also be returned if an SELinux policy denied a connection (for example, if there
+              is a policy saying that an HTTP proxy can only connect to ports associated with HTTP servers,
+              and the proxy tries to connect to a different port).  dd
 
-       EEAADDDDRRIINNUUSSEE
+       EADDRINUSE
               Local address is already in use.
 
-       EEAADDDDRRNNOOTTAAVVAAIILL
-              (Internet domain sockets) The socket referred to by _s_o_c_k_f_d had not previously been
-              bound to an address and, upon attempting to bind it to an ephemeral port, it was
-              determined that all port numbers in the ephemeral port range are currently in use.
-              See the discussion of _/_p_r_o_c_/_s_y_s_/_n_e_t_/_i_p_v_4_/_i_p___l_o_c_a_l___p_o_r_t___r_a_n_g_e in iipp(7).
+       EADDRNOTAVAIL
+              (Internet  domain  sockets) The socket referred to by sockfd had not previously been bound to
+              an address and, upon attempting to bind it to an ephemeral port, it was determined  that  all
+              port  numbers  in  the  ephemeral  port  range  are  currently in use.  See the discussion of
+              /proc/sys/net/ipv4/ip_local_port_range in ip(7).
 
-       EEAAFFNNOOSSUUPPPPOORRTT
-              The passed address didn't have the correct address family in its _s_a___f_a_m_i_l_y field.
+       EAFNOSUPPORT
+              The passed address didn't have the correct address family in its sa_family field.
 
-       EEAAGGAAIINN For nonblocking UNIX domain sockets, the socket is nonblocking, and the connection
-              cannot be completed immediately.  For other socket families, there are insufficient
-              entries in the routing cache.
+       EAGAIN For nonblocking UNIX domain sockets, the socket is nonblocking, and the connection cannot  be
+              completed  immediately.   For  other  socket  families, there are insufficient entries in the
+              routing cache.
 
-       EEAALLRREEAADDYY
-              The socket is nonblocking and a previous connection attempt has not yet been
-              completed.
+       EALREADY
+              The socket is nonblocking and a previous connection attempt has not yet been completed.
 
-       EEBBAADDFF  _s_o_c_k_f_d is not a valid open file descriptor.
+       EBADF  sockfd is not a valid open file descriptor.
 
-       EECCOONNNNRREEFFUUSSEEDD
-              A ccoonnnneecctt() on a stream socket found no one listening on the remote address.
+       ECONNREFUSED
+              A connect() on a stream socket found no one listening on the remote address.
 
-       EEFFAAUULLTT The socket structure address is outside the user's address space.
+       EFAULT The socket structure address is outside the user's address space.
 
-       EEIINNPPRROOGGRREESSSS
-              The socket is nonblocking and the connection cannot be completed immediately.  (UNIX
-              domain sockets failed with EEAAGGAAIINN instead.)  It is possible to sseelleecctt(2) or ppoollll(2)
-              for completion by selecting the socket for writing.  After sseelleecctt(2) indicates
-              writability, use ggeettssoocckkoopptt(2) to read the SSOO__EERRRROORR option at level SSOOLL__SSOOCCKKEETT to
-              determine whether ccoonnnneecctt() completed successfully (SSOO__EERRRROORR is zero) or
-              unsuccessfully (SSOO__EERRRROORR is one of the usual error codes listed here, explaining the
-              reason for the failure).
+       EINPROGRESS
+              The socket is nonblocking and the connection cannot be completed immediately.   (UNIX  domain
+              sockets  failed  with EAGAIN instead.)  It is possible to select(2) or poll(2) for completion
+              by selecting the socket for writing.  After select(2)  indicates  writability,  use  getsock‐
+              opt(2)  to  read  the SO_ERROR option at level SOL_SOCKET to determine whether connect() com‐
+              pleted successfully (SO_ERROR is zero) or unsuccessfully (SO_ERROR is one of the usual  error
+              codes listed here, explaining the reason for the failure).
 
-       EEIINNTTRR  The system call was interrupted by a signal that was caught; see ssiiggnnaall(7).
+       EINTR  The system call was interrupted by a signal that was caught; see signal(7).
 
-       EEIISSCCOONNNN
+       EISCONN
               The socket is already connected.
 
-       EENNEETTUUNNRREEAACCHH
+       ENETUNREACH
               Network is unreachable.
 
-       EENNOOTTSSOOCCKK
-              The file descriptor _s_o_c_k_f_d does not refer to a socket.
+       ENOTSOCK
+              The file descriptor sockfd does not refer to a socket.
 
-       EEPPRROOTTOOTTYYPPEE
-              The socket type does not support the requested communications protocol.  This error
-              can occur, for example, on an attempt to connect a UNIX domain datagram socket to a
-              stream socket.
+       EPROTOTYPE
+              The  socket  type does not support the requested communications protocol.  This error can oc‐
+              cur, for example, on an attempt to connect a UNIX domain datagram socket to a stream socket.
 
-       EETTIIMMEEDDOOUUTT
-              Timeout while attempting connection.  The server may be too busy to accept new
-              connections.  Note that for IP sockets the timeout may be very long when syncookies
-              are enabled on the server.
+       ETIMEDOUT
+              Timeout while attempting connection.  The server may be too busy to accept  new  connections.
+              Note  that  for  IP  sockets  the timeout may be very long when syncookies are enabled on the
+              server.
 
-CCOONNFFOORRMMIINNGG TTOO
-       POSIX.1-2001, POSIX.1-2008, SVr4, 4.4BSD, (connect(()) first appeared in 4.2BSD).
+CONFORMING TO
+       POSIX.1-2001, POSIX.1-2008, SVr4, 4.4BSD, (connect() first appeared in 4.2BSD).
 
-NNOOTTEESS
-       For background on the _s_o_c_k_l_e_n___t type, see aacccceepptt(2).
+NOTES
+       For background on the socklen_t type, see accept(2).
 
-       If ccoonnnneecctt() fails, consider the state of the socket as unspecified.  Portable applications
-       should close the socket and create a new one for reconnecting.
+       If connect() fails, consider the state of the socket as unspecified.  Portable  applications  should
+       close the socket and create a new one for reconnecting.
 
-EEXXAAMMPPLLEESS
-       An example of the use of ccoonnnneecctt() is shown in ggeettaaddddrriinnffoo(3).
+EXAMPLES
+       An example of the use of connect() is shown in getaddrinfo(3).
 
-SSEEEE AALLSSOO
-       aacccceepptt(2), bbiinndd(2), ggeettssoocckknnaammee(2), lliisstteenn(2), ssoocckkeett(2), ppaatthh__rreessoolluuttiioonn(7), sseelliinnuuxx(8)
+SEE ALSO
+       accept(2), bind(2), getsockname(2), listen(2), socket(2), path_resolution(7), selinux(8)
 
-
-
-Linux                                        2021-03-22                                  CONNECT(2)
+Linux                                            2021-03-22                                      CONNECT(2)

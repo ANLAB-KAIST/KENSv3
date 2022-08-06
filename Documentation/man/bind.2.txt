@@ -1,105 +1,101 @@
-BIND(2)                              Linux Programmer's Manual                              BIND(2)
+BIND(2)                                  Linux Programmer's Manual                                  BIND(2)
 
-
-
-NNAAMMEE
+NAME
        bind - bind a name to a socket
 
-SSYYNNOOPPSSIISS
-       ##iinncclluuddee <<ssyyss//ssoocckkeett..hh>>
+SYNOPSIS
+       #include <sys/socket.h>
 
-       iinntt bbiinndd((iinntt _s_o_c_k_f_d,, ccoonnsstt ssttrruucctt ssoocckkaaddddrr **_a_d_d_r,,
-                ssoocckklleenn__tt _a_d_d_r_l_e_n));;
+       int bind(int sockfd, const struct sockaddr *addr,
+                socklen_t addrlen);
 
-DDEESSCCRRIIPPTTIIOONN
-       When a socket is created with ssoocckkeett(2), it exists in a name space (address family) but has
-       no address assigned to it.  bbiinndd() assigns the address specified by _a_d_d_r to the socket
-       referred to by the file descriptor _s_o_c_k_f_d.  _a_d_d_r_l_e_n specifies the size, in bytes, of the
-       address structure pointed to by _a_d_d_r.  Traditionally, this operation is called “assigning a
-       name to a socket”.
+DESCRIPTION
+       When  a  socket is created with socket(2), it exists in a name space (address family) but has no ad‐
+       dress assigned to it.  bind() assigns the address specified by addr to the socket referred to by the
+       file  descriptor  sockfd.  addrlen specifies the size, in bytes, of the address structure pointed to
+       by addr.  Traditionally, this operation is called “assigning a name to a socket”.
 
-       It is normally necessary to assign a local address using bbiinndd() before a SSOOCCKK__SSTTRREEAAMM socket
-       may receive connections (see aacccceepptt(2)).
+       It is normally necessary to assign a local address using bind() before a SOCK_STREAM socket may  re‐
+       ceive connections (see accept(2)).
 
-       The rules used in name binding vary between address families.  Consult the manual entries in
-       Section 7 for detailed information.  For AAFF__IINNEETT, see iipp(7); for AAFF__IINNEETT66, see iippvv66(7); for
-       AAFF__UUNNIIXX, see uunniixx(7); for AAFF__AAPPPPLLEETTAALLKK, see ddddpp(7); for AAFF__PPAACCKKEETT, see ppaacckkeett(7); for
-       AAFF__XX2255, see xx2255(7); and for AAFF__NNEETTLLIINNKK, see nneettlliinnkk(7).
+       The rules used in name binding vary between address families.  Consult the manual entries in Section
+       7 for detailed information.  For AF_INET, see ip(7); for AF_INET6, see  ipv6(7);  for  AF_UNIX,  see
+       unix(7); for AF_APPLETALK, see ddp(7); for AF_PACKET, see packet(7); for AF_X25, see x25(7); and for
+       AF_NETLINK, see netlink(7).
 
-       The actual structure passed for the _a_d_d_r argument will depend on the address family.  The
-       _s_o_c_k_a_d_d_r structure is defined as something like:
+       The actual structure passed for the addr argument will depend on the address family.   The  sockaddr
+       structure is defined as something like:
 
            struct sockaddr {
                sa_family_t sa_family;
                char        sa_data[14];
            }
 
-       The only purpose of this structure is to cast the structure pointer passed in _a_d_d_r in order
-       to avoid compiler warnings.  See EXAMPLES below.
+       The only purpose of this structure is to cast the structure pointer passed in addr in order to avoid
+       compiler warnings.  See EXAMPLES below.
 
-RREETTUURRNN VVAALLUUEE
-       On success, zero is returned.  On error, -1 is returned, and _e_r_r_n_o is set to indicate the
-       error.
+RETURN VALUE
+       On success, zero is returned.  On error, -1 is returned, and errno is set to indicate the error.
 
-EERRRROORRSS
-       EEAACCCCEESS The address is protected, and the user is not the superuser.
+ERRORS
+       EACCES The address is protected, and the user is not the superuser.
 
-       EEAADDDDRRIINNUUSSEE
+       EADDRINUSE
               The given address is already in use.
 
-       EEAADDDDRRIINNUUSSEE
-              (Internet domain sockets) The port number was specified as zero in the socket address
-              structure, but, upon attempting to bind to an ephemeral port, it was determined that
-              all port numbers in the ephemeral port range are currently in use.  See the
-              discussion of _/_p_r_o_c_/_s_y_s_/_n_e_t_/_i_p_v_4_/_i_p___l_o_c_a_l___p_o_r_t___r_a_n_g_e iipp(7).
+       EADDRINUSE
+              (Internet domain sockets) The port number was specified as zero in the socket address  struc‐
+              ture, but, upon attempting to bind to an ephemeral port, it was determined that all port num‐
+              bers  in  the  ephemeral  port  range  are  currently  in  use.   See   the   discussion   of
+              /proc/sys/net/ipv4/ip_local_port_range ip(7).
 
-       EEBBAADDFF  _s_o_c_k_f_d is not a valid file descriptor.
+       EBADF  sockfd is not a valid file descriptor.
 
-       EEIINNVVAALL The socket is already bound to an address.
+       EINVAL The socket is already bound to an address.
 
-       EEIINNVVAALL _a_d_d_r_l_e_n is wrong, or _a_d_d_r is not a valid address for this socket's domain.
+       EINVAL addrlen is wrong, or addr is not a valid address for this socket's domain.
 
-       EENNOOTTSSOOCCKK
-              The file descriptor _s_o_c_k_f_d does not refer to a socket.
+       ENOTSOCK
+              The file descriptor sockfd does not refer to a socket.
 
-       The following errors are specific to UNIX domain (AAFF__UUNNIIXX) sockets:
+       The following errors are specific to UNIX domain (AF_UNIX) sockets:
 
-       EEAACCCCEESS Search permission is denied on a component of the path prefix.  (See also
-              ppaatthh__rreessoolluuttiioonn(7).)
+       EACCES Search  permission  is  denied  on  a  component  of the path prefix.  (See also path_resolu‐
+              tion(7).)
 
-       EEAADDDDRRNNOOTTAAVVAAIILL
+       EADDRNOTAVAIL
               A nonexistent interface was requested or the requested address was not local.
 
-       EEFFAAUULLTT _a_d_d_r points outside the user's accessible address space.
+       EFAULT addr points outside the user's accessible address space.
 
-       EELLOOOOPP  Too many symbolic links were encountered in resolving _a_d_d_r.
+       ELOOP  Too many symbolic links were encountered in resolving addr.
 
-       EENNAAMMEETTOOOOLLOONNGG
-              _a_d_d_r is too long.
+       ENAMETOOLONG
+              addr is too long.
 
-       EENNOOEENNTT A component in the directory prefix of the socket pathname does not exist.
+       ENOENT A component in the directory prefix of the socket pathname does not exist.
 
-       EENNOOMMEEMM Insufficient kernel memory was available.
+       ENOMEM Insufficient kernel memory was available.
 
-       EENNOOTTDDIIRR
+       ENOTDIR
               A component of the path prefix is not a directory.
 
-       EERROOFFSS  The socket inode would reside on a read-only filesystem.
+       EROFS  The socket inode would reside on a read-only filesystem.
 
-CCOONNFFOORRMMIINNGG TTOO
-       POSIX.1-2001, POSIX.1-2008, SVr4, 4.4BSD (bbiinndd() first appeared in 4.2BSD).
+CONFORMING TO
+       POSIX.1-2001, POSIX.1-2008, SVr4, 4.4BSD (bind() first appeared in 4.2BSD).
 
-NNOOTTEESS
-       For background on the _s_o_c_k_l_e_n___t type, see aacccceepptt(2).
+NOTES
+       For background on the socklen_t type, see accept(2).
 
-BBUUGGSS
+BUGS
        The transparent proxy options are not described.
 
-EEXXAAMMPPLLEESS
-       An example of the use of bbiinndd() with Internet domain sockets can be found in ggeettaaddddrriinnffoo(3).
+EXAMPLES
+       An example of the use of bind() with Internet domain sockets can be found in getaddrinfo(3).
 
-       The following example shows how to bind a stream socket in the UNIX (AAFF__UUNNIIXX) domain, and
-       accept connections:
+       The following example shows how to bind a stream socket in the UNIX  (AF_UNIX)  domain,  and  accept
+       connections:
 
        #include <sys/socket.h>
        #include <sys/un.h>
@@ -151,10 +147,8 @@ EEXXAAMMPPLLEESS
               should be deleted using unlink(2) or remove(3). */
        }
 
-SSEEEE AALLSSOO
-       aacccceepptt(2), ccoonnnneecctt(2), ggeettssoocckknnaammee(2), lliisstteenn(2), ssoocckkeett(2), ggeettaaddddrriinnffoo(3), ggeettiiffaaddddrrss(3),
-       iipp(7), iippvv66(7), ppaatthh__rreessoolluuttiioonn(7), ssoocckkeett(7), uunniixx(7)
+SEE ALSO
+       accept(2),  connect(2),  getsockname(2), listen(2), socket(2), getaddrinfo(3), getifaddrs(3), ip(7),
+       ipv6(7), path_resolution(7), socket(7), unix(7)
 
-
-
-Linux                                        2021-03-22                                     BIND(2)
+Linux                                            2021-03-22                                         BIND(2)
