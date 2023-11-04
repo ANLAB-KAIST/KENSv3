@@ -186,7 +186,7 @@ public:
     TERMINATED,
   };
   /**
-   * @brief Wake and keep running (CREATED -> READY)
+   * @brief Start and prepare (CREATED -> READY)
    */
   virtual void start() final;
   /**
