@@ -18,14 +18,18 @@ jobs:
     if: github.event_name == 'push'
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Build image
         run: |
           docker build . --file Dockerfile --tag $IMAGE_NAME
 
-      - name: Log into GitHub Container Registry
-        run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ secrets.CR_NAME }} --password-stdin
+      - name: Log in to the Container registry
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Push image to GitHub Container Registry
         run: |
