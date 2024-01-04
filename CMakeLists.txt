@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 3.11)
 
-project(e VERSION 3.3.2)
+project(e VERSION 3.3.3)
+
+# Avoid warning about DOWNLOAD_EXTRACT_TIMESTAMP in CMake 3.24:
+if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
+  cmake_policy(SET CMP0135 NEW)
+endif()
 
 if(WIN32)
   message(
@@ -134,8 +139,9 @@ include(FetchContent)
 
 FetchContent_Declare(
   googletest
-  URL https://github.com/google/googletest/archive/b007c54f2944e193ac44fba1bc997cb65826a0b9.zip
-)
+  URL https://github.com/google/googletest/archive/dddb219c3eb96d7f9200f09b0a381f016e6b4562.zip
+  URL_HASH
+    SHA256=4599154210502714ad841821b9d086431816e5c8bfae90872e43305cc0f12eb2)
 
 FetchContent_GetProperties(googletest)
 if(NOT googletest_POPULATED)
