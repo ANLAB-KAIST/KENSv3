@@ -11,7 +11,7 @@ if(WIN32)
   message(
     FATAL_ERROR
       "WIN32 target is obsolete. Please use Windows Subsystems for Linux")
-endif(WIN32)
+endif()
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -39,7 +39,7 @@ if(SANITIZER_FLAGS)
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${SANITIZER_FLAGS}")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SANITIZER_FLAGS}")
   set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} ${SANITIZER_FLAGS}")
-endif(SANITIZER_FLAGS)
+endif()
 
 # Compiler Test
 
@@ -253,6 +253,6 @@ if(DOXYGEN_FOUND)
       ${PROJECT_SOURCE_DIR}/doxygen/Doxyfile
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
 
-endif(DOXYGEN_FOUND)
+endif()
 
 include(cmake/kens-dist.cmake OPTIONAL)
