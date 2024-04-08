@@ -45,12 +45,33 @@ void Ethernet::packetArrived(std::string fromModule, Packet &&packet) {
       packet.readData(26, src_ip.data(), 4);
       int port = this->getRoutingTable(src_ip);
       auto src = this->getMACAddr(port);
+
+      if (!src.has_value()) {
+        printf("Unrecognized port: %d. Packet[%ld] is dropped.\n", port,
+               packet.getUUID());
+        return;
+      }
+
       packet.writeData(0, mac_broadcast.data(), 6);
       packet.writeData(6, src.value().data(), 6);
     } else {
       int port = this->getRoutingTable(dst_ip);
       auto src = this->getMACAddr(port);
       auto dst = this->getARPTable(dst_ip);
+
+      if (!src.has_value()) {
+        printf("Unrecognized port: %d. Packet[%ld] is dropped.\n", port,
+               packet.getUUID());
+        return;
+      }
+
+      if (!dst.has_value()) {
+        printf(
+            "Destination unreachable: %d.%d.%d.%d. Packet[%ld] is dropped.\n",
+            dst_ip[0], dst_ip[1], dst_ip[2], dst_ip[3], packet.getUUID());
+        return;
+      }
+
       packet.writeData(0, dst.value().data(), 6);
       packet.writeData(6, src.value().data(), 6);
     }

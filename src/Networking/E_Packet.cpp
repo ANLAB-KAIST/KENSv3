@@ -99,6 +99,8 @@ size_t Packet::setSize(size_t size) {
 }
 size_t Packet::getSize() const { return this->dataSize; }
 
+UUID Packet::getUUID() const { return this->packetID; }
+
 void Packet::clearContext() {}
 
 } // namespace E

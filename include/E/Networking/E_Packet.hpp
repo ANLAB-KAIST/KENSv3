@@ -103,6 +103,11 @@ public:
    */
   size_t getSize() const;
 
+  /**
+   * @return Packet UUID.
+   */
+  UUID getUUID() const;
+
   void clearContext();
 
   friend class NetworkSystem;
