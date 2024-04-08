@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.11)
 
-project(e VERSION 3.3.3)
+project(e VERSION 3.3.4)
 
 # Avoid warning about DOWNLOAD_EXTRACT_TIMESTAMP in CMake 3.24:
 if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
