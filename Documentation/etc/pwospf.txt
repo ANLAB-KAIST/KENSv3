@@ -386,7 +386,7 @@ LSU Packet Format
       ID of the neighboring router on the advertised link.  If there is no
       connected router to the link the RID should be set to 0.
 
-  Metric
+  Metric (not in the original Pee-Wee OSPF protocol specification)
       The cost of this route.  Expressed in the same units as the
       interface costs in the router links advertisements.
 
