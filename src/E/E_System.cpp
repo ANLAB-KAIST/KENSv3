@@ -43,14 +43,16 @@ UUID System::sendMessage(const ModuleID from, const ModuleID to,
   return uuid;
 }
 UUID System::allocateUUID() {
-
-  UUID candidate = ++currentUUID;
-  if (activeUUID.find(candidate) == activeUUID.end()) {
-    activeUUID.insert(candidate);
-    return candidate;
-  } else {
-    assert(0);
-  }
+  UUID startID = currentID;
+  do {
+    UUID candidate = currentID++;
+    if (activeUUID.find(candidate) == activeUUID.end()) {
+      activeUUID.insert(candidate);
+      return candidate;
+    }
+  } while (startID != currentID);
+  assert(0);
+  return 0;
 }
 
 bool System::deallocateUUID(UUID candidate) {
