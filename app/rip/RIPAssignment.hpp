@@ -1,10 +1,10 @@
 /*
- * E_RoutingAssignment.hpp
+ * E_RIPAssignment.hpp
  *
  */
 
-#ifndef E_ROUTINGASSIGNMENT_HPP_
-#define E_ROUTINGASSIGNMENT_HPP_
+#ifndef E_RIPASSIGNMENT_HPP_
+#define E_RIPASSIGNMENT_HPP_
 
 #include <E/Networking/E_Host.hpp>
 #include <E/Networking/E_Networking.hpp>
@@ -60,14 +60,14 @@ __attribute__((packed));
 ;
 #endif
 
-class RoutingAssignment : public HostModule,
-                          private RoutingInfoInterface,
-                          public TimerModule {
+class RIPAssignment : public HostModule,
+                      private RoutingInfoInterface,
+                      public TimerModule {
 private:
   virtual void timerCallback(std::any payload) final;
 
 public:
-  RoutingAssignment(Host &host);
+  RIPAssignment(Host &host);
 
   /**
    * @brief Query cost for a host
@@ -90,7 +90,7 @@ public:
 
   virtual void initialize();
   virtual void finalize();
-  virtual ~RoutingAssignment();
+  virtual ~RIPAssignment();
 
 protected:
   virtual std::any diagnose(std::any param) final {
@@ -102,4 +102,4 @@ protected:
 
 } // namespace E
 
-#endif /* E_ROUTINGASSIGNMENT_HPP_ */
+#endif /* E_RIPASSIGNMENT_HPP_ */

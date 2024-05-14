@@ -12,6 +12,12 @@
 
 namespace E {
 
+static const std::set<ipv4_t> ip_broadcasts = {{
+    {255, 255, 255, 255}, // IP broadcast
+    {224, 0, 0, 5},       // OSPF multicast (AllSPFRouters)
+    {224, 0, 0, 6},       // OSPF multicast (AllDRouters)
+}};
+
 Ethernet::Ethernet(Host &host)
     : HostModule("Ethernet", host), RoutingInfoInterface(host) {}
 Ethernet::~Ethernet() {}
@@ -37,20 +43,39 @@ void Ethernet::packetArrived(std::string fromModule, Packet &&packet) {
 
     ipv4_t dst_ip;
     packet.readData(30, dst_ip.data(), 4);
-    constexpr ipv4_t ip_broadcast = {255, 255, 255, 255};
     constexpr mac_t mac_broadcast = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
-    if (dst_ip == ip_broadcast) {
-      // TODO: general IP broadcast
+    if (ip_broadcasts.find(dst_ip) != ip_broadcasts.end()) {
       ipv4_t src_ip;
       packet.readData(26, src_ip.data(), 4);
       int port = this->getRoutingTable(src_ip);
       auto src = this->getMACAddr(port);
+
+      if (!src.has_value()) {
+        printf("Unrecognized port: %d. Packet[%ld] is dropped.\n", port,
+               packet.getUUID());
+        return;
+      }
+
       packet.writeData(0, mac_broadcast.data(), 6);
       packet.writeData(6, src.value().data(), 6);
     } else {
       int port = this->getRoutingTable(dst_ip);
       auto src = this->getMACAddr(port);
       auto dst = this->getARPTable(dst_ip);
+
+      if (!src.has_value()) {
+        printf("Unrecognized port: %d. Packet[%ld] is dropped.\n", port,
+               packet.getUUID());
+        return;
+      }
+
+      if (!dst.has_value()) {
+        printf(
+            "Destination unreachable: %d.%d.%d.%d. Packet[%ld] is dropped.\n",
+            dst_ip[0], dst_ip[1], dst_ip[2], dst_ip[3], packet.getUUID());
+        return;
+      }
+
       packet.writeData(0, dst.value().data(), 6);
       packet.writeData(6, src.value().data(), 6);
     }

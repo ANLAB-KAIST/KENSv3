@@ -17,7 +17,7 @@
 
 #include <gtest/gtest.h>
 
-#include "RoutingAssignment.hpp"
+#include "PWOSPFAssignment.hpp"
 
 #define RANDOM_SEED_DEFAULT 1614233283
 constexpr size_t routing_run_time = 3000;
@@ -150,8 +150,8 @@ protected:
       Host &router = *routers[i];
       router.addHostModule<Ethernet>(router);
       router.addHostModule<IPv4>(router);
-      router.addHostModule<RoutingAssignment>(router);
-      router.initializeHostModule("UDP");
+      router.addHostModule<PWOSPFAssignment>(router);
+      router.initializeHostModule("OSPF");
     }
   }
 
@@ -161,18 +161,19 @@ protected:
       size_t router_i = std::get<0>(vec);
       size_t router_j = std::get<1>(vec);
       size_t cost = std::get<2>(vec);
-      for (size_t port_num = 0; port_num < routers[router_i]->getPortCount();
-           ++port_num) {
+      {
+        size_t port_num = 0;
         ipv4_t ip = routers[router_i]->getIPAddr(port_num).value();
         size_t cost_ret = std::any_cast<size_t>(
-            routers[router_j]->diagnoseHostModule("UDP", ip));
+            routers[router_j]->diagnoseHostModule("OSPF", ip));
         EXPECT_EQ(cost_ret, cost);
       }
-      for (size_t port_num = 0; port_num < routers[router_j]->getPortCount();
-           ++port_num) {
+
+      {
+        size_t port_num = 0;
         ipv4_t ip = routers[router_j]->getIPAddr(port_num).value();
         size_t cost_ret = std::any_cast<size_t>(
-            routers[router_i]->diagnoseHostModule("UDP", ip));
+            routers[router_i]->diagnoseHostModule("OSPF", ip));
         EXPECT_EQ(cost_ret, cost);
       }
     }
@@ -181,14 +182,14 @@ protected:
   void cleanUpGraph() {
     for (size_t i = 0; i < N; ++i) {
       routers[i]->cleanUp();
-      routers[i]->finalizeHostModule("UDP");
+      routers[i]->finalizeHostModule("OSPF");
     }
   }
 
   virtual void TearDown() {}
 };
 
-class RoutingEnvRipTwoNodes : public RouteTesting<2> {
+class RoutingEnvOSPFTwoNodes : public RouteTesting<2> {
 protected:
   virtual void SetUp() {
     setup_env();
@@ -205,7 +206,7 @@ protected:
   }
 };
 
-class RoutingEnvCustomTwoNodes : public RouteTesting<2> {
+class RoutingEnvOSPFCustomTwoNodes : public RouteTesting<2> {
 protected:
   virtual void SetUp() {
     setup_env();
@@ -222,7 +223,7 @@ protected:
   }
 };
 
-class RoutingEnvRip1 : public RouteTesting<4> {
+class RoutingEnvOSPF1 : public RouteTesting<4> {
 protected:
   virtual void SetUp() {
     setup_env();
@@ -242,7 +243,7 @@ protected:
   }
 };
 
-class RoutingEnvCustom1 : public RouteTesting<4> {
+class RoutingEnvOSPFCustom1 : public RouteTesting<4> {
 protected:
   virtual void SetUp() {
     setup_env();
@@ -263,7 +264,7 @@ protected:
   }
 };
 
-class RoutingEnvRip2 : public RouteTesting<7> {
+class RoutingEnvOSPF2 : public RouteTesting<7> {
 protected:
   virtual void SetUp() {
     setup_env();
@@ -287,7 +288,7 @@ protected:
     netSystem.run(TimeUtil::makeTime(2000, TimeUtil::SEC));
   }
 };
-class RoutingEnvCustom2 : public RouteTesting<7> {
+class RoutingEnvOSPFCustom2 : public RouteTesting<7> {
 protected:
   virtual void SetUp() {
     setup_env();
@@ -312,7 +313,7 @@ protected:
   }
 };
 
-class RoutingEnvRip3 : public RouteTesting<5> {
+class RoutingEnvOSPF3 : public RouteTesting<5> {
 protected:
   virtual void SetUp() {
     setup_env();
@@ -332,7 +333,7 @@ protected:
     netSystem.run(TimeUtil::makeTime(2000, TimeUtil::SEC));
   }
 };
-class RoutingEnvCustom3 : public RouteTesting<5> {
+class RoutingEnvOSPFCustom3 : public RouteTesting<5> {
 protected:
   virtual void SetUp() {
     setup_env();
@@ -353,7 +354,7 @@ protected:
   }
 };
 
-class RoutingEnvRip4 : public RouteTesting<9> {
+class RoutingEnvOSPF4 : public RouteTesting<9> {
 protected:
   virtual void SetUp() {
     setup_env();
@@ -380,7 +381,7 @@ protected:
     netSystem.run(TimeUtil::makeTime(2000, TimeUtil::SEC));
   }
 };
-class RoutingEnvCustom4 : public RouteTesting<9> {
+class RoutingEnvOSPFCustom4 : public RouteTesting<9> {
 protected:
   virtual void SetUp() {
     setup_env();
@@ -406,13 +407,15 @@ protected:
   }
 };
 
-TEST_F(RoutingEnvRipTwoNodes, TestRoutingRipTwoNodes) { this->runTest(); }
-TEST_F(RoutingEnvCustomTwoNodes, TestRoutingCustomTwoNodes) { this->runTest(); }
-TEST_F(RoutingEnvRip1, TestRoutingRip1) { this->runTest(); }
-TEST_F(RoutingEnvCustom1, TestRoutingCustom1) { this->runTest(); }
-TEST_F(RoutingEnvRip2, TestRoutingRip2) { this->runTest(); }
-TEST_F(RoutingEnvCustom2, TestRoutingCustom2) { this->runTest(); }
-TEST_F(RoutingEnvRip3, TestRoutingRip3) { this->runTest(); }
-TEST_F(RoutingEnvCustom3, TestRoutingCustom3) { this->runTest(); }
-TEST_F(RoutingEnvRip4, TestRoutingRip4) { this->runTest(); }
-TEST_F(RoutingEnvCustom4, TestRoutingCustom4) { this->runTest(); }
+TEST_F(RoutingEnvOSPFTwoNodes, TestRoutingOSPFTwoNodes) { this->runTest(); }
+TEST_F(RoutingEnvOSPFCustomTwoNodes, TestRoutingOSPFCustomTwoNodes) {
+  this->runTest();
+}
+TEST_F(RoutingEnvOSPF1, TestRoutingOSPF1) { this->runTest(); }
+TEST_F(RoutingEnvOSPFCustom1, TestRoutingOSPFCustom1) { this->runTest(); }
+TEST_F(RoutingEnvOSPF2, TestRoutingOSPF2) { this->runTest(); }
+TEST_F(RoutingEnvOSPFCustom2, TestRoutingOSPFCustom2) { this->runTest(); }
+TEST_F(RoutingEnvOSPF3, TestRoutingOSPF3) { this->runTest(); }
+TEST_F(RoutingEnvOSPFCustom3, TestRoutingOSPFCustom3) { this->runTest(); }
+TEST_F(RoutingEnvOSPF4, TestRoutingOSPF4) { this->runTest(); }
+TEST_F(RoutingEnvOSPFCustom4, TestRoutingOSPFCustom4) { this->runTest(); }

@@ -1,5 +1,5 @@
 /*
- * E_RoutingAssignment.cpp
+ * E_RIPAssignment.cpp
  *
  */
 
@@ -10,19 +10,19 @@
 #include <E/Networking/E_Packet.hpp>
 #include <cerrno>
 
-#include "RoutingAssignment.hpp"
+#include "RIPAssignment.hpp"
 
 namespace E {
 
-RoutingAssignment::RoutingAssignment(Host &host)
+RIPAssignment::RIPAssignment(Host &host)
     : HostModule("UDP", host), RoutingInfoInterface(host),
       TimerModule("UDP", host) {}
 
-RoutingAssignment::~RoutingAssignment() {}
+RIPAssignment::~RIPAssignment() {}
 
-void RoutingAssignment::initialize() {}
+void RIPAssignment::initialize() {}
 
-void RoutingAssignment::finalize() {}
+void RIPAssignment::finalize() {}
 
 /**
  * @brief Query cost for a host
@@ -30,19 +30,19 @@ void RoutingAssignment::finalize() {}
  * @param ipv4 querying host's IP address
  * @return cost or -1 for no found host
  */
-Size RoutingAssignment::ripQuery(const ipv4_t &ipv4) {
+Size RIPAssignment::ripQuery(const ipv4_t &ipv4) {
   // Implement below
 
   return -1;
 }
 
-void RoutingAssignment::packetArrived(std::string fromModule, Packet &&packet) {
+void RIPAssignment::packetArrived(std::string fromModule, Packet &&packet) {
   // Remove below
   (void)fromModule;
   (void)packet;
 }
 
-void RoutingAssignment::timerCallback(std::any payload) {
+void RIPAssignment::timerCallback(std::any payload) {
   // Remove below
   (void)payload;
 }

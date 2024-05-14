@@ -68,6 +68,7 @@ private:
       timerQueue;
   std::unordered_map<UUID, TimerContainer> activeTimer;
   std::unordered_set<UUID> activeUUID;
+  UUID currentUUID = 0;
 
   UUID allocateUUID();
   bool deallocateUUID(UUID uuid);

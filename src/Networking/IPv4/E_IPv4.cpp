@@ -50,10 +50,14 @@ void IPv4::packetArrived(std::string fromModule, Packet &&packet) {
     } else if (protocol == 0x11) // UDP
     {
       this->sendPacket("UDP", std::move(packet));
+    } else if (protocol == 0x59) // OSPF
+    {
+      this->sendPacket("OSPF", std::move(packet));
     } else {
       // Not TCP/UDP
     }
-  } else if (fromModule.compare("TCP") == 0 || fromModule.compare("UDP") == 0) {
+  } else if (fromModule.compare("TCP") == 0 || fromModule.compare("UDP") == 0 ||
+             fromModule.compare("OSPF") == 0) {
     uint8_t proto = 0;
     size_t ip_start = 14;
     if (fromModule.compare("TCP") == 0) {
@@ -61,6 +65,9 @@ void IPv4::packetArrived(std::string fromModule, Packet &&packet) {
     }
     if (fromModule.compare("UDP") == 0) {
       proto = 0x11;
+    }
+    if (fromModule.compare("OSPF") == 0) {
+      proto = 0x59;
     }
     uint8_t buf;
 

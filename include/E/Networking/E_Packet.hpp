@@ -23,10 +23,8 @@ class NetworkSystem;
  */
 class Packet : public Module::MessageBase {
 private:
-  Packet(UUID uuid, size_t maxSize);
+  Packet(UUID uuid, size_t size);
   std::vector<char> buffer;
-  size_t bufferSize;
-  size_t dataSize;
 
   UUID packetID;
 
@@ -61,9 +59,9 @@ public:
   Packet &operator=(Packet &&other) noexcept;
 
   /**
-   * @param maxSize Maximum packet size.
+   * @param size Packet size.
    */
-  Packet(size_t maxSize);
+  Packet(size_t size);
 
   ~Packet() override;
 
@@ -92,7 +90,7 @@ public:
 
   /**
    * @brief Change the size of this Packet
-   * The size cannot be larger than the internal buffer.
+   * The size can be larger than the internal buffer.
    * @param size New size.
    * @return Actual changed size.
    */
@@ -102,6 +100,11 @@ public:
    * @return Current packet size.
    */
   size_t getSize() const;
+
+  /**
+   * @return Packet UUID.
+   */
+  UUID getUUID() const;
 
   void clearContext();
 
