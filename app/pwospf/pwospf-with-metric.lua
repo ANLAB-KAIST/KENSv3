@@ -20,6 +20,7 @@ f.numadvertisements = ProtoField.uint16("pwospf.numadvertisements", "# advertise
 f.lsusubnet = ProtoField.ipv4("pwospf.lsusubnet", "Subnet")
 f.lsumask = ProtoField.ipv4("pwospf.lsumask", "Mask")
 f.lsurouterid = ProtoField.ipv4("pwospf.lsurouterid", "Router ID")
+f.lsumetric = ProtoField.uint32("pwospf.lsumetric", "Metric")
 
 function p_pwospf.dissector(buffer, pinfo, tree)
     if buffer:len() == 0 then
@@ -54,9 +55,11 @@ function p_pwospf.dissector(buffer, pinfo, tree)
 
         while i < numadvertisements do
             local subtree2 = subtree:add('Link state advertisement ' .. i)
-            subtree2:add(f.lsusubnet, buffer(32 + i * 12, 4))
-            subtree2:add(f.lsumask, buffer(36 + i * 12, 4))
-            subtree2:add(f.lsurouterid, buffer(40 + i * 12, 4))
+            subtree2:add(f.lsusubnet, buffer(32 + i * 16, 4))
+            subtree2:add(f.lsumask, buffer(36 + i * 16, 4))
+            subtree2:add(f.lsurouterid, buffer(40 + i * 16, 4))
+            subtree2:add(f.lsumetric, buffer(44 + i * 16, 4))
+
             i = i + 1
         end
 
