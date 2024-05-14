@@ -126,85 +126,86 @@ $(function() {
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      timerQueue;</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  std::unordered_map&lt;UUID, TimerContainer&gt; activeTimer;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  std::unordered_set&lt;UUID&gt; activeUUID;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  UUID allocateUUID();</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keywordtype">bool</span> deallocateUUID(UUID uuid);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="keywordtype">bool</span> isRegistered(<span class="keyword">const</span> ModuleID moduleID);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  UUID sendMessage(<span class="keyword">const</span> ModuleID from, <span class="keyword">const</span> ModuleID to,</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                   Module::Message message, Time timeAfter);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="keywordtype">bool</span> cancelMessage(UUID messageID);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <a class="code" href="class_e_1_1_system.html#af0583ef28cc6f7f558bfbbffca286015">System</a>();</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_e_1_1_system.html">System</a>();</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_system.html#a67e932b7cf9d388f401495e138e119f6">run</a>(Time till);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  Time <a class="code" href="class_e_1_1_system.html#a9be9f7750af9ae255c157902399bff6f">getCurrentTime</a>();</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_system.html#a783ddf9b6ef4aa7ae8f898da77f36b28">addRunnable</a>(std::shared_ptr&lt;Runnable&gt; runnable) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_system.html#a4d71d8ad5b3dedca31e2a5378f0919ee">delRunnable</a>(std::shared_ptr&lt;Runnable&gt; runnable) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... Args&gt;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  std::shared_ptr&lt;T&gt; addModule(Args &amp;&amp;...args) {</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    static_assert(std::is_base_of&lt;Module, T&gt;::value);</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keyword">auto</span> module = std::make_shared&lt;T&gt;(std::forward&lt;Args&gt;(args)...);</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    module-&gt;id = newModuleID();</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordtype">bool</span> ret = registeredModule.insert({module-&gt;id, module}).second;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    (void)ret;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    assert(ret);</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordflow">return</span> module;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  }</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;  std::string getModuleName(<span class="keyword">const</span> ModuleID moduleID);</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  <span class="keyword">friend</span> <a class="code" href="class_e_1_1_module.html#a54dec36cae2191adecc934eb0a5e54e8">Module::Module</a>(<a class="code" href="class_e_1_1_system.html">System</a> &amp;system);</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  <span class="keyword">friend</span> Module::~Module();</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;  <span class="keyword">friend</span> UUID <a class="code" href="class_e_1_1_module.html#a697e6dcea6c04440dabf8939a142731e">Module::sendMessage</a>(<span class="keyword">const</span> ModuleID to, Module::Message message,</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;                                  Time timeAfter);</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;  <span class="keyword">friend</span> <span class="keywordtype">bool</span> <a class="code" href="class_e_1_1_module.html#a6d818645bf7e6e056c6373af7851fed6">Module::cancelMessage</a>(UUID timer);</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;};</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
-<div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="class_e_1_1_runnable.html">  152</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_e_1_1_runnable.html">Runnable</a> {</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;  <a class="code" href="class_e_1_1_runnable.html#ab7abdeb6d60d5ecd794753d11be312bd">Runnable</a>();</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_e_1_1_runnable.html">Runnable</a>();</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_runnable.html#a1b550ec51f95f79bab469e5be56a4782">wait</a>() <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00167"></a><span class="lineno"><a class="line" href="class_e_1_1_runnable.html#ab6492d7cd5cf7c8e20f1dd5ffd288640">  167</a></span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_runnable.html#ab6492d7cd5cf7c8e20f1dd5ffd288640">pre_main</a>(){};</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
-<div class="line"><a name="l00172"></a><span class="lineno"><a class="line" href="class_e_1_1_runnable.html#a896acf24392761dda8012cb2c43898a0">  172</a></span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_runnable.html#a896acf24392761dda8012cb2c43898a0">main</a>() = 0;</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_runnable.html#a7c6d9838772f1ff32b27d165c616528a">run</a>() final;</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;public:</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;  enum class State {</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    CREATED,</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    STARTING,</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    READY,</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    RUNNING,</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    WAITING,</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    TERMINATED,</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;  };</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_runnable.html#ad829bb63c159d8a4a2c7b0b1943a8484">start</a>() final;</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;  virtual State <a class="code" href="class_e_1_1_runnable.html#a5b429a827bb069a1fdbf23df6318d3af">wake</a>() final;</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;  virtual <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_runnable.html#a6d2913b3825b71e4960b9824404bb3e2">ready</a>() final;</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;  friend class <a class="code" href="class_e_1_1_system.html">System</a>;</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160; </div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;private:</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;  State state;</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;  std::mutex stateMtx;</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;  std::unique_lock&lt;std::mutex&gt; threadLock; <span class="comment">//  for thread</span></div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;  std::unique_lock&lt;std::mutex&gt; schedLock;  <span class="comment">//  for scheduler</span></div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;  std::condition_variable cond;</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;  std::thread thread;</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;};</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160; </div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;} <span class="comment">// namespace E</span></div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160; </div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* E_SYSTEM_HPP_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  UUID currentUUID = 0;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  UUID allocateUUID();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="keywordtype">bool</span> deallocateUUID(UUID uuid);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keywordtype">bool</span> isRegistered(<span class="keyword">const</span> ModuleID moduleID);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  UUID sendMessage(<span class="keyword">const</span> ModuleID from, <span class="keyword">const</span> ModuleID to,</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                   Module::Message message, Time timeAfter);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="keywordtype">bool</span> cancelMessage(UUID messageID);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <a class="code" href="class_e_1_1_system.html#af0583ef28cc6f7f558bfbbffca286015">System</a>();</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_e_1_1_system.html">System</a>();</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_system.html#a67e932b7cf9d388f401495e138e119f6">run</a>(Time till);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  Time <a class="code" href="class_e_1_1_system.html#a9be9f7750af9ae255c157902399bff6f">getCurrentTime</a>();</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_system.html#a783ddf9b6ef4aa7ae8f898da77f36b28">addRunnable</a>(std::shared_ptr&lt;Runnable&gt; runnable) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_system.html#a4d71d8ad5b3dedca31e2a5378f0919ee">delRunnable</a>(std::shared_ptr&lt;Runnable&gt; runnable) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... Args&gt;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  std::shared_ptr&lt;T&gt; addModule(Args &amp;&amp;...args) {</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    static_assert(std::is_base_of&lt;Module, T&gt;::value);</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keyword">auto</span> module = std::make_shared&lt;T&gt;(std::forward&lt;Args&gt;(args)...);</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    module-&gt;id = newModuleID();</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordtype">bool</span> ret = registeredModule.insert({module-&gt;id, module}).second;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    (void)ret;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    assert(ret);</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordflow">return</span> module;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;  }</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  std::string getModuleName(<span class="keyword">const</span> ModuleID moduleID);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  <span class="keyword">friend</span> <a class="code" href="class_e_1_1_module.html#a54dec36cae2191adecc934eb0a5e54e8">Module::Module</a>(<a class="code" href="class_e_1_1_system.html">System</a> &amp;system);</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;  <span class="keyword">friend</span> Module::~Module();</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;  <span class="keyword">friend</span> UUID <a class="code" href="class_e_1_1_module.html#a697e6dcea6c04440dabf8939a142731e">Module::sendMessage</a>(<span class="keyword">const</span> ModuleID to, Module::Message message,</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;                                  Time timeAfter);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;  <span class="keyword">friend</span> <span class="keywordtype">bool</span> <a class="code" href="class_e_1_1_module.html#a6d818645bf7e6e056c6373af7851fed6">Module::cancelMessage</a>(UUID timer);</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;};</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
+<div class="line"><a name="l00153"></a><span class="lineno"><a class="line" href="class_e_1_1_runnable.html">  153</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_e_1_1_runnable.html">Runnable</a> {</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;  <a class="code" href="class_e_1_1_runnable.html#ab7abdeb6d60d5ecd794753d11be312bd">Runnable</a>();</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_e_1_1_runnable.html">Runnable</a>();</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_runnable.html#a1b550ec51f95f79bab469e5be56a4782">wait</a>() <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00168"></a><span class="lineno"><a class="line" href="class_e_1_1_runnable.html#ab6492d7cd5cf7c8e20f1dd5ffd288640">  168</a></span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_runnable.html#ab6492d7cd5cf7c8e20f1dd5ffd288640">pre_main</a>(){};</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
+<div class="line"><a name="l00173"></a><span class="lineno"><a class="line" href="class_e_1_1_runnable.html#a896acf24392761dda8012cb2c43898a0">  173</a></span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_runnable.html#a896acf24392761dda8012cb2c43898a0">main</a>() = 0;</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_runnable.html#a7c6d9838772f1ff32b27d165c616528a">run</a>() final;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;public:</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;  enum class State {</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    CREATED,</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    STARTING,</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    READY,</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    RUNNING,</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    WAITING,</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    TERMINATED,</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;  };</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_runnable.html#ad829bb63c159d8a4a2c7b0b1943a8484">start</a>() final;</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;  virtual State <a class="code" href="class_e_1_1_runnable.html#a5b429a827bb069a1fdbf23df6318d3af">wake</a>() final;</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;  virtual <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_runnable.html#a6d2913b3825b71e4960b9824404bb3e2">ready</a>() final;</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;  friend class <a class="code" href="class_e_1_1_system.html">System</a>;</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160; </div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;private:</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;  State state;</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;  std::mutex stateMtx;</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;  std::unique_lock&lt;std::mutex&gt; threadLock; <span class="comment">//  for thread</span></div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;  std::unique_lock&lt;std::mutex&gt; schedLock;  <span class="comment">//  for scheduler</span></div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;  std::condition_variable cond;</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;  std::thread thread;</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;};</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160; </div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;} <span class="comment">// namespace E</span></div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160; </div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* E_SYSTEM_HPP_ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="a_e___common_8hpp_html"><div class="ttname"><a href="_e___common_8hpp.html">E_Common.hpp</a></div><div class="ttdoc">This header contains standard C++11 headers and compatibility definitions.</div></div>
 <div class="ttc" id="a_e___log_8hpp_html"><div class="ttname"><a href="_e___log_8hpp.html">E_Log.hpp</a></div><div class="ttdoc">Header for E::Log.</div></div>
 <div class="ttc" id="a_e___module_8hpp_html"><div class="ttname"><a href="_e___module_8hpp.html">E_Module.hpp</a></div><div class="ttdoc">Header for E::Module.</div></div>
@@ -213,25 +214,25 @@ $(function() {
 <div class="ttc" id="aclass_e_1_1_module_html_a54dec36cae2191adecc934eb0a5e54e8"><div class="ttname"><a href="class_e_1_1_module.html#a54dec36cae2191adecc934eb0a5e54e8">E::Module::Module</a></div><div class="ttdeci">Module(System &amp;system)</div><div class="ttdoc">Module must belong to a System. Module is registered to a System when it is created.</div><div class="ttdef"><b>Definition:</b> E_Module.cpp:17</div></div>
 <div class="ttc" id="aclass_e_1_1_module_html_a697e6dcea6c04440dabf8939a142731e"><div class="ttname"><a href="class_e_1_1_module.html#a697e6dcea6c04440dabf8939a142731e">E::Module::sendMessage</a></div><div class="ttdeci">virtual UUID sendMessage(const ModuleID to, Module::Message message, Time timeAfter) final</div><div class="ttdoc">Send a Message to other Module. Every message has its own delay before it is actually sent....</div><div class="ttdef"><b>Definition:</b> E_Module.cpp:25</div></div>
 <div class="ttc" id="aclass_e_1_1_module_html_a6d818645bf7e6e056c6373af7851fed6"><div class="ttname"><a href="class_e_1_1_module.html#a6d818645bf7e6e056c6373af7851fed6">E::Module::cancelMessage</a></div><div class="ttdeci">virtual bool cancelMessage(UUID messageID) final</div><div class="ttdoc">Cancel the raised Message. If a message is not actually sent yet, you can cancel the message....</div><div class="ttdef"><b>Definition:</b> E_Module.cpp:21</div></div>
-<div class="ttc" id="aclass_e_1_1_runnable_html"><div class="ttname"><a href="class_e_1_1_runnable.html">E::Runnable</a></div><div class="ttdoc">Runnable is executed via System. The total ordering of execution is guaranteed by the System.</div><div class="ttdef"><b>Definition:</b> E_System.hpp:152</div></div>
-<div class="ttc" id="aclass_e_1_1_runnable_html_a1b550ec51f95f79bab469e5be56a4782"><div class="ttname"><a href="class_e_1_1_runnable.html#a1b550ec51f95f79bab469e5be56a4782">E::Runnable::wait</a></div><div class="ttdeci">virtual void wait() final</div><div class="ttdoc">Enter wait state (RUNNING -&gt; WAITING)</div><div class="ttdef"><b>Definition:</b> E_System.cpp:192</div></div>
-<div class="ttc" id="aclass_e_1_1_runnable_html_a5b429a827bb069a1fdbf23df6318d3af"><div class="ttname"><a href="class_e_1_1_runnable.html#a5b429a827bb069a1fdbf23df6318d3af">E::Runnable::wake</a></div><div class="ttdeci">virtual State wake() final</div><div class="ttdoc">Wake and keep running (READY -&gt; RUNNING)</div><div class="ttdef"><b>Definition:</b> E_System.cpp:210</div></div>
-<div class="ttc" id="aclass_e_1_1_runnable_html_a6d2913b3825b71e4960b9824404bb3e2"><div class="ttname"><a href="class_e_1_1_runnable.html#a6d2913b3825b71e4960b9824404bb3e2">E::Runnable::ready</a></div><div class="ttdeci">virtual void ready() final</div><div class="ttdoc">Mark ready (WAITING -&gt; READY)</div><div class="ttdef"><b>Definition:</b> E_System.cpp:219</div></div>
-<div class="ttc" id="aclass_e_1_1_runnable_html_a7c6d9838772f1ff32b27d165c616528a"><div class="ttname"><a href="class_e_1_1_runnable.html#a7c6d9838772f1ff32b27d165c616528a">E::Runnable::run</a></div><div class="ttdeci">virtual void run() final</div><div class="ttdoc">Thread code.</div><div class="ttdef"><b>Definition:</b> E_System.cpp:178</div></div>
+<div class="ttc" id="aclass_e_1_1_runnable_html"><div class="ttname"><a href="class_e_1_1_runnable.html">E::Runnable</a></div><div class="ttdoc">Runnable is executed via System. The total ordering of execution is guaranteed by the System.</div><div class="ttdef"><b>Definition:</b> E_System.hpp:153</div></div>
+<div class="ttc" id="aclass_e_1_1_runnable_html_a1b550ec51f95f79bab469e5be56a4782"><div class="ttname"><a href="class_e_1_1_runnable.html#a1b550ec51f95f79bab469e5be56a4782">E::Runnable::wait</a></div><div class="ttdeci">virtual void wait() final</div><div class="ttdoc">Enter wait state (RUNNING -&gt; WAITING)</div><div class="ttdef"><b>Definition:</b> E_System.cpp:190</div></div>
+<div class="ttc" id="aclass_e_1_1_runnable_html_a5b429a827bb069a1fdbf23df6318d3af"><div class="ttname"><a href="class_e_1_1_runnable.html#a5b429a827bb069a1fdbf23df6318d3af">E::Runnable::wake</a></div><div class="ttdeci">virtual State wake() final</div><div class="ttdoc">Wake and keep running (READY -&gt; RUNNING)</div><div class="ttdef"><b>Definition:</b> E_System.cpp:208</div></div>
+<div class="ttc" id="aclass_e_1_1_runnable_html_a6d2913b3825b71e4960b9824404bb3e2"><div class="ttname"><a href="class_e_1_1_runnable.html#a6d2913b3825b71e4960b9824404bb3e2">E::Runnable::ready</a></div><div class="ttdeci">virtual void ready() final</div><div class="ttdoc">Mark ready (WAITING -&gt; READY)</div><div class="ttdef"><b>Definition:</b> E_System.cpp:217</div></div>
+<div class="ttc" id="aclass_e_1_1_runnable_html_a7c6d9838772f1ff32b27d165c616528a"><div class="ttname"><a href="class_e_1_1_runnable.html#a7c6d9838772f1ff32b27d165c616528a">E::Runnable::run</a></div><div class="ttdeci">virtual void run() final</div><div class="ttdoc">Thread code.</div><div class="ttdef"><b>Definition:</b> E_System.cpp:176</div></div>
 <div class="ttc" id="aclass_e_1_1_runnable_html_a896acf24392761dda8012cb2c43898a0"><div class="ttname"><a href="class_e_1_1_runnable.html#a896acf24392761dda8012cb2c43898a0">E::Runnable::main</a></div><div class="ttdeci">virtual void main()=0</div><div class="ttdoc">Program logic.</div></div>
-<div class="ttc" id="aclass_e_1_1_runnable_html_ab6492d7cd5cf7c8e20f1dd5ffd288640"><div class="ttname"><a href="class_e_1_1_runnable.html#ab6492d7cd5cf7c8e20f1dd5ffd288640">E::Runnable::pre_main</a></div><div class="ttdeci">virtual void pre_main()</div><div class="ttdoc">Prepare logic.</div><div class="ttdef"><b>Definition:</b> E_System.hpp:167</div></div>
-<div class="ttc" id="aclass_e_1_1_runnable_html_ab7abdeb6d60d5ecd794753d11be312bd"><div class="ttname"><a href="class_e_1_1_runnable.html#ab7abdeb6d60d5ecd794753d11be312bd">E::Runnable::Runnable</a></div><div class="ttdeci">Runnable()</div><div class="ttdoc">Constructs a Runnable interface.</div><div class="ttdef"><b>Definition:</b> E_System.cpp:169</div></div>
-<div class="ttc" id="aclass_e_1_1_runnable_html_ad829bb63c159d8a4a2c7b0b1943a8484"><div class="ttname"><a href="class_e_1_1_runnable.html#ad829bb63c159d8a4a2c7b0b1943a8484">E::Runnable::start</a></div><div class="ttdeci">virtual void start() final</div><div class="ttdoc">Start and prepare (CREATED -&gt; READY)</div><div class="ttdef"><b>Definition:</b> E_System.cpp:201</div></div>
+<div class="ttc" id="aclass_e_1_1_runnable_html_ab6492d7cd5cf7c8e20f1dd5ffd288640"><div class="ttname"><a href="class_e_1_1_runnable.html#ab6492d7cd5cf7c8e20f1dd5ffd288640">E::Runnable::pre_main</a></div><div class="ttdeci">virtual void pre_main()</div><div class="ttdoc">Prepare logic.</div><div class="ttdef"><b>Definition:</b> E_System.hpp:168</div></div>
+<div class="ttc" id="aclass_e_1_1_runnable_html_ab7abdeb6d60d5ecd794753d11be312bd"><div class="ttname"><a href="class_e_1_1_runnable.html#ab7abdeb6d60d5ecd794753d11be312bd">E::Runnable::Runnable</a></div><div class="ttdeci">Runnable()</div><div class="ttdoc">Constructs a Runnable interface.</div><div class="ttdef"><b>Definition:</b> E_System.cpp:167</div></div>
+<div class="ttc" id="aclass_e_1_1_runnable_html_ad829bb63c159d8a4a2c7b0b1943a8484"><div class="ttname"><a href="class_e_1_1_runnable.html#ad829bb63c159d8a4a2c7b0b1943a8484">E::Runnable::start</a></div><div class="ttdeci">virtual void start() final</div><div class="ttdoc">Start and prepare (CREATED -&gt; READY)</div><div class="ttdef"><b>Definition:</b> E_System.cpp:199</div></div>
 <div class="ttc" id="aclass_e_1_1_system_html"><div class="ttname"><a href="class_e_1_1_system.html">E::System</a></div><div class="ttdoc">System provides a virtual clock used during the simulation. Current virtual clock can be obtained by ...</div><div class="ttdef"><b>Definition:</b> E_System.hpp:29</div></div>
-<div class="ttc" id="aclass_e_1_1_system_html_a4d71d8ad5b3dedca31e2a5378f0919ee"><div class="ttname"><a href="class_e_1_1_system.html#a4d71d8ad5b3dedca31e2a5378f0919ee">E::System::delRunnable</a></div><div class="ttdeci">virtual void delRunnable(std::shared_ptr&lt; Runnable &gt; runnable) final</div><div class="ttdoc">Unregister a Runnable interface to this System.</div><div class="ttdef"><b>Definition:</b> E_System.cpp:231</div></div>
-<div class="ttc" id="aclass_e_1_1_system_html_a67e932b7cf9d388f401495e138e119f6"><div class="ttname"><a href="class_e_1_1_system.html#a67e932b7cf9d388f401495e138e119f6">E::System::run</a></div><div class="ttdeci">void run(Time till)</div><div class="ttdoc">Execute all registered Module. Virtual clock will move to the end of the simulation.</div><div class="ttdef"><b>Definition:</b> E_System.cpp:80</div></div>
-<div class="ttc" id="aclass_e_1_1_system_html_a783ddf9b6ef4aa7ae8f898da77f36b28"><div class="ttname"><a href="class_e_1_1_system.html#a783ddf9b6ef4aa7ae8f898da77f36b28">E::System::addRunnable</a></div><div class="ttdeci">virtual void addRunnable(std::shared_ptr&lt; Runnable &gt; runnable) final</div><div class="ttdoc">Register a Runnable interface to this System.</div><div class="ttdef"><b>Definition:</b> E_System.cpp:226</div></div>
-<div class="ttc" id="aclass_e_1_1_system_html_a9be9f7750af9ae255c157902399bff6f"><div class="ttname"><a href="class_e_1_1_system.html#a9be9f7750af9ae255c157902399bff6f">E::System::getCurrentTime</a></div><div class="ttdeci">Time getCurrentTime()</div><div class="ttdef"><b>Definition:</b> E_System.cpp:69</div></div>
+<div class="ttc" id="aclass_e_1_1_system_html_a4d71d8ad5b3dedca31e2a5378f0919ee"><div class="ttname"><a href="class_e_1_1_system.html#a4d71d8ad5b3dedca31e2a5378f0919ee">E::System::delRunnable</a></div><div class="ttdeci">virtual void delRunnable(std::shared_ptr&lt; Runnable &gt; runnable) final</div><div class="ttdoc">Unregister a Runnable interface to this System.</div><div class="ttdef"><b>Definition:</b> E_System.cpp:229</div></div>
+<div class="ttc" id="aclass_e_1_1_system_html_a67e932b7cf9d388f401495e138e119f6"><div class="ttname"><a href="class_e_1_1_system.html#a67e932b7cf9d388f401495e138e119f6">E::System::run</a></div><div class="ttdeci">void run(Time till)</div><div class="ttdoc">Execute all registered Module. Virtual clock will move to the end of the simulation.</div><div class="ttdef"><b>Definition:</b> E_System.cpp:78</div></div>
+<div class="ttc" id="aclass_e_1_1_system_html_a783ddf9b6ef4aa7ae8f898da77f36b28"><div class="ttname"><a href="class_e_1_1_system.html#a783ddf9b6ef4aa7ae8f898da77f36b28">E::System::addRunnable</a></div><div class="ttdeci">virtual void addRunnable(std::shared_ptr&lt; Runnable &gt; runnable) final</div><div class="ttdoc">Register a Runnable interface to this System.</div><div class="ttdef"><b>Definition:</b> E_System.cpp:224</div></div>
+<div class="ttc" id="aclass_e_1_1_system_html_a9be9f7750af9ae255c157902399bff6f"><div class="ttname"><a href="class_e_1_1_system.html#a9be9f7750af9ae255c157902399bff6f">E::System::getCurrentTime</a></div><div class="ttdeci">Time getCurrentTime()</div><div class="ttdef"><b>Definition:</b> E_System.cpp:67</div></div>
 <div class="ttc" id="aclass_e_1_1_system_html_af0583ef28cc6f7f558bfbbffca286015"><div class="ttname"><a href="class_e_1_1_system.html#af0583ef28cc6f7f558bfbbffca286015">E::System::System</a></div><div class="ttdeci">System()</div><div class="ttdoc">Nothing is needed to construct a System.</div><div class="ttdef"><b>Definition:</b> E_System.cpp:14</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 14 2024 02:33:45 for KENSv3 by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue May 14 2024 02:44:43 for KENSv3 by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

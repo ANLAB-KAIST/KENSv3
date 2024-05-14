@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>KENSv3: app/routing/RoutingAssignment.hpp Source File</title>
+<title>KENSv3: app/rip/RIPAssignment.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,21 +63,21 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d422163b96683743ed3963d4aac17747.html">app</a></li><li class="navelem"><a class="el" href="dir_0ad6aa39bdfa5039c88438265e76fb34.html">routing</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d422163b96683743ed3963d4aac17747.html">app</a></li><li class="navelem"><a class="el" href="dir_5622e8d67e8eb64302cffbf318393db3.html">rip</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">RoutingAssignment.hpp</div>  </div>
+<div class="title">RIPAssignment.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * E_RoutingAssignment.hpp</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * E_RIPAssignment.hpp</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#ifndef E_ROUTINGASSIGNMENT_HPP_</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#define E_ROUTINGASSIGNMENT_HPP_</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#ifndef E_RIPASSIGNMENT_HPP_</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#define E_RIPASSIGNMENT_HPP_</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="_e___host_8hpp.html">E/Networking/E_Host.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="_e___networking_8hpp.html">E/Networking/E_Networking.hpp</a>&gt;</span></div>
@@ -133,37 +133,37 @@ $(function() {
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;;</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="class_e_1_1_routing_assignment.html">   63</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_e_1_1_routing_assignment.html">RoutingAssignment</a> : <span class="keyword">public</span> <a class="code" href="class_e_1_1_host_module.html">HostModule</a>,</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                          <span class="keyword">private</span> <a class="code" href="class_e_1_1_routing_info_interface.html">RoutingInfoInterface</a>,</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                          <span class="keyword">public</span> <a class="code" href="class_e_1_1_timer_module.html">TimerModule</a> {</div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="class_e_1_1_r_i_p_assignment.html">   63</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_e_1_1_r_i_p_assignment.html">RIPAssignment</a> : <span class="keyword">public</span> <a class="code" href="class_e_1_1_host_module.html">HostModule</a>,</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                      <span class="keyword">private</span> <a class="code" href="class_e_1_1_routing_info_interface.html">RoutingInfoInterface</a>,</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                      <span class="keyword">public</span> <a class="code" href="class_e_1_1_timer_module.html">TimerModule</a> {</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> timerCallback(std::any payload) <span class="keyword">final</span>;</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <a class="code" href="class_e_1_1_routing_assignment.html">RoutingAssignment</a>(<a class="code" href="class_e_1_1_host.html">Host</a> &amp;host);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <a class="code" href="class_e_1_1_r_i_p_assignment.html">RIPAssignment</a>(<a class="code" href="class_e_1_1_host.html">Host</a> &amp;host);</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  Size <a class="code" href="class_e_1_1_routing_assignment.html#a7c9bbbb940930df7046ca999e7125c0c">ripQuery</a>(<span class="keyword">const</span> ipv4_t &amp;ipv4);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  Size <a class="code" href="class_e_1_1_r_i_p_assignment.html#a2debf0b308fb2c43b5abb291e1091e63">ripQuery</a>(<span class="keyword">const</span> ipv4_t &amp;ipv4);</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="class_e_1_1_routing_assignment.html#a713b266e465238bcc09c49c4981d1873">   86</a></span>&#160;  Size <a class="code" href="class_e_1_1_routing_assignment.html#a713b266e465238bcc09c49c4981d1873">linkCost</a>(<span class="keywordtype">int</span> port_num) {</div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="class_e_1_1_r_i_p_assignment.html#ad9b9ff940ccd4205d6d224a889e45195">   86</a></span>&#160;  Size <a class="code" href="class_e_1_1_r_i_p_assignment.html#ad9b9ff940ccd4205d6d224a889e45195">linkCost</a>(<span class="keywordtype">int</span> port_num) {</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    Size bps = this-&gt;<a class="code" href="class_e_1_1_host_module.html#aa0885de765165b45e07f8cdbeee616ca">getWireSpeed</a>(port_num);</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">return</span> CostLCM / bps;</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  }</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_routing_assignment.html#a92d4f6865cb81535e9f6c4e8ee949f33">initialize</a>();</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_routing_assignment.html#a155ec044dd6457666e8fbd977f7bb49f">finalize</a>();</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_e_1_1_routing_assignment.html">RoutingAssignment</a>();</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_r_i_p_assignment.html#afb87be771f84a814fa1f829dc3c7a8ea">initialize</a>();</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_r_i_p_assignment.html#a2ad713d8a2d21319fba25fa60c1b47d0">finalize</a>();</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_e_1_1_r_i_p_assignment.html">RIPAssignment</a>();</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="class_e_1_1_routing_assignment.html#a1d9b04b95c2cb2b7f125c2740d4f8bda">   96</a></span>&#160;  <span class="keyword">virtual</span> std::any <a class="code" href="class_e_1_1_routing_assignment.html#a1d9b04b95c2cb2b7f125c2740d4f8bda">diagnose</a>(std::any param) <span class="keyword">final</span> {</div>
+<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="class_e_1_1_r_i_p_assignment.html#af450473651234d54b48a8fbc49054ac1">   96</a></span>&#160;  <span class="keyword">virtual</span> std::any <a class="code" href="class_e_1_1_r_i_p_assignment.html#af450473651234d54b48a8fbc49054ac1">diagnose</a>(std::any param) <span class="keyword">final</span> {</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">auto</span> ip = std::any_cast&lt;ipv4_t&gt;(param);</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_e_1_1_routing_assignment.html#a7c9bbbb940930df7046ca999e7125c0c">ripQuery</a>(ip);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_e_1_1_r_i_p_assignment.html#a2debf0b308fb2c43b5abb291e1091e63">ripQuery</a>(ip);</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  }</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_routing_assignment.html#a0b9fda1357b01773f14bd85cc25d0af0">packetArrived</a>(std::string fromModule, <a class="code" href="class_e_1_1_packet.html">Packet</a> &amp;&amp;packet) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_1_1_r_i_p_assignment.html#a78a2d44b585c239a0fd4f8f55cacc961">packetArrived</a>(std::string fromModule, <a class="code" href="class_e_1_1_packet.html">Packet</a> &amp;&amp;packet) <span class="keyword">final</span>;</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;};</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;} <span class="comment">// namespace E</span></div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* E_ROUTINGASSIGNMENT_HPP_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* E_RIPASSIGNMENT_HPP_ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="a_e___host_8hpp_html"><div class="ttname"><a href="_e___host_8hpp.html">E_Host.hpp</a></div><div class="ttdoc">Header for E::Host and other interfaces. E::HostModule, E::SystemCallInterface, E::SystemCallApplicat...</div></div>
 <div class="ttc" id="a_e___networking_8hpp_html"><div class="ttname"><a href="_e___networking_8hpp.html">E_Networking.hpp</a></div><div class="ttdoc">Header for E::NetworkSystem.</div></div>
 <div class="ttc" id="a_e___timer_module_8hpp_html"><div class="ttname"><a href="_e___timer_module_8hpp.html">E_TimerModule.hpp</a></div><div class="ttdoc">Header for E::TimerModule.</div></div>
@@ -172,22 +172,22 @@ $(function() {
 <div class="ttc" id="aclass_e_1_1_host_module_html"><div class="ttname"><a href="class_e_1_1_host_module.html">E::HostModule</a></div><div class="ttdoc">HostModule is an interface for classes which is registered to a certain Host. HostModules can communi...</div><div class="ttdef"><b>Definition:</b> E_Host.hpp:35</div></div>
 <div class="ttc" id="aclass_e_1_1_host_module_html_aa0885de765165b45e07f8cdbeee616ca"><div class="ttname"><a href="class_e_1_1_host_module.html#aa0885de765165b45e07f8cdbeee616ca">E::HostModule::getWireSpeed</a></div><div class="ttdeci">Size getWireSpeed(int port_num)</div><div class="ttdoc">Get cost for local port (link)</div><div class="ttdef"><b>Definition:</b> E_Host.cpp:247</div></div>
 <div class="ttc" id="aclass_e_1_1_packet_html"><div class="ttname"><a href="class_e_1_1_packet.html">E::Packet</a></div><div class="ttdoc">This class abstracts a packet. You cannot directly allocate/deallocate Packet. Also you cannot direct...</div><div class="ttdef"><b>Definition:</b> E_Packet.hpp:24</div></div>
-<div class="ttc" id="aclass_e_1_1_routing_assignment_html"><div class="ttname"><a href="class_e_1_1_routing_assignment.html">E::RoutingAssignment</a></div><div class="ttdef"><b>Definition:</b> RoutingAssignment.hpp:65</div></div>
-<div class="ttc" id="aclass_e_1_1_routing_assignment_html_a0b9fda1357b01773f14bd85cc25d0af0"><div class="ttname"><a href="class_e_1_1_routing_assignment.html#a0b9fda1357b01773f14bd85cc25d0af0">E::RoutingAssignment::packetArrived</a></div><div class="ttdeci">virtual void packetArrived(std::string fromModule, Packet &amp;&amp;packet) final</div><div class="ttdoc">This function is automatically called by Host when this module receives a Packet. You must override t...</div><div class="ttdef"><b>Definition:</b> RoutingAssignment.cpp:39</div></div>
-<div class="ttc" id="aclass_e_1_1_routing_assignment_html_a155ec044dd6457666e8fbd977f7bb49f"><div class="ttname"><a href="class_e_1_1_routing_assignment.html#a155ec044dd6457666e8fbd977f7bb49f">E::RoutingAssignment::finalize</a></div><div class="ttdeci">virtual void finalize()</div><div class="ttdoc">This function is automatically called by Host just after the simulation ends. You can override this f...</div><div class="ttdef"><b>Definition:</b> RoutingAssignment.cpp:25</div></div>
-<div class="ttc" id="aclass_e_1_1_routing_assignment_html_a1d9b04b95c2cb2b7f125c2740d4f8bda"><div class="ttname"><a href="class_e_1_1_routing_assignment.html#a1d9b04b95c2cb2b7f125c2740d4f8bda">E::RoutingAssignment::diagnose</a></div><div class="ttdeci">virtual std::any diagnose(std::any param) final</div><div class="ttdoc">Host module control function.</div><div class="ttdef"><b>Definition:</b> RoutingAssignment.hpp:96</div></div>
-<div class="ttc" id="aclass_e_1_1_routing_assignment_html_a713b266e465238bcc09c49c4981d1873"><div class="ttname"><a href="class_e_1_1_routing_assignment.html#a713b266e465238bcc09c49c4981d1873">E::RoutingAssignment::linkCost</a></div><div class="ttdeci">Size linkCost(int port_num)</div><div class="ttdoc">Get cost for local port (link)</div><div class="ttdef"><b>Definition:</b> RoutingAssignment.hpp:86</div></div>
-<div class="ttc" id="aclass_e_1_1_routing_assignment_html_a7c9bbbb940930df7046ca999e7125c0c"><div class="ttname"><a href="class_e_1_1_routing_assignment.html#a7c9bbbb940930df7046ca999e7125c0c">E::RoutingAssignment::ripQuery</a></div><div class="ttdeci">Size ripQuery(const ipv4_t &amp;ipv4)</div><div class="ttdoc">Query cost for a host.</div><div class="ttdef"><b>Definition:</b> RoutingAssignment.cpp:33</div></div>
-<div class="ttc" id="aclass_e_1_1_routing_assignment_html_a92d4f6865cb81535e9f6c4e8ee949f33"><div class="ttname"><a href="class_e_1_1_routing_assignment.html#a92d4f6865cb81535e9f6c4e8ee949f33">E::RoutingAssignment::initialize</a></div><div class="ttdeci">virtual void initialize()</div><div class="ttdoc">This function is automatically called by Host just before the simulation begins. You can override thi...</div><div class="ttdef"><b>Definition:</b> RoutingAssignment.cpp:23</div></div>
+<div class="ttc" id="aclass_e_1_1_r_i_p_assignment_html"><div class="ttname"><a href="class_e_1_1_r_i_p_assignment.html">E::RIPAssignment</a></div><div class="ttdef"><b>Definition:</b> RIPAssignment.hpp:65</div></div>
+<div class="ttc" id="aclass_e_1_1_r_i_p_assignment_html_a2ad713d8a2d21319fba25fa60c1b47d0"><div class="ttname"><a href="class_e_1_1_r_i_p_assignment.html#a2ad713d8a2d21319fba25fa60c1b47d0">E::RIPAssignment::finalize</a></div><div class="ttdeci">virtual void finalize()</div><div class="ttdoc">This function is automatically called by Host just after the simulation ends. You can override this f...</div><div class="ttdef"><b>Definition:</b> RIPAssignment.cpp:25</div></div>
+<div class="ttc" id="aclass_e_1_1_r_i_p_assignment_html_a2debf0b308fb2c43b5abb291e1091e63"><div class="ttname"><a href="class_e_1_1_r_i_p_assignment.html#a2debf0b308fb2c43b5abb291e1091e63">E::RIPAssignment::ripQuery</a></div><div class="ttdeci">Size ripQuery(const ipv4_t &amp;ipv4)</div><div class="ttdoc">Query cost for a host.</div><div class="ttdef"><b>Definition:</b> RIPAssignment.cpp:33</div></div>
+<div class="ttc" id="aclass_e_1_1_r_i_p_assignment_html_a78a2d44b585c239a0fd4f8f55cacc961"><div class="ttname"><a href="class_e_1_1_r_i_p_assignment.html#a78a2d44b585c239a0fd4f8f55cacc961">E::RIPAssignment::packetArrived</a></div><div class="ttdeci">virtual void packetArrived(std::string fromModule, Packet &amp;&amp;packet) final</div><div class="ttdoc">This function is automatically called by Host when this module receives a Packet. You must override t...</div><div class="ttdef"><b>Definition:</b> RIPAssignment.cpp:39</div></div>
+<div class="ttc" id="aclass_e_1_1_r_i_p_assignment_html_ad9b9ff940ccd4205d6d224a889e45195"><div class="ttname"><a href="class_e_1_1_r_i_p_assignment.html#ad9b9ff940ccd4205d6d224a889e45195">E::RIPAssignment::linkCost</a></div><div class="ttdeci">Size linkCost(int port_num)</div><div class="ttdoc">Get cost for local port (link)</div><div class="ttdef"><b>Definition:</b> RIPAssignment.hpp:86</div></div>
+<div class="ttc" id="aclass_e_1_1_r_i_p_assignment_html_af450473651234d54b48a8fbc49054ac1"><div class="ttname"><a href="class_e_1_1_r_i_p_assignment.html#af450473651234d54b48a8fbc49054ac1">E::RIPAssignment::diagnose</a></div><div class="ttdeci">virtual std::any diagnose(std::any param) final</div><div class="ttdoc">Host module control function.</div><div class="ttdef"><b>Definition:</b> RIPAssignment.hpp:96</div></div>
+<div class="ttc" id="aclass_e_1_1_r_i_p_assignment_html_afb87be771f84a814fa1f829dc3c7a8ea"><div class="ttname"><a href="class_e_1_1_r_i_p_assignment.html#afb87be771f84a814fa1f829dc3c7a8ea">E::RIPAssignment::initialize</a></div><div class="ttdeci">virtual void initialize()</div><div class="ttdoc">This function is automatically called by Host just before the simulation begins. You can override thi...</div><div class="ttdef"><b>Definition:</b> RIPAssignment.cpp:23</div></div>
 <div class="ttc" id="aclass_e_1_1_routing_info_interface_html"><div class="ttname"><a href="class_e_1_1_routing_info_interface.html">E::RoutingInfoInterface</a></div><div class="ttdoc">This class provides routing info interface for HostModules.</div><div class="ttdef"><b>Definition:</b> E_RoutingInfo.hpp:20</div></div>
 <div class="ttc" id="aclass_e_1_1_timer_module_html"><div class="ttname"><a href="class_e_1_1_timer_module.html">E::TimerModule</a></div><div class="ttdoc">TimerModule provides convenient interface of timer/alarm.</div><div class="ttdef"><b>Definition:</b> E_TimerModule.hpp:23</div></div>
-<div class="ttc" id="astruct_e_1_1rip__entry__t_html"><div class="ttname"><a href="struct_e_1_1rip__entry__t.html">E::rip_entry_t</a></div><div class="ttdef"><b>Definition:</b> RoutingAssignment.hpp:39</div></div>
-<div class="ttc" id="astruct_e_1_1rip__header__t_html"><div class="ttname"><a href="struct_e_1_1rip__header__t.html">E::rip_header_t</a></div><div class="ttdef"><b>Definition:</b> RoutingAssignment.hpp:28</div></div>
-<div class="ttc" id="astruct_e_1_1rip__t_html"><div class="ttname"><a href="struct_e_1_1rip__t.html">E::rip_t</a></div><div class="ttdef"><b>Definition:</b> RoutingAssignment.hpp:53</div></div>
+<div class="ttc" id="astruct_e_1_1rip__entry__t_html"><div class="ttname"><a href="struct_e_1_1rip__entry__t.html">E::rip_entry_t</a></div><div class="ttdef"><b>Definition:</b> RIPAssignment.hpp:39</div></div>
+<div class="ttc" id="astruct_e_1_1rip__header__t_html"><div class="ttname"><a href="struct_e_1_1rip__header__t.html">E::rip_header_t</a></div><div class="ttdef"><b>Definition:</b> RIPAssignment.hpp:28</div></div>
+<div class="ttc" id="astruct_e_1_1rip__t_html"><div class="ttname"><a href="struct_e_1_1rip__t.html">E::rip_t</a></div><div class="ttdef"><b>Definition:</b> RIPAssignment.hpp:53</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 14 2024 02:33:45 for KENSv3 by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue May 14 2024 02:44:43 for KENSv3 by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

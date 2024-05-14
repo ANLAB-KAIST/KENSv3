@@ -100,8 +100,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa5429d1d0289e350beacbb2ce2717de5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad0b0218d5fc7416a4d0ad82b4bf613e8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_e_1_1_packet.html">Packet</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_packet.html#ad0b0218d5fc7416a4d0ad82b4bf613e8">operator=</a> (<a class="el" href="class_e_1_1_packet.html">Packet</a> &amp;&amp;other) noexcept</td></tr>
 <tr class="separator:ad0b0218d5fc7416a4d0ad82b4bf613e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2884c5577bc22e082754232207582d02"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_packet.html#a2884c5577bc22e082754232207582d02">Packet</a> (size_t maxSize)</td></tr>
-<tr class="separator:a2884c5577bc22e082754232207582d02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3e8d074686b7a93d723603778f743bb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_packet.html#af3e8d074686b7a93d723603778f743bb">Packet</a> (size_t size)</td></tr>
+<tr class="separator:af3e8d074686b7a93d723603778f743bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b1e50112d48a62c79f35ad2581f162d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_e_1_1_packet.html">Packet</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_packet.html#a2b1e50112d48a62c79f35ad2581f162d">clone</a> () const</td></tr>
 <tr class="separator:a2b1e50112d48a62c79f35ad2581f162d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3857ad76330952373ff891352e520a54"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_packet.html#a3857ad76330952373ff891352e520a54">writeData</a> (size_t offset, const void *data, size_t length)</td></tr>
@@ -109,10 +109,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a43c1aced953066d640004d990f8a7d74"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_packet.html#a43c1aced953066d640004d990f8a7d74">readData</a> (size_t offset, void *data, size_t length) const</td></tr>
 <tr class="separator:a43c1aced953066d640004d990f8a7d74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a545aaf56d0ef92066748eeedb52d933b"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_packet.html#a545aaf56d0ef92066748eeedb52d933b">setSize</a> (size_t size)</td></tr>
-<tr class="memdesc:a545aaf56d0ef92066748eeedb52d933b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the size of this <a class="el" href="class_e_1_1_packet.html" title="This class abstracts a packet. You cannot directly allocate/deallocate Packet. Also you cannot direct...">Packet</a> The size cannot be larger than the internal buffer.  <a href="class_e_1_1_packet.html#a545aaf56d0ef92066748eeedb52d933b">More...</a><br /></td></tr>
+<tr class="memdesc:a545aaf56d0ef92066748eeedb52d933b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the size of this <a class="el" href="class_e_1_1_packet.html" title="This class abstracts a packet. You cannot directly allocate/deallocate Packet. Also you cannot direct...">Packet</a> The size can be larger than the internal buffer.  <a href="class_e_1_1_packet.html#a545aaf56d0ef92066748eeedb52d933b">More...</a><br /></td></tr>
 <tr class="separator:a545aaf56d0ef92066748eeedb52d933b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a990ef245fa94c2018cab067c41cb60"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_packet.html#a5a990ef245fa94c2018cab067c41cb60">getSize</a> () const</td></tr>
 <tr class="separator:a5a990ef245fa94c2018cab067c41cb60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac18dfd21027ad3067f8c29f69da6398e"><td class="memItemLeft" align="right" valign="top">UUID&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_1_1_packet.html#ac18dfd21027ad3067f8c29f69da6398e">getUUID</a> () const</td></tr>
+<tr class="separator:ac18dfd21027ad3067f8c29f69da6398e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07ad0c7b98da7d414da33fddc46e3ce4"><td class="memItemLeft" align="right" valign="top"><a id="a07ad0c7b98da7d414da33fddc46e3ce4"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>clearContext</b> ()</td></tr>
 <tr class="separator:a07ad0c7b98da7d414da33fddc46e3ce4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -182,8 +184,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>NetworkSystem</b></t
 
 </div>
 </div>
-<a id="a2884c5577bc22e082754232207582d02"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2884c5577bc22e082754232207582d02">&#9670;&nbsp;</a></span>Packet() <span class="overload">[3/3]</span></h2>
+<a id="af3e8d074686b7a93d723603778f743bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3e8d074686b7a93d723603778f743bb">&#9670;&nbsp;</a></span>Packet() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -192,14 +194,14 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>NetworkSystem</b></t
           <td class="memname">E::Packet::Packet </td>
           <td>(</td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>maxSize</em></td><td>)</td>
+          <td class="paramname"><em>size</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">maxSize</td><td>Maximum packet size. </td></tr>
+    <tr><td class="paramname">size</td><td><a class="el" href="class_e_1_1_packet.html" title="This class abstracts a packet. You cannot directly allocate/deallocate Packet. Also you cannot direct...">Packet</a> size. </td></tr>
   </table>
   </dd>
 </dl>
@@ -240,6 +242,24 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>NetworkSystem</b></t
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Current packet size. </dd></dl>
+
+</div>
+</div>
+<a id="ac18dfd21027ad3067f8c29f69da6398e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac18dfd21027ad3067f8c29f69da6398e">&#9670;&nbsp;</a></span>getUUID()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">UUID E::Packet::getUUID </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_e_1_1_packet.html" title="This class abstracts a packet. You cannot directly allocate/deallocate Packet. Also you cannot direct...">Packet</a> UUID. </dd></dl>
 
 </div>
 </div>
@@ -358,7 +378,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>NetworkSystem</b></t
       </table>
 </div><div class="memdoc">
 
-<p>Change the size of this <a class="el" href="class_e_1_1_packet.html" title="This class abstracts a packet. You cannot directly allocate/deallocate Packet. Also you cannot direct...">Packet</a> The size cannot be larger than the internal buffer. </p>
+<p>Change the size of this <a class="el" href="class_e_1_1_packet.html" title="This class abstracts a packet. You cannot directly allocate/deallocate Packet. Also you cannot direct...">Packet</a> The size can be larger than the internal buffer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">size</td><td>New size. </td></tr>
@@ -419,7 +439,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>NetworkSystem</b></t
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 14 2024 02:33:46 for KENSv3 by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue May 14 2024 02:44:43 for KENSv3 by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
