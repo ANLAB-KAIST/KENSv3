@@ -36,5 +36,5 @@ function grade() {
 case "$1" in
 "dev") bash ;;
 "grade") grade ${*:2} ;;
-*) echo "please specify dev/grade" ;;
+*) exec $@ ;;
 esac
