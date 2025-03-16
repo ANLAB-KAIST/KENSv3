@@ -33,11 +33,11 @@ jobs:
 
       - name: Install g++ gcc (APT)
         if: matrix.config.pm == 'apt'
-        run: docker exec kens-test bash -c "apt update && apt install -y cmake g++ gcc ca-certificates"
+        run: docker exec kens-test bash -c "apt update && apt install -y cmake g++ gcc ca-certificates git"
 
       - name: Install g++ gcc (YUM)
         if: matrix.config.pm == 'yum'
-        run: docker exec kens-test bash -c "yum -y install cmake gcc-c++ gcc ca-certificates"
+        run: docker exec kens-test bash -c "yum -y install cmake gcc-c++ gcc ca-certificates git"
 
       - name: Create Build Environment
         # Some projects don't allow in-source building, so create a separate build directory
