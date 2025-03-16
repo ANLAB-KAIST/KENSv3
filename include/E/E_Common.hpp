@@ -55,7 +55,9 @@ using ipv4_t = std::array<uint8_t, 4>;
 using mac_t = std::array<uint8_t, 6>;
 
 // overloaded helper for std::visit
-template <class... Ts> struct overloaded : Ts... { using Ts::operator()...; };
+template <class... Ts> struct overloaded : Ts... {
+  using Ts::operator()...;
+};
 template <class... Ts> overloaded(Ts...) -> overloaded<Ts...>;
 } // namespace E
 

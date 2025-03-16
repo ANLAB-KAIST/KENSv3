@@ -1,4 +1,4 @@
-GETSOCKNAME(2)                           Linux Programmer's Manual                           GETSOCKNAME(2)
+GETSOCKNAME(2)                            Linux Programmer's Manual                            GETSOCKNAME(2)
 
 NAME
        getsockname - get socket name
@@ -10,12 +10,12 @@ SYNOPSIS
                        socklen_t *restrict addrlen);
 
 DESCRIPTION
-       getsockname() returns the current address to which the socket sockfd is bound, in the buffer pointed
-       to by addr.  The addrlen argument should be initialized to indicate the amount of space  (in  bytes)
+       getsockname()  returns  the current address to which the socket sockfd is bound, in the buffer pointed
+       to by addr.  The addrlen argument should be initialized to indicate the amount  of  space  (in  bytes)
        pointed to by addr.  On return it contains the actual size of the socket address.
 
-       The  returned  address  is truncated if the buffer provided is too small; in this case, addrlen will
-       return a value greater than was supplied to the call.
+       The  returned address is truncated if the buffer provided is too small; in this case, addrlen will re‐
+       turn a value greater than was supplied to the call.
 
 RETURN VALUE
        On success, zero is returned.  On error, -1 is returned, and errno is set to indicate the error.
@@ -42,4 +42,4 @@ NOTES
 SEE ALSO
        bind(2), socket(2), getifaddrs(3), ip(7), socket(7), unix(7)
 
-Linux                                            2021-03-22                                  GETSOCKNAME(2)
+Linux                                             2021-03-22                                   GETSOCKNAME(2)

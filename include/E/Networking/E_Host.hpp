@@ -57,13 +57,13 @@ public:
    * @brief This function is automatically called by Host just before the
    * simulation begins. You can override this function if needed.
    */
-  virtual void initialize(void){};
+  virtual void initialize(void) {};
 
   /**
    * @brief This function is automatically called by Host just after the
    * simulation ends. You can override this function if needed.
    */
-  virtual void finalize(void){};
+  virtual void finalize(void) {};
 
   /**
    * @brief Host module control function

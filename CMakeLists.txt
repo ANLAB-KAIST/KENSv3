@@ -18,6 +18,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_C_STANDARD 11)
 
+include(cmake/CPM.cmake)
+
 option(SANITIZER "enable clang sanitzer (default: OFF)")
 option(SOLUTION_PATH "custom solution path (default: OFF)")
 
@@ -134,20 +136,13 @@ endif()
 target_compile_options(e PRIVATE -g -O0 -Wall)
 
 # Get Library: GTest
-
-include(FetchContent)
-
-FetchContent_Declare(
-  googletest
-  URL https://github.com/google/googletest/archive/dddb219c3eb96d7f9200f09b0a381f016e6b4562.zip
-  URL_HASH
-    SHA256=4599154210502714ad841821b9d086431816e5c8bfae90872e43305cc0f12eb2)
-
-FetchContent_GetProperties(googletest)
-if(NOT googletest_POPULATED)
-  FetchContent_Populate(googletest)
-  add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
-endif()
+CPMAddPackage(
+  NAME googletest
+  GITHUB_REPOSITORY google/googletest
+  GIT_TAG v1.16.0
+  VERSION 1.16.0
+  OPTIONS "INSTALL_GTEST OFF" "gtest_force_shared_crt"
+)
 
 # Find Solution
 function(get_solution_name TARGET)

@@ -165,7 +165,7 @@ protected:
   /**
    * @brief Prepare logic
    */
-  virtual void pre_main(){};
+  virtual void pre_main() {};
 
   /**
    * @brief Program logic

@@ -1,4 +1,4 @@
-LISTEN(2)                                Linux Programmer's Manual                                LISTEN(2)
+LISTEN(2)                                 Linux Programmer's Manual                                 LISTEN(2)
 
 NAME
        listen - listen for connections on a socket
@@ -9,16 +9,16 @@ SYNOPSIS
        int listen(int sockfd, int backlog);
 
 DESCRIPTION
-       listen()  marks the socket referred to by sockfd as a passive socket, that is, as a socket that will
-       be used to accept incoming connection requests using accept(2).
+       listen() marks the socket referred to by sockfd as a passive socket, that is, as a socket that will be
+       used to accept incoming connection requests using accept(2).
 
-       The sockfd argument is a file descriptor that refers to a socket of type  SOCK_STREAM  or  SOCK_SEQ‐
+       The  sockfd  argument  is  a  file descriptor that refers to a socket of type SOCK_STREAM or SOCK_SEQ‐
        PACKET.
 
-       The backlog argument defines the maximum length to which the queue of pending connections for sockfd
-       may grow.  If a connection request arrives when the queue is full, the client may receive  an  error
-       with  an  indication of ECONNREFUSED or, if the underlying protocol supports retransmission, the re‐
-       quest may be ignored so that a later reattempt at connection succeeds.
+       The backlog argument defines the maximum length to which the queue of pending connections  for  sockfd
+       may  grow.   If  a  connection request arrives when the queue is full, the client may receive an error
+       with an indication of ECONNREFUSED or, if the underlying protocol supports retransmission, the request
+       may be ignored so that a later reattempt at connection succeeds.
 
 RETURN VALUE
        On success, zero is returned.  On error, -1 is returned, and errno is set to indicate the error.
@@ -28,9 +28,9 @@ ERRORS
               Another socket is already listening on the same port.
 
        EADDRINUSE
-              (Internet domain sockets) The socket referred to by sockfd had not previously been  bound  to
-              an  address  and, upon attempting to bind it to an ephemeral port, it was determined that all
-              port numbers in the ephemeral port range  are  currently  in  use.   See  the  discussion  of
+              (Internet domain sockets) The socket referred to by sockfd had not previously been bound to  an
+              address  and,  upon attempting to bind it to an ephemeral port, it was determined that all port
+              numbers  in  the  ephemeral  port  range  are  currently  in  use.   See  the   discussion   of
               /proc/sys/net/ipv4/ip_local_port_range in ip(7).
 
        EBADF  The argument sockfd is not a valid file descriptor.
@@ -49,24 +49,24 @@ NOTES
 
            1.  A socket is created with socket(2).
 
-           2.  The  socket  is  bound  to  a local address using bind(2), so that other sockets may be con‐
+           2.  The  socket  is  bound  to  a  local  address using bind(2), so that other sockets may be con‐
                nect(2)ed to it.
 
-           3.  A willingness to accept incoming connections and a queue limit for incoming connections  are
+           3.  A willingness to accept incoming connections and a queue limit for  incoming  connections  are
                specified with listen().
 
            4.  Connections are accepted with accept(2).
 
-       The  behavior  of  the backlog argument on TCP sockets changed with Linux 2.2.  Now it specifies the
-       queue length for completely established sockets waiting to be accepted, instead of the number of in‐
-       complete connection requests.  The maximum length of the queue for incomplete sockets can be set us‐
-       ing /proc/sys/net/ipv4/tcp_max_syn_backlog.  When syncookies are enabled there is no logical maximum
+       The  behavior  of  the  backlog  argument on TCP sockets changed with Linux 2.2.  Now it specifies the
+       queue length for completely established sockets waiting to be accepted, instead of the number  of  in‐
+       complete connection requests.  The maximum length of the queue for incomplete sockets can be set using
+       /proc/sys/net/ipv4/tcp_max_syn_backlog.   When  syncookies  are  enabled  there  is no logical maximum
        length and this setting is ignored.  See tcp(7) for more information.
 
-       If  the  backlog  argument  is  greater  than  the value in /proc/sys/net/core/somaxconn, then it is
-       silently capped to that value.  Since Linux 5.4, the default in this file is 4096; in  earlier  ker‐
-       nels, the default value is 128.  In kernels before 2.4.25, this limit was a hard coded value, SOMAX‐
-       CONN, with the value 128.
+       If the backlog argument is greater than the value in /proc/sys/net/core/somaxconn, then it is silently
+       capped to that value.  Since Linux 5.4, the default in this file is 4096; in earlier kernels, the  de‐
+       fault  value is 128.  In kernels before 2.4.25, this limit was a hard coded value, SOMAXCONN, with the
+       value 128.
 
 EXAMPLES
        See bind(2).
@@ -74,4 +74,4 @@ EXAMPLES
 SEE ALSO
        accept(2), bind(2), connect(2), socket(2), socket(7)
 
-Linux                                            2021-03-22                                       LISTEN(2)
+Linux                                             2021-03-22                                        LISTEN(2)
