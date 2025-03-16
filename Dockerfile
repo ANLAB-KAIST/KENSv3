@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
     cmake \
     ninja-build \
     ccache \
+    git \
     && rm -rf /var/lib/apt/lists/*
 
 COPY . /init
