@@ -19,7 +19,7 @@ jobs:
     - name: Install doxygen
       run: sudo apt-get install doxygen
       
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         path: main
 
@@ -38,7 +38,7 @@ jobs:
       run: cmake --build . --target doxygen
 
     - name: Checkout GH Pages
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         path: gh-pages
         ref: gh-pages

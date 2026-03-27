@@ -13,7 +13,7 @@ jobs:
       run:
         shell: wsl-bash {0}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v6
 
       - uses: Vampire/setup-wsl@v1
         with:
