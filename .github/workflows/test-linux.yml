@@ -13,17 +13,8 @@ jobs:
   build:
     strategy:
       matrix:
-        gcc: [9, 10]
-        os: [ubuntu-20.04, ubuntu-22.04]
-        include:
-          - gcc: 7
-            os: ubuntu-20.04
-          - gcc: 8
-            os: ubuntu-20.04
-          - gcc: 11
-            os: ubuntu-22.04
-          - gcc: 12
-            os: ubuntu-22.04
+        gcc: [9, 10, 11, 12]
+        os: [ubuntu-22.04, ubuntu-24.04]
 
     runs-on: ${{ matrix.os }}
 
