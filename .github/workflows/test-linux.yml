@@ -14,16 +14,16 @@ jobs:
     strategy:
       matrix:
         gcc: [9, 10]
-        os: [ubuntu-22.04, ubuntu-24.04]
+        os: [ubuntu-20.04, ubuntu-22.04]
         include:
+          - gcc: 7
+            os: ubuntu-20.04
+          - gcc: 8
+            os: ubuntu-20.04
           - gcc: 11
             os: ubuntu-22.04
           - gcc: 12
             os: ubuntu-22.04
-          - gcc: 13
-            os: ubuntu-24.04
-          - gcc: 14
-            os: ubuntu-24.04
 
     runs-on: ${{ matrix.os }}
 
