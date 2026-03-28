@@ -19,8 +19,8 @@ jobs:
             { image: "debian:oldstable", pm: "apt" },
             { image: "ubuntu:latest", pm: "apt" },
             { image: "almalinux:latest", pm: "yum" },
-            { image: "rockylinux:8", pm: "yum" },
             { image: "rockylinux:9", pm: "yum" },
+            { image: "rockylinux:10", pm: "yum" },
           ]
 
     runs-on: ubuntu-24.04
